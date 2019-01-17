@@ -1,0 +1,35 @@
+
+.swiper-box {
+  margin-bottom: 20rpx;
+}
+.swiper {
+  height: 180rpx;
+}
+.vli {
+  width: 100%;
+  height: 180rpx;
+}
+.vli2 {
+  width: 95%;
+  margin: 0 auto;
+  border-radius: 10rpx;
+  height: 180rpx;
+}
+.color1 {
+  background: #f40;
+}
+.color2 {
+  background: #4646F7;
+}
+.color3 {
+  background: #27E81C;
+}
+.color4 {
+  background: #FCFC05;
+}
+.color5 {
+  background: #F74B05;
+}
+.color6 {
+  background: #058B98;
+}

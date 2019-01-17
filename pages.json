@@ -1,0 +1,91 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "试听课网",
+				"navigationStyle":"custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
+			"path": "pages/reserved/index",
+			"style": {
+				"navigationBarTitleText": "我的预约"
+			}
+		}, {
+			"path": "pages/detail/index",
+			"style": {
+				"navigationBarTitleText": "试听详细",
+				"backgroundColor": "#EBEBEB",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
+			"path": "pages/detail/ef",
+			"style": {
+				"navigationBarTitleText": "英孚教育",
+				"backgroundColor": "#EBEBEB",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
+			"path": "pages/detail/thx",
+			"style": {
+				"navigationBarTitleText": "感谢您的注册",
+				"backgroundColor": "transparent",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
+			"path": "pages/user/index",
+			"style": {
+				"navigationBarTitleText": "用户中心"
+			}
+		}, {
+			"path": "pages/apply/index",
+			"style": {
+				"navigationBarTitleText": "申请预约"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "试听宝",
+		"navigationBarBackgroundColor": "#21292C",
+		"backgroundColor": "#F4F5F6"
+	}
+	// 	"tabBar": {
+	// 		"color": "#7A7E83",
+	// 		"selectedColor": "#007AFF",
+	// 		"borderStyle": "black",
+	// 		"backgroundColor": "#ffffff",
+	// 		"list": [{
+	// 				"pagePath": "pages/index/index",
+	// 				"iconPath": "",
+	// 				"selectedIconPath": "",
+	// 				"text": "首页"
+	// 			},
+	// 			{
+	// 				"pagePath": "pages/reserved/index",
+	// 				"text": "预约"
+	// 			},
+	// 			{
+	// 				"pagePath": "pages/user/index",
+	// 				"text": "我的"
+	// 			}
+	// 		]
+	// 	}
+}
