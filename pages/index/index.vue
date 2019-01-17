@@ -42,13 +42,15 @@
 
 <script>
 	import util from '../../common/util.js';
+	const wx = require('jweixin-module')
 	const mdl = util.module;
 	const inter = util.Interface;
+	const apiurl = inter.apiurl;
 	import uniTag from '../../components/uni-tag.vue'
 	import uniSegmentedControl from '../../components/uni-segmented-control.vue'
 	import uniNavBar from '../../components/uni-nav-bar.vue'
 	import uniIcon from '../../components/uni-icon.vue'
-	import listBlock from '../../components/list-block.vue';
+	import listBlock from '../../components/list-block.vue'
 
 	export default {
 		data() {
@@ -57,7 +59,8 @@
 				"wxApi": "",
 				"category": [],
 				"ageGroup": [],
-				swiperList: [],
+				"swiperList": [],
+				"region": [],
 				tagList: [
 					'成人',
 					'少儿'
@@ -74,56 +77,81 @@
 			uniSegmentedControl,
 			listBlock
 		},
-		onShow() {},
-		onLoad() {
+		onShow() {
+			wx.ready(function() {
+				// TODO
+			});
+		},
+		onLoad(option) {
 			var _this = this;
 			uni.setNavigationBarTitle({
 				title: "英语免费试听课网"
 			});
-			let url_slide = inter.apiurl + inter.addr.slideShow;
+			/**
+			 * 轮播
+			 */
+			let url_slide = apiurl + inter.addr.slideShow;
 			let fun1 = function(res) {
 				console.log("======fun1========");
 				console.log(res)
-				let data = res.list;
-				data.forEach(item => {
+				let _data = res.list;
+				_data.forEach(item => {
 					_this.swiperList.push(item);
 				});
 			}
 			let swiper = mdl.getData(url_slide, fun1);
-			
+			/**
+			 * 区域
+			 */
+			let url_region = apiurl + inter.addr.getRegion+"?region=";
+			let fun2 = function(res) {
+				console.log("======fun2========");
+				let _data = res.list;
+				console.log(_data)
+				_data.forEach(item => {
+					_this.region.push(item);
+				});
+				console.log(_this.region)
+			}
+			let region = mdl.getData(url_region, fun2);
+			/**
+			 * 产品列表
+			 */
 			_this.getList(1);
-
-
-			// 			uni.getLocation({
-			// 				type: 'wgs84',
-			// 				success: function(res) {
-			// 					console.log("=====getLocation-success=====")
-			// 					console.log(res)
-			// 					const latitude = res.latitude;
-			// 					const longitude = res.longitude;
-			// // 					uni.openLocation({
-			// // 						latitude: latitude,
-			// // 						longitude: longitude,
-			// // 						success(res) {
-			// // 							console.log("----openLocation-success----")
-			// // 							console.log(res);
-			// // 						},
-			// // 						fail(f) {
-			// // 							console.log("----openLocation-fail----")
-			// // 							console.log(f);
-			// // 						}
-			// // 					});
-			// 				},
-			// 				fail(f) {
-			// 					console.log("=====getLocation-fail=====")
-			// 					console.log(f)
-			// 				}
-			// 			});
+// 			uni.getLocation({
+// 				type: 'wgs84',
+// 				success: function(res) {
+// 					console.log("=====getLocation-success=====")
+// 					console.log(res)
+// 					const latitude = res.latitude;
+// 					const longitude = res.longitude;
+// 					// 					uni.openLocation({
+// 					// 						latitude: latitude,
+// 					// 						longitude: longitude,
+// 					// 						success(res) {
+// 					// 							console.log("----openLocation-success----")
+// 					// 							console.log(res);
+// 					// 						},
+// 					// 						fail(f) {
+// 					// 							console.log("----openLocation-fail----")
+// 					// 							console.log(f);
+// 					// 						}
+// 					// 					});
+// 				},
+// 				fail(f) {
+// 					console.log("=====getLocation-fail=====")
+// 					console.log(f)
+// 				}
+// 			});
 		},
 		methods: {
-			getList(pi){
-				var that=this;
-				let url_list = inter.apiurl + inter.addr.article+"?pagesize=5&pageindex="+pi;
+			getList(pi,param) {
+				var that = this;
+				pi=pi||1;
+				//?currentPage=1&pagesize=5&keywords=关键字&region=黄埔&cat=少儿&brand=英孚&age_start=0&age_end=10&subject_category=少儿英语
+				var _param =
+					"?currentPage="+pi+"&pagesize=1&keywords=&region=&cat=&brand=&age_start=&age_end=&subject_category=";
+				let url_list = apiurl + inter.addr.article + _param;
 				let fun = function(res) {
 					console.log("======fun========");
 					console.log(res)
@@ -132,25 +160,25 @@
 						that.list.push(item);
 					});
 				}
-				let pro_list = mdl.getData(url_list,fun);
+				let pro_list = mdl.getData(url_list, fun);
 			},
 			search() {
 				uni.showToast({
-					title: '搜索'
+					title: '搜索1'
 				})
 			},
 			confirm() {
-				uni.showToast({
-					title: '搜索'
-				})
+				this.getList()
+// 				uni.showToast({
+// 					title: '搜索2'
+// 				})
 			},
 			showCity() {
 				uni.showToast({
 					title: '选择城市'
 				})
 			},
-			onClickItem(index) {
-			},
+			onClickItem(index) {},
 			setInverted() {
 				this.inverted = !this.inverted;
 			}
