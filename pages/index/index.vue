@@ -10,7 +10,7 @@
 				</view>
 			</block>
 			<view class="input-view">
-				<input confirm-type="search" @confirm="confirm" class="input" type="text" placeholder="英语试听" />
+				<input confirm-type="search" @confirm="confirm" class="input" type="text" v-model="serchVal" placeholder="英语试听" />
 				<uni-icon type="search" size="22" color="#666666"></uni-icon>
 			</view>
 		</uni-nav-bar>
@@ -67,7 +67,19 @@
 				],
 				current: 0,
 				inverted: true,
-				list: []
+				list: [],
+				serchVal:"",
+				param: {
+					"pi": 1,
+					"ps": 5,
+					"keywords": "",
+					"region": "上海",
+					"cat": "",
+					"brand": "",
+					"age_start": "",
+					"age_end": "",
+					"subject_category": ""
+				}
 			}
 		},
 		components: {
@@ -95,22 +107,26 @@
 				console.log("======fun1========");
 				console.log(res)
 				let _data = res.list;
-				_data.forEach(item => {
-					_this.swiperList.push(item);
-				});
+				if (_data) {
+					_this.swiperList = _data;
+				} else {
+					_this.swiperList = [];
+				}
 			}
 			let swiper = mdl.getData(url_slide, fun1);
 			/**
 			 * 区域
 			 */
-			let url_region = apiurl + inter.addr.getRegion+"?region=";
+			let url_region = apiurl + inter.addr.getRegion + "?region=";
 			let fun2 = function(res) {
 				console.log("======fun2========");
 				let _data = res.list;
 				console.log(_data)
-				_data.forEach(item => {
-					_this.region.push(item);
-				});
+				if (_data) {
+					_this.region = _data;
+				} else {
+					_this.region = [];
+				}
 				console.log(_this.region)
 			}
 			let region = mdl.getData(url_region, fun2);
@@ -118,47 +134,57 @@
 			 * 产品列表
 			 */
 			_this.getList(1);
-// 			uni.getLocation({
-// 				type: 'wgs84',
-// 				success: function(res) {
-// 					console.log("=====getLocation-success=====")
-// 					console.log(res)
-// 					const latitude = res.latitude;
-// 					const longitude = res.longitude;
-// 					// 					uni.openLocation({
-// 					// 						latitude: latitude,
-// 					// 						longitude: longitude,
-// 					// 						success(res) {
-// 					// 							console.log("----openLocation-success----")
-// 					// 							console.log(res);
-// 					// 						},
-// 					// 						fail(f) {
-// 					// 							console.log("----openLocation-fail----")
-// 					// 							console.log(f);
-// 					// 						}
-// 					// 					});
-// 				},
-// 				fail(f) {
-// 					console.log("=====getLocation-fail=====")
-// 					console.log(f)
-// 				}
-// 			});
+			// 			uni.getLocation({
+			// 				type: 'wgs84',
+			// 				success: function(res) {
+			// 					console.log("=====getLocation-success=====")
+			// 					console.log(res)
+			// 					const latitude = res.latitude;
+			// 					const longitude = res.longitude;
+			// 					// 					uni.openLocation({
+			// 					// 						latitude: latitude,
+			// 					// 						longitude: longitude,
+			// 					// 						success(res) {
+			// 					// 							console.log("----openLocation-success----")
+			// 					// 							console.log(res);
+			// 					// 						},
+			// 					// 						fail(f) {
+			// 					// 							console.log("----openLocation-fail----")
+			// 					// 							console.log(f);
+			// 					// 						}
+			// 					// 					});
+			// 				},
+			// 				fail(f) {
+			// 					console.log("=====getLocation-fail=====")
+			// 					console.log(f)
+			// 				}
+			// 			});
 		},
 		methods: {
-			getList(pi,param) {
+			getList(type) {
 				var that = this;
-				pi=pi||1;
+				let param = that.param;
 				//?currentPage=1&pagesize=5&keywords=关键字&region=黄埔&cat=少儿&brand=英孚&age_start=0&age_end=10&subject_category=少儿英语
 				var _param =
-					"?currentPage="+pi+"&pagesize=1&keywords=&region=&cat=&brand=&age_start=&age_end=&subject_category=";
+					"?currentPage=" + param.pi + "&pagesize=" + param.ps + "&keywords=" + param.keywords + "&region=" + param.region +
+					"&cat=" + param.cat + "&brand=" + param.brand + "&age_start=" + param.age_start + "&age_end=" + param.age_end +
+					"&subject_category=" + param.subject_category;
 				let url_list = apiurl + inter.addr.article + _param;
 				let fun = function(res) {
 					console.log("======fun========");
 					console.log(res)
 					let data = res.list;
-					data.forEach(item => {
-						that.list.push(item);
-					});
+					if (type=="search") {
+						if (data) {
+							that.list = data;
+						} else {
+							that.list = [];
+						}
+					} else {
+						data.forEach(item => {
+							that.list.push(item);
+						});
+					}
 				}
 				let pro_list = mdl.getData(url_list, fun);
 			},
@@ -167,11 +193,12 @@
 					title: '搜索1'
 				})
 			},
-			confirm() {
-				this.getList()
-// 				uni.showToast({
-// 					title: '搜索2'
-// 				})
+			confirm(e) {
+				console.log(e)
+				let keywords = e.detail.value
+				this.param.keywords = keywords;
+				this.getList("search")
+				this.serchVal="";
 			},
 			showCity() {
 				uni.showToast({

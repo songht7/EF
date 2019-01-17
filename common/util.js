@@ -22,7 +22,7 @@ const Interface = {
 
 };
 const module = {
-	getData: function(url,fun,method, data) {
+	getData: function(url, fun, method, data) {
 		console.log(url)
 		let result = [];
 		uni.request({
@@ -32,7 +32,9 @@ const module = {
 			success: function(res) {
 				console.log("======success========");
 				console.log(res);
-				result=res.data.data;
+				if (res.data.success) {
+					result = res.data.data;
+				}
 			},
 			fail: function(err) {
 				console.log("======fail========");
@@ -46,7 +48,9 @@ const module = {
 			complete: function(comp) {
 				console.log("======complete========");
 				console.log(result)
-				if(fun){new fun(result)}
+				if (fun) {
+					new fun(result)
+				}
 			}
 		})
 	},
