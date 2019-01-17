@@ -1,0 +1,232 @@
+{
+	"id": "3b2752b5-5657-c63e-39ed-fc355313949a",
+	"name": "alein",
+	"description": "",
+	"order": [
+		"bf5ba115-e57f-5040-2df0-1c4f63adf24b",
+		"5156c194-8257-b867-4271-292006ef5e61",
+		"96762a91-11de-4edc-00ef-132bff520d6d",
+		"d2a3817f-c930-f4eb-e849-beb308490bbf",
+		"4ea60c49-e318-87f4-3ce3-edd897b0bbfc",
+		"3d9a18e2-0f95-2e3e-80a0-3d9af01000ee"
+	],
+	"folders": [
+		{
+			"name": "simple",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"order": [
+				"2726db11-d4ce-1aa8-03e8-b6373523f902"
+			],
+			"owner": "1054562",
+			"folders_order": [],
+			"id": "3f0832e4-3e05-d500-26af-8e6ebbf228ad"
+		}
+	],
+	"folders_order": [
+		"3f0832e4-3e05-d500-26af-8e6ebbf228ad"
+	],
+	"timestamp": 1545289354168,
+	"owner": "1054562",
+	"public": false,
+	"requests": [
+		{
+			"id": "2726db11-d4ce-1aa8-03e8-b6373523f902",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://www.spacehu.com/space/mail/mail.php?leo=407794660@qq.com",
+			"queryParams": [
+				{
+					"key": "leo",
+					"value": "407794660@qq.com",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "http://www.spacehu.com/space/mail/mail.php\n\n\nhttp://192.168.30.225/test/mail.php",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1547619754412,
+			"name": "/mail.php",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"responses": [],
+			"rawModeData": "{\"name\":\"space\",\"phone\":\"12345678901\",\"birthday\":\"1234556\",\"sex\":\"man\",\"艾伦\":\"金主\",\"你邮箱\":\"是不是写错了？\"}"
+		},
+		{
+			"id": "3d9a18e2-0f95-2e3e-80a0-3d9af01000ee",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://api.alein.lc/v2/ApiHome-saveSingle.htm",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1547714461824,
+			"name": "/v2/ApiHome-saveSingle.htm",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"responses": [],
+			"rawModeData": "{\"name\":\"space\",\"phone\":\"12345678901\",\"age\":\"1234556\",\"sex\":\"man\",\"school\":\"1\",\"arrive_time\":\"2019-12-25\"}"
+		},
+		{
+			"id": "4ea60c49-e318-87f4-3ce3-edd897b0bbfc",
+			"headers": "",
+			"headerData": [],
+			"url": "http://api.alein.lc/v2/ApiHome-article_detail.htm?id=1",
+			"queryParams": [
+				{
+					"key": "id",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"data": null,
+			"dataMode": "params",
+			"name": "/v2/ApiHome-article_detail.htm?id=1",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1547711035535,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "5156c194-8257-b867-4271-292006ef5e61",
+			"headers": "",
+			"headerData": [],
+			"url": "http://api_test.meetji.com/v2/ApiHome-slideShow.htm",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1547690367079,
+			"name": "/v2/ApiHome-slideShow.htm",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"responses": []
+		},
+		{
+			"id": "96762a91-11de-4edc-00ef-132bff520d6d",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://api.alein.lc/v2/ApiHome-article.htm?region=区",
+			"queryParams": [
+				{
+					"key": "region",
+					"value": "区",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": "http://api.alein.lc/v2/ApiHome-article.htm?currentPage=1&pagesize=5&keywords=关键字&region=黄埔&cat=少儿&brand=英孚&age_start=0&age_end=10&subject_category=少儿英语",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1547708948754,
+			"name": "/v2/ApiHome-article.htm",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"responses": []
+		},
+		{
+			"id": "bf5ba115-e57f-5040-2df0-1c4f63adf24b",
+			"headers": "",
+			"headerData": [],
+			"url": "http://api.alein.lc/v1/ApiEnum-getRegion.htm",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": "api_test.meetji.com",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1547711903156,
+			"name": "/v1/ApiEnum-getRegion.htm",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"responses": []
+		},
+		{
+			"id": "d2a3817f-c930-f4eb-e849-beb308490bbf",
+			"headers": "",
+			"headerData": [],
+			"url": "http://api.alein.lc/v2/ApiWeChat-getWeChatInfo.htm",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"data": null,
+			"dataMode": "params",
+			"name": "/v2/ApiWeChat-getWeChatInfo.htm",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1547636144500,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}
