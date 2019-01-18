@@ -53,104 +53,6 @@
 			</view>
 		</view>
 
-		<!-- 预约块 -->
-		<view class="detail-block apply-box">
-			<view class="uni-padding-wrap uni-common-mt">
-				<view class="uni-card">
-					<view class="uni-card-content">
-						<view class="uni-card-content-inner">
-							<view class="apply-block">
-								<form @submit="formSubmit" @reset="formReset">
-									<view class="uni-list">
-										<view class="uni-list-cell">
-											<view class="uni-list-cell-left">
-												姓名
-											</view>
-											<view class="uni-list-cell-db">
-												<input class="uni-input" name="UserName" placeholder="" />
-											</view>
-										</view>
-									</view>
-									<view class="uni-list">
-										<view class="uni-list-cell">
-											<view class="uni-list-cell-left">
-												电话
-											</view>
-											<view class="uni-list-cell-db">
-												<input class="uni-input" name="UserPhone" type="number" placeholder="" />
-											</view>
-										</view>
-									</view>
-									<view class="uni-list half-box">
-										<view class="uni-list-cell">
-											<view class="uni-list half">
-												<view class="uni-list-cell">
-													<view class="uni-list-cell-left">
-														年龄
-													</view>
-													<view class="uni-list-cell-db">
-														<input class="uni-input" name="Age" type="number" placeholder="" value="" />
-													</view>
-												</view>
-											</view>
-											<view class="uni-list half">
-												<view class="uni-list-cell">
-													<view class="uni-list-cell-left">
-														性别
-													</view>
-													<view class="uni-list-cell-db">
-														<picker name="Gender" @change="bindPickerChange" :value="genderIndex" :range="gender">
-															<view class="uni-input">{{gender[genderIndex]}}</view>
-														</picker>
-													</view>
-													<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
-												</view>
-											</view>
-										</view>
-									</view>
-									<view class="uni-list">
-										<view class="uni-list-cell">
-											<view class="uni-list-cell-left">
-												邮箱
-											</view>
-											<view class="uni-list-cell-db">
-												<input class="uni-input" name="Email" placeholder="" />
-											</view>
-										</view>
-									</view>
-									<view class="uni-list">
-										<view class="uni-list-cell">
-											<view class="uni-list-cell-left">
-												校&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区
-											</view>
-											<view class="uni-list-cell-db">
-												<view class="uni-input txt-gray">{{school}}</view>
-											</view>
-										</view>
-									</view>
-									<view class="uni-list apply-date">
-										<view class="uni-list-cell">
-											<view class="uni-list-cell-left">
-												可约时间
-											</view>
-											<view class="uni-list-cell-db">
-												<picker mode="date" name="ApplyDate" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
-													<view class="uni-input">{{date}}</view>
-												</picker>
-											</view>
-										</view>
-									</view>
-									<view class="uni-btn-v">
-										<button formType="submit" :loading="loading" class="apply-btn">立即申请</button>
-									</view>
-								</form>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		<!-- 预约块/ -->
 		<view class="detail-block">
 			<view class="comments">
 				评论<uni-icon size="32" type="arrowright" color="#BDBDBD"></uni-icon>
@@ -184,6 +86,113 @@
 				<!-- 评论区 end -->
 			</view>
 		</view>
+		
+		<!-- 预约块 -->
+		<view class="detail-block apply-box">
+			<view class="uni-padding-wrap uni-common-mt">
+				<view class="uni-card">
+					<view class="uni-card-content">
+						<view class="uni-card-content-inner">
+							<view class="apply-block">
+								<form @submit="formSubmit" @reset="formReset">
+									<view class="uni-list half-box">
+										<view class="uni-list-cell">
+											<view class="uni-list half">
+												<view class="uni-list-cell">
+													<view class="uni-list-cell-left">
+														姓名
+													</view>
+													<view class="uni-list-cell-db">
+												<input class="uni-input" name="UserName" placeholder="" />
+													</view>
+												</view>
+											</view>
+											<view class="uni-list half">
+												<view class="uni-list-cell">
+													<view class="uni-list-cell-left">
+														年龄
+													</view>
+													<view class="uni-list-cell-db">
+														<input class="uni-input" name="Age" type="number" placeholder="" value="" />
+													</view>
+												</view>
+											</view>
+											<view class="uni-list half">
+												<view class="uni-list-cell">
+													<view class="uni-list-cell-left">
+														性别
+													</view>
+													<view class="uni-list-cell-db">
+														<picker name="Gender" @change="bindPickerChange" :value="genderIndex" :range="gender">
+															<view class="uni-input">{{gender[genderIndex]}}</view>
+														</picker>
+													</view>
+													<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
+												</view>
+											</view>
+										</view>
+									</view>
+									<view class="uni-list">
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												电话
+											</view>
+											<view class="uni-list-cell-db">
+												<input class="uni-input" name="UserPhone" type="number" placeholder="" />
+											</view>
+										</view>
+									</view>
+											<view class="uni-list">
+												<view class="uni-list-cell">
+													<view class="uni-list-cell-left">
+														城市
+													</view>
+													<view class="uni-list-cell-db">
+														<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
+														 placeholder="" />
+													</view>
+												</view>
+											</view>
+									<view class="uni-list">
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												校&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区
+											</view>
+											<view class="uni-list-cell-db">
+												<picker name="School" @change="PickerSchool" :value="schoolIndex" :range="schoolVal">
+													<view class="uni-input">{{schoolVal[schoolIndex]}}</view>
+												</picker>
+											</view>
+											<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
+										</view>
+									</view>
+									<view class="uni-list apply-date">
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												可约时间
+											</view>
+											<view class="uni-list-cell-db">
+												<picker mode="date" name="ApplyDate" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+													<view class="uni-input">{{date}}</view>
+												</picker>
+											</view>
+										</view>
+									</view>
+									<view class="uni-btn-v">
+										<button formType="submit" :loading="loading" class="apply-btn">立即申请</button>
+									</view>
+								</form>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+			<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
+			 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+			<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
+			 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
+		<!-- 预约块/ -->
 		<!-- <view class="detail-block">
 			<view class="dtl-btns">
 				<navigator :url="url" class="apply-btn">立即申请</navigator>
@@ -200,6 +209,9 @@
 	const apiurl = inter.apiurl;
 
 	var graceChecker = require("../../common/graceChecker.js");
+	import mpvuePicker from '../../components/mpvue-picker/mpvuePicker.vue';
+	import mpvueCityPicker from '../../components/mpvue-citypicker/mpvueCityPicker.vue'
+	import cityData from '../../common/city.data.js';
 	const duration = 2000;
 	const brand = "";
 
@@ -209,20 +221,30 @@
 		data() {
 			return {
 				detail: [],
-				school: "全国",
-				schoolId:"",
 				brand: "",
-				brandId:"",
+				brandId: "",
 				date: "",
 				gender: ['男', '女'],
 				genderIndex: 0,
+				schoolVal:[],
+				schoolDtl:[],
+				schoolId:"",
+				schoolIndex:0,
 				loading: false,
 				date: this.getDate({
 					format: true
 				}),
 				id: "",
 				topage: "/pages/apply/index",
-				url: ""
+				url: "",
+				cityPickerValueDefault: [0, 0, 1],
+				themeColor: '#007AFF',
+				pickerText: '',
+				mulLinkageTwoPicker: cityData,
+				mode: '',
+				deepLength: 1,
+				pickerValueDefault: [0],
+				pickerValueArray: []
 			};
 		},
 		onLoad(option) {
@@ -236,9 +258,12 @@
 				let _data = res.info;
 				if (_data) {
 					_this.detail = _data;
-					let _school = _data.school.length > 1 ? "全国" : _data.school[0].name;
-					_this.school = _school;
-					_this.schoolId = _data.school.length > 1 ? "" : _data.school[0].id;
+					_data.school.forEach(item => {
+						let _scl={"id":item.id,"name":item.name};
+						_this.schoolVal.push(item.name);
+						_this.schoolDtl.push(_scl);
+					});
+					_this.schoolId = _data.school["0"]["id"];
 					_this.brandId = _data.id;
 					uni.setNavigationBarTitle({
 						title: _data.name
@@ -259,7 +284,9 @@
 			}
 		},
 		components: {
-			uniIcon
+			uniIcon,
+			mpvuePicker,
+			mpvueCityPicker
 		},
 		methods: {
 			bindPickerChange: function(e) {
@@ -268,7 +295,13 @@
 			bindDateChange: function(e) {
 				this.date = e.target.value
 			},
+			PickerSchool: function(e) {
+				let key=e.target.value;
+				this.schoolIndex = key;
+				this.schoolId=this.schoolDtl[key]["id"];
+			},
 			formSubmit: function(e) {
+				var that = this;
 				if (this.loading == true) {
 					return
 				}
@@ -293,21 +326,24 @@
 				if (checkRes) {
 					var _data = {
 						"name": formData.UserName,
-						"phone": formData.UserPhone,
 						"age": formData.Age,
 						"sex": formData.Gender == 0 ? "男" : "女",
+						"phone": formData.UserPhone,
+						"city":formData.City,
 						"school": this.schoolId,
 						"article_id": this.brandId,
 						"arrive_time": formData.ApplyDate
 					};
 					console.log(_data);
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
-					let funSave=function(res){
+					console.log(url_saveSingle);
+					let funSave = function(res) {
 						console.log("=======save========")
 						console.log(res)
+						that.loading = false
 					}
-					let _saveSingle = mdl.getData(url_saveSingle, funSave,"POST",_data);
-					
+					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data);
+
 				} else {
 					uni.showToast({
 						title: graceChecker.error,
@@ -333,6 +369,38 @@
 				day = day > 9 ? day : '0' + day;
 
 				return `${year}-${month}-${day}`;
+			},
+			onCancel: function(e) {
+				//console.log(e)
+			},
+			onConfirm: function(e) {
+				//console.log(JSON.stringify(e))
+				this.pickerText = e.label;
+			},
+			showMulLinkageTwoPicker: function(e) {
+				this.pickerValueArray = this.mulLinkageTwoPicker
+				this.mode = 'multiLinkageSelector'
+				this.deepLength = 2
+				this.pickerValueDefault = [0, 0]
+				this.$refs.mpvuePicker.show()
+			},
+			onBackPress: function(e) {
+				if (this.$refs.mpvuePicker.showPicker) {
+					this.$refs.mpvuePicker.pickerCancel();
+					return true;
+				}
+				if (this.$refs.mpvueCityPicker.showPicker) {
+					this.$refs.mpvueCityPicker.pickerCancel();
+					return true;
+				}
+			},
+			onUnload: function(e) {
+				if (this.$refs.mpvuePicker.showPicker) {
+					this.$refs.mpvuePicker.pickerCancel()
+				}
+				if (this.$refs.mpvueCityPicker.showPicker) {
+					this.$refs.mpvueCityPicker.pickerCancel()
+				}
 			}
 		}
 	}
@@ -474,6 +542,7 @@
 	}
 
 	.uni-list:first-child:before,
+	.half:before,
 	.uni-list:after {
 		background: none;
 	}
@@ -485,7 +554,7 @@
 	.uni-list.half-box:last-child:after {
 		background: none;
 	}
-
+	.uni-list-cell-left{padding: 0 10upx;}
 	.radio-block {
 		padding-left: 20upx;
 	}
@@ -495,7 +564,7 @@
 	}
 
 	.half {
-		width: 45%;
+		width: 33.3%;
 		display: flex;
 	}
 </style>

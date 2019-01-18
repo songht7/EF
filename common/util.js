@@ -91,9 +91,44 @@ const getToken = function() {
 		}
 	})
 }
+const getList = function() {
+	let _list = [ {},{}, {
+		"id": 5,
+		"title": "专业认证培训师,教你地道英语",
+		"overview": "免费试听体验课",
+		"price": "7999",
+		"sale": "免费",
+		"total": "1000",
+		"putout": "101",
+		"brandLogo": "../../static/ef/logo2.png",
+		"navTo":"",
+		//"navTo": "http://www.ef.com.cn/online/lp/cn/2017yr/mobile/product_feature_ft_light.aspx?ctr=cn&lng=cs&apr=ProductFeatureFT&offer=FreeDemo&ptn=EMSP&Etag=edm-dcoo-none-all-none-E_3rd_DS_030",
+		"slideimg": [
+			"../../static/ef/img1.jpg",
+			"../../static/ef/img2.jpg"
+		],
+		"comment": {
+			"percent": "4.5",
+			"list": [{
+				"portrait": "../../static/ef/logo.png",
+				"name": "amile",
+				"cont": "孩子喜欢这样的环境，老师很优秀，家长很放心",
+				"grade": "4.8",
+				"date": "2018-5-10"
+			}]
+		}
+	}]
+	if (key!=undefined) {
+		return _list[key];
+	} else {
+		return _list;
+	}
+}
+
 export default {
 	Interface,
 	module,
 	getToken,
+	getList,
 	isArray
 }
