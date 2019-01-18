@@ -16,27 +16,12 @@
 		</uni-nav-bar>
 		<view style="height:45px;">...</view>
 		<!-- #endif -->
+
 		<view class="content">
 			<swiper-box :swiperList="swiperList"></swiper-box>
 		</view>
-
-		<uni-segmented-control :current="current" :values="tagList" v-on:clickItem="onClickItem" styleType="text" activeColor="#F69A22"></uni-segmented-control>
-		<view class="tag-cont">
-			<view v-show="current === 0">
-				<view class="tag-list">
-					<view class="tag-view">
-						<uni-tag text="标签1" size="small" type="royal" circle="true" :inverted="inverted" @click="setInverted"></uni-tag>
-					</view>
-					<view class="tag-view">
-						<uni-tag text="标签2" size="small" type="royal" circle="true" :inverted="inverted" @click="setInverted"></uni-tag>
-					</view>
-				</view>
-			</view>
-			<view v-show="current === 1">
-				选项卡2的内容
-			</view>
-		</view>
 		<list-block :list="list"></list-block>
+		<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText"></uni-load-more>
 	</view>
 </template>
 
@@ -46,47 +31,52 @@
 	const mdl = util.module;
 	const inter = util.Interface;
 	const apiurl = inter.apiurl;
-	import uniTag from '../../components/uni-tag.vue'
-	import uniSegmentedControl from '../../components/uni-segmented-control.vue'
 	import uniNavBar from '../../components/uni-nav-bar.vue'
 	import uniIcon from '../../components/uni-icon.vue'
+	import uniLoadMore from '../../components/uni-load-more.vue'
+
 	import listBlock from '../../components/list-block.vue'
 
 	export default {
 		data() {
 			return {
-				"city": "上海",
-				"wxApi": "",
-				"category": [],
-				"ageGroup": [],
+				"city": "上海", //当前位置
+				"category": [], //分类
+				"ageGroup": [], //
 				"swiperList": [],
 				"region": [],
 				tagList: [
 					'成人',
 					'少儿'
 				],
-				current: 0,
-				inverted: true,
 				list: [],
-				serchVal:"",
+				serchVal: "",
 				param: {
 					"pi": 1,
-					"ps": 5,
+					"ps": 4,
 					"keywords": "",
 					"region": "上海",
 					"cat": "",
 					"brand": "",
 					"age_start": "",
 					"age_end": "",
-					"subject_category": ""
+					"subject_category": "",
+					pageTotal: 1,
+					listTotal: 0
+				},
+				loadingType: 0,
+				contentText: {
+					contentdown: "上拉显示更多",
+					contentrefresh: "正在加载...",
+					contentnomore: "没有更多数据了"
 				}
 			}
 		},
+		computed: {},
 		components: {
 			uniIcon,
 			uniNavBar,
-			uniTag,
-			uniSegmentedControl,
+			uniLoadMore,
 			listBlock
 		},
 		onShow() {
@@ -133,7 +123,7 @@
 			/**
 			 * 产品列表
 			 */
-			_this.getList(1);
+			_this.getList();
 			// 			uni.getLocation({
 			// 				type: 'wgs84',
 			// 				success: function(res) {
@@ -160,6 +150,24 @@
 			// 				}
 			// 			});
 		},
+		onPullDownRefresh() {
+			console.log("========onPullDownRefresh=========")
+			this.paramReset();
+			this.getList("refresh");
+		},
+		onReachBottom() {
+			console.log("=======onReachBottom=========")
+			if (this.loadingType !== 0) {
+				return;
+			}
+			if (this.param.pi >= this.param.pageTotal) {
+				this.loadingType = 2;
+				return;
+			}
+			this.param.pi = this.param.pi + 1;
+			this.loadingType = 1;
+			this.getList();
+		},
 		methods: {
 			getList(type) {
 				var that = this;
@@ -174,19 +182,29 @@
 					console.log("======fun========");
 					console.log(res)
 					let data = res.list;
-					if (type=="search") {
+					let total = res.total;
+					if (type) {
 						if (data) {
 							that.list = data;
 						} else {
 							that.list = [];
 						}
+						uni.stopPullDownRefresh();
 					} else {
 						data.forEach(item => {
 							that.list.push(item);
 						});
 					}
+					that.loadingType = 0;
+					that.pagination(total);
 				}
 				let pro_list = mdl.getData(url_list, fun);
+			},
+			pagination(total) {
+				let _pageSize = this.param.ps;
+				let _pageTotal = Math.ceil(total / _pageSize);
+				this.param.listTotal = total;
+				this.param.pageTotal = _pageTotal;
 			},
 			search() {
 				uni.showToast({
@@ -195,19 +213,22 @@
 			},
 			confirm(e) {
 				console.log(e)
+				this.paramReset()
 				let keywords = e.detail.value
 				this.param.keywords = keywords;
 				this.getList("search")
-				this.serchVal="";
+				this.serchVal = "";
 			},
 			showCity() {
 				uni.showToast({
 					title: '选择城市'
 				})
 			},
-			onClickItem(index) {},
-			setInverted() {
-				this.inverted = !this.inverted;
+			paramReset() {
+				this.param.pi = 1;
+				this.param.pageTotal = 1;
+				this.param.listTotal = 0;
+				this.loadingType = 0;
 			}
 		}
 	}
