@@ -19,9 +19,14 @@
 
 		<view class="content">
 			<swiper-box :swiperList="swiperList"></swiper-box>
+			<!-- <view class="filter-box">
+				<view class="ctgBtns ctgs">少儿</view>
+				<view class="ctgBtns ctgs">成人</view>
+				<view class="filterBtn">筛选</view>
+			</view> -->
+			<list-block :list="list"></list-block>
+			<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText"></uni-load-more>
 		</view>
-		<list-block :list="list"></list-block>
-		<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText"></uni-load-more>
 	</view>
 </template>
 
@@ -107,7 +112,7 @@
 			/**
 			 * 区域
 			 */
-			let url_region = apiurl + inter.addr.getRegion + "?region=";
+			let url_region = apiurl + inter.addr.getRegion2;
 			let fun2 = function(res) {
 				console.log("======fun2========");
 				let _data = res.list;
@@ -191,9 +196,11 @@
 						}
 						uni.stopPullDownRefresh();
 					} else {
-						data.forEach(item => {
-							that.list.push(item);
-						});
+						if (data) {
+							data.forEach(item => {
+								that.list.push(item);
+							});
+						}
 					}
 					that.loadingType = 0;
 					that.pagination(total);

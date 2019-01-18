@@ -21,7 +21,7 @@
 			"path": "pages/detail/index",
 			"style": {
 				"navigationBarTitleText": "试听详细",
-				"backgroundColor": "#EBEBEB",
+				"backgroundColor": "#E3E3E3",
 				"app-plus": {
 					"titleNView": {
 						"type": "transparent"
@@ -65,7 +65,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "试听宝",
-		"navigationBarBackgroundColor": "#21292C",
+		"navigationBarBackgroundColor": "#7C7C7C",
 		"backgroundColor": "#F4F5F6"
 	}
 	// 	"tabBar": {

@@ -3,16 +3,16 @@
 		<view class="uni-card" v-for="(value,key) in list" :key="key">
 			<view class="uni-card-content">
 				<view class="uni-card-content-inner">
-					<navigator class="service-head" :url="'/pages/detail/index?key='+value.id">
+					<navigator class="service-head" :url="'/pages/detail/index?id='+value.id">
 						<view class="ser-logo">
-							<image :src="sourceUrl+value.src"></image>
+							<image lazy-load :src="sourceUrl+value.src" />
 						</view>
 						<view class="ser-body">
 							<view class="ser-title">{{value.name}}</view>
 							<view class="ser-describe" v-html="value.overview"></view>
-							<view class="ser-price">市场价:￥{{value.price?value.price:"-"}}</view>
+							<view class="ser-price">市场价:￥{{value.market_price?value.market_price:"-"}}</view>
 						</view>
-						<view class="ser-tag">{{value.price?"￥"+value.price:"免费"}}</view>
+						<view class="ser-tag">{{value.current_price&&value.current_price!="0.00"?"￥"+value.current_price:"免费"}}</view>
 					</navigator>
 					<view class="apply">
 						<view class="apply-num">
@@ -25,7 +25,7 @@
 								<view class="txt-a txt-orange">{{value.praise}}</view>
 							</view>
 						</view>
-						<navigator :url="'/pages/detail/index?key='+value.id" class="apply-btn">立即申请</navigator>
+						<navigator :url="'/pages/detail/index?id='+value.id" class="apply-btn">立即申请</navigator>
 					</view>
 				</view>
 			</view>

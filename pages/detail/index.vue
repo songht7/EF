@@ -1,13 +1,13 @@
 <template>
 	<view class="detail-page">
 		<view class="detail-block">
-			<view class="swiper-box" v-if="detail.slideimg.length">
+			<view class="swiper-box" v-if="detail.image">
 				<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true" interval="3000" duration="1000"
 				 indicator-color="#979797" indicator-active-color="#FFFFFF">
-					<swiper-item class="swiper-item" v-for="(slide,index) in detail.slideimg" :key="slide">
+					<swiper-item class="swiper-item" v-for="(slide,index) in detail.image" :key="index">
 						<view class="vli">
 							<view class="vli2">
-								<image class="slideImg" :src="slide" mode="aspectFill"></image>
+								<image class="slideImg" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
 							</view>
 						</view>
 					</swiper-item>
@@ -19,53 +19,22 @@
 						<view class="uni-card-content">
 							<view class="uni-card-content-inner">
 								<view class="ser-title txt-orange">
-									{{detail.title}}
+									{{detail.name}}
 								</view>
 								<view class="ser-abstract txt-black">
-									{{detail.abstract}}
+									{{detail.overview}}
 								</view>
 								<view class="ser-feature txt-light-black">
-									{{detail.feature}}
+									标签:{{detail.tags}}
 								</view>
 								<view class="apply-num">
 									<view class="apply-left">
 										<view class="txt-gray">已领</view>
-										<view class="txt-orange">{{detail.putout}}人</view>
+										<view class="txt-orange">199人</view>
 									</view>
 									<view class="apply-right">
 										<view class="txt-gray">好评率</view>
-										<view class="txt-orange">{{detail.comment.percent}}</view>
-									</view>
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
-				<view class="uni-padding-wrap uni-common-mt">
-					<view class="uni-card">
-						<view class="uni-card-content">
-							<view class="uni-card-content-inner">
-								<view class="uni-list">
-									<view class="uni-list-cell">
-										<view class="uni-list-cell-left  txt-gray">
-											校&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区
-										</view>
-										<view class="uni-list-cell-db">
-											<view class="uni-input">全国</view>
-										</view>
-									</view>
-								</view>
-								<view class="uni-list">
-									<view class="uni-list-cell">
-										<view class="uni-list-cell-left  txt-gray">
-											可约时间
-										</view>
-										<view class="uni-list-cell-db">
-											<picker mode="date" name="ApplyDate" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
-												<view class="uni-input">{{date}}</view>
-											</picker>
-										</view>
-										<uni-icon size="24" type="arrowright" color="#DDDDDF"></uni-icon>
+										<view class="txt-orange">{{detail.praise}}</view>
 									</view>
 								</view>
 							</view>
@@ -77,13 +46,111 @@
 					<view class="uni-title">
 						<view class="introduction">
 							<view class="h3 txt-black">课程介绍</view>
-							<view class="lesson-content txt-light-black" v-html="detail.content"></view>
+							<view class="lesson-content txt-light-black" v-html="detail.detail"></view>
 						</view>
 					</view>
 				</view>
-
 			</view>
 		</view>
+
+		<!-- 预约块 -->
+		<view class="detail-block apply-box">
+			<view class="uni-padding-wrap uni-common-mt">
+				<view class="uni-card">
+					<view class="uni-card-content">
+						<view class="uni-card-content-inner">
+							<view class="apply-block">
+								<form @submit="formSubmit" @reset="formReset">
+									<view class="uni-list">
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												姓名
+											</view>
+											<view class="uni-list-cell-db">
+												<input class="uni-input" name="UserName" placeholder="" />
+											</view>
+										</view>
+									</view>
+									<view class="uni-list">
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												电话
+											</view>
+											<view class="uni-list-cell-db">
+												<input class="uni-input" name="UserPhone" type="number" placeholder="" />
+											</view>
+										</view>
+									</view>
+									<view class="uni-list half-box">
+										<view class="uni-list-cell">
+											<view class="uni-list half">
+												<view class="uni-list-cell">
+													<view class="uni-list-cell-left">
+														年龄
+													</view>
+													<view class="uni-list-cell-db">
+														<input class="uni-input" name="Age" type="number" placeholder="" value="" />
+													</view>
+												</view>
+											</view>
+											<view class="uni-list half">
+												<view class="uni-list-cell">
+													<view class="uni-list-cell-left">
+														性别
+													</view>
+													<view class="uni-list-cell-db">
+														<picker name="Gender" @change="bindPickerChange" :value="genderIndex" :range="gender">
+															<view class="uni-input">{{gender[genderIndex]}}</view>
+														</picker>
+													</view>
+													<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
+												</view>
+											</view>
+										</view>
+									</view>
+									<view class="uni-list">
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												邮箱
+											</view>
+											<view class="uni-list-cell-db">
+												<input class="uni-input" name="Email" placeholder="" />
+											</view>
+										</view>
+									</view>
+									<view class="uni-list">
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												校&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区
+											</view>
+											<view class="uni-list-cell-db">
+												<view class="uni-input txt-gray">{{school}}</view>
+											</view>
+										</view>
+									</view>
+									<view class="uni-list apply-date">
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												可约时间
+											</view>
+											<view class="uni-list-cell-db">
+												<picker mode="date" name="ApplyDate" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+													<view class="uni-input">{{date}}</view>
+												</picker>
+											</view>
+										</view>
+									</view>
+									<view class="uni-btn-v">
+										<button formType="submit" :loading="loading" class="apply-btn">立即申请</button>
+									</view>
+								</form>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 预约块/ -->
 		<view class="detail-block">
 			<view class="comments">
 				评论<uni-icon size="32" type="arrowright" color="#BDBDBD"></uni-icon>
@@ -91,12 +158,14 @@
 			<view class="uni-padding-wrap">
 				<!-- 评论区 start -->
 				<view class="uni-comment">
-					<view class="uni-comment-list" v-for="(value,key) in detail.comment.list" :key="key">
+					<!-- <view class="uni-comment-list" v-for="(value,key) in detail.comment.list" :key="key"> -->
+					<view class="uni-comment-list">
 						<view class="uni-comment-face">
-							<image :src="value.portrait" mode="widthFix"></image>
+							<!-- <image src="../../static/logo.png" mode="widthFix"></image> -->
+							<uni-icon size="55" type="contact" color="#DDDDDF"></uni-icon>
 						</view>
 						<view class="uni-comment-body">
-							<view class="uni-comment-top">{{value.name}}</view>
+							<view class="uni-comment-top">匿名者</view>
 							<view class="uni-comment-date">
 								<view class="star">
 									<uni-icon size="16" type="star-filled" color="#F7A631"></uni-icon>
@@ -104,52 +173,81 @@
 									<uni-icon size="16" type="star-filled" color="#F7A631"></uni-icon>
 									<uni-icon size="16" type="star-filled" color="#F7A631"></uni-icon>
 									<uni-icon size="16" type="star-filled" color="#D3D3D3"></uni-icon>
-									{{value.grade}}
+									{{detail.praise}}
 								</view>
-								<view>{{value.date}}</view>
+								<view>2018.3.15</view>
 							</view>
-							<view class="uni-comment-content">{{value.cont}}</view>
+							<view class="uni-comment-content">环境优雅，气氛浓郁，学习之地</view>
 						</view>
 					</view>
 				</view>
 				<!-- 评论区 end -->
 			</view>
 		</view>
-		<view class="detail-block">
+		<!-- <view class="detail-block">
 			<view class="dtl-btns">
 				<navigator :url="url" class="apply-btn">立即申请</navigator>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
 <script>
 	import util from '../../common/util.js';
+	const wx = require('jweixin-module')
+	const mdl = util.module;
+	const inter = util.Interface;
+	const apiurl = inter.apiurl;
+
+	var graceChecker = require("../../common/graceChecker.js");
+	const duration = 2000;
+	const brand = "";
+
 	import uniIcon from '../../components/uni-icon.vue'
+
 	export default {
 		data() {
 			return {
 				detail: [],
+				school: "全国",
+				schoolId:"",
+				brand: "",
+				brandId:"",
+				date: "",
+				gender: ['男', '女'],
+				genderIndex: 0,
+				loading: false,
 				date: this.getDate({
 					format: true
 				}),
-				key: "",
+				id: "",
 				topage: "/pages/apply/index",
 				url: ""
 			};
 		},
 		onLoad(option) {
-			let _key = option.key;
-			let _detail = util.getList(_key);
-			this.detail = _detail;
-			console.log(_detail);
-			this.key = _key;
+			var _this = this;
+			let _id = option.id;
+			this.id = _id;
+			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
+			let fun = function(res) {
+				console.log("======fun========");
+				console.log(res)
+				let _data = res.info;
+				if (_data) {
+					_this.detail = _data;
+					let _school = _data.school.length > 1 ? "全国" : _data.school[0].name;
+					_this.school = _school;
+					_this.schoolId = _data.school.length > 1 ? "" : _data.school[0].id;
+					_this.brandId = _data.id;
+					uni.setNavigationBarTitle({
+						title: _data.name
+					});
+				}
+			}
+			let _detail = mdl.getData(url_detail, fun);
 			var _date = this.getDate({
 				format: true
-			});
-			this.url = this.topage + "?key=" + _key + "&date=" + _date;
-			uni.setNavigationBarTitle({
-				title: _detail.title
 			});
 		},
 		computed: {
@@ -164,6 +262,61 @@
 			uniIcon
 		},
 		methods: {
+			bindPickerChange: function(e) {
+				this.genderIndex = e.target.value
+			},
+			bindDateChange: function(e) {
+				this.date = e.target.value
+			},
+			formSubmit: function(e) {
+				if (this.loading == true) {
+					return
+				}
+				//console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
+				let formData = e.detail.value;
+				this.loading = true
+				var rule = [{
+						name: "UserName",
+						checkType: "notnull",
+						checkRule: "",
+						errorMsg: "请填写姓名"
+					},
+					{
+						name: "UserPhone",
+						checkType: "phoneno",
+						checkRule: "",
+						errorMsg: "请填写正确的手机号"
+					}
+				];
+				//进行表单检查
+				var checkRes = graceChecker.check(formData, rule);
+				if (checkRes) {
+					var _data = {
+						"name": formData.UserName,
+						"phone": formData.UserPhone,
+						"age": formData.Age,
+						"sex": formData.Gender == 0 ? "男" : "女",
+						"school": this.schoolId,
+						"article_id": this.brandId,
+						"arrive_time": formData.ApplyDate
+					};
+					console.log(_data);
+					let url_saveSingle = apiurl + inter.addr.saveSingle;
+					let funSave=function(res){
+						console.log("=======save========")
+						console.log(res)
+					}
+					let _saveSingle = mdl.getData(url_saveSingle, funSave,"POST",_data);
+					
+				} else {
+					uni.showToast({
+						title: graceChecker.error,
+						icon: "none"
+					});
+					this.loading = false
+				}
+
+			},
 			getDate(type) {
 				const date = new Date();
 
@@ -180,12 +333,6 @@
 				day = day > 9 ? day : '0' + day;
 
 				return `${year}-${month}-${day}`;
-			},
-			bindDateChange: function(e) {
-				this.date = e.target.value;
-				let _key = this.key;
-				let _date = e.target.value;
-				this.url = this.topage + "?key=" + _key + "&date=" + _date;
 			}
 		}
 	}
@@ -196,6 +343,10 @@
 		background: #fff;
 		border-bottom: 20upx solid #EBEBEB;
 		padding-bottom: 10upx;
+	}
+
+	.apply-box {
+		padding-top: 28upx;
 	}
 
 	.card-box {
@@ -244,7 +395,8 @@
 	}
 
 	.ser-title {
-		line-height: 1.8;font-size: 32upx;
+		line-height: 1.8;
+		font-size: 32upx;
 	}
 
 	.ser-abstract,
@@ -279,12 +431,6 @@
 
 	.txt-gray {
 		padding-right: 20upx;
-	}
-
-	.uni-list:first-child:before,
-	.uni-list:first-child:after,
-	.uni-list:last-child:after {
-		background: none;
 	}
 
 	.h3 {
@@ -325,5 +471,31 @@
 		border-radius: 50upx;
 		font-size: 26upx;
 		padding: 10upx 0;
+	}
+
+	.uni-list:first-child:before,
+	.uni-list:after {
+		background: none;
+	}
+
+	.uni-list.apply-date:after {
+		background: #c8c7cc;
+	}
+
+	.uni-list.half-box:last-child:after {
+		background: none;
+	}
+
+	.radio-block {
+		padding-left: 20upx;
+	}
+
+	.uni-input {
+		background: #fff;
+	}
+
+	.half {
+		width: 45%;
+		display: flex;
 	}
 </style>

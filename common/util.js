@@ -9,8 +9,12 @@ const Interface = {
 	"domain": "http://www.meetji.com",
 	"addr": {
 		"slideShow": "/v2/ApiHome-slideShow.htm",
-		"article": "/v2/ApiHome-article.htm",
+		"article": "/v2/ApiHome-article.htm", //列表
+		"getDetail": "/v2/ApiHome-article_detail.htm",
+		"saveSingle": "/v2/ApiHome-saveSingle.htm", //预约POST
+		"saveComment": "/v2/ApiHome-saveComment.htm", //评论
 		"getRegion": "/v1/ApiEnum-getRegion.htm",
+		"getRegion2": "/v2/ApiEnum-getRegion.htm", //区域
 		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm"
 	},
 	"wx": {
@@ -32,8 +36,15 @@ const module = {
 			success: function(res) {
 				console.log("======success========");
 				console.log(res);
-				if (res.data.success) {
-					result = res.data.data;
+				let __res=res.data;
+				if (__res.success) {
+					if (__res.data) {
+						result = __res.data;
+					} else if (__res.post) {
+						result = __res.post;
+					} else {
+						result = __res.info;
+					}
 				}
 			},
 			fail: function(err) {
