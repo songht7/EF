@@ -86,7 +86,7 @@
 				<!-- 评论区 end -->
 			</view>
 		</view>
-		
+
 		<!-- 预约块 -->
 		<view class="detail-block apply-box">
 			<view class="uni-padding-wrap uni-common-mt">
@@ -103,7 +103,7 @@
 														姓名
 													</view>
 													<view class="uni-list-cell-db">
-												<input class="uni-input" name="UserName" placeholder="" />
+														<input class="uni-input" name="UserName" placeholder="" />
 													</view>
 												</view>
 											</view>
@@ -142,25 +142,28 @@
 											</view>
 										</view>
 									</view>
-											<view class="uni-list">
-												<view class="uni-list-cell">
-													<view class="uni-list-cell-left">
-														城市
-													</view>
-													<view class="uni-list-cell-db">
-														<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
-														 placeholder="" />
-													</view>
-												</view>
-											</view>
 									<view class="uni-list">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
-												校&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区
+												城市
 											</view>
 											<view class="uni-list-cell-db">
-												<picker name="School" @change="PickerSchool" :value="schoolIndex" :range="schoolVal">
-													<view class="uni-input">{{schoolVal[schoolIndex]}}</view>
+												<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
+												 placeholder="" />
+											</view>
+										</view>
+									</view>
+									<view class="uni-list">
+										<view class="uni-list-cell school-box">
+											<view class="uni-list-cell-left">
+												预约校区
+											</view>
+											<view class="uni-list-cell-db">
+												<picker name="School" v-if="schoolDtl.length" @change="PickerSchool" :value="schoolIndex" :range="schoolVal">
+													<view class="uni-input">
+														<view class="sclName">{{schoolDtl[schoolIndex].name}}</view>
+														<view class="sclAddr txt-gray">{{schoolDtl[schoolIndex].address}}</view>
+													</view>
 												</picker>
 											</view>
 											<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
@@ -169,7 +172,7 @@
 									<view class="uni-list apply-date">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
-												可约时间
+												预约时间
 											</view>
 											<view class="uni-list-cell-db">
 												<picker mode="date" name="ApplyDate" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
@@ -188,10 +191,10 @@
 				</view>
 			</view>
 		</view>
-			<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
-			 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
-			<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
-			 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
+		<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
+		 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
+		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
 		<!-- 预约块/ -->
 		<!-- <view class="detail-block">
 			<view class="dtl-btns">
@@ -226,10 +229,10 @@
 				date: "",
 				gender: ['男', '女'],
 				genderIndex: 0,
-				schoolVal:[],
-				schoolDtl:[],
-				schoolId:"",
-				schoolIndex:0,
+				schoolVal: [],
+				schoolDtl: [],
+				schoolId: "",
+				schoolIndex: 0,
 				loading: false,
 				date: this.getDate({
 					format: true
@@ -259,7 +262,14 @@
 				if (_data) {
 					_this.detail = _data;
 					_data.school.forEach(item => {
-						let _scl={"id":item.id,"name":item.name};
+						let _scl = {
+							"id": item.id,
+							"name": item.name,
+							"address": item.address,
+							"phone":item.phone,
+							"region_id":item.region_id
+						};
+						//let sclList='<view class="scl"><view class="sclName">'+item.name+'</view><view class="sclAddr">'+item.address+'</view></view>'
 						_this.schoolVal.push(item.name);
 						_this.schoolDtl.push(_scl);
 					});
@@ -296,9 +306,9 @@
 				this.date = e.target.value
 			},
 			PickerSchool: function(e) {
-				let key=e.target.value;
+				let key = e.target.value;
 				this.schoolIndex = key;
-				this.schoolId=this.schoolDtl[key]["id"];
+				this.schoolId = this.schoolDtl[key]["id"];
 			},
 			formSubmit: function(e) {
 				var that = this;
@@ -329,20 +339,29 @@
 						"age": formData.Age,
 						"sex": formData.Gender == 0 ? "男" : "女",
 						"phone": formData.UserPhone,
-						"city":formData.City,
+						"city": formData.City,
 						"school": this.schoolId,
 						"article_id": this.brandId,
 						"arrive_time": formData.ApplyDate
 					};
-					console.log(_data);
+					console.log(this.schoolDtl);
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
 					console.log(url_saveSingle);
 					let funSave = function(res) {
 						console.log("=======save========")
 						console.log(res)
 						that.loading = false
+						uni.showToast({
+							title: '请求成功',
+							icon: 'success',
+							mask: true,
+							duration: duration
+						})
+						uni.navigateTo({
+							url: "/pages/detail/thx?id=" + this.brandId
+						});
 					}
-					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data);
+					//let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data);
 
 				} else {
 					uni.showToast({
@@ -554,7 +573,11 @@
 	.uni-list.half-box:last-child:after {
 		background: none;
 	}
-	.uni-list-cell-left{padding: 0 10upx;}
+
+	.uni-list-cell-left {
+		padding: 0 10upx;
+	}
+
 	.radio-block {
 		padding-left: 20upx;
 	}
@@ -566,5 +589,8 @@
 	.half {
 		width: 33.3%;
 		display: flex;
+	}
+	.school-box .uni-input{
+		height: 100upx;
 	}
 </style>
