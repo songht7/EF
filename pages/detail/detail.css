@@ -143,7 +143,8 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	padding: 20upx 20upx 15upx;
 }
 
-.apply-btn,.goTo{
+.apply-btn,
+.goTo {
 	width: 100%;
 	color: #fff;
 	background: linear-gradient(to right, rgba(249, 215, 68, 1), rgba(252, 165, 38, 1));
@@ -156,6 +157,11 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	padding: 10upx 0;
 	border-color: none;
 }
+
+.scroll-Y {
+	height: 1800upx;overflow: hidden;
+}
+
 .goTo {
 	width: 90upx;
 	height: 90upx;
@@ -166,11 +172,12 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	font-size: 24upx;
 	padding: 0;
 	display: flex;
-	align-items:center;
+	align-items: center;
 	justify-content: center;
 	border-radius: 50upx;
 	opacity: 0.8;
 }
+
 .uni-list:first-child:before,
 .half:before,
 .uni-list:after {
