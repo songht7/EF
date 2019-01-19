@@ -13,6 +13,9 @@ const Interface = {
 		"getDetail": "/v2/ApiHome-article_detail.htm",
 		"saveSingle": "/v2/ApiHome-saveSingle.htm", //预约POST
 		"saveComment": "/v2/ApiHome-saveComment.htm", //评论
+		"getCategory":"/v2/ApiHome-getCategory.htm",//获取分类
+		"getSubjectCategory":"/v2/ApiHome-getSubjectCategory.htm",//获取子分类
+		"getBrand":"/v2/ApiHome-getBrand.htm",
 		"getRegion": "/v1/ApiEnum-getRegion.htm",
 		"getRegion2": "/v2/ApiEnum-getRegion.htm", //区域
 		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm"

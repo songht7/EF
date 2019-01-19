@@ -211,7 +211,7 @@
 				<navigator :url="url" class="apply-btn">立即申请</navigator>
 			</view>
 		</view> -->
-			<view @tap="goTo" v-if="btnShow" class="goTo">预约</view>
+			<view @tap="goTo" v-if="btnShow" class="goTo">立即申请</view>
 		</view>
 	</scroll-view>
 </template>

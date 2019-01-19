@@ -163,18 +163,15 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 }
 
 .goTo {
-	width: 90upx;
-	height: 90upx;
 	position: fixed;
-	bottom: 30%;
-	right: 40upx;
+	width: 98%;
+	bottom: 20upx;
+	left: 1%;
 	z-index: 5;
-	font-size: 24upx;
-	padding: 0;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border-radius: 50upx;
+	border-radius: 10upx;
 	opacity: 0.8;
 }
 

@@ -16,13 +16,18 @@
 					</navigator>
 					<view class="apply">
 						<view class="apply-num">
-							<view class="apply-left">
+							<view class="apply-cell apply-left">
 								<view class="txt-a txt-gray">已领</view>
 								<view class="txt-a txt-orange">{{value.age_min}}人</view>
 							</view>
-							<view class="apply-right">
+							<view class="apply-cell apply-middle">
 								<view class="txt-a txt-gray">好评率</view>
 								<view class="txt-a txt-orange">{{value.praise}}</view>
+							</view>
+							<view class="apply-cell apply-right">
+								<view class="txt-a txt-gray">地点</view>
+								<view class="txt-a txt-orange" v-if="value.school">{{value.school.length>1?"全国":value.school.region_name}}</view>
+								<view class="txt-a txt-orange" v-else>全国</view>
 							</view>
 						</view>
 						<navigator :url="'/pages/detail/index?id='+value.id" class="apply-btn">立即申请</navigator>
@@ -123,20 +128,25 @@
 	}
 
 	.apply-num {
-		width: 50%;
+		width: 60%;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 	}
 
-	.apply-left {
-		width: 40%;
-		border-right: 1px solid #A7A7A7;
+	
+	.apply-cell {
+		display: flex;
+		flex-direction: column;
+		align-content: center;
+		align-items: center;
+		justify-content: center;
+		width: 33.3%;
 	}
-
-	.apply-right {
-		width: 40%;
-		padding-left: 20%;
+	
+	.apply-left,
+	.apply-middle {
+		border-right: 1px solid #CDCDCD;
 	}
 
 	.txt-a {
@@ -144,13 +154,13 @@
 	}
 
 	.apply-btn {
-		width: 50%;
+		width: 35%;
 		color: #fff;
 		background: linear-gradient(to right, rgba(249, 215, 68, 1), rgba(252, 165, 38, 1));
 		box-shadow: 1px 1px 5px rgba(249, 215, 68, 0.8);
 		text-align: center;
 		line-height: 2;
-		border-radius: 50upx;
+		border-radius: 20upx;
 		font-size: 26upx;
 		padding: 5upx 0;
 	}

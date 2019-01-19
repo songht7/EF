@@ -99,7 +99,7 @@
 			 */
 			let url_slide = apiurl + inter.addr.slideShow;
 			let fun1 = function(res) {
-				console.log("======fun1========");
+				console.log("======slideShow========");
 				console.log(res)
 				let _data = res.list;
 				if (_data) {
@@ -114,7 +114,7 @@
 			 */
 			let url_region = apiurl + inter.addr.getRegion2;
 			let fun2 = function(res) {
-				console.log("======fun2========");
+				console.log("======getRegion2========");
 				let _data = res.list;
 				console.log(_data)
 				if (_data) {
@@ -125,6 +125,40 @@
 				console.log(_this.region)
 			}
 			let region = mdl.getData(url_region, fun2);
+			/**
+			 * 分类
+			 */
+			let url_ctg = apiurl + inter.addr.getCategory;
+			let fun3 = function(res) {
+				console.log("======getCategory========");
+				console.log(res)
+				let _data = res.list;
+				console.log(_data)
+				
+			}
+			let getCategory = mdl.getData(url_ctg, fun3);
+			/**
+			 * 子分类
+			 */
+			let url_subctg = apiurl + inter.addr.getSubjectCategory;
+			let fun4 = function(res) {
+				console.log("======getSubjectCategory========");
+				let _data = res.list;
+				console.log(_data)
+				
+			}
+			let getSubjectCategory = mdl.getData(url_subctg, fun4);
+			/**
+			 * brand
+			 */
+			let url_brand = apiurl + inter.addr.getBrand;
+			let fun5 = function(res) {
+				console.log("======getBrand========");
+				let _data = res.list;
+				console.log(_data)
+				
+			}
+			let getBrand = mdl.getData(url_brand, fun5);
 			/**
 			 * 产品列表
 			 */
@@ -184,7 +218,7 @@
 					"&subject_category=" + param.subject_category;
 				let url_list = apiurl + inter.addr.article + _param;
 				let fun = function(res) {
-					console.log("======fun========");
+					console.log("======article========");
 					console.log(res)
 					let data = res.list;
 					let total = res.total;
