@@ -17,24 +17,31 @@
 				<view class="uni-padding-wrap uni-common-mt">
 					<view class="uni-card">
 						<view class="uni-card-content">
-							<view class="uni-card-content-inner">
+							<view class="uni-card-content-inner dtlHead">
 								<view class="ser-title txt-orange">
 									{{detail.name}}
 								</view>
 								<view class="ser-abstract txt-black">
 									{{detail.overview}}
 								</view>
-								<view class="ser-feature txt-light-black">
-									标签:{{detail.tags}}
+								<view class="ser-feature txt-gray">
+									市场价:￥{{detail.market_price?detail.market_price:"-"}}
 								</view>
+								<view class="ser-tag">{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"免费"}}</view>
 								<view class="apply-num">
-									<view class="apply-left">
+									<view class="apply-cell apply-left">
 										<view class="txt-gray">已领</view>
 										<view class="txt-orange">199人</view>
 									</view>
-									<view class="apply-right">
+									<view class="apply-cell apply-middle">
 										<view class="txt-gray">好评率</view>
 										<view class="txt-orange">{{detail.praise}}</view>
+									</view>
+									<view class="apply-cell apply-right">
+										<view class="txt-gray">地点</view>
+										<view class="txt-orange">
+											{{schoolDtl.length>1?"全国":schoolDtl.region_name}}
+										</view>
 									</view>
 								</view>
 							</view>
@@ -89,6 +96,7 @@
 
 		<!-- 预约块 -->
 		<view class="detail-block apply-box">
+			<view class="block-title">课程预约</view>
 			<view class="uni-padding-wrap uni-common-mt">
 				<view class="uni-card">
 					<view class="uni-card-content">
@@ -135,7 +143,7 @@
 									<view class="uni-list">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
-												电话
+												手机号码
 											</view>
 											<view class="uni-list-cell-db">
 												<input class="uni-input" name="UserPhone" type="number" placeholder="" />
@@ -145,7 +153,7 @@
 									<view class="uni-list">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
-												城市
+												所属城市
 											</view>
 											<view class="uni-list-cell-db">
 												<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
@@ -201,6 +209,7 @@
 				<navigator :url="url" class="apply-btn">立即申请</navigator>
 			</view>
 		</view> -->
+		<view @tap="goTo" v-if="btnShow" class="goTo">预约</view>
 	</view>
 </template>
 
@@ -240,6 +249,7 @@
 				id: "",
 				topage: "/pages/apply/index",
 				url: "",
+				btnShow: true,
 				cityPickerValueDefault: [0, 0, 1],
 				themeColor: '#007AFF',
 				pickerText: '',
@@ -266,8 +276,9 @@
 							"id": item.id,
 							"name": item.name,
 							"address": item.address,
-							"phone":item.phone,
-							"region_id":item.region_id
+							"phone": item.phone,
+							"region_id": item.region_id,
+							"region_name": item.region_name
 						};
 						//let sclList='<view class="scl"><view class="sclName">'+item.name+'</view><view class="sclAddr">'+item.address+'</view></view>'
 						_this.schoolVal.push(item.name);
@@ -426,171 +437,5 @@
 </script>
 
 <style>
-	.detail-block {
-		background: #fff;
-		border-bottom: 20upx solid #EBEBEB;
-		padding-bottom: 10upx;
-	}
-
-	.apply-box {
-		padding-top: 28upx;
-	}
-
-	.card-box {
-		position: relative;
-		top: -10upx;
-		z-index: 5;
-	}
-
-	.uni-common-mt {
-		margin: 0 auto 25upx
-	}
-
-	.uni-card {
-		-webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, .3);
-		box-shadow: 1px 1px 8px rgba(0, 0, 0, .3);
-		margin: 0 0 15upx;
-	}
-
-	.uni-card-content-inner {
-		padding: 15upx;
-	}
-
-	.swiper {
-		height: 380upx;
-	}
-
-	.vli {
-		width: 100%;
-		height: 100%;
-	}
-
-	.vli2 {
-		width: 100%;
-		margin: 0 auto;
-		height: 100%;
-	}
-
-	.slideImg {
-		width: 100%;
-		height: 100%;
-		display: inline-block;
-	}
-
-	uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
-		bottom: 30upx;
-	}
-
-	.ser-title {
-		line-height: 1.8;
-		font-size: 32upx;
-	}
-
-	.ser-abstract,
-	.ser-feature {
-		line-height: 1.6;
-	}
-
-	.ser-feature {
-		font-size: 24upx;
-	}
-
-	.apply-num {
-		border-top: 1px solid #CDCDCD;
-		margin-top: 20upx;
-		display: flex;
-		justify-content: space-between;
-		align-content: center;
-		padding: 20upx 0 15upx;
-	}
-
-	.apply-left,
-	.apply-right {
-		display: flex;
-		align-content: center;
-		justify-content: center;
-		width: 49%;
-	}
-
-	.apply-left {
-		border-right: 1px solid #CDCDCD;
-	}
-
-	.txt-gray {
-		padding-right: 20upx;
-	}
-
-	.h3 {
-		font-size: 34upx;
-		padding-bottom: 10upx;
-	}
-
-	.comments {
-		font-size: 34upx;
-		padding: 10upx 20upx 5upx 35upx;
-		border-bottom: 1px solid #CDCDCD;
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.uni-comment-face {
-		width: 110upx;
-		height: 110upx;
-	}
-
-	.uni-comment-top {
-		color: #282828;
-	}
-
-	.dtl-btns {
-		display: flex;
-		justify-content: space-between;
-		padding: 20upx 20upx 15upx;
-	}
-
-	.apply-btn {
-		width: 100%;
-		color: #fff;
-		background: linear-gradient(to right, rgba(249, 215, 68, 1), rgba(252, 165, 38, 1));
-		box-shadow: 1px 1px 5px rgba(249, 215, 68, 0.8);
-		text-align: center;
-		line-height: 2;
-		border-radius: 50upx;
-		font-size: 26upx;
-		padding: 10upx 0;
-	}
-
-	.uni-list:first-child:before,
-	.half:before,
-	.uni-list:after {
-		background: none;
-	}
-
-	.uni-list.apply-date:after {
-		background: #c8c7cc;
-	}
-
-	.uni-list.half-box:last-child:after {
-		background: none;
-	}
-
-	.uni-list-cell-left {
-		padding: 0 10upx;
-	}
-
-	.radio-block {
-		padding-left: 20upx;
-	}
-
-	.uni-input {
-		background: #fff;
-	}
-
-	.half {
-		width: 33.3%;
-		display: flex;
-	}
-	.school-box .uni-input{
-		height: 100upx;
-	}
+	@import "./detail.css";
 </style>
