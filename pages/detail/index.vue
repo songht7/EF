@@ -193,8 +193,10 @@
 										</view>
 										<view class="uni-btn-v">
 											<button formType="submit" :loading="loading" class="apply-btn">立即申请</button>
+											<img src="../../static/icon-1.png" alt="英语" class="btnIcon" />
 										</view>
 									</form>
+									<img src="../../static/qrcode1.png" alt="英语" class="qrcodefot" />
 								</view>
 							</view>
 						</view>
@@ -375,11 +377,11 @@
 							mask: true,
 							duration: duration
 						})
-						uni.navigateTo({
-							url: "/pages/detail/thx?id=" + this.brandId
-						});
+						// 						uni.navigateTo({
+						// 							url: "/pages/detail/thx?id=" + this.brandId
+						// 						});
 					}
-					//let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data);
+					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data);
 
 				} else {
 					uni.showToast({
@@ -447,11 +449,11 @@
 			},
 			scroll: function(e) {
 				//console.log(e)
-// 				if (e.detail.scrollTop > 600) {
-// 					this.btnShow = true;
-// 				} else {
-// 					this.btnShow = false;
-// 				}
+				// 				if (e.detail.scrollTop > 600) {
+				// 					this.btnShow = true;
+				// 				} else {
+				// 					this.btnShow = false;
+				// 				}
 				this.old.scrollTop = e.detail.scrollTop
 			},
 			goTo: function(e) {

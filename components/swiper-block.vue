@@ -1,5 +1,5 @@
-<template name="filter-box">
-	<view class="filter-box">
+<template name="swiper-block">
+	<view class="swiper-block">
 		<view class="swiper-box" v-if="swiperList.length">
 			<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :circular="circular" :interval="interval"
 			 :duration="duration" indicator-color="#979797" indicator-active-color="#FFFFFF">
@@ -17,7 +17,7 @@
 
 <script>
 	export default {
-		name: "filter-box",
+		name: "swiper-block",
 		props: {
 			swiperList: {
 				type: Array,
@@ -47,38 +47,6 @@
 	}
 </script>
 <style>
-	.search-box {
-		display: flex;
-		padding: 10upx 15upx;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.area {
-		width: 10%;
-	}
-
-	.search-block {
-		position: relative;
-		width: 80%;
-	}
-
-	.uni-icon {
-		position: absolute;
-		right: 10upx;
-		top: 8upx;
-		z-index: 1;
-	}
-
-	.search-input {
-		background: #BEBEBE;
-		border-radius: 20upx;
-		height: 24upx;
-		padding: 0 15% 0 5%;
-		color: #333333;
-	}
-
 	.swiper-box {
 		margin-bottom: 20upx;
 	}

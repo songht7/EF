@@ -15,7 +15,8 @@ const Interface = {
 		"saveComment": "/v2/ApiHome-saveComment.htm", //评论
 		"getCategory":"/v2/ApiHome-getCategory.htm",//获取分类
 		"getSubjectCategory":"/v2/ApiHome-getSubjectCategory.htm",//获取子分类
-		"getBrand":"/v2/ApiHome-getBrand.htm",
+		"getAgeRange":"/v2/ApiHome-getAgeRange.htm",//获取年龄段
+		"getBrand":"/v2/ApiHome-getBrand.htm",//品牌
 		"getRegion": "/v1/ApiEnum-getRegion.htm",
 		"getRegion2": "/v2/ApiEnum-getRegion.htm", //区域
 		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm"

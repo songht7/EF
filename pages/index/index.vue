@@ -18,15 +18,31 @@
 		<!-- #endif -->
 
 		<view class="content">
-			<swiper-box :swiperList="swiperList"></swiper-box>
-			<!-- <view class="filter-box">
-				<view class="ctgBtns ctgs">少儿</view>
-				<view class="ctgBtns ctgs">成人</view>
-				<view class="filterBtn">筛选</view>
-			</view> -->
+			<swiper-block :swiperList="swiperList"></swiper-block>
+			<view class="filter-box">
+				<view class="flt-block ctgBox">
+					<view class="ctgBtns ctgs" v-if="ctg" v-for="(c,t) in ctg" :key="t" @click="bindCtg" :id="c.name">{{c.name}}</view>
+				</view>
+				<view class="flt-block moreCtg" @click="filterCtgBtn" data-position="bottom">筛选</view>
+			</view>
 			<list-block :list="list"></list-block>
 			<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText"></uni-load-more>
 		</view>
+		<!-- 弹出层 -->
+        <view class="uni-banner" style="background:#FFFFFF;" v-if="bannerShow">
+			<view class="pop-box">
+				<view class="pop-head">
+					<view class="pop-title">筛选</view>
+					<view class="pop-close"  @tap="closeBanner"><text class="uni-icon uni-icon-close"></text></view>
+				</view>
+				<view class="pop-ctg-box">
+					<view class="pop-ctg-name">学科年龄</view>
+					<view class="pop-ctg-list" v-if="ageRange" v-for="(a,r) in ageRange" :key="r" @click="bindCtgAge" :id="a" type="age">{{a}}</view>
+				</view>
+			</view>
+        </view>
+        <view class="uni-mask" v-if="bannerShow"></view>
+		<!-- 弹出层 -->
 	</view>
 </template>
 
@@ -50,10 +66,10 @@
 				"ageGroup": [], //
 				"swiperList": [],
 				"region": [],
-				tagList: [
-					'成人',
-					'少儿'
-				],
+				ctg: [],
+				subctg: [],
+				brand: [],
+				ageRange: [],
 				list: [],
 				serchVal: "",
 				param: {
@@ -74,7 +90,8 @@
 					contentdown: "上拉显示更多",
 					contentrefresh: "正在加载...",
 					contentnomore: "没有更多数据了"
-				}
+				},
+                bannerShow: false
 			}
 		},
 		computed: {},
@@ -100,13 +117,8 @@
 			let url_slide = apiurl + inter.addr.slideShow;
 			let fun1 = function(res) {
 				console.log("======slideShow========");
-				console.log(res)
 				let _data = res.list;
-				if (_data) {
-					_this.swiperList = _data;
-				} else {
-					_this.swiperList = [];
-				}
+				_this.setData("swiperList", _data);
 			}
 			let swiper = mdl.getData(url_slide, fun1);
 			/**
@@ -116,13 +128,7 @@
 			let fun2 = function(res) {
 				console.log("======getRegion2========");
 				let _data = res.list;
-				console.log(_data)
-				if (_data) {
-					_this.region = _data;
-				} else {
-					_this.region = [];
-				}
-				console.log(_this.region)
+				_this.setData("region", _data);
 			}
 			let region = mdl.getData(url_region, fun2);
 			/**
@@ -133,8 +139,8 @@
 				console.log("======getCategory========");
 				console.log(res)
 				let _data = res.list;
-				console.log(_data)
-				
+				_this.setData("ctg", _data);
+
 			}
 			let getCategory = mdl.getData(url_ctg, fun3);
 			/**
@@ -144,8 +150,8 @@
 			let fun4 = function(res) {
 				console.log("======getSubjectCategory========");
 				let _data = res.list;
-				console.log(_data)
-				
+				_this.setData("subctg", _data);
+
 			}
 			let getSubjectCategory = mdl.getData(url_subctg, fun4);
 			/**
@@ -155,10 +161,21 @@
 			let fun5 = function(res) {
 				console.log("======getBrand========");
 				let _data = res.list;
-				console.log(_data)
-				
+				_this.setData("brand", _data);
+
 			}
 			let getBrand = mdl.getData(url_brand, fun5);
+			/**
+			 * getAgeRange
+			 */
+			let url_age = apiurl + inter.addr.getAgeRange;
+			let fun6 = function(res) {
+				console.log("======getAgeRange========");
+				let _data = res.list;
+				_this.setData("ageRange", _data);
+
+			}
+			let getAgeRange = mdl.getData(url_age, fun6);
 			/**
 			 * 产品列表
 			 */
@@ -207,6 +224,12 @@
 			this.loadingType = 1;
 			this.getList();
 		},
+		onBackPress() {
+			if (this.bannerShow) {
+				this.bannerShow = false;
+				return true;
+			}
+		},
 		methods: {
 			getList(type) {
 				var that = this;
@@ -247,6 +270,13 @@
 				this.param.listTotal = total;
 				this.param.pageTotal = _pageTotal;
 			},
+			setData(key, _data) {
+				if (_data) {
+					this[key] = _data;
+				} else {
+					this[key] = [];
+				}
+			},
 			search() {
 				uni.showToast({
 					title: '搜索1'
@@ -264,6 +294,23 @@
 				uni.showToast({
 					title: '选择城市'
 				})
+			},
+			bindCtg(e) {
+				let eid = e.target.id;
+				this.param.cat = eid;
+				this.getList("search")
+			},
+            closeBanner: function() {
+                this.bannerShow = false;
+            },
+            filterCtgBtn: function() {
+                this.bannerShow = true;
+            },
+			bindCtgAge(e) {
+				console.log(e)
+// 				let eid = e.target.id;
+// 				this.param.age = eid;
+// 				this.getList("search")
 			},
 			paramReset() {
 				this.param.pi = 1;
@@ -283,6 +330,30 @@
 		justify-content: center;
 		width: 100%;
 		margin-left: 8px;
+		font-size: 24upx;
+	}
+
+	.filter-box {
+		width: 90%;
+		margin: 0 auto;
+	}
+
+	.filter-box,
+	.flt-block {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.ctgBtns {
+		width: 70%;
+	}
+
+	.moreCtg {
+		width: 30%;
+		text-align: left;
+		display: flex;
+		justify-content: flex-end
 	}
 
 	.input-view {
@@ -312,4 +383,27 @@
 		margin: 10upx 20upx;
 		display: inline-block;
 	}
+    /* 遮罩层 */
+	.pop-box{padding: 30upx;}
+    .uni-mask {
+        background: rgba(0, 0, 0, 0.6);
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 1;
+    }
+
+    /* 弹出层形式的广告 */
+    .uni-banner {
+        width: 100%;
+        position: fixed;
+        left: 50%;
+        top: 70%;
+        background: #FFF;
+        border-radius: 10upx;
+        z-index: 99;
+        transform: translate(-50%, -50%);
+    }
 </style>

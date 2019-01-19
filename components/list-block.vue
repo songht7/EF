@@ -26,7 +26,7 @@
 							</view>
 							<view class="apply-cell apply-right">
 								<view class="txt-a txt-gray">地点</view>
-								<view class="txt-a txt-orange" v-if="value.school">{{value.school.length>1?"全国":value.school.region_name}}</view>
+								<view class="txt-a txt-orange" v-if="value.school">{{value.school}}</view>
 								<view class="txt-a txt-orange" v-else>全国</view>
 							</view>
 						</view>

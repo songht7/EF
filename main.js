@@ -4,8 +4,8 @@ import App from './App'
 Vue.config.productionTip = false
 
 /*全局组件引用*/
-import swiper from "./components/swiper-box.vue"
-Vue.component("swiper-box",swiper)
+import swiper from "./components/swiper-block.vue"
+Vue.component("swiper-block",swiper)
 // import WXShare from "./components/wx-share.vue"
 // Vue.component("wx-share",WXShare)
 
