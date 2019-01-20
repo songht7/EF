@@ -29,19 +29,41 @@
 			<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText"></uni-load-more>
 		</view>
 		<!-- 弹出层 -->
-        <view class="uni-banner" style="background:#FFFFFF;" v-if="bannerShow">
+		<view class="uni-banner" style="background:#FFFFFF;" v-if="bannerShow">
 			<view class="pop-box">
 				<view class="pop-head">
 					<view class="pop-title">筛选</view>
-					<view class="pop-close"  @tap="closeBanner"><text class="uni-icon uni-icon-close"></text></view>
+					<view class="pop-close" @tap="closeBanner"><text class="uni-icon uni-icon-close"></text></view>
 				</view>
 				<view class="pop-ctg-box">
-					<view class="pop-ctg-name">学科年龄</view>
-					<view class="pop-ctg-list" v-if="ageRange" v-for="(a,r) in ageRange" :key="r" @click="bindCtgAge" :id="a" type="age">{{a}}</view>
+					<form @submit="formFilter" @reset="filterReset">
+						<view class="pop-ctg-block">
+							<view class="pop-ctg-name">学科年龄</view>
+							<radio-group name="age">
+								<label :class="a.checked ?  'checkbox selectBox' : 'checkbox '" @click="filterBtn(a.value,g,'age')" v-for="(a,g) in ageRange"
+								 :key="a.value">
+									<radio :value="a.value" :checked="a.checked" v-show="false" />{{a.name}}
+								</label>
+							</radio-group>
+						</view>
+						<view class="pop-ctg-block">
+							<view class="pop-ctg-name">学科分类</view>
+							<radio-group name="subctg">
+								<label :class="s.checked ?  'checkbox selectBox' : 'checkbox '" @click="filterBtn(s.value,c,'subCtg')" v-for="(s,c) in subctg"
+								 :key="s.value">
+									<radio :value="s.value" :checked="s.checked" v-show="false" />{{s.name}}
+								</label>
+							</radio-group>
+						</view>
+						<view class="pop-ctg-btns">
+							<view class="pop-btn cancel" @tap="closeBanner">取消</view>
+							<view class="pop-btn confirm" @click="filterConfirm">确定</view>
+						</view>
+					</form>
 				</view>
 			</view>
-        </view>
-        <view class="uni-mask" v-if="bannerShow"></view>
+		</view>
+		<view class="uni-mask" v-if="bannerShow"></view>
 		<!-- 弹出层 -->
 	</view>
 </template>
@@ -55,6 +77,7 @@
 	import uniNavBar from '../../components/uni-nav-bar.vue'
 	import uniIcon from '../../components/uni-icon.vue'
 	import uniLoadMore from '../../components/uni-load-more.vue'
+	import uniTag from '@/components/uni-tag.vue'
 
 	import listBlock from '../../components/list-block.vue'
 
@@ -67,9 +90,17 @@
 				"swiperList": [],
 				"region": [],
 				ctg: [],
-				subctg: [],
+				subctg: [{
+					"value": "",
+					"name": "全部",
+					"checked": true
+				}],
 				brand: [],
-				ageRange: [],
+				ageRange: [{
+					"value": "-",
+					"name": "全部",
+					"checked": true
+				}],
 				list: [],
 				serchVal: "",
 				param: {
@@ -82,8 +113,8 @@
 					"age_start": "",
 					"age_end": "",
 					"subject_category": "",
-					pageTotal: 1,
-					listTotal: 0
+					"pageTotal": 1,
+					"listTotal": 0
 				},
 				loadingType: 0,
 				contentText: {
@@ -91,7 +122,9 @@
 					contentrefresh: "正在加载...",
 					contentnomore: "没有更多数据了"
 				},
-                bannerShow: false
+				bannerShow: false,
+				rdoAgeVal: "-",
+				rdoSubCtgVal: ""
 			}
 		},
 		computed: {},
@@ -99,6 +132,7 @@
 			uniIcon,
 			uniNavBar,
 			uniLoadMore,
+			uniTag,
 			listBlock
 		},
 		onShow() {
@@ -132,7 +166,7 @@
 			}
 			let region = mdl.getData(url_region, fun2);
 			/**
-			 * 分类
+			 * 分类 - 成人、少儿
 			 */
 			let url_ctg = apiurl + inter.addr.getCategory;
 			let fun3 = function(res) {
@@ -144,18 +178,24 @@
 			}
 			let getCategory = mdl.getData(url_ctg, fun3);
 			/**
-			 * 子分类
+			 * 子分类 - 学科
 			 */
 			let url_subctg = apiurl + inter.addr.getSubjectCategory;
 			let fun4 = function(res) {
 				console.log("======getSubjectCategory========");
 				let _data = res.list;
-				_this.setData("subctg", _data);
-
+				_data.forEach(item => {
+					let _subCtg = {
+						"value": item,
+						"name": item,
+						"checked": false
+					};
+					_this.subctg.push(_subCtg);
+				});
 			}
 			let getSubjectCategory = mdl.getData(url_subctg, fun4);
 			/**
-			 * brand
+			 * brand - 英孚、开心豆、韦伯...
 			 */
 			let url_brand = apiurl + inter.addr.getBrand;
 			let fun5 = function(res) {
@@ -166,18 +206,24 @@
 			}
 			let getBrand = mdl.getData(url_brand, fun5);
 			/**
-			 * getAgeRange
+			 * getAgeRange - 年龄段
 			 */
 			let url_age = apiurl + inter.addr.getAgeRange;
 			let fun6 = function(res) {
 				console.log("======getAgeRange========");
 				let _data = res.list;
-				_this.setData("ageRange", _data);
-
+				_data.forEach(item => {
+					let age = {
+						"value": item,
+						"name": item,
+						"checked": false
+					};
+					_this.ageRange.push(age);
+				});
 			}
 			let getAgeRange = mdl.getData(url_age, fun6);
 			/**
-			 * 产品列表
+			 * 课程列表
 			 */
 			_this.getList();
 			// 			uni.getLocation({
@@ -297,26 +343,52 @@
 			},
 			bindCtg(e) {
 				let eid = e.target.id;
+				this.param.pi = 1;
 				this.param.cat = eid;
 				this.getList("search")
 			},
-            closeBanner: function() {
-                this.bannerShow = false;
-            },
-            filterCtgBtn: function() {
-                this.bannerShow = true;
-            },
-			bindCtgAge(e) {
-				console.log(e)
-// 				let eid = e.target.id;
-// 				this.param.age = eid;
-// 				this.getList("search")
+			closeBanner: function() {
+				this.bannerShow = false;
+			},
+			filterCtgBtn: function() {
+				this.bannerShow = true;
+			},
+			filterConfirm: function() {
+				this.param.pi = 1;
+				let ageVals = this.rdoAgeVal.split("-");
+				this.param.age_start = ageVals[0];
+				this.param.age_end = ageVals[1];
+				this.param.subject_category = this.rdoSubCtgVal;
+				console.log(this.param);
+				// 				this.getList("search")
 			},
 			paramReset() {
 				this.param.pi = 1;
 				this.param.pageTotal = 1;
 				this.param.listTotal = 0;
 				this.loadingType = 0;
+			},
+			filterBtn(val, index, type) {
+				console.log(val, index, type)
+				switch (type) {
+					case 'age':
+						this.rdoAgeVal = val;
+						for (let i in this.ageRange) {
+							console.log(i)
+							this.ageRange[i].checked = false;
+						}
+						this.ageRange[index].checked = true
+						break;
+					case 'subCtg':
+						this.rdoSubCtgVal = val;
+						for (let k in this.subctg) {
+							this.subctg[k].checked = false;
+						}
+						this.subctg[index].checked = true
+						break;
+				}
+				console.log(this.ageRange)
+				console.log(this.subctg)
 			}
 		}
 	}
@@ -383,27 +455,44 @@
 		margin: 10upx 20upx;
 		display: inline-block;
 	}
-    /* 遮罩层 */
-	.pop-box{padding: 30upx;}
-    .uni-mask {
-        background: rgba(0, 0, 0, 0.6);
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        z-index: 1;
-    }
 
-    /* 弹出层形式的广告 */
-    .uni-banner {
-        width: 100%;
-        position: fixed;
-        left: 50%;
-        top: 70%;
-        background: #FFF;
-        border-radius: 10upx;
-        z-index: 99;
-        transform: translate(-50%, -50%);
-    }
+	/* 遮罩层 */
+	.pop-box {
+		padding: 30upx;
+	}
+
+	.uni-mask {
+		background: rgba(0, 0, 0, 0.6);
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		z-index: 1;
+	}
+
+	/* 弹出层形式的广告 */
+	.uni-banner {
+		width: 100%;
+		position: fixed;
+		left: 50%;
+		top: 70%;
+		background: #FFF;
+		border-radius: 10upx;
+		z-index: 99;
+		transform: translate(-50%, -50%);
+	}
+
+	.selectBox {
+		background: #EB5248 !important;
+		color: #fff !important;
+	}
+
+	.checkbox {
+		padding: 5px 10px;
+		border: 1px solid #EB5248;
+		margin: 10px;
+		border-radius: 7upx;
+		color: #000;
+	}
 </style>
