@@ -359,6 +359,7 @@
 				this.param.age_start = ageVals[0];
 				this.param.age_end = ageVals[1];
 				this.param.subject_category = this.rdoSubCtgVal;
+				console.log("=======filterConfirm=======");
 				console.log(this.param);
 				// 				this.getList("search")
 			},
@@ -369,12 +370,10 @@
 				this.loadingType = 0;
 			},
 			filterBtn(val, index, type) {
-				console.log(val, index, type)
 				switch (type) {
 					case 'age':
 						this.rdoAgeVal = val;
 						for (let i in this.ageRange) {
-							console.log(i)
 							this.ageRange[i].checked = false;
 						}
 						this.ageRange[index].checked = true
@@ -387,8 +386,6 @@
 						this.subctg[index].checked = true
 						break;
 				}
-				console.log(this.ageRange)
-				console.log(this.subctg)
 			}
 		}
 	}
