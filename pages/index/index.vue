@@ -21,49 +21,60 @@
 			<swiper-block :swiperList="swiperList"></swiper-block>
 			<view class="filter-box">
 				<view class="flt-block ctgBox">
-					<view class="ctgBtns ctgs" v-if="ctg" v-for="(c,t) in ctg" :key="t" @click="bindCtg" :id="c.name">{{c.name}}</view>
+					<view class="ctg-btn-block">
+						<view class="ctgBtns ctgs" :class="c.checked ?  'ctgChecked' : ''" v-if="ctg" v-for="(c,t) in ctg" :key="t" @click="bindCtg(c.name,t)" :id="c.name">{{c.name}}</view>
+					</view>
 				</view>
-				<view class="flt-block moreCtg" @click="filterCtgBtn" data-position="bottom">筛选</view>
+				<view class="flt-block moreCtg" @click="filterCtgBtn" data-position="bottom"><uni-icon type="paperplane" size="22" color="#666666"></uni-icon>筛选</view>
 			</view>
 			<list-block :list="list"></list-block>
 			<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText"></uni-load-more>
 		</view>
 		<!-- 弹出层 -->
-		<view class="uni-banner" style="background:#FFFFFF;" v-if="bannerShow">
-			<view class="pop-box">
-				<view class="pop-head">
-					<view class="pop-title">筛选</view>
-					<view class="pop-close" @tap="closeBanner"><text class="uni-icon uni-icon-close"></text></view>
-				</view>
-				<view class="pop-ctg-box">
-					<form @submit="formFilter" @reset="filterReset">
-						<view class="pop-ctg-block">
-							<view class="pop-ctg-name">学科年龄</view>
-							<radio-group name="age">
-								<label :class="a.checked ?  'checkbox selectBox' : 'checkbox '" @click="filterBtn(a.value,g,'age')" v-for="(a,g) in ageRange"
-								 :key="a.value">
-									<radio :value="a.value" :checked="a.checked" v-show="false" />{{a.name}}
-								</label>
-							</radio-group>
+		<lvv-popup position="bottom" ref="lvvpopref">
+			<view class="pop-inner">
+				<view class="pop-box">
+					<view class="pop-head">
+						<view class="pop-title">筛选</view>
+						<view class="pop-close" @tap="closeBanner">
+							<uni-icon type="closeempty" size="42" color="#666666"></uni-icon>
 						</view>
-						<view class="pop-ctg-block">
-							<view class="pop-ctg-name">学科分类</view>
-							<radio-group name="subctg">
-								<label :class="s.checked ?  'checkbox selectBox' : 'checkbox '" @click="filterBtn(s.value,c,'subCtg')" v-for="(s,c) in subctg"
-								 :key="s.value">
-									<radio :value="s.value" :checked="s.checked" v-show="false" />{{s.name}}
-								</label>
-							</radio-group>
+					</view>
+					<view class="pop-main">
+						<view class="pop-ctg-box">
+							<form @reset="filterReset">
+								<view class="filter-ctg-list">
+									<view class="pop-ctg-block">
+										<view class="pop-ctg-name">学科年龄</view>
+										<radio-group name="age">
+											<label :class="a.checked ?  'checkbox selectBox' : 'checkbox '" @click="filterBtn(a.value,g,'age')" v-for="(a,g) in ageRange"
+											 :key="a.value">
+												<radio :value="a.value" :checked="a.checked" v-show="false" />{{a.name}}
+											</label>
+										</radio-group>
+									</view>
+									<view class="pop-ctg-block">
+										<view class="pop-ctg-name">学科分类</view>
+										<radio-group class="flt-list" name="subctg">
+											<view class="f-block" :class="s.checked ?  'checkbox selectBox' : 'checkbox '" @click="filterBtn(s.value,c,'subCtg')"
+											 v-for="(s,c) in subctg" :key="s.value">
+												<label class="f-label">
+													<radio :value="s.value" :checked="s.checked" v-show="false" />{{s.name}}
+												</label>
+											</view>
+										</radio-group>
+									</view>
+								</view>
+								<view class="pop-ctg-btns">
+									<view class="pop-btn cancel" @tap="closeBanner">取消</view>
+									<view class="pop-btn confirm" @click="filterConfirm">确定</view>
+								</view>
+							</form>
 						</view>
-						<view class="pop-ctg-btns">
-							<view class="pop-btn cancel" @tap="closeBanner">取消</view>
-							<view class="pop-btn confirm" @click="filterConfirm">确定</view>
-						</view>
-					</form>
+					</view>
 				</view>
 			</view>
-		</view>
-		<view class="uni-mask" v-if="bannerShow"></view>
+		</lvv-popup>
 		<!-- 弹出层 -->
 	</view>
 </template>
@@ -77,6 +88,7 @@
 	import uniNavBar from '../../components/uni-nav-bar.vue'
 	import uniIcon from '../../components/uni-icon.vue'
 	import uniLoadMore from '../../components/uni-load-more.vue'
+	import lvvPopup from '../../components/lvv-popup.vue'
 	import uniTag from '@/components/uni-tag.vue'
 
 	import listBlock from '../../components/list-block.vue'
@@ -103,11 +115,12 @@
 				}],
 				list: [],
 				serchVal: "",
+				ctgChecked:"",
 				param: {
 					"pi": 1,
 					"ps": 4,
 					"keywords": "",
-					"region": "上海",
+					"region": "",
 					"cat": "",
 					"brand": "",
 					"age_start": "",
@@ -122,7 +135,6 @@
 					contentrefresh: "正在加载...",
 					contentnomore: "没有更多数据了"
 				},
-				bannerShow: false,
 				rdoAgeVal: "-",
 				rdoSubCtgVal: ""
 			}
@@ -132,6 +144,7 @@
 			uniIcon,
 			uniNavBar,
 			uniLoadMore,
+			lvvPopup,
 			uniTag,
 			listBlock
 		},
@@ -270,12 +283,6 @@
 			this.loadingType = 1;
 			this.getList();
 		},
-		onBackPress() {
-			if (this.bannerShow) {
-				this.bannerShow = false;
-				return true;
-			}
-		},
 		methods: {
 			getList(type) {
 				var that = this;
@@ -341,17 +348,22 @@
 					title: '选择城市'
 				})
 			},
-			bindCtg(e) {
-				let eid = e.target.id;
+			bindCtg(val,index) {
 				this.param.pi = 1;
-				this.param.cat = eid;
+				
+				for (let i in this.ctg) {
+					this.ctg[i]["checked"] = false;
+				}
+				this.ctg[index]["checked"] = true
+				this.param.cat = val;
 				this.getList("search")
 			},
-			closeBanner: function() {
-				this.bannerShow = false;
+			filterCtgBtn() {
+				this.$refs.lvvpopref.show();
 			},
-			filterCtgBtn: function() {
-				this.bannerShow = true;
+			closeBanner() {
+				// 关闭modal弹出框
+				this.$refs.lvvpopref.close();
 			},
 			filterConfirm: function() {
 				this.param.pi = 1;
@@ -361,7 +373,7 @@
 				this.param.subject_category = this.rdoSubCtgVal;
 				console.log("=======filterConfirm=======");
 				console.log(this.param);
-				// 				this.getList("search")
+				this.getList("search")
 			},
 			paramReset() {
 				this.param.pi = 1;
@@ -392,104 +404,5 @@
 </script>
 
 <style>
-	.city {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		margin-left: 8px;
-		font-size: 24upx;
-	}
-
-	.filter-box {
-		width: 90%;
-		margin: 0 auto;
-	}
-
-	.filter-box,
-	.flt-block {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.ctgBtns {
-		width: 70%;
-	}
-
-	.moreCtg {
-		width: 30%;
-		text-align: left;
-		display: flex;
-		justify-content: flex-end
-	}
-
-	.input-view {
-		width: 80%;
-		display: flex;
-		background-color: #e7e7e7;
-		height: 30px;
-		border-radius: 15px;
-		padding: 0 4%;
-		flex-wrap: nowrap;
-		margin: 7px 0;
-		line-height: 30px;
-	}
-
-	.input-view .uni-icon {
-		line-height: 30px !important;
-	}
-
-	.input-view .input {
-		height: 30px;
-		line-height: 30px;
-		width: 94%;
-		padding: 0 3%;
-	}
-
-	.tag-view {
-		margin: 10upx 20upx;
-		display: inline-block;
-	}
-
-	/* 遮罩层 */
-	.pop-box {
-		padding: 30upx;
-	}
-
-	.uni-mask {
-		background: rgba(0, 0, 0, 0.6);
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		left: 0;
-		top: 0;
-		z-index: 1;
-	}
-
-	/* 弹出层形式的广告 */
-	.uni-banner {
-		width: 100%;
-		position: fixed;
-		left: 50%;
-		top: 70%;
-		background: #FFF;
-		border-radius: 10upx;
-		z-index: 99;
-		transform: translate(-50%, -50%);
-	}
-
-	.selectBox {
-		background: #EB5248 !important;
-		color: #fff !important;
-	}
-
-	.checkbox {
-		padding: 5px 10px;
-		border: 1px solid #EB5248;
-		margin: 10px;
-		border-radius: 7upx;
-		color: #000;
-	}
+	@import "./index.css";
 </style>

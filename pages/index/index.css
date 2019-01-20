@@ -1,0 +1,176 @@
+.city {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin-left: 8px;
+	font-size: 24upx;
+}
+
+.filter-box {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.filter-box,
+.flt-block {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.ctgBox {
+	width: 70%;
+}
+
+.ctg-btn-block {
+	border: 1px solid #B4B4B4;
+	border-radius: 50upx;
+	overflow: hidden;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.ctgBtns {padding: 4upx 50upx;font-size: 28upx;border-radius: 50upx;}
+.ctgChecked{background: #F69A23;color: #fff;}
+
+.moreCtg {
+	width: 30%;font-size: 28upx;
+	text-align: left;
+	display: flex;
+	justify-content: flex-end
+}
+
+.input-view {
+	width: 80%;
+	display: flex;
+	background-color: #e7e7e7;
+	height: 30px;
+	border-radius: 15px;
+	padding: 0 4%;
+	flex-wrap: nowrap;
+	margin: 7px 0;
+	line-height: 30px;
+}
+
+.input-view .uni-icon {
+	line-height: 30px !important;
+}
+
+.input-view .input {
+	height: 30px;
+	line-height: 30px;
+	width: 94%;
+	padding: 0 3%;
+}
+
+.tag-view {
+	margin: 10upx 20upx;
+	display: inline-block;
+}
+
+/* 弹出层 */
+.pop-inner {
+	width: 100%;
+	height: 50%;
+	background: #FFFFFF;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	overflow-y: auto;
+}
+
+.pop-box {
+	position: relative;
+	min-height: 100%;
+}
+
+.pop-main {
+	padding: 10upx 30upx 30px;
+}
+
+.pop-head {
+	position: relative;
+	border-bottom: 1px solid #ECECEC;
+}
+
+.pop-title {
+	text-align: center;
+	font-size: 36upx;
+	color: #535353;
+	line-height: 2.4;
+}
+
+.pop-close {
+	position: absolute;
+	top: 5upx;
+	right: 0;
+	z-index: 1;
+}
+
+.filter-ctg-list {
+	padding-bottom: 100upx;
+}
+
+.f-block {
+	display: inline-block;
+	text-align: center;
+}
+
+.pop-ctg-block {
+	padding-bottom: 20upx;
+}
+
+.pop-ctg-name {
+	font-size: 32upx;
+	line-height: 2;
+	padding: 5upx 0;
+}
+
+.f-label {
+	padding: 0
+}
+
+.checkbox {
+	padding: 5upx 8px;
+	border: 1px solid #CBCBCB;
+	margin: 0 8upx 10upx;
+	border-radius: 8upx;
+	font-size: 26upx;
+	color: #535353;
+}
+
+.selectBox {
+	background: #F69A23 !important;
+	color: #fff !important;
+	border-color: #F69A23 !important;
+}
+
+.pop-ctg-btns {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	padding: 40upx 0 20upx;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	bottom: 0;
+}
+
+.pop-btn {
+	width: 30%;
+	background: #F69A23;
+	color: #fff;
+	font-size: 36upx;
+	text-align: center;
+	line-height: 1.8;
+	margin: 10upx;
+	border-radius: 50upx;
+}
+
+.pop-btn.cancel {
+	background: #F8B402;
+}

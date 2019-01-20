@@ -160,7 +160,7 @@
 		box-shadow: 1px 1px 5px rgba(249, 215, 68, 0.8);
 		text-align: center;
 		line-height: 2;
-		border-radius: 20upx;
+		border-radius: 10upx;
 		font-size: 26upx;
 		padding: 5upx 0;
 	}
