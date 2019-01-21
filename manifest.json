@@ -48,7 +48,7 @@
     /* 快应用特有相关 */
     "h5" : {
         "template" : "pages/h5-temp.html",
-		"router" : {"base" : "/leon/uni/ef"},
+		//"router" : {"base" : "/leon/uni/ef"},
         "title" : ""
     },
     "mp-weixin" : {

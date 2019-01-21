@@ -91,6 +91,11 @@
 								<view class="uni-comment-content">环境优雅，气氛浓郁，学习之地</view>
 							</view>
 						</view>
+						<view class="to-comment">
+							<navigator :url="'/pages/detail/comment?articleid='+detail.id" class="comment-btn">
+								<uni-icon size="18" type="chat" color="#0078ff"></uni-icon>&nbsp;写评论
+							</navigator>
+						</view>
 					</view>
 					<!-- 评论区 end -->
 				</view>

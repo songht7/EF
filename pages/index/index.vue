@@ -12,7 +12,8 @@
 			<view class="input-view" :class="searchShow?'searchShow':''">
 				<view class="searh-innter">
 					<input confirm-type="search" @confirm="confirm" class="input search-ipt" @focus="searchBox()" @blur="searchBox('blur')"
-					 type="text" v-model="serchVal" :placeholder="placeholder" :value="param.keywords" /></view>
+					 type="text" v-model="serchVal" :placeholder="placeholder" :value="param.keywords" />
+				</view>
 			</view>
 		</uni-nav-bar>
 		<view style="height:45px;">...</view>

@@ -10,7 +10,7 @@
 </template>
 
 <script>
-	import uniIcon from '../uni-icon/uni-icon.vue'
+	import uniIcon from './uni-icon.vue'
 	export default {
 		name: "uni-rate",
 		components: {

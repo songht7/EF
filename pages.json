@@ -29,6 +29,17 @@
 				}
 			}
 		}, {
+			"path": "pages/detail/comment",
+			"style": {
+				"navigationBarTitleText": "评论",
+				"backgroundColor": "#E3E3E3",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
 			"path": "pages/detail/ef",
 			"style": {
 				"navigationBarTitleText": "英孚教育",

@@ -1,3 +1,6 @@
+.uni-navbar-header .uni-navbar-header-btns{
+	width: 18% !important;
+}
 .city {
 	display: flex;
 	flex-direction: row;
@@ -58,22 +61,22 @@
 	overflow: hidden;
 	display: flex;
 	background-color: #e7e7e7;
-	height: 30px;
-	border-radius: 15px;
+	height: 60upx;
+	border-radius: 30upx;
 	flex-wrap: nowrap;
-	margin: 7px 0;
-	line-height: 30px;
+	margin: 14upx 0;
+	line-height: 60upx;
 }
 
 .input-view .uni-icon {
-	line-height: 30px !important;
+	line-height: 60upx !important;
 }
 
 .input-view .input {
-	height: 30px;
-	line-height: 30px;
+	height: 60upx;
+	line-height: 60upx;
 	width: 100%;
-	
+	font-size: 30upx;
 }
 .searh-innter{padding: 0 3%;width: 94%;}
 .search-ipt {

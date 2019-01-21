@@ -136,7 +136,8 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 .uni-comment-top {
 	color: #282828;
 }
-
+.to-comment{display: flex;justify-content: flex-end;padding: 20upx 0;}
+.comment-btn{color: #0078ff;font-size: 28upx;display: flex;align-content: center;align-items: center;letter-spacing: 1px;}
 .dtl-btns {
 	display: flex;
 	justify-content: space-between;
