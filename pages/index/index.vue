@@ -22,10 +22,13 @@
 			<view class="filter-box">
 				<view class="flt-block ctgBox">
 					<view class="ctg-btn-block">
-						<view class="ctgBtns ctgs" :class="c.checked ?  'ctgChecked' : ''" v-if="ctg" v-for="(c,t) in ctg" :key="t" @click="bindCtg(c.name,t)" :id="c.name">{{c.name}}</view>
+						<view class="ctgBtns ctgs" :class="c.checked ?  'ctgChecked' : ''" v-if="ctg" v-for="(c,t) in ctg" :key="t"
+						 @click="bindCtg(c.name,t)" :id="c.name">{{c.name}}</view>
 					</view>
 				</view>
-				<view class="flt-block moreCtg" @click="filterCtgBtn" data-position="bottom"><uni-icon type="paperplane" size="22" color="#666666"></uni-icon>筛选</view>
+				<view class="flt-block moreCtg" @click="filterCtgBtn" data-position="bottom">
+					<uni-icon type="paperplane" size="22" color="#666666"></uni-icon>筛选
+				</view>
 			</view>
 			<list-block :list="list"></list-block>
 			<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText"></uni-load-more>
@@ -115,7 +118,7 @@
 				}],
 				list: [],
 				serchVal: "",
-				ctgChecked:"",
+				ctgChecked: "",
 				param: {
 					"pi": 1,
 					"ps": 4,
@@ -293,6 +296,9 @@
 					"&cat=" + param.cat + "&brand=" + param.brand + "&age_start=" + param.age_start + "&age_end=" + param.age_end +
 					"&subject_category=" + param.subject_category;
 				let url_list = apiurl + inter.addr.article + _param;
+				uni.showLoading({
+					title: '课程来咯 ...'
+				});
 				let fun = function(res) {
 					console.log("======article========");
 					console.log(res)
@@ -314,6 +320,7 @@
 					}
 					that.loadingType = 0;
 					that.pagination(total);
+					uni.hideLoading();
 				}
 				let pro_list = mdl.getData(url_list, fun);
 			},
@@ -348,14 +355,20 @@
 					title: '选择城市'
 				})
 			},
-			bindCtg(val,index) {
+			bindCtg(val, index) {
 				this.param.pi = 1;
-				
-				for (let i in this.ctg) {
-					this.ctg[i]["checked"] = false;
+				if (this.ctg[index]["checked"] == true) {
+					this.ctg[index]["checked"] = false
+					this.param.cat = "";
+				} else {
+					for (let i in this.ctg) {
+						if (i != index) {
+							this.ctg[i]["checked"] = false;
+						}
+					}
+					this.ctg[index]["checked"] = true
+					this.param.cat = val;
 				}
-				this.ctg[index]["checked"] = true
-				this.param.cat = val;
 				this.getList("search")
 			},
 			filterCtgBtn() {
@@ -373,7 +386,9 @@
 				this.param.subject_category = this.rdoSubCtgVal;
 				console.log("=======filterConfirm=======");
 				console.log(this.param);
-				this.getList("search")
+				this.getList("search");
+
+				this.$refs.lvvpopref.close();
 			},
 			paramReset() {
 				this.param.pi = 1;

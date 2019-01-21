@@ -18,15 +18,15 @@
 						<view class="apply-num">
 							<view class="apply-cell apply-left">
 								<view class="txt-a txt-gray">已领</view>
-								<view class="txt-a txt-orange">{{value.age_min}}人</view>
+								<view class="txt-a txt-orange uni-ellipsis">{{value.age_min}}人</view>
 							</view>
 							<view class="apply-cell apply-middle">
 								<view class="txt-a txt-gray">好评率</view>
-								<view class="txt-a txt-orange">{{value.praise}}</view>
+								<view class="txt-a txt-orange uni-ellipsis">{{value.praise}}</view>
 							</view>
 							<view class="apply-cell apply-right">
 								<view class="txt-a txt-gray">地点</view>
-								<view class="txt-a txt-orange" v-if="value.school">{{value.school}}</view>
+								<view class="txt-a txt-orange uni-ellipsis" v-if="value.school">{{value.school}}</view>
 								<view class="txt-a txt-orange" v-else>全国</view>
 							</view>
 						</view>
@@ -151,6 +151,8 @@
 
 	.txt-a {
 		line-height: 1.2;
+		width: 100%;
+		text-align: center;
 	}
 
 	.apply-btn {
