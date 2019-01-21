@@ -1,5 +1,5 @@
 {
-    "name" : "试听宝 - 英语免费试听课",
+    "name" : "英语免费试听课",
     "appid" : "__UNI__936C05F",
     "description" : "英语，EF，英孚，开心豆，韦博，长颈鹿",
     "versionName" : "1.0.0",
@@ -47,8 +47,10 @@
     "quickapp" : {},
     /* 快应用特有相关 */
     "h5" : {
-        //"router" : {"base" : "/leon/uni/ef"}
+        //"template" : "pages/detail/ef.html",
+        "title" : ""
     },
+    //"router" : {"base" : "/leon/uni/ef"}
     "mp-weixin" : {
         /* 小程序特有相关 */
         "appid" : "",
