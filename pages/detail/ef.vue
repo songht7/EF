@@ -150,7 +150,6 @@
 	export default {
 		data() {
 			return {
-				"_wxApi": "",
 				brand: "",
 				key: "",
 				date: "",
@@ -197,7 +196,7 @@
 			this.brand = _detail.title;
 			this.key = _key;
 			uni.setNavigationBarTitle({
-				title: "EF英孚教育 卓著英语培训专家"
+				title: "英孚教育 卓著英语培训专家"
 			});
 		},
 		onShow() {

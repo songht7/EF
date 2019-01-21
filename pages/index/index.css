@@ -33,23 +33,33 @@
 	justify-content: flex-start;
 }
 
-.ctgBtns {padding: 4upx 50upx;font-size: 28upx;border-radius: 50upx;}
-.ctgChecked{background: #F69A23;color: #fff;}
+.ctgBtns {
+	padding: 4upx 50upx;
+	font-size: 28upx;
+	border-radius: 50upx;
+}
+
+.ctgChecked {
+	background: #F69A23;
+	color: #fff;
+}
 
 .moreCtg {
-	width: 30%;font-size: 28upx;
+	width: 30%;
+	font-size: 28upx;
 	text-align: left;
 	display: flex;
 	justify-content: flex-end
 }
 
 .input-view {
-	width: 80%;
+	width: 24%;
+	text-align: center;
+	overflow: hidden;
 	display: flex;
 	background-color: #e7e7e7;
 	height: 30px;
 	border-radius: 15px;
-	padding: 0 4%;
 	flex-wrap: nowrap;
 	margin: 7px 0;
 	line-height: 30px;
@@ -62,8 +72,42 @@
 .input-view .input {
 	height: 30px;
 	line-height: 30px;
-	width: 94%;
-	padding: 0 3%;
+	width: 100%;
+	
+}
+.searh-innter{padding: 0 3%;width: 94%;}
+.search-ipt {
+	background: url(../../static/icon-search.png) 15upx 50% no-repeat;
+	padding-left: 20upx;
+	background-size: auto 60%;
+}
+
+uni-input.search-ipt div {
+	background: none;
+	text-align: center;
+}
+
+.searchShow {
+	padding: 0 4%;
+	width: 80%;
+	text-align: left;
+}
+
+.searchShow .search-ipt {
+	background-position: right 50%;
+	padding-left: 0;
+	padding-right: 20upx;
+}
+
+.searchShow uni-input.search-ipt div {
+	text-align: left;
+}
+
+.flt-txt {
+	display: flex;
+	background: url(../../static/icon-filter.png) 0 50% no-repeat;
+	background-size: auto 65%;
+	padding-left: 35upx;
 }
 
 .tag-view {

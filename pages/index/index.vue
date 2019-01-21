@@ -9,9 +9,10 @@
 					<text>{{city}}</text>
 				</view>
 			</block>
-			<view class="input-view">
-				<input confirm-type="search" @confirm="confirm" class="input" type="text" v-model="serchVal" placeholder="英语试听" />
-				<uni-icon type="search" size="22" color="#666666"></uni-icon>
+			<view class="input-view" :class="searchShow?'searchShow':''">
+				<view class="searh-innter">
+					<input confirm-type="search" @confirm="confirm" class="input search-ipt" @focus="searchBox()" @blur="searchBox('blur')"
+					 type="text" v-model="serchVal" :placeholder="placeholder" :value="param.keywords" /></view>
 			</view>
 		</uni-nav-bar>
 		<view style="height:45px;">...</view>
@@ -26,8 +27,8 @@
 						 @click="bindCtg(c.name,t)" :id="c.name">{{c.name}}</view>
 					</view>
 				</view>
-				<view class="flt-block moreCtg" @click="filterCtgBtn" data-position="bottom">
-					<uni-icon type="paperplane" size="22" color="#666666"></uni-icon>筛选
+				<view class="flt-block moreCtg" data-position="bottom">
+					<text class="flt-txt" @click="filterCtgBtn">筛选</text>
 				</view>
 			</view>
 			<list-block :list="list"></list-block>
@@ -139,7 +140,10 @@
 					contentnomore: "没有更多数据了"
 				},
 				rdoAgeVal: "-",
-				rdoSubCtgVal: ""
+				rdoSubCtgVal: "",
+				searchShow: false,
+				searchBtnShow: true,
+				placeholder: "搜索"
 			}
 		},
 		computed: {},
@@ -297,7 +301,7 @@
 					"&subject_category=" + param.subject_category;
 				let url_list = apiurl + inter.addr.article + _param;
 				uni.showLoading({
-					title: '课程来咯 ...'
+					title: '正在加载 ...'
 				});
 				let fun = function(res) {
 					console.log("======article========");
@@ -348,7 +352,16 @@
 				let keywords = e.detail.value
 				this.param.keywords = keywords;
 				this.getList("search")
-				this.serchVal = "";
+				this.searchBox('sch')
+				this.serchVal = keywords;
+			},
+			searchBox(type) {
+				if (type != 'sch' && this.param.keywords == "") {
+					this.searchShow = !this.searchShow
+					this.searchBtnShow = !this.searchBtnShow
+					this.serchVal = "";
+					this.placeholder = this.placeholder == "搜索" ? "学前英语试听" : "搜索";
+				}
 			},
 			showCity() {
 				uni.showToast({

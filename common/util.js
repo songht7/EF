@@ -3,7 +3,7 @@ const isArray = Array.isArray || function(obj) {
 };
 const Interface = {
 	//"SendMail": "http://www.spacehu.com/space/mail/mail.php?leo=407794660@qq.com",
-	"SendMail": "http://www.spacehu.com/space/mail/mail.php?leo=alein.qi@163.com",
+	"SendMail": "http://www.spacehu.com/space/mail/mail.php?leo=stk@meetji.com",
 	// 	,"getData":"http://api_test.meetji.com/v1/ApiEnum-getRegion.htm?id=110000"
 	"apiurl": "http://api_test.meetji.com",
 	"domain": "http://www.meetji.com",
@@ -101,7 +101,7 @@ const getToken = function() {
 		}
 	})
 }
-const getList = function() {
+const getList = function(key) {
 	let _list = [{}, {}, {
 		"id": 5,
 		"title": "专业认证培训师,教你地道英语",
