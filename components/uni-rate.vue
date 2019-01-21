@@ -96,25 +96,23 @@
 	}
 </script>
 
-<style lang="scss">
+<style>
 	.uni-rate {
 		line-height: 0;
 		font-size: 0;
 		display: flex;
 		flex-direction: row;
-
-		&-icon {
+}
+	.uni-rate-icon {
 			position: relative;
 			line-height: 0;
 			font-size: 0;
 			display: inline-block;
-
-			&-on {
+}
+	.uni-rate-icon-on {
 				position: absolute;
 				top: 0;
 				left: 0;
 				overflow: hidden;
 			}
-		}
-	}
 </style>
