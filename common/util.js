@@ -13,10 +13,10 @@ const Interface = {
 		"getDetail": "/v2/ApiHome-article_detail.htm",
 		"saveSingle": "/v2/ApiHome-saveSingle.htm", //预约POST
 		"saveComment": "/v2/ApiHome-saveComment.htm", //评论
-		"getCategory":"/v2/ApiHome-getCategory.htm",//获取分类
-		"getSubjectCategory":"/v2/ApiHome-getSubjectCategory.htm",//获取子分类
-		"getAgeRange":"/v2/ApiHome-getAgeRange.htm",//获取年龄段
-		"getBrand":"/v2/ApiHome-getBrand.htm",//品牌
+		"getCategory": "/v2/ApiHome-getCategory.htm", //获取分类
+		"getSubjectCategory": "/v2/ApiHome-getSubjectCategory.htm", //获取子分类
+		"getAgeRange": "/v2/ApiHome-getAgeRange.htm", //获取年龄段
+		"getBrand": "/v2/ApiHome-getBrand.htm", //品牌
 		"getRegion": "/v1/ApiEnum-getRegion.htm",
 		"getRegion2": "/v2/ApiEnum-getRegion.htm", //区域
 		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm"
@@ -40,7 +40,7 @@ const module = {
 			success: function(res) {
 				console.log("======success========");
 				console.log(res);
-				let __res=res.data;
+				let __res = res.data;
 				if (__res.success) {
 					if (__res.data) {
 						result = __res.data;
@@ -48,6 +48,12 @@ const module = {
 						result = __res.post;
 					} else {
 						result = __res.info;
+					}
+				} else {
+					result = {
+						"Result": "0",
+						"Msg": "请求失败，请重试!",
+						"err": ""
 					}
 				}
 			},
@@ -96,7 +102,7 @@ const getToken = function() {
 	})
 }
 const getList = function() {
-	let _list = [ {},{}, {
+	let _list = [{}, {}, {
 		"id": 5,
 		"title": "专业认证培训师,教你地道英语",
 		"overview": "免费试听体验课",
@@ -105,7 +111,7 @@ const getList = function() {
 		"total": "1000",
 		"putout": "101",
 		"brandLogo": "../../static/ef/logo2.png",
-		"navTo":"",
+		"navTo": "",
 		//"navTo": "http://www.ef.com.cn/online/lp/cn/2017yr/mobile/product_feature_ft_light.aspx?ctr=cn&lng=cs&apr=ProductFeatureFT&offer=FreeDemo&ptn=EMSP&Etag=edm-dcoo-none-all-none-E_3rd_DS_030",
 		"slideimg": [
 			"../../static/ef/img1.jpg",
@@ -122,7 +128,7 @@ const getList = function() {
 			}]
 		}
 	}]
-	if (key!=undefined) {
+	if (key != undefined) {
 		return _list[key];
 	} else {
 		return _list;

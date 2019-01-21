@@ -15,7 +15,7 @@
 						<view class="ser-tag">{{value.current_price&&value.current_price!="0.00"?"￥"+value.current_price:"免费"}}</view>
 					</navigator>
 					<view class="apply">
-						<view class="apply-num">
+						<view class="apply-nums">
 							<view class="apply-cell apply-left">
 								<view class="txt-a txt-gray">已领</view>
 								<view class="txt-a txt-orange uni-ellipsis">{{value.age_min}}人</view>
@@ -127,7 +127,7 @@
 		padding: 10upx 0 0;
 	}
 
-	.apply-num {
+	.apply-nums {
 		width: 60%;
 		display: flex;
 		justify-content: space-between;

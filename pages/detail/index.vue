@@ -214,6 +214,9 @@
 			</view>
 		</view> -->
 			<view @tap="goTo" v-if="btnShow" class="goTo">立即申请</view>
+			<view class="pop-success" :class="successShow">
+				<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
+			</view>
 		</view>
 	</scroll-view>
 </template>
@@ -266,7 +269,8 @@
 				mode: '',
 				deepLength: 1,
 				pickerValueDefault: [0],
-				pickerValueArray: []
+				pickerValueArray: [],
+				successShow: ""
 			};
 		},
 		onLoad(option) {
@@ -371,15 +375,17 @@
 						console.log("=======save========")
 						console.log(res)
 						that.loading = false
-						uni.showToast({
-							title: '请求成功',
-							icon: 'success',
-							mask: true,
-							duration: duration
-						})
-						// 						uni.navigateTo({
-						// 							url: "/pages/detail/thx?id=" + this.brandId
-						// 						});
+						if (res.Result == 0) {
+							uni.showToast({
+								title: "申请失败,请重试",
+								image: "../../static/icon-1.png"
+							})
+						} else {
+							that.successShow = "success-show"
+							setTimeout(function() {
+								that.successShow = ""
+							}, 3000)
+						}
 					}
 					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data);
 
