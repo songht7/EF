@@ -133,19 +133,11 @@
 			 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
 		</view>
 	</scroll-view>
-	
+
 </template>
 
-
-		<!-- #ifdef H5 -->
-		<script type="text/javascript" src="/common/jquery-3.3.1.min.js"></script>
-		<script type="text/javascript" src="http://static.baichuanhd.com/game/common/lib/effectCollect.js"></script>
-		<script>
-			$(function(){
-				console.log(123)
-			})
-		</script>
-		<!-- #endif -->
+<!-- #ifdef H5 -->
+<!-- #endif -->
 <script>
 	import util from '../../common/util.js';
 	import uniIcon from '../../components/uni-icon.vue';
@@ -352,7 +344,7 @@
 				}
 
 			},
-			formReset: function (e) {
+			formReset: function(e) {
 				//console.log(e)
 			},
 			getDate(type) {
