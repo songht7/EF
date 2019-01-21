@@ -238,8 +238,72 @@
 					"enabled": true
 				}
 			],
-			"url": "http://api.alein.lc/v2/ApiHome-article.htm",
-			"queryParams": [],
+			"url": "http://api.alein.lc/v2/ApiHome-article.htm?currentPage=1&pagesize=4&keywords=&region=上海&cat=&brand=&age_start=0&age_end=3&subject_category=",
+			"queryParams": [
+				{
+					"key": "currentPage",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "pagesize",
+					"value": "4",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "keywords",
+					"value": "",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "region",
+					"value": "上海",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "cat",
+					"value": "",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "brand",
+					"value": "",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "age_start",
+					"value": "0",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "age_end",
+					"value": "3",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "subject_category",
+					"value": "",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
 			"preRequestScript": null,
 			"pathVariables": {},
 			"pathVariableData": [],
@@ -249,7 +313,7 @@
 			"tests": "http://api.alein.lc/v2/ApiHome-article.htm?currentPage=1&pagesize=5&keywords=关键字&region=黄埔&cat=少儿&brand=英孚&age_start=0&age_end=10&subject_category=少儿英语",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1547797009114,
+			"time": 1547996362729,
 			"name": "/v2/ApiHome-article.htm",
 			"description": "",
 			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",

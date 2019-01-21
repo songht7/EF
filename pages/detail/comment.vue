@@ -27,12 +27,18 @@
 		data() {
 			return {
 				loading:false,
+				openid:"",
+				article_id:"",
 				star:0,
 				comment:""
 			};
 		},
 		components: {
 			uniRate
+		},
+		onLoad(option) {
+			let articleid = option.articleid;
+			this.article_id=articleid;
 		},
 		methods: {
 			changeStar(e){
@@ -53,12 +59,14 @@
 				var count=_comment.length;
 				if(count>=15){
 					var _data = {
+						"openid":this.openid,
+						"article_id":this.article_id,
 						"star": this.star,
 						"comment": _comment
 					};
 					let url_saveComment = apiurl + inter.addr.saveComment;
 					let funSave = function(res) {
-						console.log("=======save========")
+						console.log("=======saveComment========")
 						console.log(res)
 						that.loading = false
 						uni.showModal({
