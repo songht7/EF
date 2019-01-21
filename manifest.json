@@ -47,10 +47,10 @@
     "quickapp" : {},
     /* 快应用特有相关 */
     "h5" : {
-        //"template" : "pages/detail/ef.html",
+        "template" : "pages/h5-temp.html",
+		//"router" : {"base" : "/leon/uni/ef"},
         "title" : ""
     },
-    //"router" : {"base" : "/leon/uni/ef"}
     "mp-weixin" : {
         /* 小程序特有相关 */
         "appid" : "",
