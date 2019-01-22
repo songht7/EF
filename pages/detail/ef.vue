@@ -143,6 +143,7 @@
 	import uniIcon from '../../components/uni-icon.vue';
 	//来自 graceUI 的表单验证， 使用说明见手册 http://grace.hcoder.net/doc/info/73-3.html
 	var graceChecker = require("../../common/graceChecker.js");
+	var _jquery = require("@/static/h5/public.js");
 	import mpvuePicker from '../../components/mpvue-picker/mpvuePicker.vue';
 	import mpvueCityPicker from '../../components/mpvue-citypicker/mpvueCityPicker.vue'
 	import cityData from '../../common/city.data.js';
@@ -189,7 +190,7 @@
 			mpvueCityPicker
 		},
 		onLoad: function(option) {
-			let _key = option.key;
+			let _key = option.key || 2;
 			let _detail = util.getList(_key);
 			const brand = _detail.title;
 			this.date = option.date || this.getDate({
@@ -306,35 +307,21 @@
 						"城市": formData.City
 					};
 					console.log(_data);
-					uni.request({
-						url: _interface.SendMail,
-						data: _data,
-						method: "POST",
-						dataType: "json",
-						success: (res) => {
-							uni.showToast({
-								title: '请求成功',
-								icon: 'success',
-								mask: true,
-								duration: duration
-							})
+					var fun = function(result) {
+						if (result.success) {
 							uni.navigateTo({
-								url: "/pages/detail/thx?key=" + this.key
+								url: "/pages/detail/thx?key=" + _this.key+"&bc_action=test"
 							});
-							this.res = JSON.stringify(res);
-							//console.log(res)
-						},
-						fail: (err) => {
-							console.log('request fail', err);
+						} else {
 							uni.showModal({
-								content: err.errMsg,
+								content: "预约失败",
 								showCancel: false
 							})
-						},
-						complete: () => {
-							this.loading = false
-						}
-					})
+						}		
+						_this.loading = false
+						_this.res = JSON.stringify(result);
+					}
+					_jquery.sendMail(_interface.SendMail, _data, fun)
 				} else {
 					uni.showToast({
 						title: graceChecker.error,

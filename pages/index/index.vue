@@ -4,10 +4,10 @@
 		<!-- 固定在顶部的导航栏 -->
 		<uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" @click-left="showCity">
 			<block slot="left">
-				<view class="city">
+				<!-- <view class="city">
 					<uni-icon type="location" color="#333333" size="22"></uni-icon>
 					<text>{{city}}</text>
-				</view>
+				</view> -->
 			</block>
 			<view class="input-view" :class="searchShow?'searchShow':''">
 				<view class="searh-innter">
