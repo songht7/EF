@@ -454,7 +454,7 @@
 				this.pickerValueArray = this.mulLinkageTwoPicker
 				this.mode = 'multiLinkageSelector'
 				this.deepLength = 2
-				this.pickerValueDefault = [0, 0]
+				this.pickerValueDefault = [8, 0]
 				this.$refs.mpvuePicker.show()
 			},
 			onBackPress: function(e) {

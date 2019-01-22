@@ -42,7 +42,8 @@
 										<view class="apply-cell apply-right">
 											<view class="txt-gray">地点</view>
 											<view class="txt-orange">
-												{{schoolDtl.length>1?"全国":schoolDtl.region_name}}
+												<text v-if="schoolDtl.length==1">{{schoolDtl[0].region_name}}</text>
+												<text v-else>全国</text>
 											</view>
 										</view>
 									</view>
@@ -64,7 +65,11 @@
 
 			<view class="detail-block">
 				<view class="comments">
-					评论<uni-icon size="32" type="arrowright" color="#BDBDBD"></uni-icon>
+					评论
+					<view class="cmt-more">
+						<!-- <uni-icon size="32" type="arrowleft" v-if="detail.comment" color="#BDBDBD"></uni-icon>&nbsp; -->
+						<uni-icon size="32" type="arrowright" color="#BDBDBD"></uni-icon>
+					</view>
 				</view>
 				<view class="uni-padding-wrap">
 					<!-- 评论区 start -->
@@ -79,11 +84,8 @@
 								<view class="uni-comment-top">{{cmt.name?cmt.name:"游客"}}</view>
 								<view class="uni-comment-date">
 									<view class="star">
-										<uni-icon size="16" type="star-filled" color="#F7A631"></uni-icon>
-										<uni-icon size="16" type="star-filled" color="#F7A631"></uni-icon>
-										<uni-icon size="16" type="star-filled" color="#F7A631"></uni-icon>
-										<uni-icon size="16" type="star-filled" color="#F7A631"></uni-icon>
-										<uni-icon size="16" type="star-filled" color="#D3D3D3"></uni-icon>
+										<uni-icon v-for="n in parseInt(cmt.star)" size="16" type="star-filled" color="#F7A631"></uni-icon>
+										<uni-icon v-for="n in 5-parseInt(cmt.star)" size="16" type="star-filled" color="#D3D3D3"></uni-icon>
 										{{cmt.praise}}
 									</view>
 									<view>{{cmt.add_time.split(" ")[0]}}</view>
@@ -168,13 +170,13 @@
 												</view>
 											</view>
 										</view>
-										<view class="uni-list">
+										<view class="uni-list" v-if="schoolDtl.length">
 											<view class="uni-list-cell school-box">
 												<view class="uni-list-cell-left">
 													预约校区
 												</view>
 												<view class="uni-list-cell-db">
-													<picker name="School" v-if="schoolDtl.length" @change="PickerSchool" :value="schoolIndex" :range="schoolVal">
+													<picker name="School" @change="PickerSchool" :value="schoolIndex" :range="schoolVal">
 														<view class="uni-input">
 															<view class="sclName">{{schoolDtl[schoolIndex].name}}</view>
 															<view class="sclAddr txt-gray">{{schoolDtl[schoolIndex].address}}</view>
@@ -262,6 +264,7 @@
 				id: "",
 				topage: "/pages/apply/index",
 				url: "",
+				commentNumb:2,
 				scrollTop: 0,
 				btnShow: true,
 				old: {
@@ -284,7 +287,7 @@
 			this.id = _id;
 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
 			let fun = function(res) {
-				console.log("======fun========");
+				console.log("======getDetail========");
 				console.log(res)
 				let _data = res.info;
 				if (_data) {
@@ -300,6 +303,7 @@
 						};
 						//let sclList='<view class="scl"><view class="sclName">'+item.name+'</view><view class="sclAddr">'+item.address+'</view></view>'
 						_this.schoolVal.push(item.name);
+						console.log(_scl)
 						_this.schoolDtl.push(_scl);
 					});
 					_this.schoolId = _data.school["0"]["id"];

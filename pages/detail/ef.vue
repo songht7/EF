@@ -310,7 +310,7 @@
 					var fun = function(result) {
 						if (result.success) {
 							uni.navigateTo({
-								url: "/pages/detail/thx?key=" + _this.key+"&bc_action=test"
+								url: "/pages/detail/thx?key=" + _this.key
 							});
 						} else {
 							uni.showModal({

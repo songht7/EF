@@ -120,6 +120,7 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	padding-bottom: 10upx;
 }
 
+.uni-comment-list{border-bottom: 1px solid #F0F0F0;}
 .comments {
 	font-size: 34upx;
 	padding: 10upx 20upx 5upx 35upx;

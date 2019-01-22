@@ -22,7 +22,7 @@ module.exports = {
 			}),
 			complete: (function() {
 				//console.log("complete");
-				//new fun(result)
+				new fun(result)
 			})
 		});
 	}
