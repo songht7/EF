@@ -69,14 +69,14 @@
 				<view class="uni-padding-wrap">
 					<!-- 评论区 start -->
 					<view class="uni-comment">
-						<!-- <view class="uni-comment-list" v-for="(value,key) in detail.comment.list" :key="key"> -->
-						<view class="uni-comment-list">
+						<!-- <view class="uni-comment-list"> -->
+						<view class="uni-comment-list" v-for="(cmt,c) in detail.comment" :key="c">
 							<view class="uni-comment-face">
 								<!-- <image src="../../static/logo.png" mode="widthFix"></image> -->
 								<uni-icon size="55" type="contact" color="#DDDDDF"></uni-icon>
 							</view>
 							<view class="uni-comment-body">
-								<view class="uni-comment-top">匿名者</view>
+								<view class="uni-comment-top">{{cmt.name?cmt.name:"游客"}}</view>
 								<view class="uni-comment-date">
 									<view class="star">
 										<uni-icon size="16" type="star-filled" color="#F7A631"></uni-icon>
@@ -84,11 +84,11 @@
 										<uni-icon size="16" type="star-filled" color="#F7A631"></uni-icon>
 										<uni-icon size="16" type="star-filled" color="#F7A631"></uni-icon>
 										<uni-icon size="16" type="star-filled" color="#D3D3D3"></uni-icon>
-										{{detail.praise}}
+										{{cmt.praise}}
 									</view>
-									<view>2018.3.15</view>
+									<view>{{cmt.add_time.split(" ")[0]}}</view>
 								</view>
-								<view class="uni-comment-content">环境优雅，气氛浓郁，学习之地</view>
+								<view class="uni-comment-content">{{cmt.overview}}</view>
 							</view>
 						</view>
 						<view class="to-comment">
