@@ -4,10 +4,10 @@
 		<!-- 固定在顶部的导航栏 -->
 		<uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" @click-left="showCity">
 			<block slot="left">
-				<!-- <view class="city">
+				<view class="city" @click="showMulLinkageTwoPicker">
 					<uni-icon type="location" color="#333333" size="22"></uni-icon>
 					<text>{{city}}</text>
-				</view> -->
+				</view>
 			</block>
 			<view class="input-view" :class="searchShow?'searchShow':''">
 				<view class="searh-innter">
@@ -81,6 +81,10 @@
 			</view>
 		</lvv-popup>
 		<!-- 弹出层 -->
+		<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
+		 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
+		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
 	</view>
 </template>
 
@@ -95,6 +99,9 @@
 	import uniLoadMore from '../../components/uni-load-more.vue'
 	import lvvPopup from '../../components/lvv-popup.vue'
 	import uniTag from '@/components/uni-tag.vue'
+	import mpvuePicker from '../../components/mpvue-picker/mpvuePicker.vue';
+	import mpvueCityPicker from '../../components/mpvue-citypicker/mpvueCityPicker.vue'
+	import cityData from '../../common/city.data.js';
 
 	import listBlock from '../../components/list-block.vue'
 
@@ -125,7 +132,7 @@
 					"pi": 1,
 					"ps": 4,
 					"keywords": "",
-					"region": "",
+					"region": "上海",
 					"cat": "",
 					"brand": "",
 					"age_start": "",
@@ -144,7 +151,16 @@
 				rdoSubCtgVal: "",
 				searchShow: false,
 				searchBtnShow: true,
-				placeholder: "搜索"
+				placeholder: "搜索",
+				cityPickerValueDefault: [0, 0, 1],
+				themeColor: '#007AFF',
+				pickerText: '',
+				mulLinkageTwoPicker: cityData,
+				mode: '',
+				deepLength: 1,
+				pickerValueDefault: [0],
+				pickerValueArray: [],
+				successShow: ""
 			}
 		},
 		computed: {},
@@ -154,6 +170,8 @@
 			uniLoadMore,
 			lvvPopup,
 			uniTag,
+			mpvuePicker,
+			mpvueCityPicker,
 			listBlock
 		},
 		onShow() {
@@ -247,31 +265,8 @@
 			 * 课程列表
 			 */
 			_this.getList();
-			// 			uni.getLocation({
-			// 				type: 'wgs84',
-			// 				success: function(res) {
-			// 					console.log("=====getLocation-success=====")
-			// 					console.log(res)
-			// 					const latitude = res.latitude;
-			// 					const longitude = res.longitude;
-			// 					// 					uni.openLocation({
-			// 					// 						latitude: latitude,
-			// 					// 						longitude: longitude,
-			// 					// 						success(res) {
-			// 					// 							console.log("----openLocation-success----")
-			// 					// 							console.log(res);
-			// 					// 						},
-			// 					// 						fail(f) {
-			// 					// 							console.log("----openLocation-fail----")
-			// 					// 							console.log(f);
-			// 					// 						}
-			// 					// 					});
-			// 				},
-			// 				fail(f) {
-			// 					console.log("=====getLocation-fail=====")
-			// 					console.log(f)
-			// 				}
-			// 			});
+			//定位
+			_this.getLocation();
 		},
 		onPullDownRefresh() {
 			console.log("========onPullDownRefresh=========")
@@ -364,10 +359,25 @@
 					this.placeholder = this.placeholder == "搜索" ? "学前英语试听" : "搜索";
 				}
 			},
+			getLocation() {
+				uni.getLocation({
+					type: 'wgs84',
+					success: function(res) {
+						console.log("=====getLocation-success=====")
+						console.log(res)
+						const latitude = res.latitude;
+						const longitude = res.longitude;
+					},
+					fail(f) {
+						console.log("=====getLocation-fail=====")
+						console.log(f)
+					}
+				});
+			},
 			showCity() {
-				uni.showToast({
-					title: '选择城市'
-				})
+				// 				uni.showToast({
+				// 					title: '选择城市'
+				// 				})
 			},
 			bindCtg(val, index) {
 				this.param.pi = 1;
@@ -426,6 +436,43 @@
 						}
 						this.subctg[index].checked = true
 						break;
+				}
+			},
+			onCancel: function(e) {
+				//console.log(e)
+			},
+			onConfirm: function(e) {
+				//console.log(JSON.stringify(e))
+				var city=e.label.split("-");
+				this.city = city[1];
+				this.param.region = city[1];
+				this.pickerText = e.label;
+				this.param.pi = 1;
+				this.getList("search");
+			},
+			showMulLinkageTwoPicker: function(e) {
+				this.pickerValueArray = this.mulLinkageTwoPicker
+				this.mode = 'multiLinkageSelector'
+				this.deepLength = 2
+				this.pickerValueDefault = [0, 0]
+				this.$refs.mpvuePicker.show()
+			},
+			onBackPress: function(e) {
+				if (this.$refs.mpvuePicker.showPicker) {
+					this.$refs.mpvuePicker.pickerCancel();
+					return true;
+				}
+				if (this.$refs.mpvueCityPicker.showPicker) {
+					this.$refs.mpvueCityPicker.pickerCancel();
+					return true;
+				}
+			},
+			onUnload: function(e) {
+				if (this.$refs.mpvuePicker.showPicker) {
+					this.$refs.mpvuePicker.pickerCancel()
+				}
+				if (this.$refs.mpvueCityPicker.showPicker) {
+					this.$refs.mpvueCityPicker.pickerCancel()
 				}
 			}
 		}

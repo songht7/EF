@@ -10,15 +10,9 @@ module.exports = {
 				//console.log(res)
 				result = res
 				if (res.success) {
+					console.log("===EffectCollect======")
 					EffectCollect.effectReport({
-						type: 1
-					}, {
-						successCallBack: function() {
-							console.log('效果上报成功')
-						},
-						failCallBack: function() {
-							console.log('效果上报失败')
-						},
+						type: 3
 					})
 				}
 			},
@@ -28,7 +22,7 @@ module.exports = {
 			}),
 			complete: (function() {
 				//console.log("complete");
-				new fun(result)
+				//new fun(result)
 			})
 		});
 	}
