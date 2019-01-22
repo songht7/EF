@@ -155,7 +155,7 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	border-radius: 10upx;
 	font-size: 30upx;
 	letter-spacing: 1px;
-	padding: 10upx 0;
+	padding: 15upx 0;
 	border-color: none;
 }
 .btnIcon{height: 50%;z-index: 1;right: 10upx;bottom: 18%;position: absolute;}

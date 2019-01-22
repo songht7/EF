@@ -3,10 +3,10 @@
 	 @scroll="scroll">
 		<view class="detail-page">
 			<view class="detail-block">
-				<view class="swiper-box" v-if="detail.image">
+				<view class="swiper-box">
 					<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true" interval="3000" duration="1000"
 					 indicator-color="#979797" indicator-active-color="#FFFFFF">
-						<swiper-item class="swiper-item" v-for="(slide,index) in detail.image" :key="index">
+						<swiper-item class="swiper-item" v-if="detail.image" v-for="(slide,index) in detail.image" :key="index">
 							<view class="vli">
 								<view class="vli2">
 									<image class="slideImg" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
