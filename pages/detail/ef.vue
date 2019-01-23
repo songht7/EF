@@ -203,7 +203,7 @@
 			});
 		},
 		onReady:function() {
-			_jquery.efftest();
+			//_jquery.efftest();
 		},
 		onShow() {
 			//console.log("onShow");
