@@ -142,7 +142,6 @@
 	import util from '../../common/util.js';
 	import uniIcon from '../../components/uni-icon.vue';
 	//来自 graceUI 的表单验证， 使用说明见手册 http://grace.hcoder.net/doc/info/73-3.html
-	var graceChecker = require("../../static/h5/effectCollect.js");
 	var graceChecker = require("../../common/graceChecker.js");
 	var _jquery = require("@/static/h5/public.js");
 	import mpvuePicker from '../../components/mpvue-picker/mpvuePicker.vue';
