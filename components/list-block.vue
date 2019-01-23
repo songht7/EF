@@ -5,7 +5,7 @@
 				<view class="uni-card-content-inner">
 					<navigator class="service-head" :url="'/pages/detail/index?id='+value.id">
 						<view class="ser-logo">
-							<image lazy-load :src="sourceUrl+value.src" mode="aspectFill"/>
+							<image lazy-load :src="value.src?sourceUrl+value.src:''" mode="aspectFill"/>
 						</view>
 						<view class="ser-body">
 							<view class="ser-title">{{value.name}}</view>

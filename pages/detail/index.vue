@@ -56,7 +56,7 @@
 						<view class="uni-title">
 							<view class="introduction">
 								<view class="h3 txt-black">课程介绍</view>
-								<view class="lesson-content txt-light-black" v-html="detail.detail"></view>
+								<rich-text class="lesson-content txt-light-black" :nodes="detail.detail"></rich-text>
 							</view>
 						</view>
 					</view>
@@ -84,8 +84,8 @@
 								<view class="uni-comment-top">{{cmt.name?cmt.name:"游客"}}</view>
 								<view class="uni-comment-date">
 									<view class="star">
-										<uni-icon v-for="n in parseInt(cmt.star)" size="16" type="star-filled" color="#F7A631"></uni-icon>
-										<uni-icon v-for="n in 5-parseInt(cmt.star)" size="16" type="star-filled" color="#D3D3D3"></uni-icon>
+										<uni-icon v-for="n in parseInt(cmt.star)" :key="n" size="16" type="star-filled" color="#F7A631"></uni-icon>
+										<uni-icon v-for="n in 5-parseInt(cmt.star)" :key="n" size="16" type="star-filled" color="#D3D3D3"></uni-icon>
 										{{cmt.praise}}
 									</view>
 									<view>{{cmt.add_time.split(" ")[0]}}</view>

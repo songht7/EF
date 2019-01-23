@@ -2,8 +2,10 @@
     // 取参数
     var getParam = function (name) {
         var tmp
-        var str = window.location.search.replace('?', '')
-        var arr = str.split('&')
+//         var str = window.location.search.replace('?', '')
+//         var arr = str.split('&')
+		var str = window.location.href.split('?')
+		var arr = str[1].split('&')
         if (arr.length > 0) {
             for (var i = 0, l = arr.length; i < l; i++) {
                 try {

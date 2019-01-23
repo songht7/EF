@@ -175,6 +175,16 @@
 			listBlock
 		},
 		onShow() {
+			var share_url=util.domain,
+				title="试听课网 - 英语免费试听",
+				share_img=share_url+"/static/icon-1.png",
+				dec="英语免费试听课，在这里找到你想要的";
+			let url_getwx = apiurl + inter.addr.getWeChatInfo;
+			let funWX=function(res){
+				console.log("=====getWeChatInfo=======")
+				console.log(res)
+			}
+			var wx_info=mdl.getData(url_getwx,funWX)
 			wx.ready(function() {
 				// TODO
 			});
