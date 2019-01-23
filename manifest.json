@@ -50,7 +50,7 @@
         "template" : "pages/h5-temp.html",
         "router" : {
             "base" : "/leon/uni/ef",
-            "mode" : "hash"
+            "mode" : "history"
         },
         "title" : ""
     },

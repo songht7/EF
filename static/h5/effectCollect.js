@@ -79,7 +79,6 @@
 
     var ext = {
         effectReport: function(opts, otherOpts) {
-			console.log(opts)
             opts = opts || {}
             if (otherOpts === false) { // 兼容之前的needTag
                 otherOpts = {needTag: false}

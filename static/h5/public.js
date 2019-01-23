@@ -1,4 +1,9 @@
 module.exports = {
+	efftest: function() {
+		EffectCollect.effectReport({
+			type: 3
+		})
+	},
 	sendMail: function(url, data, fun) {
 		var result = {};
 		$.post({
@@ -7,12 +12,10 @@ module.exports = {
 			data: data,
 			dataType: "json",
 			success: function(res) {
-				//console.log(res)
 				result = res
 				if (res.success) {
-					console.log("===EffectCollect======")
 					EffectCollect.effectReport({
-						type: 3
+						type: 1
 					})
 				}
 			},
