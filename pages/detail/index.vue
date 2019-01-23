@@ -177,9 +177,9 @@
 												</view>
 												<view class="uni-list-cell-db">
 													<picker name="School" @change="PickerSchool" :value="schoolIndex" :range="schoolVal">
-														<view class="uni-input">
+														<view class="uni-input" :class="schoolDtl[schoolIndex].name=='全国'?'rowOne':''">
 															<view class="sclName">{{schoolDtl[schoolIndex].name}}</view>
-															<view class="sclAddr txt-gray">{{schoolDtl[schoolIndex].address}}</view>
+															<view class="sclAddr txt-gray" v-if="schoolDtl[schoolIndex].name!='全国'">{{schoolDtl[schoolIndex].address}}</view>
 														</view>
 													</picker>
 												</view>

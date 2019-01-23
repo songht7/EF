@@ -211,6 +211,10 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 .school-box .uni-input {
 	height: 100upx;
 }
+
+.school-box .uni-input.rowOne {
+	height: 50upx;
+}
 .qrcodefot{display: block;width: 100%;margin: 40upx auto 0;}
 .pop-success{width: 70%;height: 50%;position: fixed;top: 35%;left: 15%;z-index: 999;display: none;}
 .success-show{display: block;}
