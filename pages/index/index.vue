@@ -11,7 +11,7 @@
 			</block>
 			<view class="input-view" :class="searchShow?'searchShow':''">
 				<view class="searh-innter">
-					<input confirm-type="search" @confirm="confirm" class="input search-ipt" @focus="searchBox()" @blur="searchBox('blur')"
+					<input confirm-type="search" @confirm="confirm" class="input search-ipt" @focus="searchBox('focus')" @blur="searchBox('blur')"
 					 type="text" v-model="serchVal" :placeholder="placeholder" :value="param.keywords" />
 				</view>
 			</view>
@@ -90,7 +90,7 @@
 
 <script>
 	import util from '../../common/util.js';
-	const wx = require('jweixin-module')
+	// const wx = require('jweixin-module')
 	const mdl = util.module;
 	const inter = util.Interface;
 	const apiurl = inter.apiurl;
@@ -175,19 +175,35 @@
 			listBlock
 		},
 		onShow() {
-			var share_url=util.domain,
-				title="试听课网 - 英语免费试听",
-				share_img=share_url+"/static/icon-1.png",
-				dec="英语免费试听课，在这里找到你想要的";
-			let url_getwx = apiurl + inter.addr.getWeChatInfo;
-			let funWX=function(res){
-				console.log("=====getWeChatInfo=======")
-				console.log(res)
-			}
-			var wx_info=mdl.getData(url_getwx,funWX)
-			wx.ready(function() {
-				// TODO
-			});
+			// 			uni.share({
+			// 				provider: "weixin",
+			// 				scene: "WXSceneSession",
+			// 				type: 0,
+			// 				href: "http://uniapp.dcloud.io/",
+			// 				title: "uni-app分享",
+			// 				summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
+			// 				imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
+			// 				success: function(res) {
+			// 					console.log("success:" + JSON.stringify(res));
+			// 				},
+			// 				fail: function(err) {
+			// 					console.log("fail:" + JSON.stringify(err));
+			// 				}
+			// 			});
+			// 			var share_url=util.domain,
+			// 				title="试听课网 - 英语免费试听",
+			// 				share_img=share_url+"/static/icon-1.png",
+			// 				dec="英语免费试听课，在这里找到你想要的";
+			// 			let url_getwx = apiurl + inter.addr.getWeChatInfo;
+			// 			let funWXCode=function(res){
+			// 				console.log("=====getWXCode=======")
+			// 				console.log(res)
+			// 			}
+			// 			
+			// 			var wx_code=mdl.getWXCode(funWXCode)
+			// 			wx.ready(function() {
+			// 				// TODO
+			// 			});
 		},
 		onLoad(option) {
 			var _this = this;
@@ -362,12 +378,29 @@
 				this.serchVal = keywords;
 			},
 			searchBox(type) {
-				if (type != 'sch' && this.param.keywords == "") {
+				if(this.serchVal==""&&type=="blur"){
 					this.searchShow = !this.searchShow
 					this.searchBtnShow = !this.searchBtnShow
-					this.serchVal = "";
-					this.placeholder = this.placeholder == "搜索" ? "学前英语试听" : "搜索";
+					this.placeholder = "搜索";
+					this.blurToGet()
 				}
+				else if(this.serchVal!=""&&type=="blur"){
+					this.searchShow = true
+					this.searchBtnShow = false
+					this.placeholder = "学前英语试听";
+					this.blurToGet()
+				}
+				else if (type=="focus") {
+					this.searchShow = true
+					this.searchBtnShow = false
+					this.placeholder = "学前英语试听";
+				}
+			},
+			blurToGet(){
+				let oldKeyword=this.param.keywords;
+				let newKeyword=this.serchVal;
+				this.param.keywords = newKeyword;
+				if(oldKeyword!=newKeyword){this.getList("search")}
 			},
 			getLocation() {
 				uni.getLocation({
@@ -453,7 +486,7 @@
 			},
 			onConfirm: function(e) {
 				//console.log(JSON.stringify(e))
-				var city=e.label.split("-");
+				var city = e.label.split("-");
 				this.city = city[1];
 				this.param.region = city[1];
 				this.pickerText = e.label;

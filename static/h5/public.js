@@ -1,4 +1,7 @@
 module.exports = {
+	wxShare:function(setWXInfo){
+		
+	},
 	efftest: function() {
 		EffectCollect.effectReport({
 			type: 3

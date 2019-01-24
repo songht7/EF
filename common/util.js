@@ -2,8 +2,8 @@ const isArray = Array.isArray || function(obj) {
 	return obj instanceof Array;
 };
 const Interface = {
-	"SendMail": "http://www.spacehu.com/space/mail/mail.php?leo=407794660@qq.com",
-	//"SendMail": "http://www.spacehu.com/space/mail/mail.php?leo=stk@meetji.com",
+	//"SendMail": "http://www.spacehu.com/space/mail/mail.php?leo=407794660@qq.com",
+	"SendMail": "http://www.spacehu.com/space/mail/mail.php?leo=stk@meetji.com",
 	// 	,"getData":"http://api_test.meetji.com/v1/ApiEnum-getRegion.htm?id=110000"
 	"apiurl": "http://api_test.meetji.com",
 	"domain": "http://main.meetji.com",
@@ -75,31 +75,59 @@ const module = {
 			}
 		})
 	},
-}
-const getToken = function() {
-	var appid = this.Interface.wx.appid;
-	var secret = this.Interface.wx.secret;
-	var _url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appid + "&secret=" +
-		secret;
-	//alert(_url);
-	uni.request({
-		url: _url,
-		method: "GET",
-		success: function(res) {
-			//alert("success");
-			if (res.errmsg) {
-				//alert(res.errmsg);
-			} else {
-				//alert(res.errcode);
+	getWXCode: function(fun) {
+		let REDIRECT_URI = "http%3a%2f%2fmain.meetji.com", //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
+			appid = "wx11eb371cd85adfd4",
+			scope = "snsapi_base", //snsapi_userinfo （弹出授权页面，获取更多信息）
+			state = ""; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
+		let url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + REDIRECT_URI +
+			'&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
+		var result = ""
+		uni.request({
+			url: url,
+			success(res) {
+				result = res;
+				console.log(res)
+			},
+			fail(err) {
+				result = err;
+				console.log(err)
+			},
+			complete(c) {
+				console.log("getCode")
+				if (fun) {
+					new fun(result)
+				} else {
+					return result
+				}
 			}
-		},
-		fail: function(err) {
-			//alert(err.errMsg);
-		},
-		complete: function(comp) {
-			//alert("comp");
-		}
-	})
+		})
+	},
+	getWXToken: function() {
+		var appid = this.Interface.wx.appid;
+		var secret = this.Interface.wx.secret;
+		var _url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appid + "&secret=" +
+			secret;
+		//alert(_url);
+		uni.request({
+			url: _url,
+			method: "GET",
+			success: function(res) {
+				//alert("success");
+				if (res.errmsg) {
+					//alert(res.errmsg);
+				} else {
+					//alert(res.errcode);
+				}
+			},
+			fail: function(err) {
+				//alert(err.errMsg);
+			},
+			complete: function(comp) {
+				//alert("comp");
+			}
+		})
+	}
 }
 const getList = function(key) {
 	let _list = [{}, {}, {
@@ -138,7 +166,6 @@ const getList = function(key) {
 export default {
 	Interface,
 	module,
-	getToken,
 	getList,
 	isArray
 }
