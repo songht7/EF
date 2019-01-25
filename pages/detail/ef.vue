@@ -190,7 +190,6 @@
 			mpvueCityPicker
 		},
 		onLoad: function(option) {
-			console.log(123)
 			let _key = option.key || 2;
 			let _detail = util.getList(_key);
 			const brand = _detail.title;

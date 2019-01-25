@@ -50,7 +50,7 @@
         "template" : "pages/h5-temp.html",
         "router" : {
             "base" : "",
-            "mode" : "history"
+            "mode" : "hash"
         },
         "title" : ""
     },
