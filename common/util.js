@@ -22,24 +22,27 @@ const Interface = {
 		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm"
 	},
 	"wx": {
-		"appid": "wx11eb371cd85adfd4",
-		"access_token": "client_credential",
-		"secret": "01ef7de58bc18da629d4ec33a62744f9",
-		"getToken": "https://api.weixin.qq.com/cgi-bin/token"
+		"appid": "wx11eb371cd85adfd4"
 	}
 
 };
 const module = {
+	wx: {
+		"appid": "wx11eb371cd85adfd4",
+		"access_token": "client_credential",
+		"secret": "01ef7de58bc18da629d4ec33a62744f9",
+		"getToken": "https://api.weixin.qq.com/cgi-bin/token"
+	},
 	getData: function(url, fun, method, data) {
-		console.log(url)
+		//console.log(url)
 		let result = [];
 		uni.request({
 			url: url,
 			method: method || "GET",
 			data: data || {},
 			success: function(res) {
-				console.log("======success========");
-				console.log(res);
+// 				console.log("======success========");
+// 				console.log(res);
 				let __res = res.data;
 				if (__res.success) {
 					if (__res.data) {
@@ -58,8 +61,8 @@ const module = {
 				}
 			},
 			fail: function(err) {
-				console.log("======fail========");
-				console.log(err);
+// 				console.log("======fail========");
+// 				console.log(err);
 				result = {
 					"Result": "0",
 					"Msg": "接口请求失败",
@@ -67,24 +70,35 @@ const module = {
 				}
 			},
 			complete: function(comp) {
-				console.log("======complete========");
-				console.log(result)
+// 				console.log("======complete========");
+// 				console.log(result)
 				if (fun) {
 					new fun(result)
 				}
 			}
 		})
 	},
-	getWXCode: function(fun) {
-		let REDIRECT_URI = "http%3a%2f%2fmain.meetji.com", //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
-			appid = "wx11eb371cd85adfd4",
-			scope = "snsapi_base", //snsapi_userinfo （弹出授权页面，获取更多信息）
-			state = ""; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
-		let url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + REDIRECT_URI +
-			'&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
-		var result = ""
+	getWXInfos: function(fun, type, wxParm) {
+		var appid = this.wx.appid,
+			secret = this.wx.secret;
+		var result = "",_method="GET";
+		if (type == "getCode") {
+			let REDIRECT_URI = "http%3a%2f%2fmain.meetji.com", //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
+				scope = "snsapi_base", //snsapi_userinfo （弹出授权页面，获取更多信息）
+				state = ""; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
+			var _url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + REDIRECT_URI +
+				'&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
+		} else if (type == "getToken") {
+			let _code=wxParm&&wxParm.code?wxParm.code:"";
+			var _url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + secret + "&code=" +
+				_code + "&grant_type=authorization_code";
+		}
+		console.log("======getWXInfos========")
+		console.log(type)
+		console.log(_url)
 		uni.request({
-			url: url,
+			url: _url,
+			method: _method,
 			success(res) {
 				result = res;
 				console.log(res)
@@ -94,37 +108,12 @@ const module = {
 				console.log(err)
 			},
 			complete(c) {
-				console.log("getCode")
+				console.log(type)
 				if (fun) {
 					new fun(result)
 				} else {
 					return result
 				}
-			}
-		})
-	},
-	getWXToken: function() {
-		var appid = this.Interface.wx.appid;
-		var secret = this.Interface.wx.secret;
-		var _url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + appid + "&secret=" +
-			secret;
-		//alert(_url);
-		uni.request({
-			url: _url,
-			method: "GET",
-			success: function(res) {
-				//alert("success");
-				if (res.errmsg) {
-					//alert(res.errmsg);
-				} else {
-					//alert(res.errcode);
-				}
-			},
-			fail: function(err) {
-				//alert(err.errMsg);
-			},
-			complete: function(comp) {
-				//alert("comp");
 			}
 		})
 	}

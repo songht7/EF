@@ -20,7 +20,7 @@
 		<!-- #endif -->
 
 		<view class="content">
-			<swiper-block :swiperList="swiperList"></swiper-block>
+			<swiper-block :swiperList="swiperList" v-if="swiperList.length"></swiper-block>
 			<view class="filter-box">
 				<view class="flt-block ctgBox">
 					<view class="ctg-btn-block">
@@ -175,32 +175,63 @@
 			listBlock
 		},
 		onShow() {
-			// 			uni.share({
-			// 				provider: "weixin",
-			// 				scene: "WXSceneSession",
-			// 				type: 0,
-			// 				href: "http://uniapp.dcloud.io/",
-			// 				title: "uni-app分享",
-			// 				summary: "我正在使用HBuilderX开发uni-app，赶紧跟我一起来体验！",
-			// 				imageUrl: "https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png",
-			// 				success: function(res) {
-			// 					console.log("success:" + JSON.stringify(res));
-			// 				},
-			// 				fail: function(err) {
-			// 					console.log("fail:" + JSON.stringify(err));
-			// 				}
-			// 			});
-			// 			var share_url=util.domain,
-			// 				title="试听课网 - 英语免费试听",
-			// 				share_img=share_url+"/static/icon-1.png",
-			// 				dec="英语免费试听课，在这里找到你想要的";
-			// 			let url_getwx = apiurl + inter.addr.getWeChatInfo;
-			// 			let funWXCode=function(res){
-			// 				console.log("=====getWXCode=======")
-			// 				console.log(res)
-			// 			}
-			// 			
-			// 			var wx_code=mdl.getWXCode(funWXCode)
+			var share_url = util.domain,
+				title = "试听课网 - 英语免费试听",
+				share_img = share_url + "/static/icon-1.png",
+				dec = "英语免费试听课，在这里找到你想要的";
+			let url_getwx = apiurl + inter.addr.getWeChatInfo;
+
+			uni.share({
+				provider: "weixin",
+				scene: "WXSceneSession",
+				type: 0,
+				href: share_url,
+				title: title,
+				summary: dec,
+				imageUrl: share_img,
+				success: function(res) {
+					console.log("========uni.share.success============")
+					console.log("success:" + JSON.stringify(res));
+				},
+				fail: function(err) {
+					console.log("========uni.share.fail============")
+					console.log("fail:" + JSON.stringify(err));
+				}
+			});
+			let funWXCode = function(res) {
+				console.log("=====getWXCode=======")
+				console.log(res)
+				if (res.code) {
+					let funWXToken = function(res) {
+						console.log("=====getWXToken=======")
+						console.log(res)
+						let funTicket = function(res) {
+							console.log("=======getTicket======")
+							console.log(res)
+							// 							wx.config({
+							// 								debug: false,
+							// 								appId: util.wx.appid,
+							// 								timestamp: res.timestamp,
+							// 								nonceStr: res.nonceStr,
+							// 								signature: res.signature,
+							// 								jsApiList: [
+							// 									'onMenuShareTimeline',
+							// 									'onMenuShareAppMessage',
+							// 									'onMenuShareQQ',
+							// 									'onMenuShareWeibo'
+							// 								]
+							// 							});
+						}
+						let url_ticket = apiurl + inter.addr.getTicket; //目前没有******
+						let wx_ticket = mdl.getData(url_ticket, funTicket) //wxF3-getTicket
+					}
+					let wxParm = {
+						"code": res.code
+					}
+					let wx_token = mdl.getWXInfos(funWXToken, "getToken", wxParm) //wxF2-token openid
+				}
+			}
+			var wx_code = mdl.getWXInfos(funWXCode, "getCode") //wxF1-code
 			// 			wx.ready(function() {
 			// 				// TODO
 			// 			});
@@ -215,7 +246,7 @@
 			 */
 			let url_slide = apiurl + inter.addr.slideShow;
 			let fun1 = function(res) {
-				console.log("======slideShow========");
+				//console.log("======slideShow========");
 				let _data = res.list;
 				_this.setData("swiperList", _data);
 			}
@@ -225,7 +256,7 @@
 			 */
 			let url_region = apiurl + inter.addr.getRegion2;
 			let fun2 = function(res) {
-				console.log("======getRegion2========");
+				//console.log("======getRegion2========");
 				let _data = res.list;
 				_this.setData("region", _data);
 			}
@@ -235,8 +266,8 @@
 			 */
 			let url_ctg = apiurl + inter.addr.getCategory;
 			let fun3 = function(res) {
-				console.log("======getCategory========");
-				console.log(res)
+				//console.log("======getCategory========");
+				//console.log(res)
 				let _data = res.list;
 				_this.setData("ctg", _data);
 
@@ -247,7 +278,7 @@
 			 */
 			let url_subctg = apiurl + inter.addr.getSubjectCategory;
 			let fun4 = function(res) {
-				console.log("======getSubjectCategory========");
+				//console.log("======getSubjectCategory========");
 				let _data = res.list;
 				_data.forEach(item => {
 					let _subCtg = {
@@ -264,7 +295,7 @@
 			 */
 			let url_brand = apiurl + inter.addr.getBrand;
 			let fun5 = function(res) {
-				console.log("======getBrand========");
+				//console.log("======getBrand========");
 				let _data = res.list;
 				_this.setData("brand", _data);
 
@@ -275,7 +306,7 @@
 			 */
 			let url_age = apiurl + inter.addr.getAgeRange;
 			let fun6 = function(res) {
-				console.log("======getAgeRange========");
+				//console.log("======getAgeRange========");
 				let _data = res.list;
 				_data.forEach(item => {
 					let age = {
@@ -295,12 +326,12 @@
 			_this.getLocation();
 		},
 		onPullDownRefresh() {
-			console.log("========onPullDownRefresh=========")
+			//console.log("========onPullDownRefresh=========")
 			this.paramReset();
 			this.getList("refresh");
 		},
 		onReachBottom() {
-			console.log("=======onReachBottom=========")
+			//console.log("=======onReachBottom=========")
 			if (this.loadingType !== 0) {
 				return;
 			}
@@ -326,8 +357,8 @@
 					title: '正在加载 ...'
 				});
 				let fun = function(res) {
-					console.log("======article========");
-					console.log(res)
+					//console.log("======article========");
+					//console.log(res)
 					let data = res.list;
 					let total = res.total;
 					if (type) {
@@ -369,7 +400,7 @@
 				})
 			},
 			confirm(e) {
-				console.log(e)
+				//console.log(e)
 				this.paramReset()
 				let keywords = e.detail.value
 				this.param.keywords = keywords;
@@ -378,29 +409,29 @@
 				this.serchVal = keywords;
 			},
 			searchBox(type) {
-				if(this.serchVal==""&&type=="blur"){
+				if (this.serchVal == "" && type == "blur") {
 					this.searchShow = !this.searchShow
 					this.searchBtnShow = !this.searchBtnShow
 					this.placeholder = "搜索";
 					this.blurToGet()
-				}
-				else if(this.serchVal!=""&&type=="blur"){
+				} else if (this.serchVal != "" && type == "blur") {
 					this.searchShow = true
 					this.searchBtnShow = false
 					this.placeholder = "学前英语试听";
 					this.blurToGet()
-				}
-				else if (type=="focus") {
+				} else if (type == "focus") {
 					this.searchShow = true
 					this.searchBtnShow = false
 					this.placeholder = "学前英语试听";
 				}
 			},
-			blurToGet(){
-				let oldKeyword=this.param.keywords;
-				let newKeyword=this.serchVal;
+			blurToGet() {
+				let oldKeyword = this.param.keywords;
+				let newKeyword = this.serchVal;
 				this.param.keywords = newKeyword;
-				if(oldKeyword!=newKeyword){this.getList("search")}
+				if (oldKeyword != newKeyword) {
+					this.getList("search")
+				}
 			},
 			getLocation() {
 				uni.getLocation({
@@ -451,8 +482,8 @@
 				this.param.age_start = ageVals[0];
 				this.param.age_end = ageVals[1];
 				this.param.subject_category = this.rdoSubCtgVal;
-				console.log("=======filterConfirm=======");
-				console.log(this.param);
+				//console.log("=======filterConfirm=======");
+				//console.log(this.param);
 				this.getList("search");
 
 				this.$refs.lvvpopref.close();

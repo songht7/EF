@@ -49,7 +49,7 @@
     "h5" : {
         "template" : "pages/h5-temp.html",
         "router" : {
-            "base" : "/leon/uni/ef",
+            "base" : "",
             "mode" : "history"
         },
         "title" : ""

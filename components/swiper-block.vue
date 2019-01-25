@@ -48,7 +48,7 @@
 </script>
 <style>
 	.swiper-box {
-		margin-bottom: 20upx;
+		/* margin-bottom: 20upx; */
 	}
 
 	.swiper {
