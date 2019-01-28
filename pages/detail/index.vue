@@ -483,8 +483,8 @@
 				var ticket_url = encodeURIComponent(location.href.split('#')[0]),
 					title = this.detail.name,
 					imgUrl = util.Interface.domain + "/static/icon-1.png",
-					dec = this.detail.overview;
-					share_url=encodeURIComponent(location.href.split('#')[0]+"#/pages/detail/index?id=" + this.id);
+					dec = this.detail.overview,
+					share_url=location.href;
 				let funTicket = function(res) {
 					console.log("=======getTicket======")
 					console.log(res)
