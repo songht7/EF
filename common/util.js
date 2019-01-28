@@ -1,3 +1,4 @@
+const wx = require('jweixin-module')
 const isArray = Array.isArray || function(obj) {
 	return obj instanceof Array;
 };
@@ -78,6 +79,92 @@ const module = {
 				}
 			}
 		})
+	},
+	wxShare:function(share_url, title, imgUrl, dec) {
+		var share_url =share_url?share_url:encodeURIComponent("http://main.meetji.com:3001?wxr="+location.href);
+		let funTicket = function(res) {
+			console.log("=======getTicket======")
+			console.log(res)
+			uni.setStorage({
+				key: 'wx_ticket',
+				data: {
+					"access_token": res.access_token,
+					"jsapi_ticket": res.ticket
+				},
+				success: function() {}
+			});
+			var _config = {
+				debug: false,
+				appId: Interface.wx.appid,
+				timestamp: res.timestamp,
+				nonceStr: res.noncestr,
+				signature: res.signature,
+				jsApiList: [
+					'onMenuShareTimeline',
+					'onMenuShareAppMessage',
+					'onMenuShareQQ'
+				]
+			}
+			console.log("===========wx.config=========")
+			console.log(share_url)
+			console.log(_config)
+			wx.config(_config);
+			wx.ready(function() {
+				// 2. 分享接口
+				// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+				wx.onMenuShareAppMessage({
+					title: title,
+					desc: dec,
+					link: share_url,
+					imgUrl: imgUrl,
+					trigger: function(res) {
+						// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+
+					},
+					success: function(res) {},
+					cancel: function(res) {
+
+					},
+					fail: function(res) {
+						//alert(JSON.stringify(res));
+					}
+				});
+				// 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+				wx.onMenuShareTimeline({
+					title: title,
+					desc: dec,
+					link: share_url,
+					imgUrl: imgUrl,
+					trigger: function(res) {
+						// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+					},
+					success: function(res) {},
+					cancel: function(res) {},
+					fail: function(res) {
+						//alert(JSON.stringify(res));
+					}
+				});
+				// 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
+				wx.onMenuShareQQ({
+					title: title,
+					desc: dec,
+					link: share_url,
+					imgUrl: imgUrl,
+					trigger: function(res) {
+						// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+					},
+					success: function(res) {},
+					cancel: function(res) {},
+					fail: function(res) {
+						//alert(JSON.stringify(res));
+					}
+				});
+			});
+		}
+		let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + Interface.domain;
+		console.log("==========url_ticket==========")
+		console.log(url_ticket)
+		let wx_ticket = this.getData(url_ticket, funTicket)
 	},
 	getWXInfos: function(fun, type, wxParm) {
 		var appid = this.wx.appid,

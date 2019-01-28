@@ -230,7 +230,6 @@
 
 <script>
 	import util from '../../common/util.js';
-	const wx = require('jweixin-module')
 	const mdl = util.module;
 	const inter = util.Interface;
 	const apiurl = inter.apiurl;
@@ -311,7 +310,11 @@
 					uni.setNavigationBarTitle({
 						title: _data.name
 					});
-					_this.toShare();
+
+					var title = _data.name,
+						imgUrl = util.Interface.domain + "/static/icon-1.png",
+						dec = _data.overview;
+					mdl.wxShare("", title, imgUrl, dec);
 				}
 			}
 			let _detail = mdl.getData(url_detail, fun);
@@ -478,94 +481,6 @@
 				this.$nextTick(function() {
 					this.scrollTop = 20000
 				});
-			},
-			toShare: function() {
-				var ticket_url = encodeURIComponent(location.href.split('#')[0]),
-					title = this.detail.name,
-					imgUrl = util.Interface.domain + "/static/icon-1.png",
-					dec = this.detail.overview,
-					share_url=location.href;
-				let funTicket = function(res) {
-					console.log("=======getTicket======")
-					console.log(res)
-					uni.setStorage({
-						key: 'wx_ticket',
-						data: {
-							"access_token": res.access_token,
-							"jsapi_ticket": res.ticket
-						},
-						success: function() {}
-					});
-					var _config = {
-						debug: false,
-						appId: util.Interface.wx.appid,
-						timestamp: res.timestamp,
-						nonceStr: res.noncestr,
-						signature: res.signature,
-						jsApiList: [
-							'onMenuShareTimeline',
-							'onMenuShareAppMessage',
-							'onMenuShareQQ'
-						]
-					}
-					console.log("===========wx.config=========")
-					console.log(_config)
-					wx.config(_config);
-					wx.ready(function() {
-						// 2. 分享接口
-						// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
-						wx.onMenuShareAppMessage({
-							title: title,
-							desc: dec,
-							link: share_url,
-							imgUrl: imgUrl,
-							trigger: function(res) {
-								// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-
-							},
-							success: function(res) {},
-							cancel: function(res) {
-
-							},
-							fail: function(res) {
-								//alert(JSON.stringify(res));
-							}
-						});
-						// 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
-						wx.onMenuShareTimeline({
-							title: title,
-							desc: dec,
-							link: share_url,
-							imgUrl: imgUrl,
-							trigger: function(res) {
-								// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-							},
-							success: function(res) {},
-							cancel: function(res) {},
-							fail: function(res) {
-								//alert(JSON.stringify(res));
-							}
-						});
-						// 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
-						wx.onMenuShareQQ({
-							title: title,
-							desc: dec,
-							link: share_url,
-							imgUrl: imgUrl,
-							trigger: function(res) {
-								// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-							},
-							success: function(res) {},
-							cancel: function(res) {},
-							fail: function(res) {
-								//alert(JSON.stringify(res));
-							}
-						});
-					});
-				}
-				let url_ticket = apiurl + inter.addr.getJsApiTicket + "?url=" + ticket_url;
-				console.log(url_ticket)
-				let wx_ticket = mdl.getData(url_ticket, funTicket)
 			}
 		}
 	}
