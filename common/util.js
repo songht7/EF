@@ -19,7 +19,8 @@ const Interface = {
 		"getBrand": "/v2/ApiHome-getBrand.htm", //品牌
 		"getRegion": "/v1/ApiEnum-getRegion.htm",
 		"getRegion2": "/v2/ApiEnum-getRegion.htm", //区域
-		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm"
+		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm",
+		"getJsApiTicket": "/v2/ApiWeChat-getJsApiTicket.htm"
 	},
 	"wx": {
 		"appid": "wx11eb371cd85adfd4"
@@ -41,8 +42,8 @@ const module = {
 			method: method || "GET",
 			data: data || {},
 			success: function(res) {
-// 				console.log("======success========");
-// 				console.log(res);
+				// 				console.log("======success========");
+				// 				console.log(res);
 				let __res = res.data;
 				if (__res.success) {
 					if (__res.data) {
@@ -61,8 +62,8 @@ const module = {
 				}
 			},
 			fail: function(err) {
-// 				console.log("======fail========");
-// 				console.log(err);
+				// 				console.log("======fail========");
+				// 				console.log(err);
 				result = {
 					"Result": "0",
 					"Msg": "接口请求失败",
@@ -70,8 +71,8 @@ const module = {
 				}
 			},
 			complete: function(comp) {
-// 				console.log("======complete========");
-// 				console.log(result)
+				// 				console.log("======complete========");
+				// 				console.log(result)
 				if (fun) {
 					new fun(result)
 				}
@@ -81,7 +82,8 @@ const module = {
 	getWXInfos: function(fun, type, wxParm) {
 		var appid = this.wx.appid,
 			secret = this.wx.secret;
-		var result = "",_method="GET";
+		var result = "",
+			_method = "GET";
 		if (type == "getCode") {
 			let REDIRECT_URI = "http%3a%2f%2fmain.meetji.com", //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
 				scope = "snsapi_base", //snsapi_userinfo （弹出授权页面，获取更多信息）
@@ -89,7 +91,7 @@ const module = {
 			var _url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + REDIRECT_URI +
 				'&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
 		} else if (type == "getToken") {
-			let _code=wxParm&&wxParm.code?wxParm.code:"";
+			let _code = wxParm && wxParm.code ? wxParm.code : "";
 			var _url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + secret + "&code=" +
 				_code + "&grant_type=authorization_code";
 		}

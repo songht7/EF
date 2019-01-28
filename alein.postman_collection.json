@@ -14,7 +14,8 @@
 		"bf24068d-0539-349f-5d5f-5370ba7bca4d",
 		"93e02512-3ff0-a1af-e7f4-b6adda57c3e2",
 		"a31aafe8-d19c-e829-5cbd-cf97733de6fb",
-		"80567844-65e3-b745-da08-209b9953ddb8"
+		"80567844-65e3-b745-da08-209b9953ddb8",
+		"ca77b45a-7190-f60d-ac96-7f93384c6a3f"
 	],
 	"folders": [
 		{
@@ -106,32 +107,31 @@
 			"id": "4ea60c49-e318-87f4-3ce3-edd897b0bbfc",
 			"headers": "",
 			"headerData": [],
-			"url": "http://api.alein.lc/v2/ApiHome-article_detail.htm?id=1",
+			"url": "http://api.alein.lc/v2/ApiHome-article_detail.htm?id=7",
 			"queryParams": [
 				{
 					"key": "id",
-					"value": "1",
+					"value": "7",
 					"equals": true,
 					"description": "",
 					"enabled": true
 				}
 			],
+			"preRequestScript": null,
 			"pathVariables": {},
 			"pathVariableData": [],
-			"preRequestScript": null,
 			"method": "GET",
-			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
 			"data": null,
 			"dataMode": "params",
-			"name": "/v2/ApiHome-article_detail.htm?id=1",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1547711035535,
 			"version": 2,
-			"responses": [],
 			"tests": null,
 			"currentHelper": "normal",
-			"helperAttributes": {}
+			"helperAttributes": {},
+			"time": 1548403074826,
+			"name": "/v2/ApiHome-article_detail.htm?id=1",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"responses": []
 		},
 		{
 			"id": "5156c194-8257-b867-4271-292006ef5e61",
@@ -238,7 +238,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://api.alein.lc/v2/ApiHome-article.htm?currentPage=1&pagesize=4&keywords=&region=上海&cat=&brand=&age_start=0&age_end=3&subject_category=",
+			"url": "http://api.alein.lc/v2/ApiHome-article.htm?currentPage=1&pagesize=99&keywords=&region=上海&cat=少儿&brand=&age_start=&age_end=&subject_category=",
 			"queryParams": [
 				{
 					"key": "currentPage",
@@ -249,7 +249,7 @@
 				},
 				{
 					"key": "pagesize",
-					"value": "4",
+					"value": "99",
 					"equals": true,
 					"description": "",
 					"enabled": true
@@ -270,7 +270,7 @@
 				},
 				{
 					"key": "cat",
-					"value": "",
+					"value": "少儿",
 					"equals": true,
 					"description": "",
 					"enabled": true
@@ -284,14 +284,14 @@
 				},
 				{
 					"key": "age_start",
-					"value": "0",
+					"value": "",
 					"equals": true,
 					"description": "",
 					"enabled": true
 				},
 				{
 					"key": "age_end",
-					"value": "3",
+					"value": "",
 					"equals": true,
 					"description": "",
 					"enabled": true
@@ -313,7 +313,7 @@
 			"tests": "http://api.alein.lc/v2/ApiHome-article.htm?currentPage=1&pagesize=5&keywords=关键字&region=黄埔&cat=少儿&brand=英孚&age_start=0&age_end=10&subject_category=少儿英语",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1547996362729,
+			"time": 1548427085473,
 			"name": "/v2/ApiHome-article.htm",
 			"description": "",
 			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
@@ -380,6 +380,35 @@
 			"helperAttributes": {},
 			"time": 1547711903156,
 			"name": "/v1/ApiEnum-getRegion.htm",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"responses": []
+		},
+		{
+			"id": "ca77b45a-7190-f60d-ac96-7f93384c6a3f",
+			"headers": "",
+			"headerData": [],
+			"url": "http://api.alein.lc/v2/ApiWeChat-getJsApiTicket.htm?url=www.meetji.com",
+			"queryParams": [
+				{
+					"key": "url",
+					"value": "www.meetji.com",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1548427279063,
+			"name": "/v2/ApiWeChat-getJsApiTicket.htm",
 			"description": "",
 			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
 			"responses": []
