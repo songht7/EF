@@ -312,7 +312,7 @@
 					});
 
 					var title = _data.name,
-						imgUrl = util.Interface.domain + "/static/icon-1.png",
+						imgUrl = _data.image?apiurl+_data.image[0]["original_src"]:util.Interface.domain + "/static/icon-1.png",
 						dec = _data.overview;
 					mdl.wxShare("", title, imgUrl, dec);
 				}

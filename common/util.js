@@ -24,17 +24,14 @@ const Interface = {
 		"getJsApiTicket": "/v2/ApiWeChat-getJsApiTicket.htm"
 	},
 	"wx": {
-		"appid": "wx11eb371cd85adfd4"
-	}
-
-};
-const module = {
-	wx: {
 		"appid": "wx11eb371cd85adfd4",
 		"access_token": "client_credential",
 		"secret": "01ef7de58bc18da629d4ec33a62744f9",
 		"getToken": "https://api.weixin.qq.com/cgi-bin/token"
-	},
+	}
+
+};
+const module = {
 	getData: function(url, fun, method, data) {
 		//console.log(url)
 		let result = [];
@@ -80,19 +77,19 @@ const module = {
 			}
 		})
 	},
-	wxShare:function(share_url, title, imgUrl, dec) {
-		var share_url =share_url?share_url:encodeURIComponent("http://main.meetji.com:3001?wxr="+location.href);
+	wxShare: function(share_url, title, imgUrl, dec) {
 		let funTicket = function(res) {
 			console.log("=======getTicket======")
 			console.log(res)
-			uni.setStorage({
-				key: 'wx_ticket',
-				data: {
-					"access_token": res.access_token,
-					"jsapi_ticket": res.ticket
-				},
-				success: function() {}
-			});
+// 			uni.setStorage({
+// 				key: 'wx_ticket',
+// 				data: {
+// 					"access_token": res.access_token,
+// 					"jsapi_ticket": res.ticket,
+// 					"signature": res.signature
+// 				},
+// 				success: function() {}
+// 			});
 			var _config = {
 				debug: false,
 				appId: Interface.wx.appid,
@@ -105,70 +102,42 @@ const module = {
 					'onMenuShareQQ'
 				]
 			}
-			console.log("===========wx.config=========")
-			console.log(share_url)
-			console.log(_config)
 			wx.config(_config);
-			wx.ready(function() {
-				// 2. 分享接口
-				// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
-				wx.onMenuShareAppMessage({
-					title: title,
-					desc: dec,
-					link: share_url,
-					imgUrl: imgUrl,
-					trigger: function(res) {
-						// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-
-					},
-					success: function(res) {},
-					cancel: function(res) {
-
-					},
-					fail: function(res) {
-						//alert(JSON.stringify(res));
-					}
-				});
-				// 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
-				wx.onMenuShareTimeline({
-					title: title,
-					desc: dec,
-					link: share_url,
-					imgUrl: imgUrl,
-					trigger: function(res) {
-						// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-					},
-					success: function(res) {},
-					cancel: function(res) {},
-					fail: function(res) {
-						//alert(JSON.stringify(res));
-					}
-				});
-				// 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
-				wx.onMenuShareQQ({
-					title: title,
-					desc: dec,
-					link: share_url,
-					imgUrl: imgUrl,
-					trigger: function(res) {
-						// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-					},
-					success: function(res) {},
-					cancel: function(res) {},
-					fail: function(res) {
-						//alert(JSON.stringify(res));
-					}
-				});
-			});
 		}
-		let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + Interface.domain;
-		console.log("==========url_ticket==========")
-		console.log(url_ticket)
+		let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + location.origin + "/#/";
+		
 		let wx_ticket = this.getData(url_ticket, funTicket)
+
+		var share_url = share_url ? share_url : "http://main.meetji.com:3001?wxr=" + encodeURIComponent(location.href);
+		var wxSet = {
+			title: title,
+			desc: dec,
+			link: share_url,
+			imgUrl: imgUrl,
+			trigger: function(res) {
+				// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+			},
+			success: function(res) {},
+			cancel: function(res) {
+
+			},
+			fail: function(res) {
+				//alert(JSON.stringify(res));
+			}
+		};
+		wx.ready(function() {
+			// 2. 分享接口
+			// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
+			wx.onMenuShareAppMessage(wxSet);
+			// 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+			wx.onMenuShareTimeline(wxSet);
+			// 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
+			wx.onMenuShareQQ(wxSet);
+		});
 	},
 	getWXInfos: function(fun, type, wxParm) {
-		var appid = this.wx.appid,
-			secret = this.wx.secret;
+		var appid = Interface.wx.appid,
+			secret = Interface.wx.secret;
 		var result = "",
 			_method = "GET";
 		if (type == "getCode") {
