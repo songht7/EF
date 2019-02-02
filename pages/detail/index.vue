@@ -159,7 +159,7 @@
 												</view>
 											</view>
 										</view>
-										<view class="uni-list">
+										<!-- <view class="uni-list">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left">
 													所属城市
@@ -185,7 +185,7 @@
 												</view>
 												<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
 											</view>
-										</view>
+										</view> -->
 										<view class="uni-list apply-date">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left">
@@ -209,6 +209,9 @@
 						</view>
 					</view>
 				</view>
+			</view>
+			<view class="visitors" :class="visitShow">
+				<text><uni-icon size="16" type="eye" color="#ffffff"></uni-icon>&nbsp;同时有 {{visitors}} 人浏览</text>
 			</view>
 			<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
 			 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
@@ -260,6 +263,8 @@
 				date: this.getDate({
 					format: true
 				}),
+				visitors:3,
+				visitShow:"",
 				id: "",
 				topage: "/pages/apply/index",
 				url: "",
@@ -321,6 +326,7 @@
 			var _date = this.getDate({
 				format: true
 			});
+			_this.visitShowFun();
 		},
 		computed: {
 			startDate() {
@@ -376,8 +382,8 @@
 						"age": formData.Age,
 						"sex": formData.Gender == 0 ? "男" : "女",
 						"phone": formData.UserPhone,
-						"city": formData.City,
-						"school": this.schoolId,
+						"city": "",//formData.City,
+						"school": "",//this.schoolId,
 						"article_id": this.brandId,
 						"arrive_time": formData.ApplyDate
 					};
@@ -481,6 +487,17 @@
 				this.$nextTick(function() {
 					this.scrollTop = 20000
 				});
+			},
+			visitShowFun:function(){
+				var _this=this;
+				var t=8000;
+				var vShow=setInterval(function(){
+					let d=parseInt(Math.random()*3,10)+1;
+					_this.visitors=_this.visitors+d;
+					_this.visitShow="visitShow";
+					t=parseInt(Math.random()*(150000-8000+1)+50000,10);
+					setTimeout(function(){_this.visitShow="";},3000)
+				},t)
 			}
 		}
 	}

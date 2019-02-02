@@ -120,7 +120,10 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	padding-bottom: 10upx;
 }
 
-.uni-comment-list{border-bottom: 1px solid #F0F0F0;}
+.uni-comment-list {
+	border-bottom: 1px solid #F0F0F0;
+}
+
 .comments {
 	font-size: 34upx;
 	padding: 10upx 20upx 5upx 35upx;
@@ -137,14 +140,32 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 .uni-comment-top {
 	color: #282828;
 }
-.to-comment{display: flex;justify-content: flex-end;padding: 20upx 0;}
-.comment-btn{color: #0078ff;font-size: 28upx;display: flex;align-content: center;align-items: center;letter-spacing: 1px;}
+
+.to-comment {
+	display: flex;
+	justify-content: flex-end;
+	padding: 20upx 0;
+}
+
+.comment-btn {
+	color: #0078ff;
+	font-size: 28upx;
+	display: flex;
+	align-content: center;
+	align-items: center;
+	letter-spacing: 1px;
+}
+
 .dtl-btns {
 	display: flex;
 	justify-content: space-between;
 	padding: 20upx 20upx 15upx;
 }
-.uni-btn-v{position: relative;}
+
+.uni-btn-v {
+	position: relative;
+}
+
 .apply-btn,
 .goTo {
 	width: 100%;
@@ -159,11 +180,38 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	padding: 15upx 0;
 	border-color: none;
 }
-.btnIcon{height: 50%;z-index: 1;right: 10upx;bottom: 18%;position: absolute;}
-.scroll-Y {
-	height: 1800upx;overflow: hidden;
+
+.btnIcon {
+	height: 50%;
+	z-index: 1;
+	right: 10upx;
+	bottom: 18%;
+	position: absolute;
 }
 
+.scroll-Y {
+	height: 1800upx;
+	overflow: hidden;
+}
+
+.visitors {
+	position: fixed;
+	display: none;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	width: 90%;
+	left: 5%;
+	bottom: 10%;
+	background: rgba(76, 76, 76, 0.5);
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 2;
+	font-size: 28upx;
+	z-index: 10;
+	border-radius: 8upx;
+}
+.visitShow{display: flex;}
 .goTo {
 	position: fixed;
 	width: 98%;
@@ -215,7 +263,28 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 .school-box .uni-input.rowOne {
 	height: 50upx;
 }
-.qrcodefot{display: block;width: 100%;margin: 40upx auto 0;}
-.pop-success{width: 70%;height: 50%;position: fixed;top: 35%;left: 15%;z-index: 999;display: none;}
-.success-show{display: block;}
-.success-img{display: block;width: 100%;}
+
+.qrcodefot {
+	display: block;
+	width: 100%;
+	margin: 40upx auto 0;
+}
+
+.pop-success {
+	width: 70%;
+	height: 50%;
+	position: fixed;
+	top: 35%;
+	left: 15%;
+	z-index: 999;
+	display: none;
+}
+
+.success-show {
+	display: block;
+}
+
+.success-img {
+	display: block;
+	width: 100%;
+}
