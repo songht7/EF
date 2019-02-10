@@ -141,7 +141,7 @@ const module = {
 		var result = "",
 			_method = "GET";
 		if (type == "getCode") {
-			let REDIRECT_URI = "http%3a%2f%2fmain.meetji.com", //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
+			let REDIRECT_URI = encodeURIComponent(Interface.domain), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
 				scope = "snsapi_base", //snsapi_userinfo （弹出授权页面，获取更多信息）
 				state = ""; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
 			var _url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + REDIRECT_URI +
@@ -152,11 +152,13 @@ const module = {
 				_code + "&grant_type=authorization_code";
 		}
 		console.log("======getWXInfos========")
+		console.log(location.origin)
 		console.log(type)
 		console.log(_url)
 		uni.request({
 			url: _url,
 			method: _method,
+			data:{},
 			success(res) {
 				result = res;
 				console.log(res)

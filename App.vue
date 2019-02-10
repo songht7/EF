@@ -1,12 +1,19 @@
 <script>
+	import util from '@/common/util.js';
+	const mdl = util.module;
 	export default {
-		onLaunch: function () {
+		onLaunch: function() {
 			console.log('App Launch')
 		},
-		onShow: function () {
+		onShow: function() {
+			var _this = this;
+			var fun = function(res) {
+				console.log(res)
+			}
+			mdl.getWXInfos(fun, "getCode");
 			console.log('App Show')
 		},
-		onHide: function () {
+		onHide: function() {
 			console.log('App Hide')
 		}
 	}
