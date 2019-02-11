@@ -11,9 +11,9 @@
 							<view class="ser-title">英孚</view>
 							<view class="ser-time">预约时间：2019-03-01</view>
 						</view>
-						<view class="ser-tag">免费</view>
+						<view class="ser-tag-res">免费</view>
 					</navigator>
-					<view class="apply">
+					<view class="apply-res">
 						预约状态：预约成功 等待课程顾问联系
 					</view>
 				</view>
@@ -87,7 +87,7 @@
 		font-size: 24upx;
 	}
 
-	.ser-tag {
+	.ser-tag-res {
 		font-size: 28upx;
 		text-align: center;
 		padding: 0 15upx;
@@ -98,11 +98,12 @@
 		right: -14upx;
 	}
 
-	.apply {
+	.apply-res {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
+		margin: 10upx 0 0;
 		padding: 10upx 0 0;
 		border-top: 1px solid #F5F5F5;
 	}
