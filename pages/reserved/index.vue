@@ -1,9 +1,8 @@
 <template>
 	<view class="page">
 		<view class="content">
-			<filter-box :location="location" :category="category" :ageGroup="ageGroup" :swiperList="swiperList"></filter-box>
+			list
 		</view>
-		<list-block :list="list"></list-block>
 	</view>
 </template>
 
