@@ -81,15 +81,15 @@ const module = {
 		let funTicket = function(res) {
 			console.log("=======getTicket======")
 			console.log(res)
-// 			uni.setStorage({
-// 				key: 'wx_ticket',
-// 				data: {
-// 					"access_token": res.access_token,
-// 					"jsapi_ticket": res.ticket,
-// 					"signature": res.signature
-// 				},
-// 				success: function() {}
-// 			});
+			// 			uni.setStorage({
+			// 				key: 'wx_ticket',
+			// 				data: {
+			// 					"access_token": res.access_token,
+			// 					"jsapi_ticket": res.ticket,
+			// 					"signature": res.signature
+			// 				},
+			// 				success: function() {}
+			// 			});
 			var _config = {
 				debug: false,
 				appId: Interface.wx.appid,
@@ -105,10 +105,11 @@ const module = {
 			wx.config(_config);
 		}
 		let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + location.origin + "/#/";
-		
+
 		let wx_ticket = this.getData(url_ticket, funTicket)
 
-		var share_url = share_url ? share_url : "http://main.meetji.com:3001?wxr=" + encodeURIComponent(location.href);
+		var share_url = share_url ? share_url : "http://main.meetji.com:3001?wxr=" + encodeURIComponent(location.origin +
+			"/" + location.hash);
 		var wxSet = {
 			title: title,
 			desc: dec,
@@ -135,47 +136,68 @@ const module = {
 			wx.onMenuShareQQ(wxSet);
 		});
 	},
+	queryString: function(value) {
+		const reg = new RegExp(`(^|&)${value}=([^&]*)(&|$)`, 'i')
+		const r = window && window.location.search.substr(1).match(reg)
+		if (r != null) {
+			return unescape(r[2])
+		}
+		return null
+	},
+	isWeixin: function() {
+		return !!/micromessenger/i.test(navigator.userAgent.toLowerCase())
+	},
 	getWXInfos: function(fun, type, wxParm) {
-		var appid = Interface.wx.appid,
+		var _this = this,
+			appid = Interface.wx.appid,
 			secret = Interface.wx.secret;
+// 		console.log("======getWXInfos========")
+// 		console.log(_this.isWeixin())
+// 		console.log(location.origin)
+// 		console.log(type)
+		if (!_this.isWeixin()) {
+			return
+		}
 		var result = "",
 			_method = "GET";
 		if (type == "getCode") {
 			let REDIRECT_URI = encodeURIComponent(Interface.domain), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
 				scope = "snsapi_base", //snsapi_userinfo （弹出授权页面，获取更多信息）
-				state = ""; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
+				state = "STATE"; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
 			var _url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + REDIRECT_URI +
 				'&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
+			let code = _this.queryString('code');
+			if (code) {
+				console.log(code)
+			} else {
+				window.location.href = _url;
+			}
 		} else if (type == "getToken") {
 			let _code = wxParm && wxParm.code ? wxParm.code : "";
 			var _url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + secret + "&code=" +
 				_code + "&grant_type=authorization_code";
-		}
-		console.log("======getWXInfos========")
-		console.log(location.origin)
-		console.log(type)
-		console.log(_url)
-		uni.request({
-			url: _url,
-			method: _method,
-			data:{},
-			success(res) {
-				result = res;
-				console.log(res)
-			},
-			fail(err) {
-				result = err;
-				console.log(err)
-			},
-			complete(c) {
-				console.log(type)
-				if (fun) {
-					new fun(result)
-				} else {
-					return result
+			uni.request({
+				url: _url,
+				method: _method,
+				data: {},
+				success(res) {
+					result = res;
+					console.log(res)
+				},
+				fail(err) {
+					result = err;
+					console.log(err)
+				},
+				complete(c) {
+					console.log(type)
+					if (fun) {
+						new fun(result)
+					} else {
+						return result
+					}
 				}
-			}
-		})
+			})
+		}
 	}
 }
 const getList = function(key) {

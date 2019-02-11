@@ -8,7 +8,7 @@
 							<view class="uni-card-content-inner">
 								<view class="c-user-info">
 									<view class="circle">
-										<image class="head" src="../../static/h5/user/head.png" mode="widthFix"></image>
+										<!-- <image class="head" src="../../static/h5/user/head.png" mode="widthFix"></image> -->
 									</view>
 									<view class="top-texts">
 										<text class="top-txt name">用户名</text>
@@ -73,7 +73,7 @@
 
 <style>
 	.c-top {
-		background: url(../../static/h5/user/set-top-bg.png) no-repeat 50% 0;
+		/* background: url(../../static/h5/user/set-top-bg.png) no-repeat 50% 0; */
 		background-size: 100% 90%;
 		width: 100%;
 	}
