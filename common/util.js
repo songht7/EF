@@ -108,8 +108,9 @@ const module = {
 
 		let wx_ticket = this.getData(url_ticket, funTicket)
 
-		var share_url = share_url ? share_url : "http://main.meetji.com:3001?wxr=" + encodeURIComponent(location.origin +
-			"/" + location.hash);
+		let _href=location.origin +"/" + location.hash;
+		console.log(_href)
+		var share_url = share_url ? share_url : "http://main.meetji.com:3001?wxr=" + encodeURIComponent(_href);
 		var wxSet = {
 			title: title,
 			desc: dec,
