@@ -413,7 +413,6 @@
 						}
 					}
 					let openid=that.userInfo.openid?that.userInfo.openid:"";
-					//console.log(openid)
 					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data,{"openid":openid});
 
 				} else {

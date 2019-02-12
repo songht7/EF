@@ -33,14 +33,13 @@ const Interface = {
 
 };
 const module = {
-	getData: function(url, fun, method, data, _header) {
-		//console.log(url)
+	getData: function(url, fun, method, data, _head) {
 		let result = [];
 		uni.request({
 			url: url,
 			method: method || "GET",
 			data: data || {},
-			header: _header || {},
+			header: _head || {},
 			success: function(res) {
 				// 				console.log("======success========");
 				// 				console.log(res);
@@ -159,7 +158,7 @@ const module = {
 		// 		console.log(location.origin)
 		// 		console.log(type)
 
-		_this.userLogin("001Ehvmp1SQNOi0NP5mp1Q1kmp1Ehvmd"); //测试用
+		_this.userLogin("001hWzDs1twOnm0VrIGs1S6HDs1hWzDw"); //测试用
 		if (!_this.isWeixin()) {
 			//return
 		}
