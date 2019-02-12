@@ -3,18 +3,15 @@
 	const mdl = util.module;
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
+			//console.log('App Launch')
 		},
 		onShow: function() {
 			var _this = this;
-			var fun = function(res) {
-				console.log(res)
-			}
-			mdl.getWXInfos(fun, "getCode");
-			console.log('App Show')
+			mdl.getWXCode();
+			//console.log('App Show')
 		},
 		onHide: function() {
-			console.log('App Hide')
+			//console.log('App Hide')
 		}
 	}
 </script>

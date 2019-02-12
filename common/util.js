@@ -108,7 +108,7 @@ const module = {
 
 		let wx_ticket = this.getData(url_ticket, funTicket)
 
-		let _href=location.origin +"/" + location.hash;
+		let _href = location.origin + "/" + location.hash;
 		console.log(_href)
 		var share_url = share_url ? share_url : "http://main.meetji.com:3001?wxr=" + encodeURIComponent(_href);
 		var wxSet = {
@@ -148,57 +148,81 @@ const module = {
 	isWeixin: function() {
 		return !!/micromessenger/i.test(navigator.userAgent.toLowerCase())
 	},
-	getWXInfos: function(fun, type, wxParm) {
+	getWXCode: function() {
 		var _this = this,
 			appid = Interface.wx.appid,
 			secret = Interface.wx.secret;
-// 		console.log("======getWXInfos========")
-// 		console.log(_this.isWeixin())
-// 		console.log(location.origin)
-// 		console.log(type)
+		// 		console.log("======getWXInfos========")
+		// 		console.log(_this.isWeixin())
+		// 		console.log(location.origin)
+		// 		console.log(type)
+
+		_this.userLogin("081vdE4e2gOk7H0g0J1e2tef4e2vdE4d"); //测试用
 		if (!_this.isWeixin()) {
-			return
+			//return
 		}
-		var result = "",
-			_method = "GET";
-		if (type == "getCode") {
-			let REDIRECT_URI = encodeURIComponent(Interface.domain), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
-				scope = "snsapi_base", //snsapi_userinfo （弹出授权页面，获取更多信息）
-				state = "STATE"; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
-			var _url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' + REDIRECT_URI +
-				'&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
-			let code = _this.queryString('code');
-			if (code) {
-				console.log(code)
-			} else {
-				window.location.href = _url;
-			}
-		} else if (type == "getToken") {
-			let _code = wxParm && wxParm.code ? wxParm.code : "";
-			var _url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid + "&secret=" + secret + "&code=" +
-				_code + "&grant_type=authorization_code";
-			uni.request({
-				url: _url,
-				method: _method,
-				data: {},
-				success(res) {
-					result = res;
-					console.log(res)
-				},
-				fail(err) {
-					result = err;
-					console.log(err)
-				},
-				complete(c) {
-					console.log(type)
-					if (fun) {
-						new fun(result)
+		var _uWXInfo = "";
+		uni.getStorage({
+			key: 'uWXInfo',
+			success: function(res) {
+				_uWXInfo = res.data;
+			},
+			complete: function() {
+				console.log("=====getStorage-_uWXInfo======")
+				console.log(_uWXInfo)
+				if (_uWXInfo && _uWXInfo.openid) {
+					_this.userLogin("", _uWXInfo.openid);
+				} else {
+					let REDIRECT_URI = encodeURIComponent(Interface.domain), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
+						scope = "snsapi_base", //snsapi_userinfo （弹出授权页面，获取更多信息）
+						state = "STATE"; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
+					var _url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' +
+						REDIRECT_URI +
+						'&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
+					let code = _this.queryString('code');
+					if (code) {
+						console.log(code)
+						_this.userLogin(code);
 					} else {
-						return result
+						//window.location.href = _url;
 					}
 				}
-			})
-		}
+			}
+		});
+
+	},
+	userLogin: function(code, openid) {
+		var _this = this;
+		var result = "";
+		var param = code ? "?code=" + code : "?openid=" + openid
+		var _url = Interface.apiurl + Interface.addr.getWeChatInfo + param;
+		console.log("======getWXInfo========")
+		console.log(_url)
+		//return;
+		uni.request({
+			url: _url,
+			method: "GET",
+			data: {},
+			success(res) {
+				console.log(res)
+				result = res;
+				let _data = res.data.data;
+				if (_data.openid) {
+					uni.setStorage({
+						key: 'uWXInfo',
+						data: _data,
+						success: function() {
+							console.log('setStorage-uWXInfo-success');
+						}
+					})
+				}
+			},
+			fail(err) {
+				result = err;
+				console.log(err)
+			},
+			complete(c) {}
+		})
 	}
 }
 const getList = function(key) {
