@@ -32,13 +32,14 @@ const Interface = {
 
 };
 const module = {
-	getData: function(url, fun, method, data) {
+	getData: function(url, fun, method, data, _header) {
 		//console.log(url)
 		let result = [];
 		uni.request({
 			url: url,
 			method: method || "GET",
 			data: data || {},
+			header: _header || {},
 			success: function(res) {
 				// 				console.log("======success========");
 				// 				console.log(res);
@@ -157,7 +158,7 @@ const module = {
 		// 		console.log(location.origin)
 		// 		console.log(type)
 
-		_this.userLogin("081vdE4e2gOk7H0g0J1e2tef4e2vdE4d"); //测试用
+		_this.userLogin("081iMKwR1sbgr314PkzR1nYJwR1iMKwY"); //测试用
 		if (!_this.isWeixin()) {
 			//return
 		}
@@ -223,6 +224,24 @@ const module = {
 			},
 			complete(c) {}
 		})
+	},
+	getMyStorage: function(key, val, fun) {
+		var _storage = "";
+		uni.getStorage({
+			key: key,
+			success: function(res) {
+				if (val) {
+					_storage = res.data.val;
+				} else {
+					_storage = res.data;
+				}
+			},
+			complete(c) {
+				if (fun) {
+					new fun(_storage)
+				}
+			}
+		});
 	}
 }
 const getList = function(key) {

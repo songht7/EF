@@ -249,6 +249,7 @@
 	export default {
 		data() {
 			return {
+				userInfo:{},
 				detail: [],
 				brand: "",
 				brandId: "",
@@ -287,6 +288,11 @@
 		},
 		onLoad(option) {
 			var _this = this;
+			var funStor=function(res){
+				_this.userInfo=res;
+			}
+			let myStorage = mdl.getMyStorage("uWXInfo","",funStor)
+			
 			let _id = option.id;
 			this.id = _id;
 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
@@ -406,7 +412,9 @@
 							}, 3000)
 						}
 					}
-					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data);
+					let openid=that.userInfo.openid?that.userInfo.openid:"";
+					//console.log(openid)
+					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data,{"openid":openid});
 
 				} else {
 					uni.showToast({

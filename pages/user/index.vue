@@ -11,7 +11,7 @@
 										<!-- <image class="head" src="../../static/h5/user/head.png" mode="widthFix"></image> -->
 									</view>
 									<view class="top-texts">
-										<text class="top-txt name">用户名</text>
+										<text class="top-txt name">{{userInfo.openid?userInfo.openid:"用户名"}}</text>
 										<view class="top-txt">
 											<text>手机 </text>
 											<text>18888888888</text>
@@ -65,8 +65,15 @@
 	export default {
 		data() {
 			return {
-
+				userInfo: {}
 			};
+		},
+		onLoad() {
+			var _this = this;
+			var funStor = function(res) {
+				_this.userInfo = res;
+			}
+			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
 		}
 	}
 </script>
@@ -107,8 +114,11 @@
 		flex-direction: column;
 		margin-left: 30upx;
 	}
-	.top-txt{
-		font-size: 34upx;}
+
+	.top-txt {
+		font-size: 34upx;
+	}
+
 	.center-main {
 		display: flex;
 		flex-direction: column;
