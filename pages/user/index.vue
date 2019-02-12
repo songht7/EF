@@ -8,13 +8,13 @@
 							<view class="uni-card-content-inner">
 								<view class="c-user-info">
 									<view class="circle">
-										<!-- <image class="head" src="../../static/h5/user/head.png" mode="widthFix"></image> -->
+										<image class="head" src="{{userInfo.headimgurl}}" mode="widthFix"></image>
 									</view>
 									<view class="top-texts">
-										<text class="top-txt name">{{userInfo.openid?userInfo.openid:"用户名"}}</text>
+										<text class="top-txt name">{{userInfo.nickname?userInfo.nickname:"游客"}}</text>
 										<view class="top-txt">
 											<text>手机 </text>
-											<text>18888888888</text>
+											<text>{{userInfo.phone?userInfo.phone:"--"}}</text>
 										</view>
 									</view>
 								</view>
@@ -24,30 +24,30 @@
 				</view>
 			</view>
 			<view class="center-main">
-				<view class="cell">
+				<!-- <view class="cell">
 					<view class="cell-left">
 						<text class="cell-text">生日</text>
 					</view>
 					<view class="cell-right">
 						<text class="cell-text-right">1990 / 01 / 01</text>
 					</view>
-				</view>
+				</view> -->
 				<view class="cell">
 					<view class="cell-left">
 						<text class="cell-text">性别</text>
 					</view>
 					<view class="cell-right">
-						<text class="cell-text-right">男</text>
+						<text class="cell-text-right">{{userInfo.sex&&userInfo.sex==1?"男":"女"}}</text>
 					</view>
 				</view>
-				<view class="cell">
+				<!-- <view class="cell">
 					<view class="cell-left">
 						<text class="cell-text">邮箱</text>
 					</view>
 					<view class="cell-right">
 						<text class="cell-text-right">123@qq.com</text>
 					</view>
-				</view>
+				</view> -->
 				<view class="cell">
 					<view class="cell-left">
 						<text class="cell-text">联系我们</text>
@@ -62,6 +62,8 @@
 </template>
 
 <script>
+	import util from '../../common/util.js';
+	const mdl = util.module;
 	export default {
 		data() {
 			return {
@@ -80,7 +82,7 @@
 
 <style>
 	.c-top {
-		/* background: url(../../static/h5/user/set-top-bg.png) no-repeat 50% 0; */
+		background: url(../../static/set-top-bg.png) no-repeat 50% 0;
 		background-size: 100% 90%;
 		width: 100%;
 	}

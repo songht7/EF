@@ -27,7 +27,8 @@ const Interface = {
 		"appid": "wx11eb371cd85adfd4",
 		"access_token": "client_credential",
 		"secret": "01ef7de58bc18da629d4ec33a62744f9",
-		"getToken": "https://api.weixin.qq.com/cgi-bin/token"
+		"getToken": "https://api.weixin.qq.com/cgi-bin/token",
+		"openid":"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ"//测试
 	}
 
 };
@@ -158,7 +159,7 @@ const module = {
 		// 		console.log(location.origin)
 		// 		console.log(type)
 
-		_this.userLogin("081iMKwR1sbgr314PkzR1nYJwR1iMKwY"); //测试用
+		_this.userLogin("001Ehvmp1SQNOi0NP5mp1Q1kmp1Ehvmd"); //测试用
 		if (!_this.isWeixin()) {
 			//return
 		}
