@@ -106,11 +106,12 @@ const module = {
 			}
 			wx.config(_config);
 		}
-		let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + location.origin + "/#/";
+		let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + location.origin;
 
 		let wx_ticket = this.getData(url_ticket, funTicket)
 
 		let _href = location.origin + "/" + location.hash;
+		console.log("======share_url=====")
 		console.log(_href)
 		var share_url = share_url ? share_url : "http://main.meetji.com:3001?wxr=" + encodeURIComponent(_href);
 		var wxSet = {
