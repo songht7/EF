@@ -1,6 +1,7 @@
 <template>
+	<!-- 1确认 2作废 0是未确认 -->
 	<view class="list-block uni-padding-wrap uni-common-mt">
-		<view class="uni-card" v-for="(value,key) in reservedList" :key="key">
+		<view class="uni-card" v-for="(value,key) in reservedList" :key="key" v-if="value.status!=2">
 			<view class="uni-card-content">
 				<view class="uni-card-content-inner">
 					<navigator class="service-head" :url="'/pages/detail/index?id='+value.article_id">
@@ -14,11 +15,14 @@
 						<view class="ser-tag-res">{{value.subjectCurrentPrice&&value.subjectCurrentPrice!="0.00"?"￥"+value.subjectCurrentPrice:"免费"}}</view>
 					</navigator>
 					<view class="apply-res">
-						预约状态：预约成功 等待课程顾问联系
+						<text>预约状态：</text>
+						<text v-if="value.status==0">预约成功 等待课程顾问联系</text>
+						<text v-else-if="value.status==1">客服已联系</text>
 					</view>
 				</view>
 			</view>
 		</view>
+		<view class="reservedIsNull" v-if="reservedNull">{{reservedNull}}</view>
 	</view>
 </template>
 
@@ -33,7 +37,14 @@
 		data() {
 			return {
 				userInfo: {},
-				reservedList: []
+				reservedList: [],
+				param: {
+					"pi": 1,
+					"ps": 4,
+					"pageTotal": 1,
+					"listTotal": 0
+				},
+				reservedNull: ""
 			};
 		},
 		components: {
@@ -42,10 +53,10 @@
 		onLoad() {
 			var that = this;
 			var funStor = function(res) {
+				console.log(res)
 				that.userInfo = res;
 			}
 			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
-
 
 			that.getList();
 		},
@@ -55,10 +66,17 @@
 		methods: {
 			getList(type) {
 				var that = this;
+				let param = that.param;
+				var _param ="?currentPage=" + param.pi + "&pagesize=" + param.ps;
 				let url_list = apiurl + inter.addr.getBookedList;
 				var funList = function(res) {
-					//console.log(res)
-					that.reservedList = res;
+					console.log("====预约课程=====")
+					console.log(res)
+					that.reservedList = res.list;
+					that.param.listTotal = res.total;
+					if (res.length <= 0) {
+						that.reservedNull = "暂无预约课程"
+					}
 					uni.stopPullDownRefresh();
 				}
 				let openid = that.userInfo.openid ? that.userInfo.openid : "";
@@ -145,5 +163,13 @@
 		margin: 10upx 0 0;
 		padding: 10upx 0 0;
 		border-top: 1px solid #F5F5F5;
+	}
+
+	.reservedIsNull {
+		text-align: center;
+		line-height: 3;
+		font-size: 34upx;
+		letter-spacing: 1.2px;
+		color: #555555;
 	}
 </style>
