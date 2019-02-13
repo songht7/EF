@@ -23,7 +23,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="center-main">
+			<view class="center-main" style="display: none;">
 				<form @submit="formSubmit" @reset="formReset">
 					<view class="cell" :class="isHide">
 						<view class="cell-left">
@@ -276,6 +276,7 @@
 		color: #a7a7a7;
 		font-size: 32upx;
 	}
+	.uni-input{background: transparent;}
 	.uni-btn-v{padding: 40upx 0 10upx;}
 	.apply-btn,
 	.toEdit {

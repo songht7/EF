@@ -160,7 +160,7 @@ const module = {
 		// 		console.log(location.origin)
 		// 		console.log(type)
 
-		_this.userLogin("061ax0962CiClR04eP462VkU862ax09c"); //测试用
+		//_this.userLogin("061ax0962CiClR04eP462VkU862ax09c"); //测试用
 		if (!_this.isWeixin()) {
 			//return
 		}

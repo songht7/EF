@@ -1,7 +1,7 @@
 <template>
-	<!-- 1确认 2作废 0是未确认 -->
+	<!-- 1确认 2作废 0是未确认 v-if="value.status!=2"-->
 	<view class="list-block uni-padding-wrap uni-common-mt">
-		<view class="uni-card" v-for="(value,key) in reservedList" :key="key" v-if="value.status!=2">
+		<view class="uni-card" v-for="(value,key) in reservedList" :key="key" >
 			<view class="uni-card-content">
 				<view class="uni-card-content-inner">
 					<navigator class="service-head" :url="'/pages/detail/index?id='+value.article_id">
@@ -16,8 +16,9 @@
 					</navigator>
 					<view class="apply-res">
 						<text>预约状态：</text>
-						<text v-if="value.status==0">预约成功 等待课程顾问联系</text>
-						<text v-else-if="value.status==1">客服已联系</text>
+						<text v-if="value.status==0" class="txt-orange">预约成功 等待课程顾问与您联系</text>
+						<text v-else-if="value.status==1" class="txt-light-black">客服已联系</text>
+						<text v-else-if="value.status==2" class="txt-gray">本人已回绝</text>
 					</view>
 				</view>
 			</view>
@@ -158,7 +159,7 @@
 	.apply-res {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
+		justify-content:flex-start;
 		align-items: center;
 		margin: 10upx 0 0;
 		padding: 10upx 0 0;

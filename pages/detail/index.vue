@@ -1,6 +1,6 @@
 <template>
-	<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
-	 @scroll="scroll">
+	<!-- <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
+	 @scroll="scroll"> -->
 		<view class="detail-page">
 			<view class="detail-block">
 				<view class="swiper-box">
@@ -110,7 +110,7 @@
 					<view class="uni-card">
 						<view class="uni-card-content">
 							<view class="uni-card-content-inner">
-								<view class="apply-block">
+								<view class="apply-block" id="FormApply">
 									<form @submit="formSubmit" @reset="formReset">
 										<view class="uni-list half-box">
 											<view class="uni-list-cell">
@@ -223,12 +223,12 @@
 				<navigator :url="url" class="apply-btn">立即申请</navigator>
 			</view>
 		</view> -->
-			<view @tap="goTo" v-if="btnShow" class="goTo">立即申请</view>
+			<view @tap="goTo" v-if="btnShow" class="goTo" id="GoTo">立即申请</view>
 			<view class="pop-success" :class="successShow">
 				<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
 			</view>
 		</view>
-	</scroll-view>
+	<!-- </scroll-view> -->
 </template>
 
 <script>
@@ -237,6 +237,7 @@
 	const inter = util.Interface;
 	const apiurl = inter.apiurl;
 
+	var _jquery = require("@/static/h5/public.js");
 	var graceChecker = require("../../common/graceChecker.js");
 	import mpvuePicker from '../../components/mpvue-picker/mpvuePicker.vue';
 	import mpvueCityPicker from '../../components/mpvue-citypicker/mpvueCityPicker.vue'
@@ -490,10 +491,11 @@
 			},
 			goTo: function(e) {
 				// 解决view层不同步的问题
-				this.scrollTop = this.old.scrollTop
-				this.$nextTick(function() {
-					this.scrollTop = 20000
-				});
+				_jquery.scrollTop("GoTo","FormApply");//FormApply
+// 				this.scrollTop = this.old.scrollTop
+// 				this.$nextTick(function() {
+// 					this.scrollTop = 20000
+// 				});
 			},
 			visitShowFun:function(){
 				var _this=this;
