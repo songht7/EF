@@ -76,6 +76,7 @@
 			"path": "pages/reserved/index",
 			"style": {
 				"navigationBarTitleText": "我的预约",
+				"enablePullDownRefresh": true,
 				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": {

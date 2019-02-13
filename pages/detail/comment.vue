@@ -26,6 +26,7 @@
 	export default {
 		data() {
 			return {
+				userInfo:{},
 				loading:false,
 				openid:"",
 				article_id:"",
@@ -37,8 +38,13 @@
 			uniRate
 		},
 		onLoad(option) {
+			var _this = this;
+			var funStor=function(res){
+				_this.userInfo=res;
+			}
+			let myStorage = mdl.getMyStorage("uWXInfo","",funStor)
 			let articleid = option.articleid;
-			this.article_id=articleid;
+			_this.article_id=articleid;
 		},
 		methods: {
 			changeStar(e){
@@ -59,7 +65,6 @@
 				var count=_comment.length;
 				if(count>=15){
 					var _data = {
-						"openid":this.openid,
 						"article_id":this.article_id,
 						"star": this.star,
 						"comment": _comment
@@ -82,7 +87,8 @@
 							}
 						})
 					}
-					let _saveComment = mdl.getData(url_saveComment, funSave, "POST", _data);
+					let openid=that.userInfo.openid?that.userInfo.openid:"";
+					let _saveComment = mdl.getData(url_saveComment, funSave, "POST", _data,{"openid":openid});
 				} else {
 					uni.showToast({
 						title: "评论(至少15字)",

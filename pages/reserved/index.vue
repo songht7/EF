@@ -1,17 +1,17 @@
 <template>
 	<view class="list-block uni-padding-wrap uni-common-mt">
-		<view class="uni-card">
+		<view class="uni-card" v-for="(value,key) in reservedList" :key="key">
 			<view class="uni-card-content">
 				<view class="uni-card-content-inner">
-					<navigator class="service-head" url="/pages/detail/index">
+					<navigator class="service-head" :url="'/pages/detail/index?id='+value.article_id">
 						<view class="ser-logo">
-							<image lazy-load src="../../static/ef/customer_qrcode.png" mode="aspectFill"/>
+							<image lazy-load lazy-load :src="value.subjectSrc?sourceUrl+value.subjectSrc:''" mode="aspectFill" />
 						</view>
 						<view class="ser-body">
-							<view class="ser-title">英孚</view>
-							<view class="ser-time">预约时间：2019-03-01</view>
+							<view class="ser-title">{{value.subjectName}}</view>
+							<view class="ser-time">预约时间：{{value.arrive_time}}</view>
 						</view>
-						<view class="ser-tag-res">免费</view>
+						<view class="ser-tag-res">{{value.subjectCurrentPrice&&value.subjectCurrentPrice!="0.00"?"￥"+value.subjectCurrentPrice:"免费"}}</view>
 					</navigator>
 					<view class="apply-res">
 						预约状态：预约成功 等待课程顾问联系
@@ -23,17 +23,56 @@
 </template>
 
 <script>
+	import util from '../../common/util.js';
+	const mdl = util.module;
+	const inter = util.Interface;
+	const apiurl = inter.apiurl;
+
+	import uniIcon from '../../components/uni-icon.vue'
 	export default {
 		data() {
 			return {
-				
+				userInfo: {},
+				reservedList: []
 			};
+		},
+		components: {
+			uniIcon
+		},
+		onLoad() {
+			var that = this;
+			var funStor = function(res) {
+				that.userInfo = res;
+			}
+			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
+
+
+			that.getList();
+		},
+		onPullDownRefresh() {
+			this.getList();
+		},
+		methods: {
+			getList(type) {
+				var that = this;
+				let url_list = apiurl + inter.addr.getBookedList;
+				var funList = function(res) {
+					//console.log(res)
+					that.reservedList = res;
+					uni.stopPullDownRefresh();
+				}
+				let openid = that.userInfo.openid ? that.userInfo.openid : "";
+				let _head = {
+					"openid": openid
+				};
+				let getList = mdl.getData(url_list, funList, "GET", {}, _head);
+			}
 		}
 	}
 </script>
 
 <style>
-.uni-card {
+	.uni-card {
 		-webkit-box-shadow: 1px 1px 8px rgba(0, 0, 0, .3);
 		box-shadow: 1px 1px 8px rgba(0, 0, 0, .3);
 		margin: 15px 0;

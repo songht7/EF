@@ -20,6 +20,7 @@ const Interface = {
 		"getBrand": "/v2/ApiHome-getBrand.htm", //品牌
 		"getRegion": "/v1/ApiEnum-getRegion.htm",
 		"getRegion2": "/v2/ApiEnum-getRegion.htm", //区域
+		"getBookedList":"/v2/ApiHome-getBookedList.htm",//预约列表
 		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm",
 		"getJsApiTicket": "/v2/ApiWeChat-getJsApiTicket.htm"
 	},
@@ -158,7 +159,7 @@ const module = {
 		// 		console.log(location.origin)
 		// 		console.log(type)
 
-		_this.userLogin("001hWzDs1twOnm0VrIGs1S6HDs1hWzDw"); //测试用
+		_this.userLogin("061ax0962CiClR04eP462VkU862ax09c"); //测试用
 		if (!_this.isWeixin()) {
 			//return
 		}

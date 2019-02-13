@@ -276,7 +276,7 @@
 		color: #a7a7a7;
 		font-size: 32upx;
 	}
-
+	.uni-btn-v{padding: 40upx 0 10upx;}
 	.apply-btn,
 	.toEdit {
 		width: 100%;
