@@ -1,6 +1,6 @@
 <template>
-	<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
-	 @scroll="scroll">
+	<!-- <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
+	 @scroll="scroll"> -->
 		<view class="detail-page-ef">
 			<view class="scroll-view-item detail-block">
 				<view class="ef-top-box">
@@ -8,7 +8,7 @@
 					<view class="uni-padding-wrap uni-common-mt">
 						<view class="uni-card">
 							<view class="uni-card-content">
-								<view class="uni-card-content-inner">
+								<view class="uni-card-content-inner" id="ApplyFormBox">
 									<view class="ef-title">专业认证培训师<br />教你地道英语</view>
 									<view class="ef-title-sub">FOREIGN TEACHER<br />免费试听体验课</view>
 									<form @submit="formSubmit" @reset="formReset" id="ApplyForm">
@@ -120,7 +120,7 @@
 						<view class="pro-desc">耐心陪伴，菜鸟也能飞</view>
 					</view>
 				</view>
-				<view @tap="goTop" v-if="btnShow" class="apply-btn go-top">立即预约 免费听课</view>
+				<view @tap="goTop" v-if="btnShow" class="apply-btn go-top" id="GoTo">立即预约 免费听课</view>
 				<view class="ef-imgs ef-imgs-center">
 					<img src="../../static/ef/img-4.png" class="ef-img" alt="">
 				</view>
@@ -132,7 +132,7 @@
 			<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
 			 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
 		</view>
-	</scroll-view>
+	<!-- </scroll-view> -->
 
 </template>
 

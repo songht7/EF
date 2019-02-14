@@ -16,14 +16,16 @@
 					</navigator>
 					<view class="apply-res">
 						<text>预约状态：</text>
-						<text v-if="value.status==0" class="txt-orange">预约成功 等待课程顾问与您联系</text>
+						<text class="txt-light-black">预约成功 等待课程顾问与您联系</text>
+						<!-- <text v-if="value.status==0" class="txt-orange">预约成功 等待课程顾问与您联系</text>
 						<text v-else-if="value.status==1" class="txt-light-black">客服已联系</text>
-						<text v-else-if="value.status==2" class="txt-gray">本人已回绝</text>
+						<text v-else-if="value.status==2" class="txt-gray">本人已回绝</text> -->
 					</view>
 				</view>
 			</view>
 		</view>
 		<view class="reservedIsNull" v-if="reservedNull">{{reservedNull}}</view>
+		<view class="reservedIsNull" v-else-if="!userInfo.openid">{{reservedNull}}</view>
 	</view>
 </template>
 
@@ -38,7 +40,7 @@
 		data() {
 			return {
 				userInfo: {},
-				reservedList: [],
+				reservedList: {},
 				param: {
 					"pi": 1,
 					"ps": 4,
@@ -84,6 +86,9 @@
 				let _head = {
 					"openid": openid
 				};
+				if (!mdl.isWeixin()) {
+					that.reservedNull = "请在微信客户端打开查看"
+				}else if(openid==""){that.reservedNull = "请先登录"}
 				let getList = mdl.getData(url_list, funList, "GET", {}, _head);
 			}
 		}

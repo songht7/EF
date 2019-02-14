@@ -110,7 +110,7 @@
 					<view class="uni-card">
 						<view class="uni-card-content">
 							<view class="uni-card-content-inner">
-								<view class="apply-block" id="FormApply">
+								<view class="apply-block" id="ApplyFormBox">
 									<form @submit="formSubmit" @reset="formReset">
 										<view class="uni-list half-box">
 											<view class="uni-list-cell">
@@ -130,7 +130,10 @@
 															年龄
 														</view>
 														<view class="uni-list-cell-db">
-															<input class="uni-input" name="Age" type="number" placeholder="" value="" />
+															<picker name="Age" @change="bindAgeChange" :value="ageIndex" :range="age">
+																<view class="uni-input">{{age[ageIndex]}}</view>
+															</picker>
+															<!-- <input class="uni-input" name="Age" type="number" placeholder="" value="" /> -->
 														</view>
 													</view>
 												</view>
@@ -257,6 +260,8 @@
 				//date: "",
 				gender: ['男', '女'],
 				genderIndex: 0,
+				age: ['0-3', '4-6','7-9','10-12','13-15','16-18','18以上'],
+				ageIndex: 2,
 				schoolVal: [],
 				schoolDtl: [],
 				schoolId: "",
@@ -351,6 +356,9 @@
 		methods: {
 			bindPickerChange: function(e) {
 				this.genderIndex = e.target.value
+			},
+			bindAgeChange: function(e) {
+				this.ageIndex = e.target.value
 			},
 			bindDateChange: function(e) {
 				this.date = e.target.value
@@ -491,7 +499,7 @@
 			},
 			goTo: function(e) {
 				// 解决view层不同步的问题
-				_jquery.scrollTop("GoTo","FormApply");//FormApply
+				//_jquery.scrollTop("GoTo","ApplyFormBox");
 // 				this.scrollTop = this.old.scrollTop
 // 				this.$nextTick(function() {
 // 					this.scrollTop = 20000

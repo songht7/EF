@@ -1,10 +1,7 @@
 module.exports = {
 	scrollTop: function(id,obj) {
-		// 		var ele = document.getElementById(id);
-		// 		console.log(ele.scrollHeight)
-		// 		ele.scrollTop =20000;// ele.scrollHeight;
-		var objHeight = $("#"+obj).offset().top;
 		$('#' + id).click(function() {
+			var objHeight = $("#"+obj).offset().top;
 			$('html,body').animate({
 				scrollTop: objHeight
 			}, 800);

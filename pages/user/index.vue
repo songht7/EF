@@ -8,7 +8,8 @@
 							<view class="uni-card-content-inner">
 								<view class="c-user-info">
 									<view class="circle">
-										<image class="head" :src="userInfo.headimgurl" mode="widthFix"></image>
+										<image class="head" v-if="userInfo.headimgur" :src="userInfo.headimgurl" mode="widthFix"></image>
+										<uni-icon v-else size="60" type="contact" color="#DDDDDF"></uni-icon>
 									</view>
 									<view class="top-texts">
 										<text class="top-txt name">{{userInfo.nickname?userInfo.nickname:"游客"}}</text>

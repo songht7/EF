@@ -156,13 +156,13 @@ const module = {
 			appid = Interface.wx.appid,
 			secret = Interface.wx.secret;
 		// 		console.log("======getWXInfos========")
-		// 		console.log(_this.isWeixin())
+		//		console.log(_this.isWeixin())
 		// 		console.log(location.origin)
 		// 		console.log(type)
 
 		//_this.userLogin("061ax0962CiClR04eP462VkU862ax09c"); //测试用
 		if (!_this.isWeixin()) {
-			//return
+			return
 		}
 		var _uWXInfo = "";
 		uni.getStorage({
@@ -187,7 +187,7 @@ const module = {
 						console.log(code)
 						_this.userLogin(code);
 					} else {
-						//window.location.href = _url;
+						window.location.href = _url;
 					}
 				}
 			}
