@@ -194,14 +194,14 @@ const module = {
 		});
 
 	},
-	userLogin: function(code, openid) {
+	userLogin: function(code, _openid) {
 		var _this = this;
 		var result = "";
 		var param = code ? "?code=" + code : "";
 		var _head = "";
-		if (openid) {
+		if (_openid) {
 			_head = {
-				"openid": openid
+				"openid": _openid
 			}
 		}
 		var _url = Interface.apiurl + Interface.addr.getWeChatInfo + param;
@@ -225,7 +225,13 @@ const module = {
 							console.log('setStorage-uWXInfo-success');
 						}
 					})
-					window.location.href = Interface.domain;
+					if (!_openid) {
+						window.location.href = Interface.domain;
+					} else if (_openid) {
+						uni.switchTab({
+							url: '/pages/index/index'
+						});
+					}
 				} else {
 					uni.switchTab({
 						url: '/pages/index/index'
