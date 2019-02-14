@@ -16,7 +16,8 @@
 		"6c09c1bc-0423-c791-2c13-4f00ae5e7b59",
 		"80567844-65e3-b745-da08-209b9953ddb8",
 		"ca77b45a-7190-f60d-ac96-7f93384c6a3f",
-		"0f3a9e9d-b77a-5a24-e467-52e1ad72721d"
+		"0f3a9e9d-b77a-5a24-e467-52e1ad72721d",
+		"b910c32a-a11b-e2f1-90b2-ee771615915f"
 	],
 	"folders": [
 		{
@@ -261,17 +262,18 @@
 				{
 					"key": "Content-Type",
 					"value": "application/json",
-					"description": "",
-					"enabled": true
+					"enabled": true,
+					"description": ""
 				},
 				{
 					"key": "openid",
 					"value": "1",
-					"description": "",
-					"enabled": true
+					"enabled": true,
+					"description": ""
 				}
 			],
 			"url": "http://api.alein.lc/v2/ApiHome-saveComment.htm",
+			"folder": null,
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -280,12 +282,16 @@
 			"data": [],
 			"dataMode": "raw",
 			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
+			"currentHelper": null,
+			"helperAttributes": null,
 			"time": 1549961123647,
 			"name": "/v2/ApiHome-saveComment.htm",
 			"description": null,
 			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"auth": null,
+			"events": null,
+			"descriptionFormat": null,
+			"variables": null,
 			"rawModeData": "{\"star\":\"5\",\"comment\":\"12345678901\",\"article_id\":\"1\"}"
 		},
 		{
@@ -434,6 +440,41 @@
 			"folder": null,
 			"folderId": null,
 			"timestamp": null
+		},
+		{
+			"id": "b910c32a-a11b-e2f1-90b2-ee771615915f",
+			"headers": "openid: 1\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "openid",
+					"value": "1",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://api.alein.lc/v2/ApiHome-saveUserInfo.htm",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1550140952116,
+			"name": "/v2/ApiHome-saveUserInfo.htm",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"responses": [],
+			"rawModeData": "{\"name\":\"space2\"}"
 		},
 		{
 			"id": "bf24068d-0539-349f-5d5f-5370ba7bca4d",

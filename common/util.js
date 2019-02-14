@@ -21,6 +21,7 @@ const Interface = {
 		"getRegion": "/v1/ApiEnum-getRegion.htm",
 		"getRegion2": "/v2/ApiEnum-getRegion.htm", //区域
 		"getBookedList": "/v2/ApiHome-getBookedList.htm", //预约列表
+		"saveUserInfo":"/v2/ApiHome-saveUserInfo.htm",//编辑保存用户
 		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm",
 		"getJsApiTicket": "/v2/ApiWeChat-getJsApiTicket.htm"
 	},
@@ -162,7 +163,7 @@ const module = {
 
 		//_this.userLogin("061AMrz72wh1XR0VkTB72Knmz72AMrzb"); //测试用
 		if (!_this.isWeixin()) {
-			return
+			//return
 		}
 		var _uWXInfo = "";
 		uni.getStorage({

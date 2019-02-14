@@ -1,168 +1,168 @@
 <template>
 	<!-- <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 	 @scroll="scroll"> -->
-		<view class="detail-page">
-			<view class="detail-block">
-				<view class="swiper-box">
-					<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true" interval="3000" duration="1000"
-					 indicator-color="#979797" indicator-active-color="#FFFFFF">
-						<swiper-item class="swiper-item" v-if="detail.image" v-for="(slide,index) in detail.image" :key="index">
-							<view class="vli">
-								<view class="vli2">
-									<image class="slideImg" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
-								</view>
-							</view>
-						</swiper-item>
-					</swiper>
-				</view>
-				<view class="card-box">
-					<view class="uni-padding-wrap uni-common-mt">
-						<view class="uni-card">
-							<view class="uni-card-content">
-								<view class="uni-card-content-inner dtlHead">
-									<view class="ser-title txt-orange">
-										{{detail.name}}
-									</view>
-									<view class="ser-abstract txt-black">
-										{{detail.overview}}
-									</view>
-									<view class="ser-feature txt-gray">
-										市场价:￥{{detail.market_price?detail.market_price:"-"}}
-									</view>
-									<view class="ser-tag">{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"免费"}}</view>
-									<view class="apply-num">
-										<view class="apply-cell apply-left">
-											<view class="txt-gray">已领</view>
-											<view class="txt-orange">199人</view>
-										</view>
-										<view class="apply-cell apply-middle">
-											<view class="txt-gray">好评率</view>
-											<view class="txt-orange">{{detail.praise}}</view>
-										</view>
-										<view class="apply-cell apply-right">
-											<view class="txt-gray">地点</view>
-											<view class="txt-orange">
-												<text v-if="schoolDtl.length==1">{{schoolDtl[0].region_name}}</text>
-												<text v-else>全国</text>
-											</view>
-										</view>
-									</view>
-								</view>
+	<view class="detail-page">
+		<view class="detail-block">
+			<view class="swiper-box">
+				<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true" interval="3000" duration="1000"
+				 indicator-color="#979797" indicator-active-color="#FFFFFF">
+					<swiper-item class="swiper-item" v-if="detail.image" v-for="(slide,index) in detail.image" :key="index">
+						<view class="vli">
+							<view class="vli2">
+								<image class="slideImg" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
 							</view>
 						</view>
-					</view>
-
-					<view class="uni-padding-wrap uni-common-mt">
-						<view class="uni-title">
-							<view class="introduction">
-								<view class="h3 txt-black">课程介绍</view>
-								<rich-text class="lesson-content txt-light-black" :nodes="detail.detail"></rich-text>
-							</view>
-						</view>
-					</view>
-				</view>
+					</swiper-item>
+				</swiper>
 			</view>
-
-			<view class="detail-block">
-				<view class="comments">
-					评论
-					<view class="cmt-more">
-						<!-- <uni-icon size="32" type="arrowleft" v-if="detail.comment" color="#BDBDBD"></uni-icon>&nbsp; -->
-						<uni-icon size="32" type="arrowright" color="#BDBDBD"></uni-icon>
-					</view>
-				</view>
-				<view class="uni-padding-wrap">
-					<!-- 评论区 start -->
-					<view class="uni-comment">
-						<!-- <view class="uni-comment-list"> -->
-						<view class="uni-comment-list" v-for="(cmt,c) in detail.comment" :key="c">
-							<view class="uni-comment-face">
-								<image v-if="cmt.headimgurl" :src="cmt.headimgurl" mode="widthFix"></image>
-								<uni-icon v-else size="55" type="contact" color="#DDDDDF"></uni-icon>
-							</view>
-							<view class="uni-comment-body">
-								<view class="uni-comment-top">{{cmt.name?cmt.name:"游客"}}</view>
-								<view class="uni-comment-date">
-									<view class="star">
-										<uni-icon v-for="n in parseInt(cmt.star)" :key="n" size="16" type="star-filled" color="#F7A631"></uni-icon>
-										<uni-icon v-for="n in 5-parseInt(cmt.star)" :key="n" size="16" type="star-filled" color="#D3D3D3"></uni-icon>
-										{{cmt.praise}}
-									</view>
-									<view>{{cmt.add_time.split(" ")[0]}}</view>
-								</view>
-								<view class="uni-comment-content">{{cmt.overview}}</view>
-							</view>
-						</view>
-						<view class="to-comment">
-							<navigator :url="'/pages/detail/comment?articleid='+detail.id" class="comment-btn">
-								<uni-icon size="18" type="chat" color="#0078ff"></uni-icon>&nbsp;写评论
-							</navigator>
-						</view>
-					</view>
-					<!-- 评论区 end -->
-				</view>
-			</view>
-
-			<!-- 预约块 -->
-			<view class="detail-block apply-box">
-				<view class="block-title">课程预约</view>
+			<view class="card-box">
 				<view class="uni-padding-wrap uni-common-mt">
 					<view class="uni-card">
 						<view class="uni-card-content">
-							<view class="uni-card-content-inner">
-								<view class="apply-block" id="ApplyFormBox">
-									<form @submit="formSubmit" @reset="formReset">
-										<view class="uni-list half-box">
-											<view class="uni-list-cell">
-												<view class="uni-list half">
-													<view class="uni-list-cell">
-														<view class="uni-list-cell-left">
-															姓名
-														</view>
-														<view class="uni-list-cell-db">
-															<input class="uni-input" name="UserName" placeholder="" />
-														</view>
+							<view class="uni-card-content-inner dtlHead">
+								<view class="ser-title txt-orange">
+									{{detail.name}}
+								</view>
+								<view class="ser-abstract txt-black">
+									{{detail.overview}}
+								</view>
+								<view class="ser-feature txt-gray">
+									市场价:￥{{detail.market_price?detail.market_price:"-"}}
+								</view>
+								<view class="ser-tag">{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"免费"}}</view>
+								<view class="apply-num">
+									<view class="apply-cell apply-left">
+										<view class="txt-gray">已领</view>
+										<view class="txt-orange">199人</view>
+									</view>
+									<view class="apply-cell apply-middle">
+										<view class="txt-gray">好评率</view>
+										<view class="txt-orange">{{detail.praise}}</view>
+									</view>
+									<view class="apply-cell apply-right">
+										<view class="txt-gray">地点</view>
+										<view class="txt-orange">
+											<text v-if="schoolDtl.length==1">{{schoolDtl[0].region_name}}</text>
+											<text v-else>全国</text>
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+
+				<view class="uni-padding-wrap uni-common-mt">
+					<view class="uni-title">
+						<view class="introduction">
+							<view class="h3 txt-black">课程介绍</view>
+							<rich-text class="lesson-content txt-light-black" :nodes="detail.detail"></rich-text>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+
+		<view class="detail-block">
+			<view class="comments">
+				评论
+				<view class="cmt-more">
+					<!-- <uni-icon size="32" type="arrowleft" v-if="detail.comment" color="#BDBDBD"></uni-icon>&nbsp; -->
+					<uni-icon size="32" type="arrowright" color="#BDBDBD"></uni-icon>
+				</view>
+			</view>
+			<view class="uni-padding-wrap">
+				<!-- 评论区 start -->
+				<view class="uni-comment">
+					<!-- <view class="uni-comment-list"> -->
+					<view class="uni-comment-list" v-for="(cmt,c) in detail.comment" :key="c">
+						<view class="uni-comment-face">
+							<image v-if="cmt.headimgurl" :src="cmt.headimgurl" mode="widthFix"></image>
+							<uni-icon v-else size="55" type="contact" color="#DDDDDF"></uni-icon>
+						</view>
+						<view class="uni-comment-body">
+							<view class="uni-comment-top">{{cmt.name?cmt.name:"游客"}}</view>
+							<view class="uni-comment-date">
+								<view class="star">
+									<uni-icon v-for="n in parseInt(cmt.star)" :key="n" size="16" type="star-filled" color="#F7A631"></uni-icon>
+									<uni-icon v-for="n in 5-parseInt(cmt.star)" :key="n" size="16" type="star-filled" color="#D3D3D3"></uni-icon>
+									{{cmt.praise}}
+								</view>
+								<view>{{cmt.add_time.split(" ")[0]}}</view>
+							</view>
+							<view class="uni-comment-content">{{cmt.overview}}</view>
+						</view>
+					</view>
+					<view class="to-comment">
+						<navigator :url="'/pages/detail/comment?articleid='+detail.id" class="comment-btn">
+							<uni-icon size="18" type="chat" color="#0078ff"></uni-icon>&nbsp;写评论
+						</navigator>
+					</view>
+				</view>
+				<!-- 评论区 end -->
+			</view>
+		</view>
+
+		<!-- 预约块 -->
+		<view class="detail-block apply-box">
+			<view class="block-title">课程预约</view>
+			<view class="uni-padding-wrap uni-common-mt">
+				<view class="uni-card">
+					<view class="uni-card-content">
+						<view class="uni-card-content-inner">
+							<view class="apply-block" id="ApplyFormBox">
+								<form @submit="formSubmit" @reset="formReset">
+									<view class="uni-list half-box">
+										<view class="uni-list-cell">
+											<view class="uni-list half">
+												<view class="uni-list-cell">
+													<view class="uni-list-cell-left">
+														姓名
 													</view>
-												</view>
-												<view class="uni-list half">
-													<view class="uni-list-cell">
-														<view class="uni-list-cell-left">
-															年龄
-														</view>
-														<view class="uni-list-cell-db">
-															<picker name="Age" @change="bindAgeChange" :value="ageIndex" :range="age">
-																<view class="uni-input">{{age[ageIndex]}}</view>
-															</picker>
-															<!-- <input class="uni-input" name="Age" type="number" placeholder="" value="" /> -->
-														</view>
-													</view>
-												</view>
-												<view class="uni-list half">
-													<view class="uni-list-cell">
-														<view class="uni-list-cell-left">
-															性别
-														</view>
-														<view class="uni-list-cell-db">
-															<picker name="Gender" @change="bindPickerChange" :value="genderIndex" :range="gender">
-																<view class="uni-input">{{gender[genderIndex]}}</view>
-															</picker>
-														</view>
-														<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
+													<view class="uni-list-cell-db">
+														<input class="uni-input" name="UserName" placeholder="" />
 													</view>
 												</view>
 											</view>
-										</view>
-										<view class="uni-list">
-											<view class="uni-list-cell">
-												<view class="uni-list-cell-left">
-													手机号码
+											<view class="uni-list half">
+												<view class="uni-list-cell">
+													<view class="uni-list-cell-left">
+														年龄
+													</view>
+													<view class="uni-list-cell-db">
+														<picker name="Age" @change="bindAgeChange" :value="ageIndex" :range="age">
+															<view class="uni-input">{{age[ageIndex]}}</view>
+														</picker>
+														<!-- <input class="uni-input" name="Age" type="number" placeholder="" value="" /> -->
+													</view>
 												</view>
-												<view class="uni-list-cell-db">
-													<input class="uni-input" name="UserPhone" type="number" placeholder="" />
+											</view>
+											<view class="uni-list half">
+												<view class="uni-list-cell">
+													<view class="uni-list-cell-left">
+														性别
+													</view>
+													<view class="uni-list-cell-db">
+														<picker name="Gender" @change="bindPickerChange" :value="genderIndex" :range="gender">
+															<view class="uni-input">{{gender[genderIndex]}}</view>
+														</picker>
+													</view>
+													<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
 												</view>
 											</view>
 										</view>
-										<!-- <view class="uni-list">
+									</view>
+									<view class="uni-list">
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												手机号码
+											</view>
+											<view class="uni-list-cell-db">
+												<input class="uni-input" name="UserPhone" type="number" placeholder="" />
+											</view>
+										</view>
+									</view>
+									<!-- <view class="uni-list">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left">
 													所属城市
@@ -189,48 +189,50 @@
 												<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
 											</view>
 										</view> -->
-										<view class="uni-list apply-date">
-											<view class="uni-list-cell">
-												<view class="uni-list-cell-left">
-													预约时间
-												</view>
-												<view class="uni-list-cell-db">
-													<picker mode="date" name="ApplyDate" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
-														<view class="uni-input">{{date}}</view>
-													</picker>
-												</view>
+									<view class="uni-list apply-date">
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												预约时间
+											</view>
+											<view class="uni-list-cell-db">
+												<picker mode="date" name="ApplyDate" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+													<view class="uni-input">{{date}}</view>
+												</picker>
 											</view>
 										</view>
-										<view class="uni-btn-v">
-											<button formType="submit" :loading="loading" class="apply-btn">立即申请</button>
-											<img src="../../static/icon-1.png" alt="英语" class="btnIcon" />
-										</view>
-									</form>
-									<img src="../../static/qrcode1.png" alt="英语" class="qrcodefot" />
-								</view>
+									</view>
+									<view class="uni-btn-v">
+										<button formType="submit" :loading="loading" class="apply-btn">立即申请</button>
+										<img src="../../static/icon-1.png" alt="英语" class="btnIcon" />
+									</view>
+								</form>
+								<img src="../../static/qrcode1.png" alt="英语" class="qrcodefot" />
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<view class="visitors" :class="visitShow">
-				<text><uni-icon size="16" type="eye" color="#ffffff"></uni-icon>&nbsp;同时有 {{visitors}} 人浏览</text>
-			</view>
-			<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
-			 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
-			<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
-			 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
-			<!-- 预约块/ -->
-			<!-- <view class="detail-block">
+		</view>
+		<view class="visitors" :class="visitShow">
+			<text>
+				<uni-icon size="16" type="eye" color="#ffffff"></uni-icon>&nbsp;同时有 {{visitors}} 人浏览
+			</text>
+		</view>
+		<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
+		 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
+		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
+		<!-- 预约块/ -->
+		<!-- <view class="detail-block">
 			<view class="dtl-btns">
 				<navigator :url="url" class="apply-btn">立即申请</navigator>
 			</view>
 		</view> -->
-			<view @tap="goTo" v-if="btnShow" class="goTo" id="GoTo">立即申请</view>
-			<view class="pop-success" :class="successShow">
-				<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
-			</view>
+		<view @tap="goTo" v-if="btnShow" class="goTo" id="GoTo">立即申请</view>
+		<view class="pop-success" :class="successShow">
+			<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
 		</view>
+	</view>
 	<!-- </scroll-view> -->
 </template>
 
@@ -253,14 +255,14 @@
 	export default {
 		data() {
 			return {
-				userInfo:{},
+				userInfo: {},
 				detail: [],
 				brand: "",
 				brandId: "",
 				//date: "",
 				gender: ['男', '女'],
 				genderIndex: 0,
-				age: ['0-3', '4-6','7-9','10-12','13-15','16-18','18以上'],
+				age: ['0-3岁', '4-6岁', '7-9岁', '10-12岁', '13-15岁', '16-18岁', '18岁以上'],
 				ageIndex: 2,
 				schoolVal: [],
 				schoolDtl: [],
@@ -270,8 +272,8 @@
 				date: this.getDate({
 					format: true
 				}),
-				visitors:3,
-				visitShow:"",
+				visitors: 3,
+				visitShow: "",
 				id: "",
 				topage: "/pages/apply/index",
 				url: "",
@@ -294,11 +296,11 @@
 		},
 		onLoad(option) {
 			var _this = this;
-			var funStor=function(res){
-				_this.userInfo=res;
+			var funStor = function(res) {
+				_this.userInfo = res;
 			}
-			let myStorage = mdl.getMyStorage("uWXInfo","",funStor)
-			
+			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
+
 			let _id = option.id;
 			this.id = _id;
 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
@@ -329,7 +331,7 @@
 					});
 
 					var title = _data.name,
-						imgUrl = _data.image?apiurl+_data.image[0]["original_src"]:util.Interface.domain + "/static/icon-1.png",
+						imgUrl = _data.image ? apiurl + _data.image[0]["original_src"] : util.Interface.domain + "/static/icon-1.png",
 						dec = _data.overview;
 					mdl.wxShare("", title, imgUrl, dec);
 				}
@@ -394,15 +396,15 @@
 				if (checkRes) {
 					var _data = {
 						"name": formData.UserName,
-						"age": formData.Age,
+						"age_range": that.age[formData.Age],
 						"sex": formData.Gender == 0 ? "男" : "女",
 						"phone": formData.UserPhone,
-						"city": "",//formData.City,
-						"school": "",//this.schoolId,
+						"city": "", //formData.City,
+						"school": "", //this.schoolId,
 						"article_id": this.brandId,
 						"arrive_time": formData.ApplyDate
 					};
-					console.log(this.schoolDtl);
+					console.log(_data);
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
 					console.log(url_saveSingle);
 					let funSave = function(res) {
@@ -421,8 +423,13 @@
 							}, 3000)
 						}
 					}
-					let openid=that.userInfo.openid?that.userInfo.openid:"";
-					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data,{"openid":openid});
+					let openid = that.userInfo.openid ? that.userInfo.openid : "";
+					let test_openid = inter.wx.test_openid;
+					let _head = {
+						"openid": openid || test_openid
+					};
+					console.log(_head)
+					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data, _head);
 
 				} else {
 					uni.showToast({
@@ -500,21 +507,23 @@
 			goTo: function(e) {
 				// 解决view层不同步的问题
 				//_jquery.scrollTop("GoTo","ApplyFormBox");
-// 				this.scrollTop = this.old.scrollTop
-// 				this.$nextTick(function() {
-// 					this.scrollTop = 20000
-// 				});
+				// 				this.scrollTop = this.old.scrollTop
+				// 				this.$nextTick(function() {
+				// 					this.scrollTop = 20000
+				// 				});
 			},
-			visitShowFun:function(){
-				var _this=this;
-				var t=8000;
-				var vShow=setInterval(function(){
-					let d=parseInt(Math.random()*3,10)+1;
-					_this.visitors=_this.visitors+d;
-					_this.visitShow="visitShow";
-					t=parseInt(Math.random()*(150000-8000+1)+50000,10);
-					setTimeout(function(){_this.visitShow="";},3000)
-				},t)
+			visitShowFun: function() {
+				var _this = this;
+				var t = 8000;
+				var vShow = setInterval(function() {
+					let d = parseInt(Math.random() * 3, 10) + 1;
+					_this.visitors = _this.visitors + d;
+					_this.visitShow = "visitShow";
+					t = parseInt(Math.random() * (150000 - 8000 + 1) + 50000, 10);
+					setTimeout(function() {
+						_this.visitShow = "";
+					}, 3000)
+				}, t)
 			}
 		}
 	}
