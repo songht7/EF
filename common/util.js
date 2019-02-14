@@ -197,7 +197,13 @@ const module = {
 	userLogin: function(code, openid) {
 		var _this = this;
 		var result = "";
-		var param = code ? "?code=" + code : "?openid=" + openid
+		var param = code ? "?code=" + code : "";
+		var _head = "";
+		if (openid) {
+			_head = {
+				"openid": openid
+			}
+		}
 		var _url = Interface.apiurl + Interface.addr.getWeChatInfo + param;
 		console.log("======getWXInfo========")
 		console.log(_url)
@@ -206,6 +212,7 @@ const module = {
 			url: _url,
 			method: "GET",
 			data: {},
+			header: _head || {},
 			success(res) {
 				console.log(res)
 				result = res;
