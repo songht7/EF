@@ -20,7 +20,7 @@ const Interface = {
 		"getBrand": "/v2/ApiHome-getBrand.htm", //品牌
 		"getRegion": "/v1/ApiEnum-getRegion.htm",
 		"getRegion2": "/v2/ApiEnum-getRegion.htm", //区域
-		"getBookedList":"/v2/ApiHome-getBookedList.htm",//预约列表
+		"getBookedList": "/v2/ApiHome-getBookedList.htm", //预约列表
 		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm",
 		"getJsApiTicket": "/v2/ApiWeChat-getJsApiTicket.htm"
 	},
@@ -29,7 +29,7 @@ const Interface = {
 		"access_token": "client_credential",
 		"secret": "01ef7de58bc18da629d4ec33a62744f9",
 		"getToken": "https://api.weixin.qq.com/cgi-bin/token",
-		"openid":"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ"//测试
+		"test_openid": "oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
 	}
 
 };
@@ -160,7 +160,7 @@ const module = {
 		// 		console.log(location.origin)
 		// 		console.log(type)
 
-		//_this.userLogin("061ax0962CiClR04eP462VkU862ax09c"); //测试用
+		//_this.userLogin("061AMrz72wh1XR0VkTB72Knmz72AMrzb"); //测试用
 		if (!_this.isWeixin()) {
 			return
 		}
@@ -218,11 +218,19 @@ const module = {
 							console.log('setStorage-uWXInfo-success');
 						}
 					})
+					window.location.href = Interface.domain;
+				} else {
+					uni.switchTab({
+						url: '/pages/index/index'
+					});
 				}
 			},
 			fail(err) {
 				result = err;
 				console.log(err)
+				uni.switchTab({
+					url: '/pages/index/index'
+				});
 			},
 			complete(c) {}
 		})

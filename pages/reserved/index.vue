@@ -1,7 +1,7 @@
 <template>
 	<!-- 1确认 2作废 0是未确认 v-if="value.status!=2"-->
 	<view class="list-block uni-padding-wrap uni-common-mt">
-		<view class="uni-card" v-for="(value,key) in reservedList" :key="key" >
+		<view class="uni-card" v-for="(value,key) in reservedList" :key="key">
 			<view class="uni-card-content">
 				<view class="uni-card-content-inner">
 					<navigator class="service-head" :url="'/pages/detail/index?id='+value.article_id">
@@ -70,7 +70,7 @@
 			getList(type) {
 				var that = this;
 				let param = that.param;
-				var _param ="?currentPage=" + param.pi + "&pagesize=" + param.ps;
+				var _param = "?currentPage=" + param.pi + "&pagesize=" + param.ps;
 				let url_list = apiurl + inter.addr.getBookedList;
 				var funList = function(res) {
 					console.log("====预约课程=====")
@@ -83,12 +83,15 @@
 					uni.stopPullDownRefresh();
 				}
 				let openid = that.userInfo.openid ? that.userInfo.openid : "";
+				let test_openid = inter.wx.test_openid;
 				let _head = {
-					"openid": openid
+					"openid": openid || test_openid
 				};
-				if (!mdl.isWeixin()) {
+				if (!mdl.isWeixin() && test_openid == "") {
 					that.reservedNull = "请在微信客户端打开查看"
-				}else if(openid==""){that.reservedNull = "请先登录"}
+				} else if (openid == "" && test_openid == "") {
+					that.reservedNull = "请先登录"
+				}
 				let getList = mdl.getData(url_list, funList, "GET", {}, _head);
 			}
 		}
@@ -164,7 +167,7 @@
 	.apply-res {
 		display: flex;
 		flex-direction: row;
-		justify-content:flex-start;
+		justify-content: flex-start;
 		align-items: center;
 		margin: 10upx 0 0;
 		padding: 10upx 0 0;
