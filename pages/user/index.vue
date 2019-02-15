@@ -77,7 +77,7 @@
 							<text class="cell-text">邮箱</text>
 						</view>
 						<view class="cell-right">
-							<text class="cell-text-right"><input class="uni-input" name="Email" type="text" value="" placeholder=""
+							<text class="cell-text-right"><input class="uni-input" name="Email" type="text" :value="email" placeholder=""
 								 :disabled="isDisabled" /></text>
 						</view>
 					</view>
@@ -127,9 +127,10 @@
 			var that = this;
 			var funStor = function(res) {
 				that.userInfo = res;
+				that.openid = res.openid ? res.openid : "";
 				that.headimgurl = res.headimgurl;
 				that.setUserInfo(res);
-				if (res.sex == 1) {
+				if (res.sex == 1 || res.sex == "男") {
 					that.genderIndex = 0
 				} else {
 					that.genderIndex = 1
@@ -181,7 +182,7 @@
 						"name": formData.Nickname,
 						"phone": formData.UserPhone,
 						"birthday": formData.Birthday,
-						"sex": formData.Gender == 0 ? "1" : "0",
+						"sex": formData.Gender == 0 ? "男" : "女",
 						"email": formData.Email
 					};
 					console.log(_data)
@@ -204,7 +205,7 @@
 									_uWXInfo["nickname"] = _data.name;
 									_uWXInfo["phone"] = _data.phone;
 									_uWXInfo["birthday"] = _data.birthday;
-									_uWXInfo["sex"] = _data.sex == 1 ? "男" : "女";
+									_uWXInfo["sex"] = _data.sex;
 									_uWXInfo["email"] = _data.email;
 									uni.setStorage({
 										key: 'uWXInfo',
@@ -239,13 +240,12 @@
 			},
 			setUserInfo(_data) {
 				var that = this;
-				that.openid = _data.openid ? _data.openid : "";
 				that.name = _data.name || _data.nickname;
 				that.phone = _data.phone ? _data.phone : "";
 				that.date = _data.birthday ? _data.birthday : that.getDate({
 					format: true
 				});
-				that.genderIndex = _data.sex == 1 ? 0 : 1;
+				that.genderIndex = _data.sex == "男" || _data.sex == 1 ? 0 : 1;
 				that.email = _data.email ? _data.email : "";
 			},
 			getDate(type) {

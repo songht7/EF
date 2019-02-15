@@ -166,9 +166,7 @@ const module = {
 		//_this.userLogin("061AMrz72wh1XR0VkTB72Knmz72AMrzb"); //测试用
 		var test_openid = Interface.wx.test_openid;
 		if (!_this.isWeixin() && test_openid == "") {
-			uni.switchTab({
-				url: '/pages/index/index'
-			});
+			_this.goHomePage();
 			return
 		}
 		var _uWXInfo = "";
