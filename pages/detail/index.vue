@@ -227,7 +227,7 @@
 				<navigator :url="url" class="apply-btn">立即申请</navigator>
 			</view>
 		</view> -->
-		<view @tap="goTo" v-if="btnShow" class="goTo" id="GoTo">立即申请</view>
+		<!-- <view @tap="goTo" v-if="btnShow" class="goTo" id="GoTo">立即申请</view> -->
 		<view class="pop-success" :class="successShow">
 			<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
 		</view>

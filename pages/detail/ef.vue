@@ -120,7 +120,7 @@
 					<view class="pro-desc">耐心陪伴，菜鸟也能飞</view>
 				</view>
 			</view>
-			<view @tap="goTop" class="apply-btn go-top goTopEF" id="GoTo">立即预约 免费听课</view><!-- v-if="btnShow" -->
+			<!-- <view @tap="goTop" class="apply-btn go-top goTopEF" id="GoTo">立即预约 免费听课</view> --><!-- v-if="btnShow" -->
 			<view class="ef-imgs ef-imgs-center">
 				<img src="../../static/ef/img-4.png" class="ef-img" alt="">
 			</view>
