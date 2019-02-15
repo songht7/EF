@@ -26,6 +26,7 @@
 		</view>
 		<view class="reservedIsNull" v-if="reservedNull">{{reservedNull}}</view>
 		<view class="reservedIsNull" v-else-if="!userInfo.openid">{{reservedNull}}</view>
+		<view class="reservedIsNull" v-if="!userInfo.openid"><img src="../../static/qrcode1.png" alt="英语" class="qrcodefot" /></view>
 	</view>
 </template>
 
@@ -129,7 +130,7 @@
 				if (!mdl.isWeixin() && test_openid == "") {
 					that.reservedNull = "请在微信客户端打开查看"
 				} else if (openid == "" && test_openid == "") {
-					that.reservedNull = "请先登录"
+					that.reservedNull = "关注公众号获取跟多资讯"
 				}
 				let getList = mdl.getData(url_list, funList, "GET", {}, _head);
 			},
@@ -231,5 +232,6 @@
 		font-size: 34upx;
 		letter-spacing: 1.2px;
 		color: #555555;
+		margin-bottom: 40upx;
 	}
 </style>
