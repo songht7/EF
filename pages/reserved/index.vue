@@ -26,7 +26,7 @@
 		</view>
 		<view class="reservedIsNull" v-if="reservedNull">{{reservedNull}}</view>
 		<view class="reservedIsNull" v-else-if="!userInfo.openid">{{reservedNull}}</view>
-		<view class="reservedIsNull" v-if="!userInfo.openid"><img src="../../static/qrcode1.png" alt="英语" class="qrcodefot" /></view>
+		<view class="reservedIsNull" v-if="!userInfo.openid"><img src="../../static/qrcode1.png" alt="英语" class="reservedQR" /></view>
 	</view>
 </template>
 
@@ -234,4 +234,5 @@
 		color: #555555;
 		margin-bottom: 40upx;
 	}
+	.reservedQR{width: 90%;margin: 0 auto;};
 </style>
