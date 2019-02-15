@@ -426,10 +426,12 @@
 					}
 					let openid = that.userInfo.openid ? that.userInfo.openid : "";
 					let test_openid = inter.wx.test_openid;
-					let _head = {
-						"openid": openid || test_openid
-					};
-					console.log(_head)
+					let _head = {};
+					if (openid != "" || test_openid != "") {
+						_head = {
+							"openid": openid || test_openid
+						};
+					}
 					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data, _head);
 
 				} else {

@@ -6,7 +6,6 @@ $(function() {
 			var dcHeight = $(document).height();
 			var _top = $(document).scrollTop();
 			var g = Math.round(dcHeight) - Math.round(objOffTop) - 120;
-			console.log(objOffTop, dcHeight, _top, g);
 			if (g <= Math.round(_top)) {
 				$("#GoTo").hide();
 			} else {

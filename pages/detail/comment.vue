@@ -88,7 +88,14 @@
 						})
 					}
 					let openid=that.userInfo.openid?that.userInfo.openid:"";
-					let _saveComment = mdl.getData(url_saveComment, funSave, "POST", _data,{"openid":openid});
+					let test_openid = inter.wx.test_openid;
+					let _head = {};
+					if (openid != "" || test_openid != "") {
+						_head = {
+							"openid": openid || test_openid
+						};
+					}
+					let _saveComment = mdl.getData(url_saveComment, funSave, "POST", _data,_head);
 				} else {
 					uni.showToast({
 						title: "评论(至少15字)",

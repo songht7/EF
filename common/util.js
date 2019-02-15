@@ -30,7 +30,7 @@ const Interface = {
 		"access_token": "client_credential",
 		"secret": "01ef7de58bc18da629d4ec33a62744f9",
 		"getToken": "https://api.weixin.qq.com/cgi-bin/token",
-		"test_openid": "oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
+		"test_openid":"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
 	}
 
 };
@@ -166,6 +166,9 @@ const module = {
 		//_this.userLogin("061AMrz72wh1XR0VkTB72Knmz72AMrzb"); //测试用
 		var test_openid = Interface.wx.test_openid;
 		if (!_this.isWeixin() && test_openid == "") {
+			uni.switchTab({
+				url: '/pages/index/index'
+			});
 			return
 		}
 		var _uWXInfo = "";
@@ -233,25 +236,27 @@ const module = {
 					if (!_openid) {
 						window.location.href = Interface.domain;
 					} else if (_openid) {
-						uni.switchTab({
-							url: '/pages/index/index'
-						});
+						_this.goHomePage();
 					}
 				} else {
-					uni.switchTab({
-						url: '/pages/index/index'
-					});
+					_this.goHomePage();
 				}
 			},
 			fail(err) {
 				result = err;
 				console.log(err)
-				uni.switchTab({
-					url: '/pages/index/index'
-				});
+				_this.goHomePage();
 			},
 			complete(c) {}
 		})
+	},
+	goHomePage: function() {
+		let hash = window.location.hash;
+		if (hash == "#/pages/authorize/index"||hash == "#/") {
+			uni.switchTab({
+				url: '/pages/index/index'
+			});
+		}
 	},
 	getMyStorage: function(key, val, fun) {
 		var _storage = "";

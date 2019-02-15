@@ -8,11 +8,11 @@
 							<view class="uni-card-content-inner">
 								<view class="c-user-info">
 									<view class="circle">
-										<image class="head" v-if="userInfo.openid" :src="userInfo.headimgurl" mode="widthFix"></image>
-										<uni-icon v-if="!userInfo.openid" size="60" type="contact" color="#DDDDDF"></uni-icon>
+										<image class="head" v-if="openid" :src="headimgurl" mode="widthFix"></image>
+										<uni-icon v-if="!openid" size="60" type="contact" color="#DDDDDF"></uni-icon>
 									</view>
 									<view class="top-texts">
-										<text class="top-txt name">{{userInfo.nickname?userInfo.nickname:"游客"}}</text>
+										<text class="top-txt name">{{name?name:"游客"}}</text>
 										<view class="top-txt" v-if="phone">
 											<text>手机 </text>
 											<text>{{phone}}</text>
@@ -24,7 +24,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="center-main" :class="!isDisabled?'txt-align-left':''">
+			<view class="center-main" v-if="openid" :class="!isDisabled?'txt-align-left':''">
 				<form @submit="formSubmit" @reset="formReset">
 					<view class="cell" :class="isHide">
 						<view class="cell-left">
@@ -81,7 +81,7 @@
 								 :disabled="isDisabled" /></text>
 						</view>
 					</view>
-				<!-- 	<view class="cell">
+					<!-- 	<view class="cell">
 						<view class="cell-left">
 							<text class="cell-text">联系我们</text>
 						</view>
@@ -110,6 +110,7 @@
 		data() {
 			return {
 				userInfo: {},
+				openid: "",
 				name: "",
 				headimgurl: "",
 				phone: "",
@@ -238,9 +239,12 @@
 			},
 			setUserInfo(_data) {
 				var that = this;
-				that.name = _data.name ? _data.name : "";
+				that.openid = _data.openid ? _data.openid : "";
+				that.name = _data.name || _data.nickname;
 				that.phone = _data.phone ? _data.phone : "";
-				that.date = _data.birthday ? _data.birthday : that.getDate({format: true});
+				that.date = _data.birthday ? _data.birthday : that.getDate({
+					format: true
+				});
 				that.genderIndex = _data.sex == 1 ? 0 : 1;
 				that.email = _data.email ? _data.email : "";
 			},
