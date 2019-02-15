@@ -21,7 +21,7 @@ const Interface = {
 		"getRegion": "/v1/ApiEnum-getRegion.htm",
 		"getRegion2": "/v2/ApiEnum-getRegion.htm", //区域
 		"getBookedList": "/v2/ApiHome-getBookedList.htm", //预约列表
-		"saveUserInfo":"/v2/ApiHome-saveUserInfo.htm",//编辑保存用户
+		"saveUserInfo": "/v2/ApiHome-saveUserInfo.htm", //编辑保存用户
 		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm",
 		"getJsApiTicket": "/v2/ApiWeChat-getJsApiTicket.htm"
 	},
@@ -43,14 +43,16 @@ const module = {
 			data: data || {},
 			header: _head || {},
 			success: function(res) {
-				// 				console.log("======success========");
-				// 				console.log(res);
+				console.log("======mdl.getData-success========");
+				console.log(res);
 				let __res = res.data;
 				if (__res.success) {
 					if (__res.data) {
 						result = __res.data;
 					} else if (__res.post) {
 						result = __res.post;
+					} else if (__res.result) {
+						result = __res.result;
 					} else {
 						result = __res.info;
 					}
@@ -162,8 +164,9 @@ const module = {
 		// 		console.log(type)
 
 		//_this.userLogin("061AMrz72wh1XR0VkTB72Knmz72AMrzb"); //测试用
-		if (!_this.isWeixin()) {
-			//return
+		var test_openid = Interface.wx.test_openid;
+		if (!_this.isWeixin() && test_openid == "") {
+			return
 		}
 		var _uWXInfo = "";
 		uni.getStorage({
@@ -174,8 +177,9 @@ const module = {
 			complete: function() {
 				console.log("=====getStorage-_uWXInfo======")
 				console.log(_uWXInfo)
-				if (_uWXInfo && _uWXInfo.openid) {
-					_this.userLogin("", _uWXInfo.openid);
+				if ((_uWXInfo && _uWXInfo.openid) || test_openid) {
+					var __openid = _uWXInfo.openid || test_openid;
+					_this.userLogin("", __openid);
 				} else {
 					let REDIRECT_URI = encodeURIComponent(Interface.domain), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
 						scope = "snsapi_base", //snsapi_userinfo （弹出授权页面，获取更多信息）

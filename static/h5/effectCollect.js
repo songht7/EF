@@ -1,3 +1,11 @@
+$(function() {
+	$(document).on("click", "#GoTo", function() {
+		var objHeight = $("#ApplyFormBox").offset().top;
+		$('html,body').animate({
+			scrollTop: objHeight
+		}, 800);
+	});
+});
 (function() {
 	// 取参数
 	if (window.location.hash == "#/pages/detail/ef" || window.location.hash == "#/pages/detail/ef?key=2") {

@@ -13,9 +13,9 @@
 									</view>
 									<view class="top-texts">
 										<text class="top-txt name">{{userInfo.nickname?userInfo.nickname:"游客"}}</text>
-										<view class="top-txt" v-if="userInfo.phone">
+										<view class="top-txt" v-if="phone">
 											<text>手机 </text>
-											<text>{{userInfo.phone}}</text>
+											<text>{{phone}}</text>
 										</view>
 									</view>
 								</view>
@@ -24,14 +24,14 @@
 					</view>
 				</view>
 			</view>
-			<view class="center-main" style="display: none;">
+			<view class="center-main" :class="!isDisabled?'txt-align-left':''">
 				<form @submit="formSubmit" @reset="formReset">
 					<view class="cell" :class="isHide">
 						<view class="cell-left">
 							<text class="cell-text">用户名</text>
 						</view>
 						<view class="cell-right">
-							<input class="uni-input" name="Nickname" type="text" placeholder="您的称呼" :value="userInfo.nickname" :disabled="isDisabled"/>
+							<input class="uni-input" name="Nickname" type="text" placeholder="您的称呼" :value="userInfo.nickname" :disabled="isDisabled" />
 						</view>
 					</view>
 					<view class="cell" :class="isHide">
@@ -39,7 +39,7 @@
 							<text class="cell-text">手机号</text>
 						</view>
 						<view class="cell-right">
-							<input class="uni-input" name="UserPhone" type="number" placeholder="" :disabled="isDisabled"/>
+							<input class="uni-input" name="UserPhone" type="number" placeholder="" :value="userInfo.phone" :disabled="isDisabled" />
 						</view>
 					</view>
 					<view class="cell">
@@ -47,7 +47,14 @@
 							<text class="cell-text">生日</text>
 						</view>
 						<view class="cell-right">
-							<input class="uni-input" name="Birthday" type="text" placeholder="" :disabled="isDisabled" />
+							<view class="uni-list-cell-db" v-if="!isDisabled">
+								<picker mode="date" name="Birthday" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+									<view class="uni-input">{{date}}</view>
+								</picker>
+							</view>
+							<view class="uni-list-cell-db" v-if="isDisabled">
+								{{date}}
+							</view>
 						</view>
 					</view>
 					<view class="cell">
@@ -70,17 +77,18 @@
 							<text class="cell-text">邮箱</text>
 						</view>
 						<view class="cell-right">
-							<text class="cell-text-right"><input class="uni-input" name="Email" type="text" value="" placeholder="" :disabled="isDisabled" /></text>
+							<text class="cell-text-right"><input class="uni-input" name="Email" type="text" value="" placeholder=""
+								 :disabled="isDisabled" /></text>
 						</view>
 					</view>
-					<view class="cell">
+				<!-- 	<view class="cell">
 						<view class="cell-left">
 							<text class="cell-text">联系我们</text>
 						</view>
 						<view class="cell-right">
 							<text class="cell-text-right"></text>
 						</view>
-					</view>
+					</view> -->
 					<view class="uni-btn-v">
 						<view @click="toEdit" class="toEdit" :class="!isHide?'isHide':''">编辑</view>
 						<button formType="submit" :loading="loading" class="apply-btn" :class="isHide">保存</button>
@@ -102,21 +110,28 @@
 		data() {
 			return {
 				userInfo: {},
+				name: "",
+				headimgurl: "",
+				phone: "",
+				date: "", //Birthday
 				gender: ['男', '女'],
 				genderIndex: 0,
+				email: "",
 				loading: false,
 				isHide: "isHide",
 				isDisabled: true
 			};
 		},
 		onLoad() {
-			var _this = this;
+			var that = this;
 			var funStor = function(res) {
-				_this.userInfo = res;
+				that.userInfo = res;
+				that.headimgurl = res.headimgurl;
+				that.setUserInfo(res);
 				if (res.sex == 1) {
-					_this.genderIndex = 0
+					that.genderIndex = 0
 				} else {
-					_this.genderIndex = 1
+					that.genderIndex = 1
 				}
 			}
 			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
@@ -124,9 +139,20 @@
 		components: {
 			uniIcon
 		},
+		computed: {
+			startDate() {
+				return this.getDate('start');
+			},
+			endDate() {
+				return this.getDate('end');
+			}
+		},
 		methods: {
 			bindPickerChange: function(e) {
 				this.genderIndex = e.target.value
+			},
+			bindDateChange: function(e) {
+				this.date = e.target.value
 			},
 			toEdit: function() {
 				var that = this;
@@ -151,19 +177,17 @@
 				var checkRes = graceChecker.check(formData, rule);
 				if (checkRes) {
 					var _data = {
-						"nickname": formData.nickname,
+						"name": formData.Nickname,
 						"phone": formData.UserPhone,
 						"birthday": formData.Birthday,
-						"sex": formData.Gender == 0 ? "男" : "女",
+						"sex": formData.Gender == 0 ? "1" : "0",
 						"email": formData.Email
 					};
 					console.log(_data)
-					that.isHide = "isHide";
-					that.isDisabled = true;
-					let url_saveUser = apiurl + inter.addr.saveSingle;
+					let url_saveUser = apiurl + inter.addr.saveUserInfo;
 					console.log(url_saveUser);
 					let funSave = function(res) {
-						console.log("=======save========")
+						console.log("=======saveUserInfo========")
 						console.log(res)
 						that.loading = false
 						if (res.Result == 0) {
@@ -172,13 +196,36 @@
 								image: "../../static/icon-1.png"
 							})
 						} else {
+							uni.getStorage({
+								key: 'uWXInfo',
+								success: function(res) {
+									let _uWXInfo = res.data;
+									_uWXInfo["nickname"] = _data.name;
+									_uWXInfo["phone"] = _data.phone;
+									_uWXInfo["birthday"] = _data.birthday;
+									_uWXInfo["sex"] = _data.sex == 1 ? "男" : "女";
+									_uWXInfo["email"] = _data.email;
+									uni.setStorage({
+										key: 'uWXInfo',
+										data: _uWXInfo,
+										success: function() {}
+									})
+								},
+							})
+							that.setUserInfo(_data);
 							uni.showToast({
 								title: "保存成功"
-							})
+							});
+							that.isHide = "isHide";
+							that.isDisabled = true
 						}
 					}
 					let openid = that.userInfo.openid ? that.userInfo.openid : "";
-					//let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data,{"openid":openid});
+					let test_openid = inter.wx.test_openid;
+					let _head = {
+						"openid": openid || test_openid
+					};
+					let _saveSingle = mdl.getData(url_saveUser, funSave, "POST", _data, _head);
 
 				} else {
 					uni.showToast({
@@ -188,6 +235,31 @@
 					this.loading = false
 				}
 
+			},
+			setUserInfo(_data) {
+				var that = this;
+				that.name = _data.name ? _data.name : "";
+				that.phone = _data.phone ? _data.phone : "";
+				that.date = _data.birthday ? _data.birthday : that.getDate({format: true});
+				that.genderIndex = _data.sex == 1 ? 0 : 1;
+				that.email = _data.email ? _data.email : "";
+			},
+			getDate(type) {
+				const date = new Date();
+
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+
+				if (type === 'start') {
+					year = year - 60;
+				} else if (type === 'end') {
+					year = year + 2;
+				}
+				month = month > 9 ? month : '0' + month;;
+				day = day > 9 ? day : '0' + day;
+
+				return `${year}-${month}-${day}`;
 			}
 		}
 	}
@@ -256,16 +328,20 @@
 	}
 
 	.cell-left {
-		width: 40%;
+		width: 35%;
 		padding-left: 5upx;
 	}
 
 	.cell-right {
-		width: 60%;
+		width: 65%;
 		color: #a7a7a7;
 		text-align: right;
 		padding-right: 5upx;
 		line-height: 2;
+	}
+
+	.txt-align-left .cell-right {
+		text-align: left;
 	}
 
 	.cell-text {
@@ -277,8 +353,15 @@
 		color: #a7a7a7;
 		font-size: 32upx;
 	}
-	.uni-input{background: transparent;}
-	.uni-btn-v{padding: 40upx 0 10upx;}
+
+	.uni-input {
+		background: transparent;
+	}
+
+	.uni-btn-v {
+		padding: 40upx 0 10upx;
+	}
+
 	.apply-btn,
 	.toEdit {
 		width: 100%;

@@ -203,7 +203,6 @@
 									</view>
 									<view class="uni-btn-v">
 										<button formType="submit" :loading="loading" class="apply-btn">立即申请</button>
-										<img src="../../static/icon-1.png" alt="英语" class="btnIcon" />
 									</view>
 								</form>
 								<img src="../../static/qrcode1.png" alt="英语" class="qrcodefot" />
@@ -404,12 +403,12 @@
 						"article_id": this.brandId,
 						"arrive_time": formData.ApplyDate
 					};
-					console.log(_data);
+					//console.log(_data);
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
-					console.log(url_saveSingle);
+					//console.log(url_saveSingle);
 					let funSave = function(res) {
-						console.log("=======save========")
-						console.log(res)
+// 						console.log("=======预约课程返回状态========")
+// 						console.log(res)
 						that.loading = false
 						if (res.Result == 0) {
 							uni.showToast({
