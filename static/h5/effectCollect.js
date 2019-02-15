@@ -1,4 +1,20 @@
 $(function() {
+	$(document).scroll(function() {
+		var _this = this;
+		if ($("#GoTo").length) {
+			var objOffTop = $("#ApplyFormBox").offset().top;
+			var dcHeight = $(document).height();
+			var _top = $(document).scrollTop();
+			var g = Math.round(dcHeight) - Math.round(objOffTop) - 120;
+			console.log(objOffTop, dcHeight, _top, g);
+			if (g <= Math.round(_top)) {
+				$("#GoTo").hide();
+			} else {
+				$("#GoTo").show();
+			}
+
+		}
+	});
 	$(document).on("click", "#GoTo", function() {
 		var objHeight = $("#ApplyFormBox").offset().top;
 		$('html,body').animate({

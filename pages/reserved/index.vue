@@ -40,12 +40,18 @@
 		data() {
 			return {
 				userInfo: {},
-				reservedList: {},
+				reservedList: [],
 				param: {
 					"pi": 1,
-					"ps": 4,
-					"pageTotal": 1,
-					"listTotal": 0
+					"ps":10,
+					"pageTotal": 1,//页数
+					"listTotal": 0//列表数
+				},
+				loadingType: 0,
+				contentText: {
+					contentdown: "上拉显示更多",
+					contentrefresh: "正在加载...",
+					contentnomore: "没有更多数据了"
 				},
 				reservedNull: ""
 			};
@@ -64,6 +70,19 @@
 			that.getList();
 		},
 		onPullDownRefresh() {
+			this.paramReset();
+			this.getList("refresh");
+		},
+		onReachBottom(){
+			if (this.loadingType !== 0) {
+				return;
+			}
+			if (this.param.pi >= this.param.pageTotal) {
+				this.loadingType = 2;
+				return;
+			}
+			this.param.pi = this.param.pi + 1;
+			this.loadingType = 1;
 			this.getList();
 		},
 		methods: {
@@ -71,16 +90,36 @@
 				var that = this;
 				let param = that.param;
 				var _param = "?currentPage=" + param.pi + "&pagesize=" + param.ps;
-				let url_list = apiurl + inter.addr.getBookedList;
+				let url_list = apiurl + inter.addr.getBookedList + _param;
+				console.log(url_list)
+				uni.showLoading({
+					title: '正在加载 ...'
+				});
 				var funList = function(res) {
 					console.log("====预约课程=====")
 					console.log(res)
-					that.reservedList = res.list;
-					that.param.listTotal = res.total;
+					let data = res.list;
+					let total = res.total;
 					if (res.length <= 0) {
 						that.reservedNull = "暂无预约课程"
 					}
-					uni.stopPullDownRefresh();
+					if (type) {
+						if (data) {
+							that.reservedList = data;
+						} else {
+							that.reservedList = [];
+						}
+						uni.stopPullDownRefresh();
+					} else {
+						if (data) {
+							data.forEach(item => {
+								that.reservedList.push(item);
+							});
+						}
+					}
+					that.loadingType = 0;
+					that.pagination(total);
+					uni.hideLoading();
 				}
 				let openid = that.userInfo.openid ? that.userInfo.openid : "";
 				let test_openid = inter.wx.test_openid;
@@ -93,6 +132,18 @@
 					that.reservedNull = "请先登录"
 				}
 				let getList = mdl.getData(url_list, funList, "GET", {}, _head);
+			},
+			paramReset() {
+				this.param.pi = 1;
+				this.param.pageTotal = 1;
+				this.param.listTotal = 0;
+				this.loadingType = 0;
+			},
+			pagination(total) {
+				let _pageSize = this.param.ps;
+				let _pageTotal = Math.ceil(total / _pageSize);
+				this.param.listTotal = total;
+				this.param.pageTotal = _pageTotal;
 			}
 		}
 	}

@@ -309,21 +309,23 @@
 				let _data = res.info;
 				if (_data) {
 					_this.detail = _data;
-					_data.school.forEach(item => {
-						let _scl = {
-							"id": item.id,
-							"name": item.name,
-							"address": item.address,
-							"phone": item.phone,
-							"region_id": item.region_id,
-							"region_name": item.region_name
-						};
-						//let sclList='<view class="scl"><view class="sclName">'+item.name+'</view><view class="sclAddr">'+item.address+'</view></view>'
-						_this.schoolVal.push(item.name);
-						console.log(_scl)
-						_this.schoolDtl.push(_scl);
-					});
-					_this.schoolId = _data.school["0"]["id"];
+					if (_data.school) {
+						_data.school.forEach(item => {
+							let _scl = {
+								"id": item.id,
+								"name": item.name,
+								"address": item.address,
+								"phone": item.phone,
+								"region_id": item.region_id,
+								"region_name": item.region_name
+							};
+							//let sclList='<view class="scl"><view class="sclName">'+item.name+'</view><view class="sclAddr">'+item.address+'</view></view>'
+							_this.schoolVal.push(item.name);
+							console.log(_scl)
+							_this.schoolDtl.push(_scl);
+						});
+						_this.schoolId = _data.school["0"]["id"];
+					}
 					_this.brandId = _data.id;
 					uni.setNavigationBarTitle({
 						title: _data.name
@@ -407,8 +409,8 @@
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
 					//console.log(url_saveSingle);
 					let funSave = function(res) {
-// 						console.log("=======预约课程返回状态========")
-// 						console.log(res)
+						// 						console.log("=======预约课程返回状态========")
+						// 						console.log(res)
 						that.loading = false
 						if (res.Result == 0) {
 							uni.showToast({
