@@ -296,12 +296,13 @@
 					"&cat=" + param.cat + "&brand=" + param.brand + "&age_start=" + param.age_start + "&age_end=" + param.age_end +
 					"&subject_category=" + param.subject_category;
 				let url_list = apiurl + inter.addr.article + _param;
+				console.log(url_list)
 				uni.showLoading({
 					title: '正在加载 ...'
 				});
 				let fun = function(res) {
-					//console.log("======article========");
-					//console.log(res)
+					console.log("======article========");
+					console.log(res)
 					let data = res.list;
 					let total = res.total;
 					if (type) {

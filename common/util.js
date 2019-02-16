@@ -43,8 +43,8 @@ const module = {
 			data: data || {},
 			header: _head || {},
 			success: function(res) {
-				console.log("======mdl.getData-success========");
-				console.log(res);
+// 				console.log("======mdl.getData-success========");
+// 				console.log(res);
 				let __res = res.data;
 				if (__res.success) {
 					if (__res.data) {

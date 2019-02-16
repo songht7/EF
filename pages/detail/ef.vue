@@ -4,6 +4,7 @@
 	<view class="detail-page-ef">
 		<view class="scroll-view-item detail-block">
 			<view class="ef-top-box">
+				<!-- <uni-icon size="35" @tap="makePhoneCall" class="makePhoneCall" type="phone-filled" color="#000"></uni-icon> -->
 				<view class="scroll-view-item ef-top"></view>
 				<view class="uni-padding-wrap uni-common-mt">
 					<view class="uni-card">
@@ -278,6 +279,14 @@
 					this.$refs.mpvueCityPicker.pickerCancel()
 				}
 			},
+			makePhoneCall: function () {
+				uni.makePhoneCall({
+					phoneNumber: "13918781109",
+					success: () => {
+						console.log("成功拨打电话")
+					}
+				})
+			},
 			formSubmit: function(e) {
 				let _this = this;
 				if (this.loading == true) {
@@ -373,9 +382,15 @@
 		background: url(../../static/ef/billboard.png) 50% 0 no-repeat;
 		background-size: contain;
 	}
-
+	.makePhoneCall{
+		position: absolute;
+		top: 30upx;
+		right: 40upx;
+	}
 	.ef-top {
 		height: 330upx;
+		background: url(../../static/ef/logo2.png) 5% 15% no-repeat;
+		background-size: 150upx auto;
 	}
 
 	.uni-list {
