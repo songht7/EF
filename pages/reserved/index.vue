@@ -130,7 +130,7 @@
 				if (!mdl.isWeixin() && test_openid == "") {
 					that.reservedNull = "请在微信客户端打开查看"
 				} else if (openid == "" && test_openid == "") {
-					that.reservedNull = "关注公众号获取跟多资讯"
+					that.reservedNull = "关注公众号获取更多资讯"
 				}
 				let getList = mdl.getData(url_list, funList, "GET", {}, _head);
 			},
