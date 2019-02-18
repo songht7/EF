@@ -12,7 +12,11 @@
 										<uni-icon v-if="!openid" size="60" type="contact" color="#DDDDDF"></uni-icon>
 									</view>
 									<view class="top-texts">
-										<text class="top-txt name">{{name?name:"游客"}}</text>
+										<view class="top-txt name">
+											<text>{{name?name:"游客"}}</text>
+											<text class="logout" v-if="openid" @click="logout">[退出]</text>
+											<text class="logout" v-if="!openid" @click="login">[微信授权登录]</text>
+										</view>
 										<view class="top-txt" v-if="phone">
 											<text>手机 </text>
 											<text>{{phone}}</text>
@@ -248,6 +252,27 @@
 				that.genderIndex = _data.sex == "男" || _data.sex == 1 ? 0 : 1;
 				that.email = _data.email ? _data.email : "";
 			},
+			logout() {
+				var that = this;
+				console.log("===logout===")
+				uni.removeStorage({
+					key: 'uWXInfo',
+					success: function(res) {
+						that.openid = "";
+						that.name = ""
+						that.phone = ""
+						that.date = that.getDate({
+							format: true
+						});
+						that.genderIndex = 0;
+						that.email = "";
+					}
+				});
+			},
+			login() {
+				console.log("====login====")
+				window.location.href = inter.domain;
+			},
 			getDate(type) {
 				const date = new Date();
 
@@ -308,6 +333,10 @@
 
 	.top-txt {
 		font-size: 34upx;
+	}
+
+	.logout {
+		padding: 0 0 0 10upx;
 	}
 
 	.center-main {

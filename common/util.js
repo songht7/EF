@@ -30,7 +30,7 @@ const Interface = {
 		"access_token": "client_credential",
 		"secret": "01ef7de58bc18da629d4ec33a62744f9",
 		"getToken": "https://api.weixin.qq.com/cgi-bin/token",
-		"test_openid":""//"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
+		"test_openid": "" //"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
 	}
 
 };
@@ -43,8 +43,8 @@ const module = {
 			data: data || {},
 			header: _head || {},
 			success: function(res) {
-// 				console.log("======mdl.getData-success========");
-// 				console.log(res);
+				// 				console.log("======mdl.getData-success========");
+				// 				console.log(res);
 				let __res = res.data;
 				if (__res.success) {
 					if (__res.data) {
@@ -83,18 +83,21 @@ const module = {
 		})
 	},
 	wxShare: function(share_url, title, imgUrl, dec) {
-		let funTicket = function(res) {
+		var that = this;
+		var funTicket = function(res) {
 			console.log("=======getTicket======")
 			console.log(res)
-			// 			uni.setStorage({
-			// 				key: 'wx_ticket',
-			// 				data: {
-			// 					"access_token": res.access_token,
-			// 					"jsapi_ticket": res.ticket,
-			// 					"signature": res.signature
-			// 				},
-			// 				success: function() {}
-			// 			});
+			uni.setStorage({
+				key: 'wx_ticket',
+				data: {
+					"access_token": res.access_token,
+					"jsapi_ticket": res.ticket,
+					"noncestr": res.noncestr,
+					"signature": res.signature,
+					"expires_in": res.expires_in
+				},
+				success: function() {}
+			});
 			var _config = {
 				debug: false,
 				appId: Interface.wx.appid,
@@ -109,17 +112,24 @@ const module = {
 			}
 			wx.config(_config);
 		}
-		let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + location.origin;
+		var storFun = function(res) {
+			if (res=="") {
+				var getTicketUrl = location.origin + "/#/";
+				let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + getTicketUrl;
+				let wx_ticket = that.getData(url_ticket, funTicket)
+			}
+		}
+		that.getMyStorage("wx_ticket", "", storFun);
 
-		let wx_ticket = this.getData(url_ticket, funTicket)
 
 		let _href = location.origin + "/" + location.hash;
 		console.log("======share_url=====")
 		console.log(_href)
 		var share_url = share_url ? share_url : "http://main.meetji.com:3001?wxr=" + encodeURIComponent(_href);
+		imgUrl = imgUrl ? imgUrl : Interface.domain + "/static/icon-1.png";
 		var wxSet = {
-			title: title,
-			desc: dec,
+			title: title || "英语免费试听",
+			desc: dec || "英语免费试听课，在这里找到你想要的",
 			link: share_url,
 			imgUrl: imgUrl,
 			trigger: function(res) {
@@ -151,6 +161,11 @@ const module = {
 		}
 		return null
 	},
+	isIOS: function() {
+		var isIphone = navigator.userAgent.includes('iPhone');
+		var isIpad = navigator.userAgent.includes('iPad');
+		return isIphone || isIpad;
+	},
 	isWeixin: function() {
 		return !!/micromessenger/i.test(navigator.userAgent.toLowerCase())
 	},
@@ -176,21 +191,22 @@ const module = {
 				_uWXInfo = res.data;
 			},
 			complete: function() {
-				console.log("=====getStorage-_uWXInfo======")
-				console.log(_uWXInfo)
+				// 				console.log("=====getStorage-_uWXInfo======")
+				// 				console.log(_uWXInfo)
 				if ((_uWXInfo && _uWXInfo.openid) || test_openid) {
 					var __openid = _uWXInfo.openid || test_openid;
 					_this.userLogin("", __openid);
 				} else {
 					let REDIRECT_URI = encodeURIComponent(Interface.domain), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
-						scope = "snsapi_base", //snsapi_userinfo （弹出授权页面，获取更多信息）
+						scope = "snsapi_userinfo", //snsapi_base，snsapi_userinfo （弹出授权页面，获取更多信息）
 						state = "STATE"; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
 					var _url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' +
 						REDIRECT_URI +
 						'&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
 					let code = _this.queryString('code');
+					console.log(_url)
 					if (code) {
-						console.log(code)
+						//console.log(code)
 						_this.userLogin(code);
 					} else {
 						window.location.href = _url;
@@ -211,16 +227,15 @@ const module = {
 			}
 		}
 		var _url = Interface.apiurl + Interface.addr.getWeChatInfo + param;
-		console.log("======getWXInfo========")
-		console.log(_url)
-		//return;
+		// 		console.log("======getWXInfo========")
+		// 		console.log(_url)
 		uni.request({
 			url: _url,
 			method: "GET",
 			data: {},
 			header: _head || {},
 			success(res) {
-				console.log(res)
+				//console.log(res)
 				result = res;
 				let _data = res.data.data;
 				if (_data.openid) {
@@ -250,7 +265,7 @@ const module = {
 	},
 	goHomePage: function() {
 		let hash = window.location.hash;
-		if (hash == "#/pages/authorize/index"||hash == "#/") {
+		if (hash == "#/pages/authorize/index" || hash == "#/") {
 			uni.switchTab({
 				url: '/pages/index/index'
 			});

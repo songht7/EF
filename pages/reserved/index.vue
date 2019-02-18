@@ -24,8 +24,8 @@
 				</view>
 			</view>
 		</view>
-		<view class="reservedIsNull" v-if="reservedNull">{{reservedNull}}</view>
-		<view class="reservedIsNull" v-else-if="!userInfo.openid">{{reservedNull}}</view>
+		<view class="reservedIsNull" v-if="reservedNull&&userInfo.openid">{{reservedNull}}</view>
+		<view class="reservedIsNull" v-if="!userInfo.openid" @click="login">{{reservedNull}}</view>
 		<view class="reservedIsNull" v-if="!userInfo.openid"><img src="../../static/qrcode1.png" alt="英语" class="reservedQR" /></view>
 	</view>
 </template>
@@ -44,9 +44,9 @@
 				reservedList: [],
 				param: {
 					"pi": 1,
-					"ps":10,
-					"pageTotal": 1,//页数
-					"listTotal": 0//列表数
+					"ps": 10,
+					"pageTotal": 1, //页数
+					"listTotal": 0 //列表数
 				},
 				loadingType: 0,
 				contentText: {
@@ -62,19 +62,21 @@
 		},
 		onLoad() {
 			var that = this;
-			var funStor = function(res) {
-				console.log(res)
-				that.userInfo = res;
-			}
-			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
-
-			that.getList();
+			that.checkUser();
+		},
+		onShow() {
+			var that = this;
+			that.paramReset();
+			that.checkUser();
+			that.getList("refresh");
 		},
 		onPullDownRefresh() {
-			this.paramReset();
-			this.getList("refresh");
+			var that = this;
+			that.paramReset();
+			that.checkUser();
+			that.getList("refresh");
 		},
-		onReachBottom(){
+		onReachBottom() {
 			if (this.loadingType !== 0) {
 				return;
 			}
@@ -84,6 +86,7 @@
 			}
 			this.param.pi = this.param.pi + 1;
 			this.loadingType = 1;
+			this.checkUser();
 			this.getList();
 		},
 		methods: {
@@ -101,7 +104,7 @@
 					console.log(res)
 					let data = res.list;
 					let total = res.total;
-					if (res.length <= 0) {
+					if (total <= 0) {
 						that.reservedNull = "暂无预约课程"
 					}
 					if (type) {
@@ -124,15 +127,46 @@
 				}
 				let openid = that.userInfo.openid ? that.userInfo.openid : "";
 				let test_openid = inter.wx.test_openid;
-				let _head = {
-					"openid": openid || test_openid
-				};
-				if (!mdl.isWeixin() && test_openid == "") {
-					that.reservedNull = "请在微信客户端打开查看"
-				} else if (openid == "" && test_openid == "") {
-					that.reservedNull = "关注公众号获取更多资讯"
+				let _head = {};
+				if (openid != "" || test_openid != "") {
+					_head = {
+						"openid": openid || test_openid
+					};
 				}
+				if (!mdl.isWeixin() && test_openid == "") {
+					that.reservedNull = "请在微信客户端打开查看";
+					that.paramReset();
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+					return
+				} else if (openid == "" && test_openid == "") {
+					that.reservedNull = "查看我的预约 [微信授权登录]";
+					that.reservedList = [];
+					that.paramReset();
+					uni.hideLoading();
+					uni.stopPullDownRefresh();
+					return
+				}
+				console.log("===url_list====")
+				console.log(url_list)
+				console.log("openid:", openid)
 				let getList = mdl.getData(url_list, funList, "GET", {}, _head);
+			},
+			checkUser() {
+				var that = this;
+				var funStor = function(res) {
+					console.log(res)
+					that.userInfo = res;
+					if (!res) {
+						that.userInfo = {};
+						that.reservedList = [];
+					}
+				}
+				let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
+			},
+			login() {
+				console.log("login:", inter.domain)
+				window.location.href = inter.domain;
 			},
 			paramReset() {
 				this.param.pi = 1;
@@ -234,5 +268,11 @@
 		color: #555555;
 		margin-bottom: 40upx;
 	}
-	.reservedQR{width: 90%;margin: 0 auto;};
+
+	.reservedQR {
+		width: 90%;
+		margin: 0 auto;
+	}
+
+	;
 </style>

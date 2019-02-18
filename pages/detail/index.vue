@@ -227,7 +227,7 @@
 				<navigator :url="url" class="apply-btn">立即申请</navigator>
 			</view>
 		</view> -->
-		<!-- <view @tap="goTo" v-if="btnShow" class="goTo" id="GoTo">立即申请</view> -->
+		<view @tap="goTo" v-if="btnShow" class="goTo" id="GoTo">立即申请</view>
 		<view class="pop-success" :class="successShow">
 			<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
 		</view>
@@ -330,11 +330,6 @@
 					uni.setNavigationBarTitle({
 						title: _data.name
 					});
-
-					var title = _data.name,
-						imgUrl = _data.image ? apiurl + _data.image[0]["original_src"] : util.Interface.domain + "/static/icon-1.png",
-						dec = _data.overview;
-					mdl.wxShare("", title, imgUrl, dec);
 				}
 			}
 			let _detail = mdl.getData(url_detail, fun);
@@ -342,6 +337,14 @@
 				format: true
 			});
 			_this.visitShowFun();
+		},
+		onShow() {
+			var that=this;
+			var detail=that.detail;
+			var title = detail.name?detail.name:"英语免费试听",
+				imgUrl = detail.image ? apiurl + detail.image[0]["original_src"] : util.Interface.domain + "/static/icon-1.png",
+				dec = detail.overview?detail.overview:"英语免费试听课，在这里找到你想要的";
+			mdl.wxShare("", title, imgUrl, dec);
 		},
 		computed: {
 			startDate() {

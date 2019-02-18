@@ -260,13 +260,15 @@
 			 * 课程列表
 			 */
 			_this.getList();
-			
-			var title = "试听课网 - 英语免费试听",
-				imgUrl = util.Interface.domain + "/static/icon-1.png",
-				dec = "英语免费试听课，在这里找到你想要的";
-			mdl.wxShare("",title,imgUrl,dec);
+
 			//定位
 			_this.getLocation();
+		},
+		onShow() {
+			var title = "英语免费试听",
+				imgUrl = util.Interface.domain + "/static/icon-1.png",
+				dec = "英语免费试听课，在这里找到你想要的";
+			mdl.wxShare("", title, imgUrl, dec);
 		},
 		onPullDownRefresh() {
 			//console.log("========onPullDownRefresh=========")

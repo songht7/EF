@@ -203,16 +203,16 @@
 			uni.setNavigationBarTitle({
 				title: "英孚教育 卓著英语培训专家"
 			});
-			var title = "英孚教育 卓著英语培训专家",
-				imgUrl = util.Interface.domain + "/static/ef/billboard.png",
-				dec = "专业认证培训师，教你地道英语";
-			mdl.wxShare("", title, imgUrl, dec);
 			_jquery.setEffectCollect();
 		},
 		onReady: function() {
 			//_jquery.efftest();
 		},
 		onShow() {
+			var title = "英孚教育 卓著英语培训专家",
+				imgUrl = util.Interface.domain + "/static/ef/billboard.png",
+				dec = "专业认证培训师，教你地道英语";
+			mdl.wxShare("", title, imgUrl, dec);
 			//console.log("onShow");
 		},
 		methods: {

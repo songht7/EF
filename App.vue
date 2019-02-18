@@ -11,7 +11,11 @@
 			//console.log('App Show')
 		},
 		onHide: function() {
-			//console.log('App Hide')
+			console.log('App Hide')
+			uni.removeStorage({
+				key: 'wx_ticket',
+				success: function(res) {}
+			});
 		}
 	}
 </script>
