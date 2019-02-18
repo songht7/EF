@@ -3,6 +3,9 @@
 	const mdl = util.module;
 	export default {
 		onLaunch: function() {
+			if (mdl.isIOS()) {
+				mdl.wxShare();
+			}
 			//console.log('App Launch')
 		},
 		onShow: function() {
