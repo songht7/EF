@@ -115,6 +115,9 @@ const module = {
 		var storFun = function(res) {
 			if (res=="") {
 				var getTicketUrl = location.origin + "/#/";
+				if (that.isIOS()) {
+					getTicketUrl = location.origin + "/";
+				}
 				let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + getTicketUrl;
 				let wx_ticket = that.getData(url_ticket, funTicket)
 			}
@@ -126,7 +129,8 @@ const module = {
 		console.log("======share_url=====")
 		console.log(_href)
 		var share_url = share_url ? share_url : "http://main.meetji.com:3001?wxr=" + encodeURIComponent(_href);
-		imgUrl = imgUrl ? imgUrl : Interface.domain + "/static/icon-1.png";
+		imgUrl = imgUrl ? imgUrl : Interface.domain + "/static/share.jpg";
+		alert(imgUrl);
 		var wxSet = {
 			title: title || "英语免费试听",
 			desc: dec || "英语免费试听课，在这里找到你想要的",

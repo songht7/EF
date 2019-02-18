@@ -266,7 +266,7 @@
 		},
 		onShow() {
 			var title = "英语免费试听",
-				imgUrl = util.Interface.domain + "/static/icon-1.png",
+				imgUrl = util.Interface.domain + "/static/share.jpg",
 				dec = "英语免费试听课，在这里找到你想要的";
 			mdl.wxShare("", title, imgUrl, dec);
 		},

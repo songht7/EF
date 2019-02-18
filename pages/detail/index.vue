@@ -342,7 +342,7 @@
 			var that=this;
 			var detail=that.detail;
 			var title = detail.name?detail.name:"英语免费试听",
-				imgUrl = detail.image ? apiurl + detail.image[0]["original_src"] : util.Interface.domain + "/static/icon-1.png",
+				imgUrl = detail.image ? apiurl + detail.image[0]["original_src"] : util.Interface.domain + "/static/share.jpg",
 				dec = detail.overview?detail.overview:"英语免费试听课，在这里找到你想要的";
 			mdl.wxShare("", title, imgUrl, dec);
 		},
