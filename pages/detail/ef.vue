@@ -6,10 +6,13 @@
 			<view class="ef-top-box">
 				<!-- <uni-icon size="35" @tap="makePhoneCall" class="makePhoneCall" type="phone-filled" color="#000"></uni-icon> -->
 				<view class="scroll-view-item ef-top"></view>
+				<view class="goHomePage" @click="goHomePage">
+					<uni-icon size="30" type="home-filled" color="#DDDDDF"></uni-icon>
+				</view>
 				<view class="uni-padding-wrap uni-common-mt">
 					<view class="uni-card">
 						<view class="uni-card-content">
-							<view class="uni-card-content-inner" id="ApplyFormBox">
+							<view class="uni-card-content-inner ApplyFormBox">
 								<view class="ef-title">专业认证培训师<br />教你地道英语</view>
 								<view class="ef-title-sub">FOREIGN TEACHER<br />免费试听体验课</view>
 								<form @submit="formSubmit" @reset="formReset" id="ApplyForm">
@@ -121,7 +124,8 @@
 					<view class="pro-desc">耐心陪伴，菜鸟也能飞</view>
 				</view>
 			</view>
-			<!-- <view @tap="goTop" class="apply-btn go-top goTopEF" id="GoTo">立即预约 免费听课</view> --><!-- v-if="btnShow" -->
+			<view @tap="goTop" class="apply-btn go-top goTopEF GoTo">立即预约 免费听课</view>
+			<!-- v-if="btnShow" -->
 			<view class="ef-imgs ef-imgs-center">
 				<img src="../../static/ef/img-4.png" class="ef-img" alt="">
 			</view>
@@ -142,6 +146,9 @@
 <script>
 	import util from '../../common/util.js';
 	const mdl = util.module;
+	const inter = util.Interface;
+	const apiurl = inter.apiurl;
+
 	import uniIcon from '../../components/uni-icon.vue';
 	//来自 graceUI 的表单验证， 使用说明见手册 http://grace.hcoder.net/doc/info/73-3.html
 	var graceChecker = require("../../common/graceChecker.js");
@@ -216,6 +223,11 @@
 			//console.log("onShow");
 		},
 		methods: {
+			goHomePage() {
+				uni.switchTab({
+					url: '/pages/index/index'
+				})
+			},
 			upper: function(e) {
 				//console.log(e)
 			},
@@ -279,7 +291,7 @@
 					this.$refs.mpvueCityPicker.pickerCancel()
 				}
 			},
-			makePhoneCall: function () {
+			makePhoneCall: function() {
 				uni.makePhoneCall({
 					phoneNumber: "13918781109",
 					success: () => {
@@ -324,7 +336,8 @@
 						"性别": _this.gender[formData.Gender],
 						"城市": formData.City
 					};
-					console.log(_data);
+					//console.log(_data);
+					/** request-1 send email **/
 					var fun = function(result) {
 						if (result.success) {
 							uni.navigateTo({
@@ -339,7 +352,21 @@
 						_this.loading = false
 						_this.res = JSON.stringify(result);
 					}
-					_jquery.sendMail(_interface.SendMail, _data, fun)
+					_jquery.sendMail(_interface.SendMail, _data, fun);
+
+					/** request-2 save to DB **/
+					var data2DB = {
+						"name": formData.UserName,
+						"age_range": _this.age[formData.Age],
+						"sex": _this.gender[formData.Gender],
+						"phone": formData.UserPhone,
+						"city": formData.City,
+						"school": "", //this.schoolId,
+						"article_id": 19,
+						"arrive_time": ""//formData.ApplyDate
+					};
+					let url_saveSingle = apiurl + inter.addr.saveSingle;
+					let _saveSingle = mdl.getData(url_saveSingle, "", "POST", data2DB, {});
 				} else {
 					uni.showToast({
 						title: graceChecker.error,
@@ -374,6 +401,23 @@
 </script>
 
 <style>
+	.goHomePage {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+		flex-direction: column;
+		position: fixed;
+		top: 20upx;
+		right: 20upx;
+		z-index: 5;
+		background: rgba(120, 120, 120, 0.5);
+		border-radius: 50%;
+		width: 60upx;
+		height: 60upx;
+		line-height: 2;
+	}
+
 	.scroll-Y {
 		height: 1800upx;
 	}
@@ -382,11 +426,13 @@
 		background: url(../../static/ef/billboard.png) 50% 0 no-repeat;
 		background-size: contain;
 	}
-	.makePhoneCall{
+
+	.makePhoneCall {
 		position: absolute;
 		top: 30upx;
 		right: 40upx;
 	}
+
 	.ef-top {
 		height: 330upx;
 		background: url(../../static/ef/logo2.png) 5% 15% no-repeat;

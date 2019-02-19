@@ -3,7 +3,7 @@
 		<view class="uni-card" v-for="(value,key) in list" :key="key">
 			<view class="uni-card-content">
 				<view class="uni-card-content-inner">
-					<navigator class="service-head" :url="'/pages/detail/index?id='+value.id">
+					<navigator class="service-head" :url="value.id==19?'/pages/detail/ef?key=2':'/pages/detail/index?id='+value.id">
 						<view class="ser-logo">
 							<image lazy-load :src="value.src?sourceUrl+value.src:''" mode="aspectFill"/>
 						</view>

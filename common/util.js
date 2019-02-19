@@ -113,7 +113,7 @@ const module = {
 			wx.config(_config);
 		}
 		var storFun = function(res) {
-			if (res=="") {
+			if (res == "") {
 				var getTicketUrl = location.origin + "/#/";
 				if (that.isIOS()) {
 					getTicketUrl = location.origin + "/";
@@ -265,6 +265,9 @@ const module = {
 			},
 			complete(c) {}
 		})
+	},
+	getSysInfo: function() {
+		return uni.getSystemInfoSync().platform;
 	},
 	goHomePage: function() {
 		let hash = window.location.hash;

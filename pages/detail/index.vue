@@ -110,7 +110,7 @@
 				<view class="uni-card">
 					<view class="uni-card-content">
 						<view class="uni-card-content-inner">
-							<view class="apply-block" id="ApplyFormBox">
+							<view class="apply-block ApplyFormBox">
 								<form @submit="formSubmit" @reset="formReset">
 									<view class="uni-list half-box">
 										<view class="uni-list-cell">
@@ -227,7 +227,7 @@
 				<navigator :url="url" class="apply-btn">立即申请</navigator>
 			</view>
 		</view> -->
-		<view @tap="goTo" v-if="btnShow" class="goTo" id="GoTo">立即申请</view>
+		<view @tap="goTo" v-if="btnShow" class="goTo GoTo">立即申请</view>
 		<view class="pop-success" :class="successShow">
 			<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
 		</view>
