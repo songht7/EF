@@ -203,7 +203,7 @@
 			uni.setNavigationBarTitle({
 				title: "英孚教育 卓著英语培训专家"
 			});
-			_jquery.setEffectCollect();
+			// _jquery.setEffectCollect();
 		},
 		onReady: function() {
 			//_jquery.efftest();
