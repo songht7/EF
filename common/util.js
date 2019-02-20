@@ -105,8 +105,10 @@ const module = {
 				nonceStr: res.noncestr,
 				signature: res.signature,
 				jsApiList: [
-					'onMenuShareTimeline',
+					'updateAppMessageShareData',
+					'updateTimelineShareData',
 					'onMenuShareAppMessage',
+					'onMenuShareTimeline',
 					'onMenuShareQQ'
 				]
 			}
@@ -128,25 +130,18 @@ const module = {
 		let _href = location.origin + "/" + location.hash;
 		console.log("======share_url=====")
 		console.log(_href)
-		var share_url = share_url ? share_url : "http://main.meetji.com:3001?wxr=" + encodeURIComponent(_href);
+		_href = "http://main.meetji.com:3001?wxr=" + encodeURIComponent(_href)
+		var share_url = share_url ? share_url : _href;
 		imgUrl = imgUrl ? imgUrl : Interface.domain + "/static/share.jpg";
 		var wxSet = {
 			title: title || "英语免费试听",
 			desc: dec || "英语免费试听课，在这里找到你想要的",
 			link: share_url,
-			imgUrl: imgUrl,
-			trigger: function(res) {
-				// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
-			},
-			success: function(res) {},
-			cancel: function(res) {
-
-			},
-			fail: function(res) {
-				//alert(JSON.stringify(res));
-			}
+			imgUrl: imgUrl
 		};
 		wx.ready(function() {
+			wx.updateAppMessageShareData(wxSet);
+			wx.updateTimelineShareData(wxSet);
 			// 2. 分享接口
 			// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
 			wx.onMenuShareAppMessage(wxSet);
@@ -207,7 +202,7 @@ const module = {
 						REDIRECT_URI +
 						'&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
 					let code = _this.queryString('code');
-					console.log(_url)
+					//console.log(_url)
 					if (code) {
 						//console.log(code)
 						_this.userLogin(code);

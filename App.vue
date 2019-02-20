@@ -3,10 +3,20 @@
 	const mdl = util.module;
 	export default {
 		onLaunch: function() {
-// 			var isIOS=mdl.isIOS();
-// 			if (isIOS) {
-// 				mdl.wxShare();
-// 			}
+			var pageis = mdl.queryString("type");
+			var id = mdl.queryString("id");
+			console.log(pageis)
+			if (pageis == "home") {
+				window.location.href = util.Interface.domain;
+			} else if (pageis == "detail" && id) {
+				uni.redirectTo({
+					url: '/pages/detail/index?id='+id
+				});
+			}
+			// 			var isIOS=mdl.isIOS();
+			// 			if (isIOS) {
+			// 				mdl.wxShare();
+			// 			}
 			//console.log('App Launch')
 		},
 		onShow: function() {

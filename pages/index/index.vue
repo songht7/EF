@@ -265,10 +265,12 @@
 			_this.getLocation();
 		},
 		onShow() {
-			var title = "英语免费试听",
+			var share_url=util.Interface.domain+"/?type=home#/",
+				title = "英语免费试听",
 				imgUrl = util.Interface.domain + "/static/share.jpg",
 				dec = "英语免费试听课，在这里找到你想要的";
-			mdl.wxShare("", title, imgUrl, dec);
+				console.log(share_url)
+			mdl.wxShare(share_url, title, imgUrl, dec);
 		},
 		onPullDownRefresh() {
 			//console.log("========onPullDownRefresh=========")

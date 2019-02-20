@@ -341,10 +341,11 @@
 		onShow() {
 			var that=this;
 			var detail=that.detail;
-			var title = detail.name?detail.name:"英语免费试听",
+			var share_url=util.Interface.domain+"/?type=detail&id="+detail.id+"#/",
+				title = detail.name?detail.name:"英语免费试听",
 				imgUrl = detail.image ? apiurl + detail.image[0]["original_src"] : util.Interface.domain + "/static/share.jpg",
 				dec = detail.overview?detail.overview:"英语免费试听课，在这里找到你想要的";
-			mdl.wxShare("", title, imgUrl, dec);
+			mdl.wxShare(share_url, title, imgUrl, dec);
 		},
 		computed: {
 			startDate() {
