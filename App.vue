@@ -7,11 +7,17 @@
 			var id = mdl.queryString("id");
 			console.log(pageis)
 			if (pageis == "home") {
-				window.location.href = util.Interface.domain;
+				window.location.href = location.origin;
 			} else if (pageis == "detail" && id) {
-				uni.redirectTo({
-					url: '/pages/detail/index?id='+id
-				});
+				window.location.href = location.origin + '/#/pages/detail/index?id=' + id
+				// 				uni.navigateTo({
+				// 					url: '/pages/detail/index?id='+id
+				// 				});
+			} else if (pageis == "ef" && id) {
+				window.location.href = location.origin + '/#/pages/detail/ef?key=' + id
+				// 				uni.navigateTo({
+				// 					url: '/pages/detail/ef?key='+id
+				// 				});
 			}
 			// 			var isIOS=mdl.isIOS();
 			// 			if (isIOS) {

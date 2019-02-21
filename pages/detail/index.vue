@@ -326,6 +326,7 @@
 						});
 						_this.schoolId = _data.school["0"]["id"];
 					}
+					_this.setShare(_data);
 					_this.brandId = _data.id;
 					uni.setNavigationBarTitle({
 						title: _data.name
@@ -338,15 +339,7 @@
 			});
 			_this.visitShowFun();
 		},
-		onShow() {
-			var that=this;
-			var detail=that.detail;
-			var share_url=util.Interface.domain+"/?type=detail&id="+detail.id+"#/",
-				title = detail.name?detail.name:"英语免费试听",
-				imgUrl = detail.image ? apiurl + detail.image[0]["original_src"] : util.Interface.domain + "/static/share.jpg",
-				dec = detail.overview?detail.overview:"英语免费试听课，在这里找到你想要的";
-			mdl.wxShare(share_url, title, imgUrl, dec);
-		},
+		onShow() {},
 		computed: {
 			startDate() {
 				return this.getDate('start');
@@ -361,6 +354,14 @@
 			mpvueCityPicker
 		},
 		methods: {
+			setShare(detail) {
+				var that = this;
+				var share_url = util.Interface.domain + "/?type=detail&id=" + detail.id + "#/",
+					title = detail.name ? detail.name : "英语免费试听",
+					imgUrl = detail.image ? apiurl + detail.image[0]["original_src"] : util.Interface.domain + "/static/share.jpg",
+					dec = detail.overview ? detail.overview : "英语免费试听课，在这里找到你想要的";
+				mdl.wxShare(share_url, title, imgUrl, dec);
+			},
 			bindPickerChange: function(e) {
 				this.genderIndex = e.target.value
 			},

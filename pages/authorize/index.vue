@@ -23,6 +23,8 @@
 				if (res.openid) {
 					_this.wxLoading = "授权成功";
 					//window.location.href = inter.domain;
+				}else{
+					mdl.goHomePage();
 				}
 			}
 			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
