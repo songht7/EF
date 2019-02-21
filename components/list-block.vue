@@ -1,6 +1,6 @@
 <template>
 	<view class="list-block uni-padding-wrap uni-common-mt">
-		<view class="uni-card" v-for="(value,key) in list" :key="key">
+		<view class="uni-card" v-for="(value,key) in list" :key="key" v-if="value.id!=19">
 			<view class="uni-card-content">
 				<view class="uni-card-content-inner">
 					<navigator class="service-head" :url="value.id==19?'/pages/detail/ef?key=2':'/pages/detail/index?id='+value.id">

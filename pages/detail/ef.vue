@@ -6,9 +6,9 @@
 			<view class="ef-top-box">
 				<!-- <uni-icon size="35" @tap="makePhoneCall" class="makePhoneCall" type="phone-filled" color="#000"></uni-icon> -->
 				<view class="scroll-view-item ef-top"></view>
-				<view class="goHomePage" @click="goHomePage">
+				<!-- <view class="goHomePage" @click="goHomePage">
 					<uni-icon size="30" type="home-filled" color="#DDDDDF"></uni-icon>
-				</view>
+				</view> -->
 				<view class="uni-padding-wrap uni-common-mt">
 					<view class="uni-card">
 						<view class="uni-card-content">

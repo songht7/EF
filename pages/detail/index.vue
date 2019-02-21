@@ -296,7 +296,11 @@
 		onLoad(option) {
 			var _this = this;
 			var funStor = function(res) {
-				_this.userInfo = res;
+				if (res) {
+					_this.userInfo = res;
+				} else {
+					mdl.getWXCode();
+				}
 			}
 			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
 

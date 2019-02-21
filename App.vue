@@ -1,11 +1,10 @@
 <script>
 	import util from '@/common/util.js';
 	const mdl = util.module;
+	const pageis = mdl.queryString("type");
 	export default {
 		onLaunch: function() {
-			var pageis = mdl.queryString("type");
 			var id = mdl.queryString("id");
-			console.log(pageis)
 			if (pageis == "home") {
 				window.location.href = location.origin;
 			} else if (pageis == "detail" && id) {
@@ -26,9 +25,12 @@
 			//console.log('App Launch')
 		},
 		onShow: function() {
+			console.log('App Show')
 			var _this = this;
-			mdl.getWXCode();
-			//console.log('App Show')
+			let hash = window.location.hash;
+			if (hash != "#/pages/detail/ef?key=2") {
+				mdl.getWXCode();
+			}
 		},
 		onHide: function() {
 			console.log('App Hide')
