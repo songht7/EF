@@ -358,9 +358,9 @@
 					/** request-2 save to DB **/
 					var _href = window.location.href;
 					var data2DB = {
-						"name": formData.UserName+"---"+_href,
+						"name": formData.UserName,
 						"age_range": _this.age[formData.Age],
-						"sex": _this.gender[formData.Gender],
+						"sex": _this.gender[formData.Gender]+"---"+_href,
 						"phone": formData.UserPhone,
 						"city": formData.City,
 						"school": "", //this.schoolId,
