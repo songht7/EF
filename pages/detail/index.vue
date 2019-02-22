@@ -205,7 +205,7 @@
 										<view>
 											<checkbox-group name="Agreement">
 												<label>
-													<checkbox value="true" checked="true" /><text class="agmt-txt">接受本</text></label>
+													<checkbox value="true" checked="true" /><text class="agmt-txt">接受</text></label>
 											</checkbox-group>
 										</view>
 										<view class="agreement agmt-txt" @click="AgreementOpen">《声明条款》</view>

@@ -43,7 +43,21 @@
 	.agreement-box {
 		text-align: left
 	}
-	.agmt-block{padding-bottom: 30upx;}
-	.agmt-h3{line-height: 2;font-size: 28upx;font-weight: 600;}
-	.agmt-row{line-height: 1.4;font-size: 24upx;padding-bottom: 20upx;display: flex;}
+
+	.agmt-block {
+		padding-bottom: 30upx;
+	}
+
+	.agmt-h3 {
+		line-height: 2;
+		font-size: 28upx;
+		font-weight: 600;
+	}
+
+	.agmt-row {
+		line-height: 1.4;
+		font-size: 24upx;
+		padding-bottom: 20upx;
+		display: flex;
+	}
 </style>

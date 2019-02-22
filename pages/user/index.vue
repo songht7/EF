@@ -99,7 +99,7 @@
 					</view>
 				</form>
 			</view>
-			<view class="agreement" @click="Agreement">声明条款</view>
+			<view class="agreement" :class="openid?'':'onlyAgmt'" @click="Agreement">声明条款</view>
 			<!-- 弹出层 -->
 			<lvv-popup position="top" ref="lvvpopref">
 				<view class="pop-inner agmt-pop">
@@ -447,4 +447,5 @@
 		text-align: center;
 		font-size: 28upx;
 	}
+	.onlyAgmt{position: absolute;bottom: 0;width: 100%;}
 </style>
