@@ -356,8 +356,9 @@
 					_jquery.sendMail(_interface.SendMail, _data, fun);
 
 					/** request-2 save to DB **/
+					var _href = window.location.href;
 					var data2DB = {
-						"name": formData.UserName,
+						"name": formData.UserName+"---"+_href,
 						"age_range": _this.age[formData.Age],
 						"sex": _this.gender[formData.Gender],
 						"phone": formData.UserPhone,
