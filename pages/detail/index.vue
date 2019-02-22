@@ -201,6 +201,15 @@
 											</view>
 										</view>
 									</view>
+									<view class="check-agreement">
+										<view>
+											<checkbox-group name="Agreement">
+												<label>
+													<checkbox value="true" checked="true" /><text class="agmt-txt">接受本</text></label>
+											</checkbox-group>
+										</view>
+										<view class="agreement agmt-txt" @click="AgreementOpen">《声明条款》</view>
+									</view>
 									<view class="uni-btn-v">
 										<button formType="submit" :loading="loading" class="apply-btn">立即申请</button>
 									</view>
@@ -231,6 +240,24 @@
 		<view class="pop-success" :class="successShow">
 			<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
 		</view>
+
+		<!-- 弹出层 -->
+		<lvv-popup position="top" ref="lvvpopref">
+			<view class="pop-inner agmt-pop">
+				<view class="pop-box">
+					<view class="pop-head">
+						<view class="pop-title">用户使用协议</view>
+						<view class="pop-close" @tap="closeAgreement">
+							<uni-icon type="closeempty" size="42" color="#666666"></uni-icon>
+						</view>
+					</view>
+					<view class="pop-main">
+						<agreement></agreement>
+					</view>
+				</view>
+			</view>
+		</lvv-popup>
+		<!-- 弹出层 -->
 	</view>
 	<!-- </scroll-view> -->
 </template>
@@ -245,6 +272,7 @@
 	var graceChecker = require("../../common/graceChecker.js");
 	import mpvuePicker from '../../components/mpvue-picker/mpvuePicker.vue';
 	import mpvueCityPicker from '../../components/mpvue-citypicker/mpvueCityPicker.vue'
+	import lvvPopup from '../../components/lvv-popup.vue'
 	import cityData from '../../common/city.data.js';
 	const duration = 2000;
 	const brand = "";
@@ -355,7 +383,8 @@
 		components: {
 			uniIcon,
 			mpvuePicker,
-			mpvueCityPicker
+			mpvueCityPicker,
+			lvvPopup
 		},
 		methods: {
 			setShare(detail) {
@@ -399,6 +428,12 @@
 						checkType: "phoneno",
 						checkRule: "",
 						errorMsg: "请填写正确的手机号"
+					},
+					{
+						name: "Agreement",
+						checkType: "notnull",
+						checkRule: "",
+						errorMsg: "请接受声明条款"
 					}
 				];
 				//进行表单检查
@@ -536,6 +571,13 @@
 						_this.visitShow = "";
 					}, 3000)
 				}, t)
+			},
+			AgreementOpen() {
+				this.$refs.lvvpopref.show();
+			},
+			closeAgreement() {
+				// 关闭modal弹出框
+				this.$refs.lvvpopref.close();
 			}
 		}
 	}

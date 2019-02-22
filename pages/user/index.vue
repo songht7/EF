@@ -99,6 +99,24 @@
 					</view>
 				</form>
 			</view>
+			<view class="agreement" @click="Agreement">声明条款</view>
+			<!-- 弹出层 -->
+			<lvv-popup position="top" ref="lvvpopref">
+				<view class="pop-inner agmt-pop">
+					<view class="pop-box">
+						<view class="pop-head">
+							<view class="pop-title">用户使用协议</view>
+							<view class="pop-close" @tap="closeAgreement">
+								<uni-icon type="closeempty" size="42" color="#666666"></uni-icon>
+							</view>
+						</view>
+						<view class="pop-main">
+							<agreement></agreement>
+						</view>
+					</view>
+				</view>
+			</lvv-popup>
+			<!-- 弹出层 -->
 		</view>
 	</view>
 </template>
@@ -109,6 +127,7 @@
 	const inter = util.Interface;
 	const apiurl = inter.apiurl;
 	import uniIcon from '../../components/uni-icon.vue'
+	import lvvPopup from '../../components/lvv-popup.vue'
 	var graceChecker = require("../../common/graceChecker.js");
 	export default {
 		data() {
@@ -143,7 +162,8 @@
 			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
 		},
 		components: {
-			uniIcon
+			uniIcon,
+			lvvPopup
 		},
 		computed: {
 			startDate() {
@@ -289,6 +309,13 @@
 				day = day > 9 ? day : '0' + day;
 
 				return `${year}-${month}-${day}`;
+			},
+			Agreement() {
+				this.$refs.lvvpopref.show();
+			},
+			closeAgreement() {
+				// 关闭modal弹出框
+				this.$refs.lvvpopref.close();
 			}
 		}
 	}
@@ -413,5 +440,11 @@
 	.toEdit {
 		background: #CCCCCC;
 		box-shadow: none;
+	}
+
+	.agreement {
+		padding: 60upx 0 40upx;
+		text-align: center;
+		font-size: 28upx;
 	}
 </style>

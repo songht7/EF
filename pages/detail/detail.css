@@ -12,7 +12,7 @@
 .apply-box {
 	padding-top: 20upx;
 	position: relative;
-	z-index: 8;
+	z-index: 2;
 }
 
 .card-box {
@@ -211,7 +211,11 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	z-index: 10;
 	border-radius: 8upx;
 }
-.visitShow{display: flex;}
+
+.visitShow {
+	display: flex;
+}
+
 .goTo {
 	position: fixed;
 	width: 98%;
@@ -263,6 +267,16 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 .school-box .uni-input.rowOne {
 	height: 50upx;
 }
+
+.check-agreement {
+	display: flex;
+	justify-content: flex-start;
+	align-content: center;
+	align-items: center;
+	padding: 20upx 0 0;
+}
+.agmt-txt{
+	font-size: 28upx;}
 
 .qrcodefot {
 	display: block;

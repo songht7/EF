@@ -25,7 +25,7 @@
 			//console.log('App Launch')
 		},
 		onShow: function() {
-			console.log('App Show')
+			//console.log('App Show')
 			var _this = this;
 			let hash = window.location.hash;
 			if (hash != "#/pages/detail/ef?key=2") {
@@ -33,7 +33,7 @@
 			}
 		},
 		onHide: function() {
-			console.log('App Hide')
+			//console.log('App Hide')
 			uni.removeStorage({
 				key: 'wx_ticket',
 				success: function(res) {}
