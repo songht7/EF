@@ -13,7 +13,8 @@
 				// 					url: '/pages/detail/index?id='+id
 				// 				});
 			} else if (pageis == "ef" && id) {
-				window.location.href = location.origin + '/#/pages/detail/ef?key=' + id
+				let hash = window.location.hash;
+				window.location.href = location.origin + '/'+hash
 				// 				uni.navigateTo({
 				// 					url: '/pages/detail/ef?key='+id
 				// 				});

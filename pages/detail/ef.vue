@@ -216,7 +216,8 @@
 			//_jquery.efftest();
 		},
 		onShow() {
-			var share_url = util.Interface.domain + "/?type=ef&id=2#/",
+			let hash = window.location.hash;
+			var share_url = util.Interface.domain + "/?type=ef&id=2"+hash,
 				title = "英孚教育 卓著英语培训专家",
 				imgUrl = util.Interface.domain + "/static/ef/billboard.png",
 				dec = "专业认证培训师，教你地道英语";
