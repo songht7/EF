@@ -11,8 +11,10 @@
 			</block>
 			<view class="input-view" :class="searchShow?'searchShow':''">
 				<view class="searh-innter">
-					<input confirm-type="search" @confirm="confirm" class="input search-ipt" @focus="searchBox('focus')" @blur="searchBox('blur')"
-					 type="text" v-model="serchVal" :placeholder="placeholder" :value="param.keywords" />
+					<view class="search-ipt">
+						<input confirm-type="search" @confirm="confirm" class="input" @focus="searchBox('focus')" @blur="searchBox('blur')"
+						 type="text" v-model="serchVal" :placeholder="placeholder" :value="param.keywords" />
+					</view>
 				</view>
 			</view>
 		</uni-nav-bar>
