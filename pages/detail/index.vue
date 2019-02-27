@@ -110,7 +110,7 @@
 				<view class="uni-card">
 					<view class="uni-card-content">
 						<view class="uni-card-content-inner">
-							<view class="apply-block ApplyFormBox">
+							<view class="apply-block ApplyFormBox" id="ApplyFormBox">
 								<form @submit="formSubmit" @reset="formReset">
 									<view class="uni-list half-box">
 										<view class="uni-list-cell">
@@ -222,9 +222,9 @@
 			</view>
 		</view>
 		<view class="visitors" :class="visitShow">
-			<text>
-				<uni-icon size="16" type="eye" color="#ffffff"></uni-icon>&nbsp;同时有 {{visitors}} 人浏览
-			</text>
+			<view>
+				<uni-icon size="16" type="eye" color="#ffffff"></uni-icon>&nbsp;<text>同时有 {{visitors}} 人浏览</text>
+			</view>
 		</view>
 		<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
 		 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
@@ -236,7 +236,7 @@
 				<navigator :url="url" class="apply-btn">立即申请</navigator>
 			</view>
 		</view> -->
-		<view @tap="goTo" v-if="btnShow" class="goTo GoTo">立即申请</view>
+		<view @tap="goTo" v-if="btnShow" class="goTo" id="GoTo">立即申请</view>
 		<view class="pop-success" :class="successShow">
 			<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
 		</view>
@@ -385,6 +385,20 @@
 			mpvuePicker,
 			mpvueCityPicker,
 			lvvPopup
+		},
+		onPageScroll(e) {
+			var that = this;
+			let view = uni.createSelectorQuery().select("#ApplyFormBox");
+			view.fields({
+				rect: true
+			}, function(res) {
+				let _top = res.top;
+				if (_top >= 600) {
+					that.btnShow = true
+				} else {
+					that.btnShow = false
+				}
+			}).exec();
 		},
 		methods: {
 			setShare(detail) {
@@ -552,12 +566,10 @@
 				this.old.scrollTop = e.detail.scrollTop
 			},
 			goTo: function(e) {
-				// 解决view层不同步的问题
-				//_jquery.scrollTop("GoTo","ApplyFormBox");
-				// 				this.scrollTop = this.old.scrollTop
-				// 				this.$nextTick(function() {
-				// 					this.scrollTop = 20000
-				// 				});
+				uni.pageScrollTo({
+					scrollTop:1000,
+					duration:300
+				})
 			},
 			visitShowFun: function() {
 				var _this = this;
