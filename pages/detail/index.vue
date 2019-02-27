@@ -567,7 +567,7 @@
 			},
 			goTo: function(e) {
 				uni.pageScrollTo({
-					scrollTop:1000,
+					scrollTop:5000,
 					duration:300
 				})
 			},
