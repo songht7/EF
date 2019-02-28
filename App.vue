@@ -4,6 +4,7 @@
 	const pageis = mdl.queryString("type");
 	export default {
 		onLaunch: function() {
+			//console.log('App Launch')
 			var id = mdl.queryString("id");
 			if (pageis == "home") {
 				window.location.href = location.origin;
@@ -15,15 +16,10 @@
 			} else if (pageis == "ef" && id) {
 				let hash = window.location.hash;
 				window.location.href = location.origin + '/'+hash
-				// 				uni.navigateTo({
-				// 					url: '/pages/detail/ef?key='+id
-				// 				});
+			} else if (pageis == "wb" && id) {
+				let hash = window.location.hash;
+				window.location.href = location.origin + '/'+hash
 			}
-			// 			var isIOS=mdl.isIOS();
-			// 			if (isIOS) {
-			// 				mdl.wxShare();
-			// 			}
-			//console.log('App Launch')
 		},
 		onShow: function() {
 			//console.log('App Show')

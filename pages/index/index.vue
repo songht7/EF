@@ -132,7 +132,7 @@
 				ctgChecked: "",
 				param: {
 					"pi": 1,
-					"ps": 4,
+					"ps": 6,
 					"keywords": "",
 					"region": "上海",
 					"cat": "",

@@ -9,6 +9,7 @@
 			<view class="page-views">稍后将会有课程顾问和您联系</view>
 			<view class="qrbox ">
 				<img :src="key=='wb'?'../../static/wb/logo.png':'../../static/ef/customer_qrcode.png'" class="qr-code" alt="">
+				<img v-if="key=='wb'" src="../../static/wb/logo-wb.png" class="qr-code" alt="">
 				<view class="qrtxt hide">扫一扫 联系客服</view>
 			</view>
 		</view>
@@ -98,6 +99,9 @@
 	.qr-code {
 		display: block;
 		width: 40%;
-		margin: 0 auto;
+		margin: 0 auto 40upx;
+	}
+	.qr-code2{
+		width: 80%;
 	}
 </style>

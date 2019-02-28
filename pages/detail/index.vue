@@ -491,6 +491,29 @@
 						};
 					}
 					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data, _head);
+					if (openid || test_openid) {
+						var user_data = {
+							"phone": formData.UserPhone
+						};
+						let url_saveUser = apiurl + inter.addr.saveUserInfo;
+						let funSaveUser = function(res) {
+							if (!res.Result) {
+								uni.getStorage({
+									key: 'uWXInfo',
+									success: function(ress) {
+										let _uWXInfo = ress.data;
+										_uWXInfo["phone"] = user_data.phone;
+										uni.setStorage({
+											key: 'uWXInfo',
+											data: _uWXInfo,
+											success: function() {}
+										})
+									},
+								})
+							}
+						}
+						let _saveUser = mdl.getData(url_saveUser, funSaveUser, "POST", user_data, _head);
+					}
 
 				} else {
 					uni.showToast({
@@ -567,8 +590,8 @@
 			},
 			goTo: function(e) {
 				uni.pageScrollTo({
-					scrollTop:5000,
-					duration:300
+					scrollTop: 5000,
+					duration: 300
 				})
 			},
 			visitShowFun: function() {

@@ -81,8 +81,8 @@
 							<text class="cell-text">邮箱</text>
 						</view>
 						<view class="cell-right">
-							<text class="cell-text-right"><input class="uni-input" name="Email" type="text" :value="email" placeholder=""
-								 :disabled="isDisabled" /></text>
+							<view class="cell-text-right"><input class="uni-input" name="Email" type="text" :value="email" placeholder=""
+								 :disabled="isDisabled" /></view>
 						</view>
 					</view>
 					<!-- 	<view class="cell">
@@ -148,18 +148,7 @@
 		},
 		onLoad() {
 			var that = this;
-			var funStor = function(res) {
-				that.userInfo = res;
-				that.openid = res.openid ? res.openid : "";
-				that.headimgurl = res.headimgurl;
-				that.setUserInfo(res);
-				if (res.sex == 1 || res.sex == "男") {
-					that.genderIndex = 0
-				} else {
-					that.genderIndex = 1
-				}
-			}
-			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
+			that.getUserInfo();
 		},
 		components: {
 			uniIcon,
@@ -173,7 +162,26 @@
 				return this.getDate('end');
 			}
 		},
+		onPullDownRefresh() {
+			this.getUserInfo();
+		},
 		methods: {
+			getUserInfo: function() {
+				var that = this;
+				var funStor = function(res) {
+					that.userInfo = res;
+					that.openid = res.openid ? res.openid : "";
+					that.headimgurl = res.headimgurl;
+					that.setUserInfo(res);
+					if (res.sex == 1 || res.sex == "男") {
+						that.genderIndex = 0
+					} else {
+						that.genderIndex = 1
+					}
+					uni.stopPullDownRefresh();
+				}
+				let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
+			},
 			bindPickerChange: function(e) {
 				this.genderIndex = e.target.value
 			},
@@ -224,8 +232,8 @@
 						} else {
 							uni.getStorage({
 								key: 'uWXInfo',
-								success: function(res) {
-									let _uWXInfo = res.data;
+								success: function(ress) {
+									let _uWXInfo = ress.data;
 									_uWXInfo["nickname"] = _data.name;
 									_uWXInfo["phone"] = _data.phone;
 									_uWXInfo["birthday"] = _data.birthday;
@@ -447,5 +455,10 @@
 		text-align: center;
 		font-size: 28upx;
 	}
-	.onlyAgmt{position: absolute;bottom: 0;width: 100%;}
+
+	.onlyAgmt {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+	}
 </style>

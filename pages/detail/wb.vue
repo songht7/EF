@@ -2,9 +2,11 @@
 	<view class="detail-page" id="Weibo-Page">
 		<view class="wb-block wb-head">
 			<img class="wb-logo" src="../../static/wb/head_logo2.png" />
+			<img class="wb-logo" src="../../static/wb/head_logo-wb.png" />
 		</view>
 		<view class="wb-block">
 			<img class="wb-imgs" src="../../static/wb/m2_header.jpg" />
+			<img class="wb-imgs" src="../../static/wb/wb.jpg" />
 		</view>
 		<view class="wb-block wb-register">
 			<!-- 预约块 -->
@@ -106,6 +108,7 @@
 	import mpvueCityPicker from '../../components/mpvue-citypicker/mpvueCityPicker.vue'
 	import lvvPopup from '../../components/lvv-popup.vue'
 	import cityData from '../../common/city.data.js';
+	import cityDataWb from '../../common/city.data.wb.js';
 	const duration = 2000;
 	const brand = "";
 
@@ -118,7 +121,7 @@
 				date: "",
 				gender: ['男', '女'],
 				index: 0,
-				age: ['0-3岁', '4-6岁', '7-9岁', '10-12岁', '13-15岁', '16-18岁', '18岁以上'],
+				age: ['3-6岁', '7-9岁', '10-12岁', '13-15岁', '16-18岁', '18岁以上'],
 				age_index: 0,
 				loading: false,
 				scrollTop: 0,
@@ -129,7 +132,7 @@
 				cityPickerValueDefault: [0, 0, 1],
 				themeColor: '#007AFF',
 				pickerText: '',
-				mulLinkageTwoPicker: cityData,
+				mulLinkageTwoPicker: cityDataWb,
 				mode: '',
 				deepLength: 1,
 				pickerValueDefault: [0],
@@ -144,6 +147,15 @@
 		},
 		onLoad(option) {
 			var _this = this;
+		},
+		onShow() {
+			let hash = window.location.hash;
+			var share_url = util.Interface.domain + "/?type=wb&id=20"+hash,
+				title = "韦博教育",
+				imgUrl = util.Interface.domain + "/static/wb/logo.png",
+				dec = "开心豆少儿英语，青少年英语";
+			mdl.wxShare(share_url, title, imgUrl, dec);
+			//console.log("onShow");
 		},
 		onPageScroll(e) {
 			var that = this;
@@ -187,7 +199,17 @@
 				})
 			},
 			bindChangeAge: function(e) {
-				this.age_index = e.target.value
+				let c_age_index = this.age_index;
+				let _age_index = e.target.value;
+				if (c_age_index != _age_index) {
+					this.age_index = _age_index;
+					this.pickerText = "";
+					if (_age_index <= 0) {
+						this.mulLinkageTwoPicker = cityDataWb;
+					} else {
+						this.mulLinkageTwoPicker = cityData;
+					}
+				}
 			},
 			bindPickerChange: function(e) {
 				this.index = e.target.value
@@ -274,7 +296,7 @@
 					//console.log(_data);
 					/** request-1 send email **/
 					var fun = function(result) {
-						if (result=="Message has been sent") {
+						if (result == "Message has been sent") {
 							uni.navigateTo({
 								url: "/pages/detail/thx?key=wb"
 							});
@@ -340,7 +362,7 @@
 	@import "./detail.css";
 
 	.wb-head {
-		background: #00693E;
+		/* background: #00693E; */
 		padding: 20upx;
 		display: flex;
 		height: 100upx;

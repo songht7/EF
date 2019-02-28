@@ -3,8 +3,8 @@ const isArray = Array.isArray || function(obj) {
 	return obj instanceof Array;
 };
 const Interface = {
-	"SendMail": "http://www.spacehu.com/space/mail/mail.php?leo=407794660@qq.com",
-	//"SendMail": "http://www.spacehu.com/space/mail/mail.php?leo=stk@meetji.com",
+	//"SendMail": "http://www.spacehu.com/space/mail/mail.php?leo=407794660@qq.com",
+	"SendMail": "http://www.spacehu.com/space/mail/mail.php?leo=stk@meetji.com",
 	// 	,"getData":"http://api_test.meetji.com/v1/ApiEnum-getRegion.htm?id=110000"
 	"apiurl": "http://api_test.meetji.com",
 	"domain": "http://main.meetji.com",
@@ -43,8 +43,8 @@ const module = {
 			data: data || {},
 			header: _head || {},
 			success: function(res) {
-								console.log("======mdl.getData-success========");
-								console.log(res);
+				// 				console.log("======mdl.getData-success========");
+				// 				console.log(res);
 				let __res = res.data;
 				if (__res.success) {
 					if (__res.data) {
