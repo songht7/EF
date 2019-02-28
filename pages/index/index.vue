@@ -182,6 +182,21 @@
 				title: "英语免费试听课网"
 			});
 			/**
+			 * 课程列表
+			 */
+			_this.getList();
+		},
+		onShow() {
+			var share_url=util.Interface.domain+"/?type=home#/",
+				title = "英语免费试听",
+				imgUrl = util.Interface.domain + "/static/share.jpg",
+				dec = "英语免费试听课，在这里找到你想要的";
+				console.log(share_url)
+			mdl.wxShare(share_url, title, imgUrl, dec);
+		},
+		onReady(){
+			var _this = this;
+			/**
 			 * 轮播
 			 */
 			let url_slide = apiurl + inter.addr.slideShow;
@@ -210,7 +225,7 @@
 				//console.log(res)
 				let _data = res.list;
 				_this.setData("ctg", _data);
-
+			
 			}
 			let getCategory = mdl.getData(url_ctg, fun3);
 			/**
@@ -238,7 +253,7 @@
 				//console.log("======getBrand========");
 				let _data = res.list;
 				_this.setData("brand", _data);
-
+			
 			}
 			let getBrand = mdl.getData(url_brand, fun5);
 			/**
@@ -258,21 +273,8 @@
 				});
 			}
 			let getAgeRange = mdl.getData(url_age, fun6);
-			/**
-			 * 课程列表
-			 */
-			_this.getList();
-
 			//定位
 			_this.getLocation();
-		},
-		onShow() {
-			var share_url=util.Interface.domain+"/?type=home#/",
-				title = "英语免费试听",
-				imgUrl = util.Interface.domain + "/static/share.jpg",
-				dec = "英语免费试听课，在这里找到你想要的";
-				console.log(share_url)
-			mdl.wxShare(share_url, title, imgUrl, dec);
 		},
 		onPullDownRefresh() {
 			//console.log("========onPullDownRefresh=========")

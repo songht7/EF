@@ -353,7 +353,7 @@
 							};
 							//let sclList='<view class="scl"><view class="sclName">'+item.name+'</view><view class="sclAddr">'+item.address+'</view></view>'
 							_this.schoolVal.push(item.name);
-							console.log(_scl)
+							//console.log(_scl)
 							_this.schoolDtl.push(_scl);
 						});
 						_this.schoolId = _data.school["0"]["id"];

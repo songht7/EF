@@ -295,7 +295,7 @@
 			},
 			makePhoneCall: function() {
 				uni.makePhoneCall({
-					phoneNumber: "13918781109",
+					phoneNumber: "",
 					success: () => {
 						console.log("成功拨打电话")
 					}

@@ -8,7 +8,7 @@
 			<view class="line"></view>
 			<view class="page-views">稍后将会有课程顾问和您联系</view>
 			<view class="qrbox ">
-				<img src="../../static/ef/customer_qrcode.png" class="qr-code" alt="">
+				<img :src="key=='wb'?'../../static/wb/logo.png':'../../static/ef/customer_qrcode.png'" class="qr-code" alt="">
 				<view class="qrtxt hide">扫一扫 联系客服</view>
 			</view>
 		</view>
@@ -23,10 +23,12 @@
 		},
 		data() {
 			return {
-
+				key: ""
 			};
 		},
-		onLoad() {
+		onLoad(option) {
+			var _key = option.key;
+			if (_key == "wb") {this.key=_key}
 			uni.setNavigationBarTitle({
 				title: ""
 			});
@@ -44,7 +46,12 @@
 		background-size: contain;
 		padding: 160upx 0 0;
 	}
-	.page-cont{width: 90%;margin: 0 auto;}
+
+	.page-cont {
+		width: 90%;
+		margin: 0 auto;
+	}
+
 	.icon {
 		width: 100%;
 		text-align: center;
@@ -82,9 +89,15 @@
 		letter-spacing: 2upx;
 		padding: 20upx 0 50upx;
 	}
-	.qrbox{
+
+	.qrbox {
 		text-align: center;
 		color: #CCCCCC;
 	}
-	.qr-code{display: block;width: 40%;margin: 0 auto;}
+
+	.qr-code {
+		display: block;
+		width: 40%;
+		margin: 0 auto;
+	}
 </style>

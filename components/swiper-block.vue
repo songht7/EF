@@ -6,7 +6,7 @@
 				<swiper-item class="swiper-item" v-for="(slide,index) in swiperList" :key="index">
 					<view class="vli">
 						<view class="vli2">
-							<image class="slideImg" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
+							<image class="slideImg" lazy-load="true" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
 						</view>
 					</view>
 				</swiper-item>

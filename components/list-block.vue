@@ -5,7 +5,7 @@
 				<view class="uni-card-content-inner">
 					<navigator class="service-head" :url="value.id==19?'/pages/detail/ef?key=2':'/pages/detail/index?id='+value.id">
 						<view class="ser-logo">
-							<image lazy-load :src="value.src?sourceUrl+value.src:''" mode="aspectFill"/>
+							<image lazy-load="true" :src="value.src?sourceUrl+value.src:''" mode="aspectFill"/>
 						</view>
 						<view class="ser-body">
 							<view class="ser-title">{{value.name}}</view>
@@ -18,7 +18,7 @@
 						<view class="apply-nums">
 							<view class="apply-cell apply-left">
 								<view class="txt-a txt-gray">已领</view>
-								<view class="txt-a txt-orange uni-ellipsis">{{value.age_min}}人</view>
+								<view class="txt-a txt-orange uni-ellipsis">{{value.booked_count}}人</view>
 							</view>
 							<view class="apply-cell apply-middle">
 								<view class="txt-a txt-gray">好评率</view>
