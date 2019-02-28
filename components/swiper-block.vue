@@ -6,7 +6,7 @@
 				<swiper-item class="swiper-item" v-for="(slide,index) in swiperList" :key="index">
 					<view class="vli">
 						<view class="vli2">
-							<image class="slideImg" lazy-load="true" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
+							<image class="slideImg" @click="linkTo(slide.link)" lazy-load="true" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
 						</view>
 					</view>
 				</swiper-item>
@@ -42,6 +42,15 @@
 			duration: {
 				type: Number,
 				default: 1000
+			}
+		},
+		methods: {
+			linkTo(pram) {
+				if (pram) {
+					uni.navigateTo({
+						url: '/pages/detail/index?'+pram
+					});
+				}
 			}
 		}
 	}

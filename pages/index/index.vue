@@ -201,7 +201,8 @@
 			 */
 			let url_slide = apiurl + inter.addr.slideShow;
 			let fun1 = function(res) {
-				//console.log("======slideShow========");
+				console.log("======slideShow========");
+				console.log(res)
 				let _data = res.list;
 				_this.setData("swiperList", _data);
 			}
