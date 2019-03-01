@@ -302,6 +302,7 @@
 				visitors: 3,
 				visitShow: "",
 				id: "",
+				article_id: "",
 				topage: "/pages/apply/index",
 				url: "",
 				commentNumb: 2,
@@ -333,7 +334,7 @@
 			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
 
 			let _id = option.id;
-			this.id = _id;
+			this.article_id = _id;
 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
 			let fun = function(res) {
 				console.log("======getDetail========");
@@ -359,7 +360,7 @@
 						_this.schoolId = _data.school["0"]["id"];
 					}
 					_this.setShare(_data);
-					_this.brandId = _data.id;
+					_this.brand_id = _data.brand_id;
 					uni.setNavigationBarTitle({
 						title: _data.name
 					});
@@ -425,12 +426,12 @@
 			},
 			formSubmit: function(e) {
 				var that = this;
-				if (this.loading == true) {
+				if (that.loading == true) {
 					return
 				}
 				//console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
 				let formData = e.detail.value;
-				this.loading = true
+				that.loading = true
 				var rule = [{
 						name: "UserName",
 						checkType: "notnull",
@@ -459,13 +460,22 @@
 						"sex": formData.Gender == 0 ? "男" : "女",
 						"phone": formData.UserPhone,
 						"city": "", //formData.City,
-						"school": "", //this.schoolId,
-						"article_id": this.brandId,
+						"school": "", //that.schoolId,
+						"article_id": that.article_id,
 						"arrive_time": formData.ApplyDate
 					};
 					//console.log(_data);
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
 					//console.log(url_saveSingle);
+					var openid = that.userInfo.openid ? that.userInfo.openid : "";
+					let test_openid = inter.wx.test_openid;
+					let _head = {};
+					openid = openid ? openid : test_openid;
+					if (openid != "") {
+						_head = {
+							"openid": openid
+						};
+					}
 					let funSave = function(res) {
 						// 						console.log("=======预约课程返回状态========")
 						// 						console.log(res)
@@ -481,17 +491,17 @@
 								that.successShow = ""
 							}, 3000)
 						}
-					}
-					let openid = that.userInfo.openid ? that.userInfo.openid : "";
-					let test_openid = inter.wx.test_openid;
-					let _head = {};
-					if (openid != "" || test_openid != "") {
-						_head = {
-							"openid": openid || test_openid
-						};
+						/**有活动的进入活动页**/
+						let brand_id = that.brand_id;
+						if (brand_id == 14) {
+// 							uni.navigateTo({
+// 								url: "/pages/detail/activity?lessonid=" + that.id + "&uid=" + openid
+// 							});
+						}
 					}
 					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data, _head);
-					if (openid || test_openid) {
+					if (openid) {
+						/**预约后手机号带人用户中心**/
 						var user_data = {
 							"phone": formData.UserPhone
 						};

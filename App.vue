@@ -16,7 +16,7 @@
 			} else if (pageis == "ef" && id) {
 				let hash = window.location.hash;
 				window.location.href = location.origin + '/'+hash
-			} else if (pageis == "wb" && id) {
+			} else if (pageis) {
 				let hash = window.location.hash;
 				window.location.href = location.origin + '/'+hash
 			}
