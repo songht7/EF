@@ -285,7 +285,7 @@
 				userInfo: {},
 				detail: [],
 				brand: "",
-				brandId: "",
+				brand_id: "",
 				//date: "",
 				gender: ['男', '女'],
 				genderIndex: 0,
@@ -491,12 +491,20 @@
 								that.successShow = ""
 							}, 3000)
 						}
-						/**有活动的进入活动页**/
+						/**有活动的进入活动页
+						* brand_id 4 韦博
+						* brand_id 14 韦博开心豆
+						* brand_id 1 英孚
+						* brand_id 24 EF英孚教育青少儿英语
+						* **/
 						let brand_id = that.brand_id;
-						if (brand_id == 14) {
-// 							uni.navigateTo({
-// 								url: "/pages/detail/activity?lessonid=" + that.id + "&uid=" + openid
-// 							});
+						let brandIs=["1","4","14","24"];
+						console.log(brand_id)
+						console.log(brandIs.indexOf(brand_id))
+						if (brandIs.indexOf(brand_id)!=-1) {
+							uni.navigateTo({
+								url: "/pages/detail/activity?article_id=" + that.article_id + "&uid=" + openid
+							});
 						}
 					}
 					let _saveSingle = mdl.getData(url_saveSingle, funSave, "POST", _data, _head);

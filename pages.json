@@ -90,6 +90,17 @@
 				}
 			}
 		}, {
+			"path": "pages/detail/activity",
+			"style": {
+				"navigationBarTitleText": "活动",
+				"backgroundColor": "transparent",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
 			"path": "pages/user/index",
 			"style": {
 				"navigationBarTitleText": "用户中心",

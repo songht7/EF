@@ -13,6 +13,8 @@ const Interface = {
 		"article": "/v2/ApiHome-article.htm", //列表
 		"getDetail": "/v2/ApiHome-article_detail.htm",
 		"saveSingle": "/v2/ApiHome-saveSingle.htm", //预约POST
+		"saveHelp":"/v2/ApiHome-saveHelp.htm",
+		"getHelp":"/v2/ApiHome-getHelp.htm",
 		"saveComment": "/v2/ApiHome-saveComment.htm", //评论
 		"getCategory": "/v2/ApiHome-getCategory.htm", //获取分类
 		"getSubjectCategory": "/v2/ApiHome-getSubjectCategory.htm", //获取子分类

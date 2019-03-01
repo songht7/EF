@@ -17,7 +17,9 @@
 		"80567844-65e3-b745-da08-209b9953ddb8",
 		"ca77b45a-7190-f60d-ac96-7f93384c6a3f",
 		"0f3a9e9d-b77a-5a24-e467-52e1ad72721d",
-		"b910c32a-a11b-e2f1-90b2-ee771615915f"
+		"b910c32a-a11b-e2f1-90b2-ee771615915f",
+		"c994c2a2-f0f3-7f02-9e7c-759bfa027d00",
+		"72c20509-de16-a603-0545-ad47bf2d3a0d"
 	],
 	"folders": [
 		{
@@ -156,12 +158,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1549960584871,
+			"time": 1551436106770,
 			"name": "/v2/ApiHome-saveSingle.htm",
 			"description": "",
 			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
 			"responses": [],
-			"rawModeData": "{\"name\":\"space\",\"phone\":\"12345678901\",\"age\":\"1234556\",\"sex\":\"man\",\"school\":\"1\",\"arrive_time\":\"2019-12-25\",\"article_id\":\"1\",\"openid\":\"1\"}"
+			"rawModeData": "{\"name\":\"space\",\"phone\":\"13564138771\",\"age\":\"1234556\",\"sex\":\"man\",\"school\":\"1\",\"arrive_time\":\"2019-12-25\",\"article_id\":\"20\",\"openid\":\"1\",\"article_type\":\"help\",\"parent_id\":\"1\"}"
 		},
 		{
 			"id": "4ea60c49-e318-87f4-3ce3-edd897b0bbfc",
@@ -254,6 +256,41 @@
 			"headerData": [],
 			"pathVariableData": [],
 			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a"
+		},
+		{
+			"id": "72c20509-de16-a603-0545-ad47bf2d3a0d",
+			"headers": "openid: 1\nContent-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "openid",
+					"value": "1",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://api.alein.lc/v2/ApiHome-saveHelp.htm",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1551439007760,
+			"name": "/v2/ApiHome-getHelp.htm?lm_id=92",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"responses": [],
+			"rawModeData": "{\"lm_id\":\"92\"}"
 		},
 		{
 			"id": "80567844-65e3-b745-da08-209b9953ddb8",
@@ -529,6 +566,37 @@
 			"description": null,
 			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
 			"responses": []
+		},
+		{
+			"id": "c994c2a2-f0f3-7f02-9e7c-759bfa027d00",
+			"headers": "",
+			"headerData": [],
+			"url": "http://api.alein.lc/v2/ApiHome-getHelp.htm?lm_id=92",
+			"queryParams": [
+				{
+					"key": "lm_id",
+					"value": "92",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"data": null,
+			"dataMode": "params",
+			"name": "/v2/ApiHome-getHelp.htm?lm_id=92",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1551436103900,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
 		},
 		{
 			"id": "ca77b45a-7190-f60d-ac96-7f93384c6a3f",
