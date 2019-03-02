@@ -7,26 +7,35 @@
 			<view class="activity-block article-info">
 				<view class="article-title">{{detail.name}}</view>
 				<view class="article-ov">
-					<text class="txt">售价：{{detail.current_price=="0.00"?detail.market_price:detail.current_price}}元</text>
+					<text class="txt">售价：{{detail.current_price=="0.00"?"0":detail.current_price}}元</text>
 					<text class="txt">适合年龄：{{detail.age_min}}-{{detail.age_max}}岁</text>
 				</view>
 				<view class="article-overview">{{detail.overview}}</view>
 			</view>
-			<view class="activity-block help-user">
-				<view class="help-user-portrait"><img :src="portrait" class="portrait-img" alt=""></view>
-				<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
-				<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
+			<view class="activity-block help-user" :class="surplus==0?'help-user-succ':''">
+				<view class="help-user-portrait portrait-block" v-for="(value,key) in help_list" :key="key"><img :src="value.headimgurl"
+					 class="portrait-img" alt=""></view>
+				<view class="portrait-block" v-for="n in parseInt(surplus)" v-if="surplus>1" :key="n">
+					<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
+				</view>
+				<view class="portrait-block" v-if="surplus==1">
+					<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
+				</view>
 			</view>
-			<view class="activity-block share-info-block">
+			<view class="activity-block share-info-block" v-if="surplus>0">
 				<view class="share-info-txt">还差 {{surplus}} 位好友助力即可免费申请</view>
 				<view class="share-info-txt">赶快召唤小伙伴吧！</view>
 				<view class="share-info-txt">剩余<uni-countdown :timer="Countdown"></uni-countdown>时间助力结束</view>
 			</view>
-			<view class="activity-block share-info-block">
-				<view class="share-info">分享成功即可<text class="free">免费体检</text></view>
-				<view class="share-info">原价{{detail.current_price=="0.00"?detail.market_price:detail.current_price}}元{{detail.name}}</view>
+			<view class="activity-block share-info-block" v-if="surplus==0">
+				<view class="share-info">助力完成！！！</view>
+				<view class="share-info">恭喜您获得“{{detail.name}}”免费体检</view>
 			</view>
-			<view class="activity-block help-block">
+			<view class="activity-block share-info-block" v-if="surplus>0">
+				<view class="share-info">分享成功即可<text class="free">免费体检</text></view>
+				<view class="share-info">原价{{detail.current_price=="0.00"?"0":detail.current_price}}元{{detail.name}}</view>
+			</view>
+			<view class="activity-block help-block" v-if="surplus>0">
 				<view class="help-info" @click="toHelp()">帮我助力</view>
 			</view>
 		</view>
@@ -53,6 +62,7 @@
 				openid: "",
 				help_openid: "",
 				lm: "",
+				help_list: {},
 				surplus: 2,
 				total: 3,
 				Countdown: this.getDate({
@@ -102,7 +112,9 @@
 				let lm = res.lm;
 				_this.lm = lm;
 				_this.Countdown = lm.arrive_time + " 24:00:00";
-				_this.surplus = _this.total - lm.help.total;
+				let _surplus = _this.total - lm.help.total;
+				_this.surplus = _surplus <= 0 ? 0 : _surplus;
+				_this.help_list = lm.help.list;
 				if (article) {
 					_this.detail = article;
 					_this.firstImage = article.image[0]["original_src"];
@@ -116,22 +128,22 @@
 			let _getHelp = mdl.getData(url_getHelp, funHelp, "GET", "", _head);
 
 			/**课程详细**/
-// 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
-// 			let fun = function(res) {
-// 				console.log("======getDetail========");
-// 				console.log(res)
-// 				let _data = res.info;
-// 				if (_data) {
-// 					_this.detail = _data;
-// 					_this.firstImage = _data.image[0]["original_src"];
-// 					_this.setShare(_data);
-// 					_this.brand_id = _data.brand_id;
-// 					uni.setNavigationBarTitle({
-// 						title: _data.name
-// 					});
-// 				}
-// 			}
-// 			let _detail = mdl.getData(url_detail, fun);
+			// 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
+			// 			let fun = function(res) {
+			// 				console.log("======getDetail========");
+			// 				console.log(res)
+			// 				let _data = res.info;
+			// 				if (_data) {
+			// 					_this.detail = _data;
+			// 					_this.firstImage = _data.image[0]["original_src"];
+			// 					_this.setShare(_data);
+			// 					_this.brand_id = _data.brand_id;
+			// 					uni.setNavigationBarTitle({
+			// 						title: _data.name
+			// 					});
+			// 				}
+			// 			}
+			// 			let _detail = mdl.getData(url_detail, fun);
 		},
 		methods: {
 			setShare(detail) {
@@ -147,7 +159,8 @@
 				let that = this;
 				let url_savehelp = apiurl + inter.addr.saveHelp;
 				let _data = {
-					lm_id: that.lm_id
+					lm_id: that.lm_id,
+					help: "self" //测试用
 				}
 				var openid = that.help_openid;
 				let _head = {};
@@ -165,9 +178,9 @@
 							duration: 2000,
 							complete: function(res) {
 								setTimeout(function() {
-									uni.navigateTo({
-										url: "/pages/detail/index?id=" + that.article_id
-									});
+									// 									uni.navigateTo({
+									// 										url: "/pages/detail/index?id=" + that.article_id
+									// 									});
 								}, 2500)
 							}
 						});
@@ -207,6 +220,7 @@
 <style>
 	.activity-page {
 		background: #FFDDA7;
+		min-height: 900px;
 	}
 
 	.head-img {
@@ -276,7 +290,9 @@
 		align-items: center;
 		padding: 30upx 0 0;
 	}
-
+	.help-user-succ{
+		justify-content: center;
+	}
 	.help-user-portrait {
 		width: 45px;
 		height: 45px;
@@ -296,5 +312,9 @@
 		width: 100%;
 		border-radius: 10upx;
 		font-size: 32upx;
+	}
+
+	.portrait-block {
+		margin-right: 5upx;
 	}
 </style>
