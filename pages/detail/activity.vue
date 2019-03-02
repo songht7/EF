@@ -7,15 +7,27 @@
 			<view class="activity-block article-info">
 				<view class="article-title">{{detail.name}}</view>
 				<view class="article-ov">
-					<text class="txt">售价：{{detail.current_price}}元</text>
+					<text class="txt">售价：{{detail.current_price=="0.00"?detail.market_price:detail.current_price}}元</text>
 					<text class="txt">适合年龄：{{detail.age_min}}-{{detail.age_max}}岁</text>
 				</view>
 				<view class="article-overview">{{detail.overview}}</view>
 			</view>
-
+			<view class="activity-block help-user">
+				<view class="help-user-portrait"><img :src="portrait" class="portrait-img" alt=""></view>
+				<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
+				<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
+			</view>
+			<view class="activity-block share-info-block">
+				<view class="share-info-txt">还差 {{surplus}} 位好友助力即可免费申请</view>
+				<view class="share-info-txt">赶快召唤小伙伴吧！</view>
+				<view class="share-info-txt">剩余<uni-countdown :timer="Countdown"></uni-countdown>时间助力结束</view>
+			</view>
 			<view class="activity-block share-info-block">
 				<view class="share-info">分享成功即可<text class="free">免费体检</text></view>
-				<view class="share-info">原价{{detail.current_price}}元{{detail.name}}</view>
+				<view class="share-info">原价{{detail.current_price=="0.00"?detail.market_price:detail.current_price}}元{{detail.name}}</view>
+			</view>
+			<view class="activity-block help-block">
+				<view class="help-info" @click="toHelp()">帮我助力</view>
 			</view>
 		</view>
 	</div>
@@ -26,20 +38,41 @@
 	const mdl = util.module;
 	const inter = util.Interface;
 	const apiurl = inter.apiurl;
+	import uniCountdown from "../../components/uni-countdown.vue";
+	import uniIcon from '../../components/uni-icon.vue'
 	export default {
 		data() {
 			return {
 				userInfo: {},
+				article_id: "",
+				portrait: "",
 				detail: [],
 				firstImage: "",
-				brand_id: ""
+				brand_id: "",
+				lm_id: "",
+				openid: "",
+				help_openid: "",
+				lm: "",
+				surplus: 2,
+				total: 3,
+				Countdown: this.getDate({
+					format: true
+				})
 			}
+		},
+		components: {
+			uniCountdown,
+			uniIcon
 		},
 		onLoad(option) {
 			var _this = this;
 			var funStor = function(res) {
+				console.log("=========getMyStorage========")
+				console.log(res)
 				if (res) {
 					_this.userInfo = res;
+					_this.portrait = res.headimgurl;
+					_this.help_openid = res.openid;
 				} else {
 					mdl.getWXCode();
 				}
@@ -47,22 +80,58 @@
 			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
 			let _id = option.article_id;
 			this.article_id = _id;
-			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
-			let fun = function(res) {
-				console.log("======getDetail========");
+			this.lm_id = option.lm_id;
+			this.openid = option.uid;
+
+			var openid = option.uid;
+			let _head = {};
+			if (openid != "") {
+				_head = {
+					"openid": openid
+				};
+			}
+			console.log(_head)
+			/**助力详细**/
+			let url_getHelp = apiurl + inter.addr.getHelp + "?lm_id=" + option.lm_id;
+			console.log(url_getHelp)
+			console.log(_head)
+			let funHelp = function(res) {
+				console.log("======getHelp========");
 				console.log(res)
-				let _data = res.info;
-				if (_data) {
-					_this.detail = _data;
-					_this.firstImage = _data.image[0]["original_src"];
-					_this.setShare(_data);
-					_this.brand_id = _data.brand_id;
+				let article = res.article.data;
+				let lm = res.lm;
+				_this.lm = lm;
+				_this.Countdown = lm.arrive_time + " 24:00:00";
+				_this.surplus = _this.total - lm.help.total;
+				if (article) {
+					_this.detail = article;
+					_this.firstImage = article.image[0]["original_src"];
+					_this.setShare(article);
+					_this.brand_id = article.brand_id;
 					uni.setNavigationBarTitle({
-						title: _data.name
+						title: article.name
 					});
 				}
 			}
-			let _detail = mdl.getData(url_detail, fun);
+			let _getHelp = mdl.getData(url_getHelp, funHelp, "GET", "", _head);
+
+			/**课程详细**/
+// 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
+// 			let fun = function(res) {
+// 				console.log("======getDetail========");
+// 				console.log(res)
+// 				let _data = res.info;
+// 				if (_data) {
+// 					_this.detail = _data;
+// 					_this.firstImage = _data.image[0]["original_src"];
+// 					_this.setShare(_data);
+// 					_this.brand_id = _data.brand_id;
+// 					uni.setNavigationBarTitle({
+// 						title: _data.name
+// 					});
+// 				}
+// 			}
+// 			let _detail = mdl.getData(url_detail, fun);
 		},
 		methods: {
 			setShare(detail) {
@@ -73,6 +142,63 @@
 					imgUrl = detail.image ? apiurl + detail.image[0]["original_src"] : util.Interface.domain + "/static/share.jpg",
 					dec = detail.overview ? detail.overview : "英语免费试听课，在这里找到你想要的";
 				mdl.wxShare(share_url, title, imgUrl, dec);
+			},
+			toHelp() {
+				let that = this;
+				let url_savehelp = apiurl + inter.addr.saveHelp;
+				let _data = {
+					lm_id: that.lm_id
+				}
+				var openid = that.help_openid;
+				let _head = {};
+				if (openid != "") {
+					_head = {
+						"openid": openid
+					};
+				}
+				let funSavehelp = function(res, resAll) {
+					console.log("======toHelp========");
+					console.log(resAll)
+					if (resAll.success) {
+						uni.showToast({
+							title: '助力成功!',
+							duration: 2000,
+							complete: function(res) {
+								setTimeout(function() {
+									uni.navigateTo({
+										url: "/pages/detail/index?id=" + that.article_id
+									});
+								}, 2500)
+							}
+						});
+					} else {
+						uni.showToast({
+							title: '助力失败',
+							icon: "none",
+							duration: 2000
+						});
+					}
+				}
+				let _savehelp = mdl.getData(url_savehelp, funSavehelp, "POST", _data, _head);
+
+			},
+			getDate(type) {
+				const date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+
+				if (type === 'start') {
+					year = year - 60;
+				} else if (type === 'end') {
+					year = year + 2;
+				}
+				month = month > 9 ? month : '0' + month;;
+				day = day > 9 ? day : '0' + day;
+
+				let YMDhms = `${year}-${month}-${day} 24:00:00`;
+				return YMDhms;
+				//return `${year}-${month}-${day}`;
 			}
 		}
 	}
@@ -116,9 +242,13 @@
 	.article-overview {
 		padding: 40upx 0 5upx;
 	}
-	
-	.share-info-block{padding: 50upx 0;}
-	.share-info {
+
+	.share-info-block {
+		padding: 20upx 0;
+	}
+
+	.share-info,
+	.share-info-txt {
 		text-align: center;
 		display: flex;
 		justify-content: center;
@@ -126,7 +256,45 @@
 		font-size: 32upx;
 		color: #FE9C01;
 		text-shadow: -1px 0 5px #FFF, 0 1px 5px #FFF,
-      1px 0 5px #FFF, 0 -1px 5px #FFF;
+			1px 0 5px #FFF, 0 -1px 5px #FFF;
+		letter-spacing: 1px;
 	}
-	.free{font-size: 40upx;}
+
+	.share-info-txt {
+		text-shadow: none;
+		color: #333;
+	}
+
+	.free {
+		font-size: 40upx;
+	}
+
+	.help-user {
+		display: flex;
+		justify-content: flex-start;
+		align-content: center;
+		align-items: center;
+		padding: 30upx 0 0;
+	}
+
+	.help-user-portrait {
+		width: 45px;
+		height: 45px;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+
+	.portrait-img {
+		width: 100%;
+	}
+
+	.help-info {
+		background: #FAB951;
+		color: #fff;
+		text-align: center;
+		padding: 10upx 0;
+		width: 100%;
+		border-radius: 10upx;
+		font-size: 32upx;
+	}
 </style>

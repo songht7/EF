@@ -13,8 +13,8 @@ const Interface = {
 		"article": "/v2/ApiHome-article.htm", //列表
 		"getDetail": "/v2/ApiHome-article_detail.htm",
 		"saveSingle": "/v2/ApiHome-saveSingle.htm", //预约POST
-		"saveHelp":"/v2/ApiHome-saveHelp.htm",
-		"getHelp":"/v2/ApiHome-getHelp.htm",
+		"getHelp":"/v2/ApiHome-getHelp.htm",//助力详细
+		"saveHelp":"/v2/ApiHome-saveHelp.htm",//帮助助力
 		"saveComment": "/v2/ApiHome-saveComment.htm", //评论
 		"getCategory": "/v2/ApiHome-getCategory.htm", //获取分类
 		"getSubjectCategory": "/v2/ApiHome-getSubjectCategory.htm", //获取子分类
@@ -32,22 +32,24 @@ const Interface = {
 		"access_token": "client_credential",
 		"secret": "01ef7de58bc18da629d4ec33a62744f9",
 		"getToken": "https://api.weixin.qq.com/cgi-bin/token",
-		"test_openid": "" //"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
+		"test_openid": "oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
 	}
 
 };
 const module = {
 	getData: function(url, fun, method, data, _head) {
 		let result = [];
+		let resultAll = [];
 		uni.request({
 			url: url,
 			method: method || "GET",
 			data: data || {},
 			header: _head || {},
 			success: function(res) {
-				// 				console.log("======mdl.getData-success========");
-				// 				console.log(res);
+								console.log("======mdl.getData-success========");
+								console.log(res);
 				let __res = res.data;
+				resultAll=__res;
 				if (__res.success) {
 					if (__res.data) {
 						result = __res.data;
@@ -79,7 +81,7 @@ const module = {
 				// 				console.log("======complete========");
 				// 				console.log(result)
 				if (fun) {
-					new fun(result)
+					new fun(result,resultAll)
 				}
 			}
 		})

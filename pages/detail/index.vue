@@ -465,8 +465,21 @@
 						"arrive_time": formData.ApplyDate
 					};
 					//console.log(_data);
+					/**有活动的进入活动页
+					 * brand_id 4 韦博
+					 * brand_id 14 韦博开心豆
+					 * brand_id 1 英孚
+					 * brand_id 24 EF英孚教育青少儿英语
+					 * **/
+					var brand_id = that.brand_id;
+					var brandIs = ["1", "4", "14", "24"];
+					var activity = false;
+					if (brandIs.indexOf(brand_id) != -1) {
+						activity = true;
+						_data["article_type"] = "help";
+					}
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
-					//console.log(url_saveSingle);
+					console.log(url_saveSingle);
 					var openid = that.userInfo.openid ? that.userInfo.openid : "";
 					let test_openid = inter.wx.test_openid;
 					let _head = {};
@@ -476,9 +489,9 @@
 							"openid": openid
 						};
 					}
-					let funSave = function(res) {
-						// 						console.log("=======预约课程返回状态========")
-						// 						console.log(res)
+					let funSave = function(res,resAll) {
+						console.log("=======预约课程返回状态========")
+						console.log(resAll)
 						that.loading = false
 						if (res.Result == 0) {
 							uni.showToast({
@@ -491,19 +504,13 @@
 								that.successShow = ""
 							}, 3000)
 						}
-						/**有活动的进入活动页
-						* brand_id 4 韦博
-						* brand_id 14 韦博开心豆
-						* brand_id 1 英孚
-						* brand_id 24 EF英孚教育青少儿英语
-						* **/
-						let brand_id = that.brand_id;
-						let brandIs=["1","4","14","24"];
-						console.log(brand_id)
-						console.log(brandIs.indexOf(brand_id))
-						if (brandIs.indexOf(brand_id)!=-1) {
+						if (activity) {
+							var _lm_id = "";
+							if (resAll.result.id) {
+								_lm_id = "&lm_id=" + resAll.result.id;
+							}
 							uni.navigateTo({
-								url: "/pages/detail/activity?article_id=" + that.article_id + "&uid=" + openid
+								url: "/pages/detail/activity?article_id=" + that.article_id + "&uid=" + openid + _lm_id
 							});
 						}
 					}
