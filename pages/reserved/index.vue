@@ -16,6 +16,7 @@
 					</navigator>
 					<view class="apply-res">
 						<text>预约状态：</text>
+						<!-- <text v-if="value.article_type=='help'">预约成功 <text class="txt-orange">完成助力获得免费体验</text></text> -->
 						<text class="txt-light-black">预约成功 等待课程顾问与您联系</text>
 						<!-- <text v-if="value.status==0" class="txt-orange">预约成功 等待课程顾问与您联系</text>
 						<text v-else-if="value.status==1" class="txt-light-black">客服已联系</text>

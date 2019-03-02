@@ -29,10 +29,10 @@
 			</view>
 			<view class="activity-block share-info-block" v-if="surplus==0">
 				<view class="share-info">助力完成！！！</view>
-				<view class="share-info">恭喜您获得“{{detail.name}}”免费体检</view>
+				<view class="share-info">恭喜您获得“{{detail.name}}”免费体验</view>
 			</view>
 			<view class="activity-block share-info-block" v-if="surplus>0">
-				<view class="share-info">分享成功即可<text class="free">免费体检</text></view>
+				<view class="share-info">分享成功即可<text class="free">免费体验</text></view>
 				<view class="share-info">原价{{detail.current_price=="0.00"?"0":detail.current_price}}元{{detail.name}}</view>
 			</view>
 			<view class="activity-block help-block" v-if="surplus>0">
@@ -159,8 +159,10 @@
 				let that = this;
 				let url_savehelp = apiurl + inter.addr.saveHelp;
 				let _data = {
-					lm_id: that.lm_id,
-					help: "self" //测试用
+					lm_id: that.lm_id
+				}
+				if(inter.wx.test_openid){//测试用
+					_data["help"] = "self"
 				}
 				var openid = that.help_openid;
 				let _head = {};
