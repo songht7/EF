@@ -9,6 +9,7 @@
 	const mdl = util.module;
 	const inter = util.Interface;
 	const apiurl = inter.apiurl;
+	const pageis = mdl.queryString("type");
 	export default {
 		data() {
 			return {
@@ -16,16 +17,17 @@
 				wxLoading: "微信授权中"
 			};
 		},
-		onLoad() {
+		onLoad() {},
+		onShow() {
+			console.log("=====onShow====")
 			var _this = this;
 			var funStor = function(res) {
 				_this.userInfo = res;
 				if (res.openid) {
 					_this.wxLoading = "授权成功";
-					//window.location.href = inter.domain;
-				}else{
-					mdl.goHomePage();
+					// window.location.href = inter.domain";
 				}
+				mdl.goHomePage();
 			}
 			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
 		}

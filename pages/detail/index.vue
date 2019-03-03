@@ -507,10 +507,11 @@
 						if (activity) {
 							var _lm_id = "";
 							if (resAll.result.id) {
-								_lm_id = "&lm_id=" + resAll.result.id;
+								_lm_id = resAll.result.id;
 							}
 							uni.navigateTo({
-								url: "/pages/detail/activity?article_id=" + that.article_id + "&uid=" + openid + _lm_id
+								//url: "/pages/detail/activity?article_id=" + that.article_id + "&uid=" + openid + _lm_id
+								url: "/pages/detail/activity?uid=" + openid +"&lm_id="+_lm_id
 							});
 						}
 					}

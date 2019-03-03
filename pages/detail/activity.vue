@@ -1,44 +1,54 @@
 <template>
 	<div class="activity-page">
-		<view class="activity-block">
-			<img class="head-img" :src="sourceUrl+firstImage" />
-		</view>
-		<view class="activity-main">
-			<view class="activity-block article-info">
-				<view class="article-title">{{detail.name}}</view>
-				<view class="article-ov">
-					<text class="txt">售价：{{detail.current_price=="0.00"?"0":detail.current_price}}元</text>
-					<text class="txt">适合年龄：{{detail.age_min}}-{{detail.age_max}}岁</text>
+		<block v-if="!lm">
+			<view class="page-loading">
+				正在加载...
+			</view>
+		</block>
+		<block v-if="lm">
+			<view class="activity-block">
+				<img class="head-img" :src="sourceUrl+firstImage" />
+			</view>
+			<view class="activity-main">
+				<view class="activity-block article-info">
+					<view class="article-title">{{detail.name}}</view>
+					<view class="article-ov">
+						<text class="txt">售价：{{detail.current_price=="0.00"?"0":detail.current_price}}元</text>
+						<text class="txt">适合年龄：{{detail.age_min}}-{{detail.age_max}}岁</text>
+					</view>
+					<view class="article-overview">{{detail.overview}}</view>
 				</view>
-				<view class="article-overview">{{detail.overview}}</view>
-			</view>
-			<view class="activity-block help-user" :class="surplus==0?'help-user-succ':''">
-				<view class="help-user-portrait portrait-block" v-for="(value,key) in help_list" :key="key"><img :src="value.headimgurl"
-					 class="portrait-img" alt=""></view>
-				<view class="portrait-block" v-for="n in parseInt(surplus)" v-if="surplus>1" :key="n">
-					<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
+				<view class="activity-block help-user" :class="surplus==0?'help-user-succ':''" v-if="Countdown!=0">
+					<view class="help-user-portrait portrait-block" v-for="(value,key) in help_list" :key="key"><img :src="value.headimgurl"
+						 class="portrait-img" alt=""></view>
+					<view class="portrait-block" v-for="n in parseInt(surplus)" v-if="surplus>1" :key="n">
+						<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
+					</view>
+					<view class="portrait-block" v-if="surplus==1">
+						<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
+					</view>
 				</view>
-				<view class="portrait-block" v-if="surplus==1">
-					<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
+				<view class="activity-block share-info-block" v-if="surplus>0&&Countdown!=0">
+					<view class="share-info-txt">还差 {{surplus}} 位好友助力即可免费申请</view>
+					<view class="share-info-txt">赶快召唤小伙伴吧！</view>
+					<view class="share-info-txt">剩余<uni-countdown :timer="Countdown"></uni-countdown>时间助力结束</view>
+				</view>
+				<view class="activity-block share-info-block" v-if="Countdown==0||surplus<=0">
+					<view class="share-info">恭喜您获得<text class="free">免费体验</text></view>
+					<view class="share-info">原价{{detail.current_price=="0.00"?"0":detail.current_price}}元{{detail.name}}</view>
+				</view>
+				<!-- <view class="activity-block share-info-block" v-if="surplus>0&&Countdown==0">
+				<view class="share-info-txt">对不起，助力已超时</view>
+			</view> -->
+				<view class="activity-block share-info-block" v-if="surplus>0&&Countdown!=0">
+					<view class="share-info">分享成功即可<text class="free">免费体验</text></view>
+					<view class="share-info">原价{{detail.current_price=="0.00"?"0":detail.current_price}}元{{detail.name}}</view>
+				</view>
+				<view class="activity-block help-block" v-if="surplus>0&&Countdown!=0">
+					<view class="help-info" @click="toHelp()">帮我助力</view>
 				</view>
 			</view>
-			<view class="activity-block share-info-block" v-if="surplus>0">
-				<view class="share-info-txt">还差 {{surplus}} 位好友助力即可免费申请</view>
-				<view class="share-info-txt">赶快召唤小伙伴吧！</view>
-				<view class="share-info-txt">剩余<uni-countdown :timer="Countdown"></uni-countdown>时间助力结束</view>
-			</view>
-			<view class="activity-block share-info-block" v-if="surplus==0">
-				<view class="share-info">助力完成！！！</view>
-				<view class="share-info">恭喜您获得“{{detail.name}}”免费体验</view>
-			</view>
-			<view class="activity-block share-info-block" v-if="surplus>0">
-				<view class="share-info">分享成功即可<text class="free">免费体验</text></view>
-				<view class="share-info">原价{{detail.current_price=="0.00"?"0":detail.current_price}}元{{detail.name}}</view>
-			</view>
-			<view class="activity-block help-block" v-if="surplus>0">
-				<view class="help-info" @click="toHelp()">帮我助力</view>
-			</view>
-		</view>
+		</block>
 	</div>
 </template>
 
@@ -75,75 +85,11 @@
 			uniIcon
 		},
 		onLoad(option) {
-			var _this = this;
-			var funStor = function(res) {
-				console.log("=========getMyStorage========")
-				console.log(res)
-				if (res) {
-					_this.userInfo = res;
-					_this.portrait = res.headimgurl;
-					_this.help_openid = res.openid;
-				} else {
-					mdl.getWXCode();
-				}
-			}
-			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
-			let _id = option.article_id;
-			this.article_id = _id;
 			this.lm_id = option.lm_id;
 			this.openid = option.uid;
-
-			var openid = option.uid;
-			let _head = {};
-			if (openid != "") {
-				_head = {
-					"openid": openid
-				};
-			}
-			console.log(_head)
-			/**助力详细**/
-			let url_getHelp = apiurl + inter.addr.getHelp + "?lm_id=" + option.lm_id;
-			console.log(url_getHelp)
-			console.log(_head)
-			let funHelp = function(res) {
-				console.log("======getHelp========");
-				console.log(res)
-				let article = res.article.data;
-				let lm = res.lm;
-				_this.lm = lm;
-				_this.Countdown = lm.arrive_time + " 24:00:00";
-				let _surplus = _this.total - lm.help.total;
-				_this.surplus = _surplus <= 0 ? 0 : _surplus;
-				_this.help_list = lm.help.list;
-				if (article) {
-					_this.detail = article;
-					_this.firstImage = article.image[0]["original_src"];
-					_this.setShare(article);
-					_this.brand_id = article.brand_id;
-					uni.setNavigationBarTitle({
-						title: article.name
-					});
-				}
-			}
-			let _getHelp = mdl.getData(url_getHelp, funHelp, "GET", "", _head);
-
-			/**课程详细**/
-			// 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
-			// 			let fun = function(res) {
-			// 				console.log("======getDetail========");
-			// 				console.log(res)
-			// 				let _data = res.info;
-			// 				if (_data) {
-			// 					_this.detail = _data;
-			// 					_this.firstImage = _data.image[0]["original_src"];
-			// 					_this.setShare(_data);
-			// 					_this.brand_id = _data.brand_id;
-			// 					uni.setNavigationBarTitle({
-			// 						title: _data.name
-			// 					});
-			// 				}
-			// 			}
-			// 			let _detail = mdl.getData(url_detail, fun);
+		},
+		onShow() {
+			this.getData();
 		},
 		methods: {
 			setShare(detail) {
@@ -155,13 +101,87 @@
 					dec = detail.overview ? detail.overview : "英语免费试听课，在这里找到你想要的";
 				mdl.wxShare(share_url, title, imgUrl, dec);
 			},
+			getData() {
+				var _this = this;
+				var funStor = function(res) {
+// 					console.log("=========getMyStorage========")
+// 					console.log(res)
+					if (res) {
+						_this.userInfo = res;
+						_this.portrait = res.headimgurl;
+						_this.help_openid = res.openid;
+					} else {
+						mdl.getWXCode();
+					}
+				}
+				let myStorage = mdl.getMyStorage("uWXInfo", "", funStor);
+				var openid = _this.openid;
+				let _head = {};
+				if (openid != "") {
+					_head = {
+						"openid": openid
+					};
+				}
+				console.log(_head)
+				/**助力详细**/
+				let url_getHelp = apiurl + inter.addr.getHelp + "?lm_id=" + _this.lm_id;
+// 				console.log(url_getHelp)
+// 				console.log(_head)
+				let funHelp = function(res) {
+					console.log("======getHelp========");
+					console.log(res)
+					let article = res.article.data;
+					_this.article_id = article.id;
+					let lm = res.lm;
+					_this.lm = lm;
+					let _arrive_time = lm.arrive_time + " 24:00:00";
+					let currentTimeStamp = Date.parse(new Date());
+					let arriveTimeStamp = Date.parse(_arrive_time);
+					if (arriveTimeStamp <= currentTimeStamp) {
+						_this.Countdown = 0;
+					} else {
+						_this.Countdown = _arrive_time;
+					}
+					let _surplus = _this.total - lm.help.total;
+					_this.surplus = _surplus <= 0 ? 0 : _surplus;
+					_this.help_list = lm.help.list;
+					if (article) {
+						_this.detail = article;
+						_this.firstImage = article.image[0]["original_src"];
+						_this.setShare(article);
+						_this.brand_id = article.brand_id;
+						uni.setNavigationBarTitle({
+							title: article.name
+						});
+					}
+				}
+				let _getHelp = mdl.getData(url_getHelp, funHelp, "GET", "", _head);
+
+				/**课程详细**/
+				// 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
+				// 			let fun = function(res) {
+				// 				console.log("======getDetail========");
+				// 				console.log(res)
+				// 				let _data = res.info;
+				// 				if (_data) {
+				// 					_this.detail = _data;
+				// 					_this.firstImage = _data.image[0]["original_src"];
+				// 					_this.setShare(_data);
+				// 					_this.brand_id = _data.brand_id;
+				// 					uni.setNavigationBarTitle({
+				// 						title: _data.name
+				// 					});
+				// 				}
+				// 			}
+				// 			let _detail = mdl.getData(url_detail, fun);
+			},
 			toHelp() {
 				let that = this;
 				let url_savehelp = apiurl + inter.addr.saveHelp;
 				let _data = {
 					lm_id: that.lm_id
 				}
-				if(inter.wx.test_openid){//测试用
+				if (inter.wx.test_openid) { //测试用
 					_data["help"] = "self"
 				}
 				var openid = that.help_openid;
@@ -180,9 +200,9 @@
 							duration: 2000,
 							complete: function(res) {
 								setTimeout(function() {
-									// 									uni.navigateTo({
-									// 										url: "/pages/detail/index?id=" + that.article_id
-									// 									});
+									uni.navigateTo({
+										url: "/pages/detail/index?id=" + that.article_id
+									});
 								}, 2500)
 							}
 						});
@@ -220,6 +240,16 @@
 </script>
 
 <style>
+	.page-loading {
+		padding: 80upx 0;
+		line-height: 2;
+		color: #FE9C01;
+		text-shadow: -1px 0 5px #FFF, 0 1px 5px #FFF,
+			1px 0 5px #FFF, 0 -1px 5px #FFF;
+		text-align: center;
+		font-size: 40upx;
+	}
+
 	.activity-page {
 		background: #FFDDA7;
 		min-height: 900px;
@@ -292,9 +322,11 @@
 		align-items: center;
 		padding: 30upx 0 0;
 	}
-	.help-user-succ{
+
+	.help-user-succ {
 		justify-content: center;
 	}
+
 	.help-user-portrait {
 		width: 45px;
 		height: 45px;

@@ -15,12 +15,17 @@
 						<view class="ser-tag-res">{{value.subjectCurrentPrice&&value.subjectCurrentPrice!="0.00"?"￥"+value.subjectCurrentPrice:"免费"}}</view>
 					</navigator>
 					<view class="apply-res">
-						<text>预约状态：</text>
-						<!-- <text v-if="value.article_type=='help'">预约成功 <text class="txt-orange">完成助力获得免费体验</text></text> -->
-						<text class="txt-light-black">预约成功 等待课程顾问与您联系</text>
-						<!-- <text v-if="value.status==0" class="txt-orange">预约成功 等待课程顾问与您联系</text>
+						<view>
+							<text>预约状态：</text>
+							<text v-if="value.article_type=='help'">预约成功</text>
+							<text v-else class="txt-light-black">预约成功 等待课程顾问与您联系</text>
+							<!-- <text v-if="value.status==0" class="txt-orange">预约成功 等待课程顾问与您联系</text>
 						<text v-else-if="value.status==1" class="txt-light-black">客服已联系</text>
 						<text v-else-if="value.status==2" class="txt-gray">本人已回绝</text> -->
+						</view>
+						<view v-if="value.article_type=='help'">
+							<navigator :url="'/pages/detail/activity?uid=' + openid +'&lm_id='+value.id" class="helpBtn txt-orange">[查看助力状态]</navigator>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -42,6 +47,7 @@
 		data() {
 			return {
 				userInfo: {},
+				openid:"",
 				reservedList: [],
 				param: {
 					"pi": 1,
@@ -158,6 +164,7 @@
 				var funStor = function(res) {
 					console.log(res)
 					that.userInfo = res;
+					that.openid=res.openid;
 					if (!res) {
 						that.userInfo = {};
 						that.reservedList = [];
@@ -254,7 +261,7 @@
 	.apply-res {
 		display: flex;
 		flex-direction: row;
-		justify-content: flex-start;
+		justify-content:space-between;
 		align-items: center;
 		margin: 10upx 0 0;
 		padding: 10upx 0 0;
