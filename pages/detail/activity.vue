@@ -69,8 +69,8 @@
 				firstImage: "",
 				brand_id: "",
 				lm_id: "",
+				parent_openid: "",
 				openid: "",
-				help_openid: "",
 				lm: "",
 				help_list: {},
 				surplus: 2,
@@ -86,7 +86,7 @@
 		},
 		onLoad(option) {
 			this.lm_id = option.lm_id;
-			this.openid = option.uid;
+			this.parent_openid = option.uid;
 		},
 		onShow() {
 			this.getData();
@@ -104,32 +104,33 @@
 			getData() {
 				var _this = this;
 				var funStor = function(res) {
-// 					console.log("=========getMyStorage========")
-// 					console.log(res)
+					// 					console.log("=========getMyStorage========")
+					// 					console.log(res)
 					if (res) {
 						_this.userInfo = res;
 						_this.portrait = res.headimgurl;
-						_this.help_openid = res.openid;
+						_this.openid = res.openid;
 					} else {
 						mdl.getWXCode();
 					}
 				}
 				let myStorage = mdl.getMyStorage("uWXInfo", "", funStor);
-				var openid = _this.openid;
+
+				/**助力详细**/
+				var parent_openid = _this.parent_openid;
 				let _head = {};
-				if (openid != "") {
+				if (parent_openid != "") {
 					_head = {
-						"openid": openid
+						"openid": parent_openid
 					};
 				}
-				console.log(_head)
-				/**助力详细**/
+				//console.log(_head)
 				let url_getHelp = apiurl + inter.addr.getHelp + "?lm_id=" + _this.lm_id;
-// 				console.log(url_getHelp)
-// 				console.log(_head)
+				// 				console.log(url_getHelp)
+				// 				console.log(_head)
 				let funHelp = function(res) {
-					console.log("======getHelp========");
-					console.log(res)
+					// 					console.log("======getHelp========");
+					// 					console.log(res)
 					let article = res.article.data;
 					_this.article_id = article.id;
 					let lm = res.lm;
@@ -181,10 +182,19 @@
 				let _data = {
 					lm_id: that.lm_id
 				}
-				if (inter.wx.test_openid) { //测试用
+				if (inter.wx.test_openid) { //测试用,可以给自己助力
 					_data["help"] = "self"
 				}
-				var openid = that.help_openid;
+				var openid = that.openid;
+				if (openid == that.parent_openid && inter.wx.test_openid == "") {
+					uni.showToast({
+						title: '分享给好友完成助力',
+						icon: "none",
+						duration: 2000
+					});
+					return
+				}
+
 				let _head = {};
 				if (openid != "") {
 					_head = {

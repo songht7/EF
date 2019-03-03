@@ -32,7 +32,7 @@ const Interface = {
 		"access_token": "client_credential",
 		"secret": "01ef7de58bc18da629d4ec33a62744f9",
 		"getToken": "https://api.weixin.qq.com/cgi-bin/token",
-		"test_openid": "oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
+		"test_openid": "" //"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
 	}
 
 };
