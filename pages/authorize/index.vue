@@ -25,9 +25,13 @@
 				_this.userInfo = res;
 				if (res.openid) {
 					_this.wxLoading = "授权成功";
+					mdl.goHomePage();
 					// window.location.href = inter.domain";
+				} else {
+					uni.switchTab({
+						url: '/pages/user/index'
+					});
 				}
-				mdl.goHomePage();
 			}
 			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
 		}

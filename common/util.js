@@ -87,6 +87,7 @@ const module = {
 		})
 	},
 	wxShare: function(share_url, title, imgUrl, dec) {
+		//console.log(share_url, title, dec)
 		var that = this;
 		var funTicket = function(res) {
 			console.log("=======getTicket======")

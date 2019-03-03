@@ -95,10 +95,10 @@
 			setShare(detail) {
 				var that = this;
 				let hash = window.location.hash;
-				var share_url = util.Interface.domain + "/?type=activity&id=" + detail.id + hash,
+				var share_url = location.origin + "/?type=activity" + hash,
 					title = detail.name ? detail.name : "英语免费试听",
 					imgUrl = detail.image ? apiurl + detail.image[0]["original_src"] : util.Interface.domain + "/static/share.jpg",
-					dec = detail.overview ? detail.overview : "英语免费试听课，在这里找到你想要的";
+					dec = "给好友助力，获得免费体验课";
 				mdl.wxShare(share_url, title, imgUrl, dec);
 			},
 			getData() {
