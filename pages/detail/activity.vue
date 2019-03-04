@@ -119,7 +119,8 @@
 						_this.portrait = res.headimgurl;
 						_this.openid = res.openid;
 					} else {
-						mdl.getWXCode();
+						let redirect_uri = location.origin + '/' + window.location.hash;
+						mdl.getWXCode(redirect_uri);
 					}
 				}
 				let myStorage = mdl.getMyStorage("uWXInfo", "", funStor);

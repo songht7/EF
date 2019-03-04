@@ -172,7 +172,7 @@ const module = {
 	isWeixin: function() {
 		return !!/micromessenger/i.test(navigator.userAgent.toLowerCase())
 	},
-	getWXCode: function() {
+	getWXCode: function(redirect_uri) {
 		var _this = this,
 			appid = Interface.wx.appid,
 			secret = Interface.wx.secret;
@@ -200,7 +200,8 @@ const module = {
 					var __openid = _uWXInfo.openid || test_openid;
 					_this.userLogin("", __openid);
 				} else {
-					let REDIRECT_URI = encodeURIComponent(Interface.domain), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
+					let redirect_uri=redirect_uri?redirect_uri:Interface.domain;
+					let REDIRECT_URI = encodeURIComponent(redirect_uri), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
 						scope = "snsapi_userinfo", //snsapi_base，snsapi_userinfo （弹出授权页面，获取更多信息）
 						state = "STATE"; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
 					var _url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' +
