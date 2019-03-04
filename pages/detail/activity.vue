@@ -119,7 +119,16 @@
 						_this.portrait = res.headimgurl;
 						_this.openid = res.openid;
 					} else {
-						let redirect_uri = location.origin + '/' + window.location.hash;
+						let hash = window.location.hash;
+						var redirect_uri = location.origin + "/?type=activity" + hash;
+						uni.setStorage({
+							key: 'temp',
+							data: {
+								"parent_openid": _this.parent_openid,
+								"lm_id": _this.lm_id
+							},
+							success: function() {}
+						});
 						mdl.getWXCode(redirect_uri);
 					}
 				}

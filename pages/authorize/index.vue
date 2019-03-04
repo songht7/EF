@@ -14,10 +14,13 @@
 		data() {
 			return {
 				userInfo: {},
-				wxLoading: "微信授权中"
+				wxLoading: "微信授权中",
+				lm_id: ""
 			};
 		},
-		onLoad() {},
+		onLoad(option) {
+			this.lm_id = option.lm_id;
+		},
 		onShow() {
 			console.log("=====onShow====")
 			var _this = this;
@@ -25,8 +28,21 @@
 				_this.userInfo = res;
 				if (res.openid) {
 					_this.wxLoading = "授权成功";
-					mdl.goHomePage();
-					// window.location.href = inter.domain";
+					uni.getStorage({
+						key: "temp",
+						success: function(ress) {
+							uni.removeStorage({
+								key: 'temp'
+							});
+							uni.navigateTo({
+								url: "/pages/detail/activity?uid=" + ress.data.parent_openid + "&lm_id=" + ress.data.lm_id
+							});
+						},
+						fail() {
+							mdl.goHomePage();
+						}
+					});
+					// window.location.href = inter.domain;
 				} else {
 					uni.switchTab({
 						url: '/pages/user/index'
