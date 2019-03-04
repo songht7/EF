@@ -18,16 +18,19 @@
 					</view>
 					<view class="article-overview">{{detail.overview}}</view>
 				</view>
-				<view class="activity-block help-user" :class="surplus==0?'help-user-succ':''" v-if="Countdown!=0">
-					<view class="help-user-portrait portrait-block" v-for="(value,key) in help_list" :key="key"><img :src="value.headimgurl"
-						 class="portrait-img" alt=""></view>
-					<view class="portrait-block" v-for="n in parseInt(surplus)" v-if="surplus>1" :key="n">
-						<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
+				<block v-if="Countdown!=0||surplus==0">
+					<view class="activity-block help-user" :class="surplus==0?'help-user-succ':''">
+						<view class="help-user-portrait portrait-block" v-for="(value,key) in help_list" :key="key">
+							<img :src="value.headimgurl" class="portrait-img" alt="" />
+						</view>
+						<view class="help-user-portrait portrait-block" v-for="n in parseInt(surplus)" v-if="surplus>1" :key="n">
+							<img src="../../static/contact.png" class="portrait-img" alt="" />
+						</view>
+						<view class="help-user-portrait portrait-block" v-if="surplus==1">
+							<img src="../../static/contact.png" class="portrait-img" alt="" />
+						</view>
 					</view>
-					<view class="portrait-block" v-if="surplus==1">
-						<uni-icon size="55" type="contact" color="#FFF"></uni-icon>
-					</view>
-				</view>
+				</block>
 				<view class="activity-block share-info-block" v-if="surplus>0&&Countdown!=0">
 					<view class="share-info-txt">还差 {{surplus}} 位好友助力即可免费申请</view>
 					<view class="share-info-txt">赶快召唤小伙伴吧！</view>
@@ -47,6 +50,11 @@
 				<view class="activity-block help-block" v-if="surplus>0&&Countdown!=0">
 					<view class="help-info" @click="toHelp()">帮我助力</view>
 				</view>
+				<block v-if="parent_openid!=openid">
+					<view class="activity-block help-block" v-if="Countdown==0||surplus<=0">
+						<navigator class="help-info" :url="'/pages/detail/index?id=' + that.article_id">我也要预约</navigator>
+					</view>
+				</block>
 			</view>
 		</block>
 	</div>
