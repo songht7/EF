@@ -87,6 +87,7 @@
 				brand_id: "",
 				lm_id: "",
 				parent_openid: "",
+				nickname: "",
 				openid: "",
 				lm: "",
 				help_list: {},
@@ -113,10 +114,11 @@
 			setShare(detail) {
 				var that = this;
 				let hash = window.location.hash;
+				let t = "仅差" + that.surplus + "人助力成功!" + that.nickname + "喊你来助力!";
 				var share_url = location.origin + "/?type=activity" + hash,
-					title = detail.name ? detail.name : "英语免费试听",
+					title = detail.name ? t + detail.name : t,
 					imgUrl = detail.image ? apiurl + detail.image[0]["original_src"] : util.Interface.domain + "/static/share.jpg",
-					dec = "给好友助力，获得免费体验课";
+					dec = "给好友助力，获得免费体验课 - " + detail.overview;
 				mdl.wxShare(share_url, title, imgUrl, dec);
 			},
 			getData() {
@@ -157,8 +159,8 @@
 				// 				console.log(url_getHelp)
 				// 				console.log(_head)
 				let funHelp = function(res) {
-					// 					console.log("======getHelp========");
-					// 					console.log(res)
+					console.log("======getHelp========");
+					console.log(res)
 					let article = res.article.data;
 					_this.article_id = article.id;
 					let lm = res.lm;
@@ -174,6 +176,7 @@
 					let _surplus = _this.total - lm.help.total;
 					_this.surplus = _surplus <= 0 ? 0 : _surplus;
 					_this.help_list = lm.help.list;
+					_this.nickname = lm.help.list[0].nickname;
 					if (article) {
 						_this.detail = article;
 						_this.firstImage = article.image[0]["original_src"];
@@ -409,7 +412,7 @@
 
 	.share-box {
 		text-align: right;
-		padding: 100upx 60upx 40upx;
+		padding: 10upx 60upx 40upx;
 	}
 
 	.s-row {
@@ -419,5 +422,10 @@
 		letter-spacing: 2upx;
 		font-size: 40upx;
 	}
-	.undo{transform:rotate(110deg);position: relative;top: -20upx;}
+
+	.undo {
+		transform: rotate(110deg);
+		position: relative;
+		top: -20upx;
+	}
 </style>

@@ -32,7 +32,7 @@ const Interface = {
 		"access_token": "client_credential",
 		"secret": "01ef7de58bc18da629d4ec33a62744f9",
 		"getToken": "https://api.weixin.qq.com/cgi-bin/token",
-		"test_openid": "" //"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
+		"test_openid": "oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
 	}
 
 };
@@ -87,7 +87,7 @@ const module = {
 		})
 	},
 	wxShare: function(share_url, title, imgUrl, dec) {
-		//console.log(share_url, title, dec)
+		console.log(share_url, title, dec)
 		var that = this;
 		var funTicket = function(res) {
 			console.log("=======getTicket======")

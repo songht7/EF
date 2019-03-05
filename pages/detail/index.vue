@@ -20,8 +20,11 @@
 					<view class="uni-card">
 						<view class="uni-card-content">
 							<view class="uni-card-content-inner dtlHead">
-								<view class="ser-title txt-orange">
-									{{detail.name}}
+								<view class="dtl-title">
+									<view class="ser-title txt-orange">
+										{{detail.name}}
+									</view>
+									<view class="ser-tag">{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"免费"}}</view>
 								</view>
 								<view class="ser-abstract txt-black">
 									{{detail.overview}}
@@ -29,11 +32,10 @@
 								<view class="ser-feature txt-gray">
 									市场价:￥{{detail.market_price?detail.market_price:"-"}}
 								</view>
-								<view class="ser-tag">{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"免费"}}</view>
 								<view class="apply-num">
 									<view class="apply-cell apply-left">
 										<view class="txt-gray">已领</view>
-										<view class="txt-orange">199人</view>
+										<view class="txt-orange">{{detail.booked_count?detail.booked_count:"0"}}人</view>
 									</view>
 									<view class="apply-cell apply-middle">
 										<view class="txt-gray">好评率</view>
@@ -489,7 +491,7 @@
 							"openid": openid
 						};
 					}
-					let funSave = function(res,resAll) {
+					let funSave = function(res, resAll) {
 						console.log("=======预约课程返回状态========")
 						console.log(resAll)
 						that.loading = false
@@ -511,7 +513,7 @@
 							}
 							uni.navigateTo({
 								//url: "/pages/detail/activity?article_id=" + that.article_id + "&uid=" + openid + _lm_id
-								url: "/pages/detail/activity?uid=" + openid +"&lm_id="+_lm_id
+								url: "/pages/detail/activity?uid=" + openid + "&lm_id=" + _lm_id
 							});
 						}
 					}

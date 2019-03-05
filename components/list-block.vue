@@ -18,7 +18,7 @@
 						<view class="apply-nums">
 							<view class="apply-cell apply-left">
 								<view class="txt-a txt-gray">已领</view>
-								<view class="txt-a txt-orange uni-ellipsis">{{value.booked_count}}人</view>
+								<view class="txt-a txt-orange uni-ellipsis">{{value.booked_count?value.booked_count:"0"}}人</view>
 							</view>
 							<view class="apply-cell apply-middle">
 								<view class="txt-a txt-gray">好评率</view>
@@ -83,7 +83,8 @@
 	}
 
 	.ser-body {
-		width: 63%;
+		/* width: 63%; */
+		flex: 5;
 		padding-left: 10upx;
 	}
 
@@ -106,13 +107,14 @@
 	}
 
 	.ser-tag {
+		flex: 1;
 		font-size: 24upx;
 		background: #FE1512;
 		text-align: center;
 		padding: 0 15upx;
 		line-height: 2;
 		color: #fff;
-		position: absolute;
+		position: relative;
 		top: -14upx;
 		right: -14upx;
 		border-radius: 0 5upx 0 5px;

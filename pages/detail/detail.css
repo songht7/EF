@@ -64,7 +64,16 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	position: relative;
 }
 
+.dtl-title {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	position: relative;
+}
+
 .ser-title {
+	flex: 9;
 	line-height: 1.8;
 	font-size: 32upx;
 }
@@ -79,15 +88,16 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 }
 
 .ser-tag {
+	flex: 1;
 	font-size: 24upx;
 	background: #FE1512;
 	text-align: center;
 	padding: 0 15upx;
 	line-height: 2;
 	color: #fff;
-	position: absolute;
-	top: 0;
-	right: 0;
+	position: relative;
+	top: -14upx;
+	right: -14upx;
 	border-radius: 0 5upx 0 5px;
 	background: linear-gradient(135deg, rgba(251, 212, 165, 1), rgba(247, 94, 92, 1));
 }
@@ -275,8 +285,10 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	align-items: center;
 	padding: 20upx 0 0;
 }
-.agmt-txt{
-	font-size: 28upx;}
+
+.agmt-txt {
+	font-size: 28upx;
+}
 
 .qrcodefot {
 	display: block;
