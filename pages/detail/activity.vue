@@ -412,7 +412,7 @@
 
 	.share-box {
 		text-align: right;
-		padding: 10upx 60upx 40upx;
+		padding: 120upx 60upx 40upx;
 	}
 
 	.s-row {
