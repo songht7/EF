@@ -52,11 +52,20 @@
 				</view>
 				<block v-if="parent_openid!=openid">
 					<view class="activity-block help-block" v-if="Countdown==0||surplus<=0">
-						<navigator class="help-info" :url="'/pages/detail/index?id=' + that.article_id">我也要预约</navigator>
+						<navigator class="help-info" :url="'/pages/detail/index?id=' + article_id">我也要预约</navigator>
 					</view>
 				</block>
 			</view>
 		</block>
+		<view class="share-tips" v-if="shareTips" @click="closeShareTips">
+			<view class="share-box">
+				<view class="s-row">
+					点击右上角"<uni-icon size="45" type="more-filled" color="#FCFCFC"></uni-icon>"
+					<uni-icon class="undo" size="50" type="undo" color="#FCFCFC"></uni-icon>
+				</view>
+				<view class="s-row">分享给好友完成助力</view>
+			</view>
+		</view>
 	</div>
 </template>
 
@@ -85,7 +94,8 @@
 				total: 3,
 				Countdown: this.getDate({
 					format: true
-				})
+				}),
+				shareTips: false
 			}
 		},
 		components: {
@@ -205,11 +215,15 @@
 				}
 				var openid = that.openid;
 				if (openid == that.parent_openid && inter.wx.test_openid == "") {
-					uni.showToast({
-						title: '分享给好友完成助力',
-						icon: "none",
-						duration: 2000
-					});
+					that.shareTips = true;
+					setTimeout(function() {
+						that.shareTips = false
+					}, 5000)
+					// 					uni.showToast({
+					// 						title: '分享给好友完成助力',
+					// 						icon: "none",
+					// 						duration: 2000
+					// 					});
 					return
 				}
 
@@ -244,6 +258,9 @@
 				}
 				let _savehelp = mdl.getData(url_savehelp, funSavehelp, "POST", _data, _head);
 
+			},
+			closeShareTips() {
+				this.shareTips = false
 			},
 			getDate(type) {
 				const date = new Date();
@@ -379,4 +396,28 @@
 	.portrait-block {
 		margin-right: 5upx;
 	}
+
+	.share-tips {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background: rgba(0, 0, 0, 0.6);
+		z-index: 100;
+	}
+
+	.share-box {
+		text-align: right;
+		padding: 100upx 60upx 40upx;
+	}
+
+	.s-row {
+		display: flex;
+		justify-content: flex-end;
+		color: #FFFFFF;
+		letter-spacing: 2upx;
+		font-size: 40upx;
+	}
+	.undo{transform:rotate(110deg);position: relative;top: -20upx;}
 </style>
