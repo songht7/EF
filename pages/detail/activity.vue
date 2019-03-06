@@ -24,10 +24,10 @@
 							<img :src="value.headimgurl" class="portrait-img" alt="" />
 						</view>
 						<view class="help-user-portrait portrait-block" v-for="n in parseInt(surplus)" v-if="surplus>1" :key="n">
-							<img src="../../static/contact.png" class="portrait-img" alt="" />
+							<img src="../../static/contact.jpg" class="portrait-img" alt="" />
 						</view>
 						<view class="help-user-portrait portrait-block" v-if="surplus==1">
-							<img src="../../static/contact.png" class="portrait-img" alt="" />
+							<img src="../../static/contact.jpg" class="portrait-img" alt="" />
 						</view>
 					</view>
 				</block>
