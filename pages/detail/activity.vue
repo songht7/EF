@@ -397,7 +397,7 @@
 	}
 
 	.portrait-block {
-		margin-right: 5upx;
+		margin-right: 10upx;
 	}
 
 	.share-tips {
