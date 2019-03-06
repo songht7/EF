@@ -48,7 +48,7 @@
 		},
 		methods: {
 			changeStar(e){
-				console.log(e)
+				//console.log(e)
 				this.star=e.value;
 			},
 			bindTextAreaBlur: function (e) {
@@ -71,8 +71,8 @@
 					};
 					let url_saveComment = apiurl + inter.addr.saveComment;
 					let funSave = function(res) {
-						console.log("=======saveComment========")
-						console.log(res)
+// 						console.log("=======saveComment========")
+// 						console.log(res)
 						that.loading = false
 						uni.showModal({
 							title: "评论成功",
@@ -80,7 +80,6 @@
 							showCancel: false,
 							confirmText: "确定",
 							success: function (res) {
-								console.log(123)
 								uni.navigateBack({
 									delta:1
 								})

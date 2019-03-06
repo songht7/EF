@@ -35,7 +35,7 @@
 								<view class="apply-num">
 									<view class="apply-cell apply-left">
 										<view class="txt-gray">已领</view>
-										<view class="txt-orange">{{detail.booked_count?detail.booked_count:"0"}}人</view>
+										<view class="txt-orange">{{detail.booked?detail.booked:"0"}}人</view><!-- 真实value.booked_count -->
 									</view>
 									<view class="apply-cell apply-middle">
 										<view class="txt-gray">好评率</view>
@@ -77,7 +77,7 @@
 				<!-- 评论区 start -->
 				<view class="uni-comment">
 					<!-- <view class="uni-comment-list"> -->
-					<view class="uni-comment-list" v-for="(cmt,c) in detail.comment" :key="c">
+					<view class="uni-comment-list" v-for="(cmt,c) in detail.comment" :key="c" v-if="c<3">
 						<view class="uni-comment-face">
 							<image v-if="cmt.headimgurl" :src="cmt.headimgurl" mode="widthFix"></image>
 							<uni-icon v-else size="55" type="contact" color="#DDDDDF"></uni-icon>
@@ -339,8 +339,8 @@
 			this.article_id = _id;
 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
 			let fun = function(res) {
-				console.log("======getDetail========");
-				console.log(res)
+				// 				console.log("======getDetail========");
+				// 				console.log(res)
 				let _data = res.info;
 				if (_data) {
 					_this.detail = _data;
@@ -374,7 +374,12 @@
 			});
 			_this.visitShowFun();
 		},
-		onShow() {},
+		onShow() {
+			let _this = this;
+			if (_this.detail.name) {
+				_this.setShare(_this.detail);
+			}
+		},
 		computed: {
 			startDate() {
 				return this.getDate('start');

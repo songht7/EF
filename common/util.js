@@ -46,7 +46,7 @@ const module = {
 			data: data || {},
 			header: _head || {},
 			success: function(res) {
-								console.log("======mdl.getData-success========");
+								console.log("mdl.getData:",url);
 								console.log(res);
 				let __res = res.data;
 				resultAll=__res;
@@ -87,11 +87,11 @@ const module = {
 		})
 	},
 	wxShare: function(share_url, title, imgUrl, dec) {
-		console.log(share_url, title, dec)
+		//console.log(share_url, title, dec)
 		var that = this;
 		var funTicket = function(res) {
-			console.log("=======getTicket======")
-			console.log(res)
+// 			console.log("=======getTicket======")
+// 			console.log(res)
 			uni.setStorage({
 				key: 'wx_ticket',
 				data: {
@@ -133,8 +133,8 @@ const module = {
 
 
 		let _href = location.origin + "/" + location.hash;
-		console.log("======share_url=====")
-		console.log(_href)
+// 		console.log("======share_url=====")
+// 		console.log(_href)
 		_href = "http://main.meetji.com:3001?wxr=" + encodeURIComponent(_href)
 		var share_url = share_url ? share_url : _href;
 		imgUrl = imgUrl ? imgUrl : Interface.domain + "/static/share.jpg";

@@ -5,7 +5,7 @@
 				<view class="uni-card-content-inner">
 					<navigator class="service-head" :url="value.id==19?'/pages/detail/ef?key=2':'/pages/detail/index?id='+value.id">
 						<view class="ser-logo">
-							<image lazy-load="true" :src="value.src?sourceUrl+value.src:''" mode="aspectFill"/>
+							<image lazy-load="true" :src="value.src?sourceUrl+value.src:''" mode="aspectFill" />
 						</view>
 						<view class="ser-body">
 							<view class="ser-title">{{value.name}}</view>
@@ -18,11 +18,11 @@
 						<view class="apply-nums">
 							<view class="apply-cell apply-left">
 								<view class="txt-a txt-gray">已领</view>
-								<view class="txt-a txt-orange uni-ellipsis">{{value.booked_count?value.booked_count:"0"}}人</view>
+								<view class="txt-a txt-orange uni-ellipsis">{{value.booked?value.booked:"0"}}人</view><!-- 真实value.booked_count -->
 							</view>
 							<view class="apply-cell apply-middle">
 								<view class="txt-a txt-gray">好评率</view>
-								<view class="txt-a txt-orange uni-ellipsis">{{value.praise}}</view>
+								<view class="txt-a txt-orange uni-ellipsis">{{value.praise}}</view><!-- 真实value.good_count -->
 							</view>
 							<view class="apply-cell apply-right">
 								<view class="txt-a txt-gray">地点</view>
@@ -136,7 +136,7 @@
 		align-items: center;
 	}
 
-	
+
 	.apply-cell {
 		display: flex;
 		flex-direction: column;
@@ -145,7 +145,7 @@
 		justify-content: center;
 		width: 33.3%;
 	}
-	
+
 	.apply-left,
 	.apply-middle {
 		border-right: 1px solid #CDCDCD;
@@ -168,7 +168,12 @@
 		font-size: 26upx;
 		padding: 5upx 0;
 	}
-	.apply-btn-a{display: block;color: #fff;text-decoration: none;}
+
+	.apply-btn-a {
+		display: block;
+		color: #fff;
+		text-decoration: none;
+	}
 
 	.navTo {
 		text-decoration: none;

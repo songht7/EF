@@ -187,22 +187,22 @@
 			_this.getList();
 		},
 		onShow() {
-			var share_url=util.Interface.domain+"/?type=home#/",
+			var share_url = util.Interface.domain + "/?type=home#/",
 				title = "英语免费试听",
 				imgUrl = util.Interface.domain + "/static/share.jpg",
 				dec = "英语免费试听课，在这里找到你想要的";
-				console.log(share_url)
+			//console.log(share_url)
 			mdl.wxShare(share_url, title, imgUrl, dec);
 		},
-		onReady(){
+		onReady() {
 			var _this = this;
 			/**
 			 * 轮播
 			 */
 			let url_slide = apiurl + inter.addr.slideShow;
 			let fun1 = function(res) {
-				console.log("======slideShow========");
-				console.log(res)
+				// 				console.log("======slideShow========");
+				// 				console.log(res)
 				let _data = res.list;
 				_this.setData("swiperList", _data);
 			}
@@ -226,7 +226,7 @@
 				//console.log(res)
 				let _data = res.list;
 				_this.setData("ctg", _data);
-			
+
 			}
 			let getCategory = mdl.getData(url_ctg, fun3);
 			/**
@@ -254,7 +254,7 @@
 				//console.log("======getBrand========");
 				let _data = res.list;
 				_this.setData("brand", _data);
-			
+
 			}
 			let getBrand = mdl.getData(url_brand, fun5);
 			/**
@@ -305,13 +305,12 @@
 					"&cat=" + param.cat + "&brand=" + param.brand + "&age_start=" + param.age_start + "&age_end=" + param.age_end +
 					"&subject_category=" + param.subject_category;
 				let url_list = apiurl + inter.addr.article + _param;
-				console.log(url_list)
 				uni.showLoading({
 					title: '正在加载 ...'
 				});
 				let fun = function(res) {
-					console.log("======article========");
-					console.log(res)
+// 					console.log("======article========");
+// 					console.log(res)
 					let data = res.list;
 					let total = res.total;
 					if (type) {
