@@ -13,8 +13,8 @@ const Interface = {
 		"article": "/v2/ApiHome-article.htm", //列表
 		"getDetail": "/v2/ApiHome-article_detail.htm",
 		"saveSingle": "/v2/ApiHome-saveSingle.htm", //预约POST
-		"getHelp":"/v2/ApiHome-getHelp.htm",//助力详细
-		"saveHelp":"/v2/ApiHome-saveHelp.htm",//帮助助力
+		"getHelp": "/v2/ApiHome-getHelp.htm", //助力详细
+		"saveHelp": "/v2/ApiHome-saveHelp.htm", //帮助助力
 		"saveComment": "/v2/ApiHome-saveComment.htm", //评论
 		"getCategory": "/v2/ApiHome-getCategory.htm", //获取分类
 		"getSubjectCategory": "/v2/ApiHome-getSubjectCategory.htm", //获取子分类
@@ -46,10 +46,10 @@ const module = {
 			data: data || {},
 			header: _head || {},
 			success: function(res) {
-								console.log("mdl.getData:",url);
-								console.log(res);
+				console.log("mdl.getData:", url);
+				console.log(res);
 				let __res = res.data;
-				resultAll=__res;
+				resultAll = __res;
 				if (__res.success) {
 					if (__res.data) {
 						result = __res.data;
@@ -81,7 +81,7 @@ const module = {
 				// 				console.log("======complete========");
 				// 				console.log(result)
 				if (fun) {
-					new fun(result,resultAll)
+					new fun(result, resultAll)
 				}
 			}
 		})
@@ -90,8 +90,8 @@ const module = {
 		//console.log(share_url, title, dec)
 		var that = this;
 		var funTicket = function(res) {
-// 			console.log("=======getTicket======")
-// 			console.log(res)
+			// 			console.log("=======getTicket======")
+			// 			console.log(res)
 			uni.setStorage({
 				key: 'wx_ticket',
 				data: {
@@ -119,22 +119,22 @@ const module = {
 			}
 			wx.config(_config);
 		}
-		var storFun = function(res) {
-			if (res == "") {
-				var getTicketUrl = location.origin + "/#/";
-				if (that.isIOS()) {
-					getTicketUrl = location.origin + "/";
-				}
-				let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + getTicketUrl;
-				let wx_ticket = that.getData(url_ticket, funTicket)
-			}
+		var getTicketUrl = location.origin + "/#/";
+		if (that.isIOS()) {
+			getTicketUrl = location.origin + "/";
 		}
-		that.getMyStorage("wx_ticket", "", storFun);
+		let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + getTicketUrl;
+		let wx_ticket = that.getData(url_ticket, funTicket)
+		
+		var storFun = function(res) {
+			if (res == "") {}
+		}
+		//that.getMyStorage("wx_ticket", "", storFun);
 
 
 		let _href = location.origin + "/" + location.hash;
-// 		console.log("======share_url=====")
-// 		console.log(_href)
+		// 		console.log("======share_url=====")
+		// 		console.log(_href)
 		_href = "http://main.meetji.com:3001?wxr=" + encodeURIComponent(_href)
 		var share_url = share_url ? share_url : _href;
 		imgUrl = imgUrl ? imgUrl : Interface.domain + "/static/share.jpg";
@@ -200,7 +200,7 @@ const module = {
 					var __openid = _uWXInfo.openid || test_openid;
 					_this.userLogin("", __openid);
 				} else {
-					let redirect_uri=redirect_uri?redirect_uri:Interface.domain;
+					let redirect_uri = redirect_uri ? redirect_uri : Interface.domain;
 					let REDIRECT_URI = encodeURIComponent(redirect_uri), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
 						scope = "snsapi_userinfo", //snsapi_base，snsapi_userinfo （弹出授权页面，获取更多信息）
 						state = "STATE"; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节

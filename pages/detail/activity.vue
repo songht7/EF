@@ -18,19 +18,24 @@
 					</view>
 					<view class="article-overview">{{detail.overview}}</view>
 				</view>
-				<block v-if="Countdown!=0||surplus==0">
-					<view class="activity-block help-user" :class="surplus==0?'help-user-succ':''">
-						<view class="help-user-portrait portrait-block" v-for="(value,key) in help_list" :key="key">
-							<img :src="value.headimgurl" class="portrait-img" alt="" />
-						</view>
+				<view class="activity-block help-user" :class="surplus==0||Countdown==0?'help-user-succ':''">
+					<view class="help-user-portrait portrait-block" v-for="(value,key) in help_list" :key="key">
+						<img :src="value.headimgurl" class="portrait-img" alt="" />
+					</view>
+					<block v-if="Countdown!=0&&surplus!=0">
 						<view class="help-user-portrait portrait-block" v-for="n in parseInt(surplus)" v-if="surplus>1" :key="n">
 							<img src="../../static/contact.jpg" class="portrait-img" alt="" />
 						</view>
 						<view class="help-user-portrait portrait-block" v-if="surplus==1">
 							<img src="../../static/contact.jpg" class="portrait-img" alt="" />
 						</view>
-					</view>
-				</block>
+					</block>
+					<block v-if="Countdown==0&&surplus!=0">
+						<view class="help-user-portrait portrait-block" v-for="p in parseInt(surplus)" v-if="surplus>0" :key="'portrait'+p">
+							<img :src='"../../static/portrait/p" +p+".jpg"' class="portrait-img" alt="" />
+						</view>
+					</block>
+				</view>
 				<view class="activity-block share-info-block" v-if="surplus>0&&Countdown!=0">
 					<view class="share-info-txt">还差 {{surplus}} 位好友助力即可免费申请</view>
 					<view class="share-info-txt">赶快召唤小伙伴吧！</view>

@@ -160,7 +160,7 @@
 												手机号码
 											</view>
 											<view class="uni-list-cell-db">
-												<input class="uni-input" name="UserPhone" type="number" placeholder="" />
+												<input class="uni-input" name="UserPhone" type="number" placeholder="" :value="userInfo.phone?userInfo.phone:''"/>
 											</view>
 										</view>
 									</view>
