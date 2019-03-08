@@ -154,7 +154,7 @@
 											</view>
 										</view>
 									</view>
-									<view class="uni-list">
+									<view class="uni-list apply-date">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
 												手机号码
@@ -191,7 +191,7 @@
 												<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
 											</view>
 										</view> -->
-									<view class="uni-list apply-date">
+									<!-- <view class="uni-list apply-date">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
 												预约时间
@@ -202,7 +202,7 @@
 												</picker>
 											</view>
 										</view>
-									</view>
+									</view> -->
 									<view class="check-agreement">
 										<view>
 											<checkbox-group name="Agreement">
@@ -469,7 +469,7 @@
 						"city": "", //formData.City,
 						"school": "", //that.schoolId,
 						"article_id": that.article_id,
-						"arrive_time": formData.ApplyDate
+						"arrive_time": ""//formData.ApplyDate
 					};
 					//console.log(_data);
 					/**有活动的进入活动页
@@ -497,8 +497,8 @@
 						};
 					}
 					let funSave = function(res, resAll) {
-						console.log("=======预约课程返回状态========")
-						console.log(resAll)
+// 						console.log("=======预约课程返回状态========")
+// 						console.log(resAll)
 						that.loading = false
 						if (res.Result == 0) {
 							uni.showToast({
