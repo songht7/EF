@@ -10,7 +10,7 @@
 						</view>
 						<view class="ser-body">
 							<view class="ser-title">{{value.subjectName}}</view>
-							<view class="ser-time">预约时间：{{value.arrive_time}}</view>
+							<view class="ser-time"><!-- 预约时间：{{value.arrive_time}} --></view>
 						</view>
 						<view class="ser-tag-res">{{value.subjectCurrentPrice&&value.subjectCurrentPrice!="0.00"?"￥"+value.subjectCurrentPrice:"免费"}}</view>
 					</navigator>

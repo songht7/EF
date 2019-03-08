@@ -164,19 +164,21 @@
 				// 				console.log(url_getHelp)
 				// 				console.log(_head)
 				let funHelp = function(res) {
-					console.log("======getHelp========");
-					console.log(res)
+// 					console.log("======getHelp========");
+// 					console.log(res)
 					let article = res.article.data;
 					_this.article_id = article.id;
 					let lm = res.lm;
 					_this.lm = lm;
-					let _arrive_time = lm.arrive_time + " 24:00:00";
+					let _add_time = lm.add_time;
 					let currentTimeStamp = Date.parse(new Date());
-					let arriveTimeStamp = Date.parse(_arrive_time);
+					_add_time=_add_time.split(" ");
+					_add_time=_add_time[0]+" 24:00:00";
+					let arriveTimeStamp = Date.parse(_add_time);
 					if (arriveTimeStamp <= currentTimeStamp) {
 						_this.Countdown = 0;
 					} else {
-						_this.Countdown = _arrive_time;
+						_this.Countdown = _add_time;
 					}
 					let _surplus = _this.total - lm.help.total;
 					_this.surplus = _surplus <= 0 ? 0 : _surplus;
@@ -285,6 +287,7 @@
 				day = day > 9 ? day : '0' + day;
 
 				let YMDhms = `${year}-${month}-${day} 24:00:00`;
+				//console.log(YMDhms)
 				return YMDhms;
 				//return `${year}-${month}-${day}`;
 			}
