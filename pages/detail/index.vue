@@ -154,16 +154,30 @@
 											</view>
 										</view>
 									</view>
-									<view class="uni-list apply-date">
+									<view class="uni-list " :class="detail.current_price&&detail.current_price!='0.00'?'':'apply-date'">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
 												手机号码
 											</view>
 											<view class="uni-list-cell-db">
-												<input class="uni-input" name="UserPhone" type="number" placeholder="" :value="userInfo.phone?userInfo.phone:''"/>
+												<input class="uni-input" name="UserPhone" type="number" placeholder="" :value="userInfo.phone?userInfo.phone:''" />
 											</view>
 										</view>
 									</view>
+									<block v-if="detail.current_price&&detail.current_price!='0.00'">
+										<view class="uni-list apply-date">
+											<view class="uni-list-cell">
+												<view class="uni-list-cell-left" @click="popupIntro('integral')">
+													剩余积分100<uni-icon size="20" type="info" color="#A7A7AF"></uni-icon>
+												</view>
+												<view class="uni-list-cell-db use-integral">
+													<view class="int-block">
+														<input class="uni-input" name="Integral" type="number" placeholder="" :value="Math.ceil(detail.current_price)" /><text>积分兑换</text>
+													</view>
+												</view>
+											</view>
+										</view>
+									</block>
 									<!-- <view class="uni-list">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left">
@@ -210,7 +224,7 @@
 													<checkbox value="true" checked="true" /><text class="agmt-txt">接受</text></label>
 											</checkbox-group>
 										</view>
-										<view class="agreement agmt-txt" @click="AgreementOpen">《声明条款》</view>
+										<view class="agreement agmt-txt" @click="popupIntro('agreement')">《声明条款》</view>
 									</view>
 									<view class="uni-btn-v">
 										<button formType="submit" :loading="loading" class="apply-btn">立即申请</button>
@@ -245,18 +259,13 @@
 
 		<!-- 弹出层 -->
 		<lvv-popup position="top" ref="lvvpopref">
-			<view class="pop-inner agmt-pop">
-				<view class="pop-box">
-					<view class="pop-head">
-						<view class="pop-title">用户使用协议</view>
-						<view class="pop-close" @tap="closeAgreement">
-							<uni-icon type="closeempty" size="42" color="#666666"></uni-icon>
-						</view>
-					</view>
-					<view class="pop-main">
-						<agreement></agreement>
-					</view>
-				</view>
+			<view class="pop-inner agmt-pop" :style="popType=='integral'?'top:30%':''">
+				<block v-if="popType=='agreement'">
+					<agreement @click="closeIntro"></agreement>
+				</block>
+				<block v-else-if="popType=='integral'">
+					<integral @click="closeIntro"></integral>
+				</block>
 			</view>
 		</lvv-popup>
 		<!-- 弹出层 -->
@@ -321,7 +330,8 @@
 				deepLength: 1,
 				pickerValueDefault: [0],
 				pickerValueArray: [],
-				successShow: ""
+				successShow: "",
+				popType: "agreement"
 			};
 		},
 		onLoad(option) {
@@ -469,7 +479,7 @@
 						"city": "", //formData.City,
 						"school": "", //that.schoolId,
 						"article_id": that.article_id,
-						"arrive_time": ""//formData.ApplyDate
+						"arrive_time": "" //formData.ApplyDate
 					};
 					//console.log(_data);
 					/**有活动的进入活动页
@@ -497,8 +507,8 @@
 						};
 					}
 					let funSave = function(res, resAll) {
-// 						console.log("=======预约课程返回状态========")
-// 						console.log(resAll)
+						// 						console.log("=======预约课程返回状态========")
+						// 						console.log(resAll)
 						that.loading = false
 						if (res.Result == 0) {
 							uni.showToast({
@@ -640,10 +650,11 @@
 					}, 3000)
 				}, t)
 			},
-			AgreementOpen() {
+			popupIntro(type) {
+				this.popType = type;
 				this.$refs.lvvpopref.show();
 			},
-			closeAgreement() {
+			closeIntro() {
 				// 关闭modal弹出框
 				this.$refs.lvvpopref.close();
 			}

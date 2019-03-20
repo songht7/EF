@@ -85,6 +85,14 @@
 								 :disabled="isDisabled" /></view>
 						</view>
 					</view>
+					<view class="cell">
+						<view class="cell-left">
+							<view class="cell-text" @click="popupIntro('integral')">积分 <uni-icon size="20" type="info" color="#A7A7AF"></uni-icon></view>
+						</view>
+						<view class="cell-right">
+							<text class="cell-text-right">100</text>
+						</view>
+					</view>
 					<!-- 	<view class="cell">
 						<view class="cell-left">
 							<text class="cell-text">联系我们</text>
@@ -99,21 +107,16 @@
 					</view>
 				</form>
 			</view>
-			<view class="agreement" :class="openid?'':'onlyAgmt'" @click="Agreement">声明条款</view>
+			<view class="agreement" :class="openid?'':'onlyAgmt'" @click="popupIntro('agreement')">声明条款</view>
 			<!-- 弹出层 -->
 			<lvv-popup position="top" ref="lvvpopref">
-				<view class="pop-inner agmt-pop">
-					<view class="pop-box">
-						<view class="pop-head">
-							<view class="pop-title">用户使用协议</view>
-							<view class="pop-close" @tap="closeAgreement">
-								<uni-icon type="closeempty" size="42" color="#666666"></uni-icon>
-							</view>
-						</view>
-						<view class="pop-main">
-							<agreement></agreement>
-						</view>
-					</view>
+				<view class="pop-inner agmt-pop" :style="popType=='integral'?'top:30%':''">
+					<block v-if="popType=='agreement'">
+						<agreement @click="closeIntro"></agreement>
+					</block>
+					<block v-else-if="popType=='integral'">
+						<integral @click="closeIntro"></integral>
+					</block>
 				</view>
 			</lvv-popup>
 			<!-- 弹出层 -->
@@ -143,7 +146,8 @@
 				email: "",
 				loading: false,
 				isHide: "isHide",
-				isDisabled: true
+				isDisabled: true,
+				popType: "agreement"
 			};
 		},
 		onLoad() {
@@ -318,10 +322,11 @@
 
 				return `${year}-${month}-${day}`;
 			},
-			Agreement() {
+			popupIntro(type) {
+				this.popType = type;
 				this.$refs.lvvpopref.show();
 			},
-			closeAgreement() {
+			closeIntro() {
 				// 关闭modal弹出框
 				this.$refs.lvvpopref.close();
 			}

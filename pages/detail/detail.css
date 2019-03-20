@@ -314,3 +314,4 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	display: block;
 	width: 100%;
 }
+.int-block{display: flex;justify-content: flex-end;align-content: flex-end;align-items: center;text-align: right;}

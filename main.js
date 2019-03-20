@@ -6,8 +6,12 @@ Vue.config.productionTip = false
 /*全局组件引用*/
 import swiper from "./components/swiper-block.vue"
 Vue.component("swiper-block",swiper)
+/*用户协议*/
 import agreement from "./components/agreement.vue"
 Vue.component("agreement",agreement)
+/*积分*/
+import integral from "./components/integral.vue"
+Vue.component("integral",integral)
 // import WXShare from "./components/wx-share.vue"
 // Vue.component("wx-share",WXShare)
 
