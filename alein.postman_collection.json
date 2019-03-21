@@ -19,7 +19,9 @@
 		"0f3a9e9d-b77a-5a24-e467-52e1ad72721d",
 		"b910c32a-a11b-e2f1-90b2-ee771615915f",
 		"c994c2a2-f0f3-7f02-9e7c-759bfa027d00",
-		"72c20509-de16-a603-0545-ad47bf2d3a0d"
+		"72c20509-de16-a603-0545-ad47bf2d3a0d",
+		"343b1c8e-d0eb-94e0-7f63-39ce1e0872a1",
+		"e769b29d-9bde-26fe-b456-19f356ef3fda"
 	],
 	"folders": [
 		{
@@ -130,6 +132,36 @@
 			"timestamp": null
 		},
 		{
+			"id": "343b1c8e-d0eb-94e0-7f63-39ce1e0872a1",
+			"headers": "openid: 1\n",
+			"headerData": [
+				{
+					"key": "openid",
+					"value": "1",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://api.alein.lc/v2/ApiHome-getPoints.htm",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"data": null,
+			"dataMode": "params",
+			"name": "/v2/ApiHome-getPoints.htm",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1553168593573,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
 			"id": "3d9a18e2-0f95-2e3e-80a0-3d9af01000ee",
 			"headers": "Content-Type: application/json\nopenid: 1\n",
 			"headerData": [
@@ -169,11 +201,12 @@
 			"id": "4ea60c49-e318-87f4-3ce3-edd897b0bbfc",
 			"headers": "",
 			"headerData": [],
-			"url": "http://api.alein.lc/v2/ApiHome-article_detail.htm?id=7",
+			"url": "http://api.alein.lc/v2/ApiHome-article_detail.htm?id=1",
+			"folder": null,
 			"queryParams": [
 				{
 					"key": "id",
-					"value": "7",
+					"value": "1",
 					"equals": true,
 					"description": "",
 					"enabled": true
@@ -188,15 +221,12 @@
 			"version": 2,
 			"tests": null,
 			"currentHelper": "normal",
-			"helperAttributes": "{}",
-			"time": 1548403074826,
+			"helperAttributes": {},
+			"time": 1553168545610,
 			"name": "/v2/ApiHome-article_detail.htm?id=1",
 			"description": "",
 			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
-			"responses": [],
-			"folder": null,
-			"folderId": null,
-			"timestamp": null
+			"responses": []
 		},
 		{
 			"id": "5156c194-8257-b867-4271-292006ef5e61",
@@ -259,11 +289,11 @@
 		},
 		{
 			"id": "72c20509-de16-a603-0545-ad47bf2d3a0d",
-			"headers": "openid: 1\nContent-Type: application/json\n",
+			"headers": "openid: oeH5Zw1gRAZpsj6PJC4h3-huJmzQ\nContent-Type: application/json\n",
 			"headerData": [
 				{
 					"key": "openid",
-					"value": "1",
+					"value": "oeH5Zw1gRAZpsj6PJC4h3-huJmzQ",
 					"description": "",
 					"enabled": true
 				},
@@ -285,12 +315,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1551439007760,
+			"time": 1551536732329,
 			"name": "/v2/ApiHome-getHelp.htm?lm_id=92",
 			"description": "",
 			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
 			"responses": [],
-			"rawModeData": "{\"lm_id\":\"92\"}"
+			"rawModeData": "{\"lm_id\":\"100\",\"help\":\"self\"}"
 		},
 		{
 			"id": "80567844-65e3-b745-da08-209b9953ddb8",
@@ -571,32 +601,30 @@
 			"id": "c994c2a2-f0f3-7f02-9e7c-759bfa027d00",
 			"headers": "",
 			"headerData": [],
-			"url": "http://api.alein.lc/v2/ApiHome-getHelp.htm?lm_id=92",
+			"url": "http://api.alein.lc/v2/ApiHome-getHelp.htm?lm_id=100",
 			"queryParams": [
 				{
 					"key": "lm_id",
-					"value": "92",
+					"value": "100",
 					"equals": true,
 					"description": "",
 					"enabled": true
 				}
 			],
+			"preRequestScript": null,
 			"pathVariables": {},
 			"pathVariableData": [],
-			"preRequestScript": null,
 			"method": "GET",
-			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
 			"data": null,
 			"dataMode": "params",
-			"name": "/v2/ApiHome-getHelp.htm?lm_id=92",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1551436103900,
-			"version": 2,
-			"responses": [],
 			"tests": null,
 			"currentHelper": "normal",
-			"helperAttributes": {}
+			"helperAttributes": {},
+			"time": 1551536459546,
+			"name": "/v2/ApiHome-getHelp.htm?lm_id=92",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"responses": []
 		},
 		{
 			"id": "ca77b45a-7190-f60d-ac96-7f93384c6a3f",
@@ -656,6 +684,41 @@
 			"description": "",
 			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
 			"responses": []
+		},
+		{
+			"id": "e769b29d-9bde-26fe-b456-19f356ef3fda",
+			"headers": "Content-Type: application/json\nopenid: 1\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "openid",
+					"value": "1",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://api.alein.lc/v2/ApiHome-savePoint.htm",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1553168736722,
+			"name": "/v2/ApiHome-savePoint.htm",
+			"description": "",
+			"collectionId": "3b2752b5-5657-c63e-39ed-fc355313949a",
+			"responses": [],
+			"rawModeData": ""
 		},
 		{
 			"id": "f66d50d3-5b86-fca9-80e1-4675e8605a13",
