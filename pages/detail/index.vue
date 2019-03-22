@@ -497,7 +497,7 @@
 						_data["article_type"] = "help";
 					}
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
-					console.log(url_saveSingle);
+					//console.log(url_saveSingle);
 					var openid = that.userInfo.openid ? that.userInfo.openid : "";
 					let test_openid = inter.wx.test_openid;
 					let _head = {};
@@ -511,18 +511,33 @@
 						// 						console.log("=======预约课程返回状态========")
 						// 						console.log(resAll)
 						that.loading = false
-						if (res.Result == 0) {
+						if (!resAll.success) {
 							uni.showToast({
-								title: "申请失败,请重试",
+								title: resAll.result || "申请失败,请重试",
 								image: "../../static/icon-1.png"
 							})
 						} else {
+							let __point = that.userInfo.point - Math.ceil(that.detail.current_price);
+							if (resAll.result.point || __point >= 0) {
+								uni.getStorage({
+									key: 'uWXInfo',
+									success: function(ress) {
+										let _uWXInfo = ress.data;
+										_uWXInfo["point"] = resAll.result.point || __point;
+										uni.setStorage({
+											key: 'uWXInfo',
+											data: _uWXInfo,
+											success: function() {}
+										})
+									},
+								})
+							}
 							that.successShow = "success-show"
 							setTimeout(function() {
 								that.successShow = ""
 							}, 3000)
 						}
-						if (activity) {
+						if (activity && resAll.success) {
 							var _lm_id = "";
 							if (resAll.result.id) {
 								_lm_id = resAll.result.id;
@@ -547,7 +562,9 @@
 									success: function(ress) {
 										let _uWXInfo = ress.data;
 										_uWXInfo["phone"] = user_data.phone;
-										if(res.sum){_uWXInfo["point"] = res.sum;}
+										if (res.sum) {
+											_uWXInfo["point"] = res.sum;
+										}
 										uni.setStorage({
 											key: 'uWXInfo',
 											data: _uWXInfo,

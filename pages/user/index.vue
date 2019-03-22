@@ -152,11 +152,11 @@
 				popType: "agreement"
 			};
 		},
-		onLoad() {
+		onLoad() {},
+		onShow() {
 			var that = this;
 			that.getUserInfo();
 		},
-		onShow() {},
 		components: {
 			uniIcon,
 			lvvPopup

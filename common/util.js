@@ -146,11 +146,13 @@ const module = {
 			imgUrl: imgUrl,
 			success: function() {
 				let fun = function(storageRes) {
-					let openid = storageRes ? storageRes : "";
+					let openid = storageRes.openid ? storageRes.openid : "";
 					let test_openid = Interface.wx.test_openid;
 					let _head = {
 						"openid": openid || test_openid
 					};
+					console.log("-----share succ----")
+					console.log(_head)
 					let funSave = function(res) {
 						if(res.sum){
 							uni.getStorage({
@@ -171,7 +173,7 @@ const module = {
 					/*分享获得积分*/
 					let _savePoint = that.getData(url_savePoint, funSave, "POST", "", _head);
 				}
-				that.getMyStorage("uWXInfo", "openid", fun)
+				that.getMyStorage("uWXInfo", "", fun)
 			}
 		};
 		wx.ready(function() {
