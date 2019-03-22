@@ -25,14 +25,15 @@ const Interface = {
 		"getBookedList": "/v2/ApiHome-getBookedList.htm", //预约列表
 		"saveUserInfo": "/v2/ApiHome-saveUserInfo.htm", //编辑保存用户
 		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm",
-		"getJsApiTicket": "/v2/ApiWeChat-getJsApiTicket.htm"
+		"getJsApiTicket": "/v2/ApiWeChat-getJsApiTicket.htm",
+		"savePoint": "/v2/ApiHome-savePoint.htm" //得积分POST
 	},
 	"wx": {
 		"appid": "wx11eb371cd85adfd4",
 		"access_token": "client_credential",
 		"secret": "01ef7de58bc18da629d4ec33a62744f9",
 		"getToken": "https://api.weixin.qq.com/cgi-bin/token",
-		"test_openid": "oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
+		"test_openid": "" //"oeH5Zw1gRAZpsj6PJC4h3-huJmzQ" //测试
 	}
 
 };
@@ -87,8 +88,8 @@ const module = {
 		})
 	},
 	wxShare: function(share_url, title, imgUrl, dec) {
-		//console.log(share_url, title, dec)
 		var that = this;
+		//console.log(share_url, title, dec)
 		var funTicket = function(res) {
 			// 			console.log("=======getTicket======")
 			// 			console.log(res)
@@ -125,7 +126,7 @@ const module = {
 		}
 		let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + getTicketUrl;
 		let wx_ticket = that.getData(url_ticket, funTicket)
-		
+
 		var storFun = function(res) {
 			if (res == "") {}
 		}
@@ -142,7 +143,36 @@ const module = {
 			title: title || "英语免费试听",
 			desc: dec || "英语免费试听课，在这里找到你想要的",
 			link: share_url,
-			imgUrl: imgUrl
+			imgUrl: imgUrl,
+			success: function() {
+				let fun = function(storageRes) {
+					let openid = storageRes ? storageRes : "";
+					let test_openid = Interface.wx.test_openid;
+					let _head = {
+						"openid": openid || test_openid
+					};
+					let funSave = function(res) {
+						if(res.sum){
+							uni.getStorage({
+								key: 'uWXInfo',
+								success: function(ress) {
+									let _uWXInfo = ress.data;
+									_uWXInfo["point"] = res.sum;
+									uni.setStorage({
+										key: 'uWXInfo',
+										data: _uWXInfo,
+										success: function() {}
+									})
+								},
+							})
+						}
+					}
+					let url_savePoint = Interface.apiurl + Interface.addr.savePoint;
+					/*分享获得积分*/
+					let _savePoint = that.getData(url_savePoint, funSave, "POST", "", _head);
+				}
+				that.getMyStorage("uWXInfo", "openid", fun)
+			}
 		};
 		wx.ready(function() {
 			wx.updateAppMessageShareData(wxSet);
@@ -239,7 +269,8 @@ const module = {
 			data: {},
 			header: _head || {},
 			success(res) {
-				//console.log(res)
+// 				console.log("====getWeChatInfo====")
+// 				console.log(res)
 				result = res;
 				let _data = res.data.data;
 				if (_data.openid) {
@@ -247,7 +278,7 @@ const module = {
 						key: 'uWXInfo',
 						data: _data,
 						success: function() {
-							console.log('setStorage-uWXInfo-success');
+							//console.log('setStorage-uWXInfo-success');
 						}
 					})
 					if (!_openid) {

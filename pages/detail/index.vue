@@ -168,11 +168,13 @@
 										<view class="uni-list apply-date">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left" @click="popupIntro('integral')">
-													剩余积分100<uni-icon size="20" type="info" color="#A7A7AF"></uni-icon>
+													剩余积分{{userInfo.point}}
+													<uni-icon size="20" type="info" color="#A7A7AF"></uni-icon>
 												</view>
 												<view class="uni-list-cell-db use-integral">
 													<view class="int-block">
-														<input class="uni-input" name="Integral" type="number" placeholder="" :value="Math.ceil(detail.current_price)" /><text>积分兑换</text>
+														<input class="uni-input" name="Integral" type="text" disabled="" :placeholder="userInfo.point>=Math.ceil(detail.current_price)?Math.ceil(detail.current_price)+'积分兑换':'积分不够，分享获得更多积分'"
+														 value="" />
 													</view>
 												</view>
 											</view>
@@ -259,7 +261,7 @@
 
 		<!-- 弹出层 -->
 		<lvv-popup position="top" ref="lvvpopref">
-			<view class="pop-inner agmt-pop" :style="popType=='integral'?'top:30%':''">
+			<view class="pop-inner" :class="'pop-inner-'+popType">
 				<block v-if="popType=='agreement'">
 					<agreement @click="closeIntro"></agreement>
 				</block>
@@ -336,15 +338,6 @@
 		},
 		onLoad(option) {
 			var _this = this;
-			var funStor = function(res) {
-				if (res) {
-					_this.userInfo = res;
-				} else {
-					mdl.getWXCode();
-				}
-			}
-			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
-
 			let _id = option.id;
 			this.article_id = _id;
 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
@@ -386,6 +379,14 @@
 		},
 		onShow() {
 			let _this = this;
+			var funStor = function(res) {
+				if (res) {
+					_this.userInfo = res;
+				} else {
+					mdl.getWXCode();
+				}
+			}
+			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
 			if (_this.detail.name) {
 				_this.setShare(_this.detail);
 			}
@@ -546,6 +547,7 @@
 									success: function(ress) {
 										let _uWXInfo = ress.data;
 										_uWXInfo["phone"] = user_data.phone;
+										if(res.sum){_uWXInfo["point"] = res.sum;}
 										uni.setStorage({
 											key: 'uWXInfo',
 											data: _uWXInfo,

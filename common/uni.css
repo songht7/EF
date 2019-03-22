@@ -24,6 +24,18 @@
 	left: 0;
 	bottom: 0;
 	overflow-y: auto;
+	border-radius: 10upx;
+}
+.pop-inner-agreement,.pop-inner-integral{
+	bottom: auto;
+	top: 10%;
+	max-height: 75%;
+	width: 90%;
+	left: 5%;
+}
+
+.pop-inner-integral{
+	top:30%
 }
 
 .pop-box {
@@ -53,14 +65,6 @@
 	right: 0;
 	z-index: 1;
 }
-.pop-inner.agmt-pop {
-	bottom: auto;
-	top: 10%;
-	max-height: 75%;
-	width: 90%;
-	left: 5%;
-}
-
 .intro-box {
 	text-align: left
 }

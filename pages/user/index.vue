@@ -87,10 +87,11 @@
 					</view>
 					<view class="cell">
 						<view class="cell-left">
-							<view class="cell-text" @click="popupIntro('integral')">积分 <uni-icon size="20" type="info" color="#A7A7AF"></uni-icon></view>
+							<view class="cell-text" @click="popupIntro('integral')">积分 <uni-icon size="20" type="info" color="#A7A7AF"></uni-icon>
+							</view>
 						</view>
 						<view class="cell-right">
-							<text class="cell-text-right">100</text>
+							<text class="cell-text-right">{{point}}</text>
 						</view>
 					</view>
 					<!-- 	<view class="cell">
@@ -110,7 +111,7 @@
 			<view class="agreement" :class="openid?'':'onlyAgmt'" @click="popupIntro('agreement')">声明条款</view>
 			<!-- 弹出层 -->
 			<lvv-popup position="top" ref="lvvpopref">
-				<view class="pop-inner agmt-pop" :style="popType=='integral'?'top:30%':''">
+				<view class="pop-inner" :class="'pop-inner-'+popType">
 					<block v-if="popType=='agreement'">
 						<agreement @click="closeIntro"></agreement>
 					</block>
@@ -144,6 +145,7 @@
 				gender: ['男', '女'],
 				genderIndex: 0,
 				email: "",
+				point: 0,
 				loading: false,
 				isHide: "isHide",
 				isDisabled: true,
@@ -154,6 +156,7 @@
 			var that = this;
 			that.getUserInfo();
 		},
+		onShow() {},
 		components: {
 			uniIcon,
 			lvvPopup
@@ -176,6 +179,7 @@
 					that.userInfo = res;
 					that.openid = res.openid ? res.openid : "";
 					that.headimgurl = res.headimgurl;
+					that.point = res.point;
 					that.setUserInfo(res);
 					if (res.sex == 1 || res.sex == "男") {
 						that.genderIndex = 0
@@ -221,12 +225,12 @@
 						"sex": formData.Gender == 0 ? "男" : "女",
 						"email": formData.Email
 					};
-					console.log(_data)
+					//console.log(_data)
 					let url_saveUser = apiurl + inter.addr.saveUserInfo;
-					console.log(url_saveUser);
+					//console.log(url_saveUser);
 					let funSave = function(res) {
-						console.log("=======saveUserInfo========")
-						console.log(res)
+						// 												console.log("=======saveUserInfo========")
+						// 												console.log(res)
 						that.loading = false
 						if (res.Result == 0) {
 							uni.showToast({
@@ -250,6 +254,7 @@
 									})
 								},
 							})
+							_data["point"] = res.sum ? res.sum : that.point;
 							that.setUserInfo(_data);
 							uni.showToast({
 								title: "保存成功"
@@ -283,6 +288,7 @@
 				});
 				that.genderIndex = _data.sex == "男" || _data.sex == 1 ? 0 : 1;
 				that.email = _data.email ? _data.email : "";
+				that.point = _data.point ? _data.point : 0;
 			},
 			logout() {
 				var that = this;
