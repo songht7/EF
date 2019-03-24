@@ -154,12 +154,12 @@ const module = {
 					console.log("-----share succ----")
 					console.log(_head)
 					let funSave = function(res) {
-						if(res.sum){
+						if(res.point){
 							uni.getStorage({
 								key: 'uWXInfo',
 								success: function(ress) {
 									let _uWXInfo = ress.data;
-									_uWXInfo["point"] = res.sum;
+									_uWXInfo["point"] = res.point;
 									uni.setStorage({
 										key: 'uWXInfo',
 										data: _uWXInfo,
@@ -177,13 +177,13 @@ const module = {
 			}
 		};
 		wx.ready(function() {
-			wx.updateAppMessageShareData(wxSet);
-			wx.updateTimelineShareData(wxSet);
+			//wx.updateAppMessageShareData(wxSet);
+			//wx.updateTimelineShareData(wxSet);
 			// 2. 分享接口
 			// 2.1 监听“分享给朋友”，按钮点击、自定义分享内容及分享结果接口
-			//wx.onMenuShareAppMessage(wxSet);
+			wx.onMenuShareAppMessage(wxSet);
 			// 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
-			//wx.onMenuShareTimeline(wxSet);
+			wx.onMenuShareTimeline(wxSet);
 			// 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
 			wx.onMenuShareQQ(wxSet);
 		});

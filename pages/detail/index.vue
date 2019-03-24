@@ -333,7 +333,12 @@
 				pickerValueDefault: [0],
 				pickerValueArray: [],
 				successShow: "",
-				popType: "agreement"
+				popType: "agreement",
+				activity_target: "activity_tag", //活动根据品牌或tag：activity_brand, activity_tag
+				activity_brand: ["1", "4", "14", "24"], //活动品牌
+				activity_type: {
+					"help": "help"
+				} //活动类型-help:助力
 			};
 		},
 		onLoad(option) {
@@ -483,18 +488,33 @@
 						"arrive_time": "" //formData.ApplyDate
 					};
 					//console.log(_data);
-					/**有活动的进入活动页
+					/**有活动的进入活动页 that.activity_brand
 					 * brand_id 4 韦博
 					 * brand_id 14 韦博开心豆
 					 * brand_id 1 英孚
 					 * brand_id 24 EF英孚教育青少儿英语
 					 * **/
 					var brand_id = that.brand_id;
-					var brandIs = ["1", "4", "14", "24"];
 					var activity = false;
-					if (brandIs.indexOf(brand_id) != -1) {
-						activity = true;
-						_data["article_type"] = "help";
+					if (that.activity_target == "activity_brand") {
+						/*根据品牌 */
+						var brandIs = that.activity_brand;
+						if (brandIs.indexOf(brand_id) != -1) {
+							activity = true;
+							_data["article_type"] = that.activity_type["help"];
+						}
+					} else if (that.activity_target == "activity_tag") {
+						/*根据标签 活动-活动类型 */
+						var isActivity = that.detail.tags.split("；") ? that.detail.tags.split("；")[1] : "";
+						var isActivity_type = isActivity ? isActivity.split("-") : "";
+						if (isActivity_type && isActivity_type[0] == "活动") {
+							activity = true;
+							switch (isActivity_type["1"]) {
+								case "助力":
+									_data["article_type"] = that.activity_type["help"];
+									break;
+							}
+						}
 					}
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
 					//console.log(url_saveSingle);

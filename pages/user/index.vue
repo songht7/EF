@@ -229,8 +229,8 @@
 					let url_saveUser = apiurl + inter.addr.saveUserInfo;
 					//console.log(url_saveUser);
 					let funSave = function(res) {
-						// 												console.log("=======saveUserInfo========")
-						// 												console.log(res)
+																		console.log("=======saveUserInfo========")
+																		console.log(res)
 						that.loading = false
 						if (res.Result == 0) {
 							uni.showToast({
@@ -254,7 +254,7 @@
 									})
 								},
 							})
-							_data["point"] = res.sum ? res.sum : that.point;
+							_data["point"] = res.point ? res.point : that.point;
 							that.setUserInfo(_data);
 							uni.showToast({
 								title: "保存成功"
