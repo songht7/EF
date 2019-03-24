@@ -554,7 +554,18 @@
 							}
 							that.successShow = "success-show"
 							setTimeout(function() {
-								that.successShow = ""
+								that.successShow = "";
+								if (!activity) {
+									try {
+										uni.navigateBack({
+											delta: 1
+										});
+									} catch (e) {
+										uni.switchTab({
+											url: '/pages/index/index'
+										});
+									}
+								}
 							}, 3000)
 						}
 						if (activity && resAll.success) {
