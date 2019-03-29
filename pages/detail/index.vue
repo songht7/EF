@@ -79,7 +79,7 @@
 					<!-- <view class="uni-comment-list"> -->
 					<view class="uni-comment-list" v-for="(cmt,c) in detail.comment" :key="c" v-if="c<3">
 						<view class="uni-comment-face">
-							<image v-if="cmt.headimgurl" :src="cmt.headimgurl" mode="widthFix"></image>
+							<image v-if="cmt.headimgurl&&cmt.name!='匿名'" :src="cmt.headimgurl" mode="widthFix"></image>
 							<uni-icon v-else size="55" type="contact" color="#DDDDDF"></uni-icon>
 						</view>
 						<view class="uni-comment-body">
