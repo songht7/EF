@@ -2,7 +2,7 @@
 	<div class="activity-page">
 		<block v-if="!lm">
 			<view class="page-loading">
-				正在加载...
+				正在加载···
 			</view>
 		</block>
 		<block v-if="lm">
@@ -32,7 +32,7 @@
 					</block>
 					<block v-if="Countdown==0&&surplus!=0">
 						<view class="help-user-portrait portrait-block" v-for="p in parseInt(surplus)" v-if="surplus>0" :key="'portrait'+p">
-							<img :src='"../../static/portrait/p" +p+".jpg"' class="portrait-img" alt="" />
+							<img :src="'../../static/portrait/p'+p+'.jpg'" class="portrait-img" alt="" />
 						</view>
 					</block>
 				</view>
@@ -164,16 +164,16 @@
 				// 				console.log(url_getHelp)
 				// 				console.log(_head)
 				let funHelp = function(res) {
-// 					console.log("======getHelp========");
-// 					console.log(res)
+					// 					console.log("======getHelp========");
+					// 					console.log(res)
 					let article = res.article.data;
 					_this.article_id = article.id;
 					let lm = res.lm;
 					_this.lm = lm;
 					let _add_time = lm.add_time;
 					let currentTimeStamp = Date.parse(new Date());
-					_add_time=_add_time.split(" ");
-					_add_time=_add_time[0]+" 24:00:00";
+					_add_time = _add_time.split(" ");
+					_add_time = _add_time[0] + " 24:00:00";
 					let arriveTimeStamp = Date.parse(_add_time);
 					if (arriveTimeStamp <= currentTimeStamp) {
 						_this.Countdown = 0;
