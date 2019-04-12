@@ -1,7 +1,7 @@
 <template>
 	<!-- <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 	 @scroll="scroll"> -->
-	<view class="page detail-page page-main">
+	<view class="page detail-page">
 		<view class="detail-block">
 			<view class="swiper-box">
 				<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true" interval="3000" duration="1000"
