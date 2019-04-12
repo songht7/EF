@@ -48,7 +48,7 @@
 			linkTo(pram) {
 				if (pram) {
 					uni.navigateTo({
-						url: '/pages/detail/index?'+pram
+						url: '/pages/detail/index?' + pram
 					});
 				}
 			}
@@ -79,5 +79,11 @@
 		width: 100%;
 		height: 100%;
 		display: inline-block;
+	}
+
+	@media screen and (min-device-width: 1025px) {
+		.swiper {
+			height: 250px;
+		}
 	}
 </style>

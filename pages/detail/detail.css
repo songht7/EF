@@ -314,4 +314,153 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	display: block;
 	width: 100%;
 }
-.int-block{display: flex;justify-content: flex-end;align-content: flex-end;align-items: center;text-align: right;}
+
+.int-block {
+	display: flex;
+	justify-content: flex-end;
+	align-content: flex-end;
+	align-items: center;
+	text-align: right;
+}
+
+/* @media screen and (min-device-width: 1025px) {
+	.detail-block {
+		border-bottom: 10px solid #EBEBEB;
+		padding-bottom: 5px;
+	}
+
+	.block-title {
+		font-size: 17px;
+		padding: 0 10px 10px 17.5px;
+	}
+
+	.apply-box {
+		padding-top: 10px;
+	}
+
+	.card-box {
+		top: -5px;
+	}
+
+	.uni-common-mt {
+		margin: 0 auto 12.5px
+	}
+
+	.uni-card {
+		margin: 0 0 7.5px;
+	}
+
+	.uni-card-content-inner {
+		padding: 7.5px;
+	}
+
+	.swiper {
+		height: 300px;
+	}
+
+	uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
+		bottom: 15px;
+	}
+
+	.ser-title {
+		font-size: 16px;
+	}
+
+	.ser-feature {
+		font-size: 12px;
+	}
+
+	.ser-tag {
+		font-size: 12px;
+		padding: 0 17.5px;
+		top: -7px;
+		right: -7px;
+		border-radius: 0 2.5px 0 5px;
+	}
+
+	.apply-num {
+		margin-top: 10px;
+		padding: 10px 0 7.5px;
+	}
+
+	.h3 {
+		font-size: 17px;
+		padding-bottom: 5px;
+	}
+
+	.comments {
+		font-size: 17px;
+		padding: 5px 10px 2.5px 17px;
+	}
+
+	.uni-comment-face {
+		width: 55px;
+		height: 55px;
+	}
+
+	.to-comment {
+		padding: 10px 0;
+	}
+
+	.comment-btn {
+		font-size: 14px;
+	}
+
+	.dtl-btns {
+		padding: 10px 10px 7.5px;
+	}
+
+	.apply-btn,
+	.goTo {
+		border-radius: 5px;
+		font-size: 15px;
+		padding: 7.5px 0;
+	}
+
+	.btnIcon {
+		right: 5px;
+	}
+
+	.scroll-Y {
+		height: 1000px;
+	}
+
+	.visitors {
+		font-size: 14px;
+		border-radius: 4px;
+	}
+
+	.goTo {
+		bottom: 10px;
+		border-radius: 5px;
+	}
+
+	.uni-list-cell-left {
+		padding: 0 5px;
+	}
+
+	.radio-block {
+		padding-left: 10px;
+	}
+
+	.school-box .uni-input {
+		height: 50px;
+	}
+
+	.school-box .uni-input.rowOne {
+		height: 25px;
+	}
+
+	.check-agreement {
+		padding: 10px 0 0;
+	}
+
+	.agmt-txt {
+		font-size: 14px;
+	}
+
+	.qrcodefot {
+		margin: 20px auto 0;
+	}
+}
+ */

@@ -179,4 +179,66 @@
 		text-decoration: none;
 		color: #282828
 	}
+
+	@media screen and (min-device-width: 1025px) {
+		.uni-common-mt {
+			margin-top: 15px;
+		}
+
+		.uni-padding-wrap {
+			width: 100%;
+			padding: 0;
+		}
+
+		.uni-card-content-inner {
+			padding: 7.5px;
+		}
+
+		.ser-logo {
+			width: 80px;
+			height: 80px;
+		}
+
+		.ser-body {
+			padding-left: 5px;
+		}
+
+		.ser-title {
+			font-size: 18px;
+			padding-bottom: 2.5px;
+		}
+
+		.ser-describe {
+			font-size: 12px;
+			margin-bottom: 2.5px;
+		}
+
+		.ser-price {
+			font-size: 12px;
+		}
+
+		.ser-tag {
+			font-size: 12px;
+			padding: 0 7.5px;
+			line-height: 2;
+			top: -7px;
+			right: -7px;
+			border-radius: 0 10px 0 5px;
+		}
+
+
+		.txt-a {
+			font-size: 16px;
+		}
+
+		.apply {
+			padding: 5px 0 0;
+		}
+
+		.apply-btn {
+			border-radius: 5px;
+			font-size: 13px;
+			padding: 2.5px 0;
+		}
+	}
 </style>

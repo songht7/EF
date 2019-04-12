@@ -208,4 +208,34 @@
 		text-align:center;
 		padding-right: 60upx;
 	}
+@media screen and (min-device-width: 1025px) {
+	.uni-navbar view{
+		line-height:44px;
+	}
+	.uni-navbar.uni-navbar-fixed {
+		max-width: 1025px;
+	}
+	
+	.uni-navbar-header {
+	    height:44px;
+	    line-height:44px;
+	    font-size: 16px;
+	}
+	
+	.uni-navbar-header .uni-navbar-header-btns{
+		width: 120px;
+		padding:0 12px;
+	}
+	.uni-navbar-header .uni-navbar-header-btns:last-child{
+		width: 30px;
+	}
+	.uni-navbar-container{
+		margin:0 5px;
+	}
+	.uni-navbar-container-title{
+		font-size:15px;
+		padding-right: 30px;
+	}
+}
+
 </style>

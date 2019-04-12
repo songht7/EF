@@ -189,4 +189,14 @@
 			opacity: 0.2;
 		}
 	}
+
+	@media screen and (min-device-width: 1025px) {
+		.load-more {
+			height: 40px;
+		}
+
+		.loading-text {
+			font-size: 18px;
+		}
+	}
 </style>
