@@ -15,14 +15,23 @@
 				// 				});
 			} else if (pageis == "ef" && id) {
 				let hash = window.location.hash;
-				window.location.href = location.origin + '/'+hash
+				window.location.href = location.origin + '/' + hash
 			} else if (pageis) {
 				let hash = window.location.hash;
-				window.location.href = location.origin + '/'+hash
+				window.location.href = location.origin + '/' + hash
 			}
 		},
 		onShow: function() {
 			//console.log('App Show')
+			// 			this.$store.dispatch('get_sysInfo')
+			// 			if (this.$store.state.sysInfo.model == undefined) {
+			// 				uni.redirectTo({
+			// 					url: "/pages/error"
+			// 				});
+			// 				return false
+			// 			} else {
+			// 				console.log("else else")
+			// 			}
 			var _this = this;
 			let hash = window.location.hash;
 			if (hash != "#/pages/detail/ef?key=2") {

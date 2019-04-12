@@ -10,7 +10,8 @@ const store = new Vuex.Store({
 		base_url: "",
 		user: {},
 		data: "",
-		isWeixin: true
+		isWeixin: true,
+		sysInfo: ""
 	},
 	mutations: {
 		switch_loading(state, status) {
@@ -37,6 +38,9 @@ const store = new Vuex.Store({
 		},
 		update_detail(state, data) {
 			state.detail = data
+		},
+		set_sysInfo(state, data) {
+			state.sysInfo = data
 		}
 	},
 	actions: {
@@ -112,6 +116,13 @@ const store = new Vuex.Store({
 		checkWeixin(ctx) {
 			let _isWeixin = !!/micromessenger/i.test(navigator.userAgent.toLowerCase());
 			ctx.commit("isWeixin", _isWeixin)
+		},
+		get_sysInfo(ctx) {
+			uni.getSystemInfo({
+				success: (res) => {
+					ctx.commit("set_sysInfo", res)
+				}
+			})
 		}
 	},
 	modules: {
