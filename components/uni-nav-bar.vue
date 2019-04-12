@@ -162,7 +162,7 @@
     }
 	
 	.uni-navbar view{
-		line-height:44px;
+		line-height:88upx;
 	}
 
     .uni-navbar-shadow {
@@ -178,9 +178,9 @@
         display: flex;
         flex-direction: row;
         width: 100%;
-        height:44px;
-        line-height:44px;
-        font-size: 16px;
+        height:88upx;
+        line-height:88upx;
+        font-size: 32upx;
     }
 	
 	.uni-navbar-header .uni-navbar-header-btns{

@@ -1,7 +1,7 @@
 <template>
 	<!-- <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 	 @scroll="scroll"> -->
-	<view class="detail-page">
+	<view class="page detail-page page-main">
 		<view class="detail-block">
 			<view class="swiper-box">
 				<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true" interval="3000" duration="1000"
@@ -154,7 +154,7 @@
 											</view>
 										</view>
 									</view>
-									<view class="uni-list " :class="detail.current_price&&detail.current_price!='0.00'?'':'apply-date'">
+									<view class="uni-list " :class="detail.current_price&&detail.current_price!='0.00'&&$store.state.isWeixin?'':'apply-date'">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
 												手机号码
@@ -164,7 +164,7 @@
 											</view>
 										</view>
 									</view>
-									<block v-if="detail.current_price&&detail.current_price!='0.00'">
+									<block v-if="detail.current_price&&detail.current_price!='0.00'&&$store.state.isWeixin">
 										<view class="uni-list apply-date">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left" @click="popupIntro('integral')">
@@ -384,6 +384,7 @@
 		},
 		onShow() {
 			let _this = this;
+			this.$store.dispatch('checkWeixin')
 			var funStor = function(res) {
 				if (res) {
 					_this.userInfo = res;
@@ -561,7 +562,7 @@
 											delta: 1
 										});
 									} catch (e) {
-										uni.switchTab({
+										uni.redirectTo({
 											url: '/pages/index/index'
 										});
 									}

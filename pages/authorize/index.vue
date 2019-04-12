@@ -43,12 +43,12 @@
 						}
 					});
 					// window.location.href = inter.domain;
-				} else if (!util.isWeixin()) {
-					uni.switchTab({
+				} else if (!mdl.isWeixin()) {
+					uni.redirectTo({
 						url: '/pages/index/index'
 					});
 				} else {
-					uni.switchTab({
+					uni.redirectTo({
 						url: '/pages/user/index'
 					});
 				}

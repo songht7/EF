@@ -1,5 +1,5 @@
 <template>
-	<view class="center-page">
+	<view class="center-page page-main">
 		<view class="vbox">
 			<view class="c-top">
 				<view class="c-top-main">
@@ -122,6 +122,7 @@
 			</lvv-popup>
 			<!-- 弹出层 -->
 		</view>
+		<tab-bar></tab-bar>
 	</view>
 </template>
 
@@ -155,6 +156,7 @@
 		onLoad() {},
 		onShow() {
 			var that = this;
+			this.$store.commit("change_page", 2)
 			that.getUserInfo();
 		},
 		components: {

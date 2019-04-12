@@ -306,7 +306,7 @@ const module = {
 	goHomePage: function() {
 		let hash = window.location.hash;
 		if (hash == "#/pages/authorize/index" || hash == "#/") {
-			uni.switchTab({
+			uni.redirectTo({
 				url: '/pages/index/index'
 			});
 		}

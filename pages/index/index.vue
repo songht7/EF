@@ -1,5 +1,5 @@
 <template>
-	<view class="page">
+	<view class="page page-main">
 		<!-- #ifndef MP-WEIXIN -->
 		<!-- 固定在顶部的导航栏 -->
 		<uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" @click-left="showCity">
@@ -18,7 +18,7 @@
 				</view>
 			</view>
 		</uni-nav-bar>
-		<view style="height:45px;">...</view>
+		<view style="height:90upx;">...</view>
 		<!-- #endif -->
 
 		<view class="content">
@@ -87,6 +87,9 @@
 		 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
 		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
 		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
+		<block v-if="$store.state.isWeixin">
+			<tab-bar></tab-bar>
+		</block>
 	</view>
 </template>
 
@@ -187,6 +190,8 @@
 			_this.getList();
 		},
 		onShow() {
+			this.$store.commit("change_page", 0)
+			this.$store.dispatch('checkWeixin')
 			var share_url = util.Interface.domain + "/?type=home#/",
 				title = "英语免费试听",
 				imgUrl = util.Interface.domain + "/static/share.jpg",
@@ -309,8 +314,8 @@
 					title: '正在加载 ...'
 				});
 				let fun = function(res) {
-// 					console.log("======article========");
-// 					console.log(res)
+					// 					console.log("======article========");
+					// 					console.log(res)
 					let data = res.list;
 					let total = res.total;
 					if (type) {

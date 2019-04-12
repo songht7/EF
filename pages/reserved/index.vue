@@ -1,30 +1,34 @@
 <template>
 	<!-- 1确认 2作废 0是未确认 v-if="value.status!=2"-->
 	<view class="list-block uni-padding-wrap uni-common-mt">
-		<view class="uni-card" v-for="(value,key) in reservedList" :key="key">
-			<view class="uni-card-content">
-				<view class="uni-card-content-inner">
-					<navigator class="service-head" :url="'/pages/detail/index?id='+value.article_id">
-						<view class="ser-logo">
-							<image lazy-load :src="value.subjectSrc?sourceUrl+value.subjectSrc:''" mode="aspectFill" />
-						</view>
-						<view class="ser-body">
-							<view class="ser-title">{{value.subjectName}}</view>
-							<view class="ser-time"><!-- 预约时间：{{value.arrive_time}} --></view>
-						</view>
-						<view class="ser-tag-res">{{value.subjectCurrentPrice&&value.subjectCurrentPrice!="0.00"?"￥"+value.subjectCurrentPrice:"免费"}}</view>
-					</navigator>
-					<view class="apply-res">
-						<view>
-							<text>预约状态：</text>
-							<text v-if="value.article_type=='help'">预约成功</text>
-							<text v-else class="txt-light-black">预约成功 等待课程顾问与您联系</text>
-							<!-- <text v-if="value.status==0" class="txt-orange">预约成功 等待课程顾问与您联系</text>
+		<view class="page-main">
+			<view class="uni-card" v-for="(value,key) in reservedList" :key="key">
+				<view class="uni-card-content">
+					<view class="uni-card-content-inner">
+						<navigator class="service-head" :url="'/pages/detail/index?id='+value.article_id">
+							<view class="ser-logo">
+								<image lazy-load :src="value.subjectSrc?sourceUrl+value.subjectSrc:''" mode="aspectFill" />
+							</view>
+							<view class="ser-body">
+								<view class="ser-title">{{value.subjectName}}</view>
+								<view class="ser-time">
+									<!-- 预约时间：{{value.arrive_time}} -->
+								</view>
+							</view>
+							<view class="ser-tag-res">{{value.subjectCurrentPrice&&value.subjectCurrentPrice!="0.00"?"￥"+value.subjectCurrentPrice:"免费"}}</view>
+						</navigator>
+						<view class="apply-res">
+							<view>
+								<text>预约状态：</text>
+								<text v-if="value.article_type=='help'">预约成功</text>
+								<text v-else class="txt-light-black">预约成功 等待课程顾问与您联系</text>
+								<!-- <text v-if="value.status==0" class="txt-orange">预约成功 等待课程顾问与您联系</text>
 						<text v-else-if="value.status==1" class="txt-light-black">客服已联系</text>
 						<text v-else-if="value.status==2" class="txt-gray">本人已回绝</text> -->
-						</view>
-						<view v-if="value.article_type=='help'">
-							<navigator :url="'/pages/detail/activity?uid=' + openid +'&lm_id='+value.id" class="helpBtn txt-orange">[查看助力状态]</navigator>
+							</view>
+							<view v-if="value.article_type=='help'">
+								<navigator :url="'/pages/detail/activity?uid=' + openid +'&lm_id='+value.id" class="helpBtn txt-orange">[查看助力状态]</navigator>
+							</view>
 						</view>
 					</view>
 				</view>
@@ -33,6 +37,7 @@
 		<view class="reservedIsNull" v-if="reservedNull&&userInfo.openid">{{reservedNull}}</view>
 		<view class="reservedIsNull" v-if="!userInfo.openid" @click="login">{{reservedNull}}</view>
 		<view class="reservedIsNull" v-if="!userInfo.openid"><img src="../../static/qrcode1.png" alt="英语" class="reservedQR" /></view>
+		<tab-bar></tab-bar>
 	</view>
 </template>
 
@@ -47,7 +52,7 @@
 		data() {
 			return {
 				userInfo: {},
-				openid:"",
+				openid: "",
 				reservedList: [],
 				param: {
 					"pi": 1,
@@ -72,6 +77,7 @@
 			that.checkUser();
 		},
 		onShow() {
+			this.$store.commit("change_page", 1)
 			var that = this;
 			that.paramReset();
 			that.checkUser();
@@ -164,7 +170,7 @@
 				var funStor = function(res) {
 					console.log(res)
 					that.userInfo = res;
-					that.openid=res.openid;
+					that.openid = res.openid;
 					if (!res) {
 						that.userInfo = {};
 						that.reservedList = [];
@@ -261,7 +267,7 @@
 	.apply-res {
 		display: flex;
 		flex-direction: row;
-		justify-content:space-between;
+		justify-content: space-between;
 		align-items: center;
 		margin: 10upx 0 0;
 		padding: 10upx 0 0;

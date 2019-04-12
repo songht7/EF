@@ -131,26 +131,26 @@
 		"navigationBarTitleText": "试听宝",
 		"navigationBarBackgroundColor": "#7C7C7C",
 		"backgroundColor": "#F4F5F6"
-	},
-	"tabBar": {
-		"color": "#7A7E83",
-		"selectedColor": "#007AFF",
-		"borderStyle": "black",
-		"backgroundColor": "#ffffff",
-		"list": [{
-				"pagePath": "pages/index/index",
-				"iconPath": "",
-				"selectedIconPath": "",
-				"text": "首页"
-			},
-			{
-				"pagePath": "pages/reserved/index",
-				"text": "预约"
-			},
-			{
-				"pagePath": "pages/user/index",
-				"text": "我的"
-			}
-		]
 	}
+// 	,"tabBar": {
+// 		"color": "#7A7E83",
+// 		"selectedColor": "#007AFF",
+// 		"borderStyle": "black",
+// 		"backgroundColor": "#ffffff",
+// 		"list": [{
+// 				"pagePath": "pages/index/index",
+// 				"iconPath": "",
+// 				"selectedIconPath": "",
+// 				"text": "首页"
+// 			},
+// 			{
+// 				"pagePath": "pages/reserved/index",
+// 				"text": "预约"
+// 			},
+// 			{
+// 				"pagePath": "pages/user/index",
+// 				"text": "我的"
+// 			}
+// 		]
+// 	}
 }

@@ -95,6 +95,11 @@
 /*通用 */
 page{
 	background: #FFFFFF;
+	max-width: 1024upx;
+	margin: 0 auto;
+}
+.page-main {
+	padding-bottom: 120upx;
 }
 view{
 	font-size:28upx; 
