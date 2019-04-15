@@ -1,5 +1,5 @@
 <template>
-	<view class="page page-main">
+	<view class="page " :class="$store.state.isWeixin?'page-main':''">
 		<!-- #ifndef MP-WEIXIN -->
 		<!-- 固定在顶部的导航栏 -->
 		<uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" @click-left="showCity">
@@ -90,6 +90,9 @@
 		<block v-if="$store.state.isWeixin">
 			<tab-bar></tab-bar>
 		</block>
+		<block v-if="copyrightShow">
+			<copyright></copyright>
+		</block>
 	</view>
 </template>
 
@@ -165,7 +168,8 @@
 				deepLength: 1,
 				pickerValueDefault: [0],
 				pickerValueArray: [],
-				successShow: ""
+				successShow: "",
+				copyrightShow: false
 			}
 		},
 		computed: {},
@@ -332,6 +336,7 @@
 							});
 						}
 					}
+					that.copyrightShow = true;
 					that.loadingType = 0;
 					that.pagination(total);
 					uni.hideLoading();

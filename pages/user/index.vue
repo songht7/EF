@@ -1,5 +1,5 @@
 <template>
-	<view class="center-page page-main">
+	<view class="center-page" :class="$store.state.isWeixin?'page-main':''">
 		<view class="vbox">
 			<view class="c-top">
 				<view class="c-top-main">

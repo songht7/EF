@@ -239,6 +239,7 @@
 				</view>
 			</view>
 		</view>
+		<copyright></copyright>
 		<view class="visitors" :class="visitShow">
 			<view>
 				<uni-icon size="16" type="eye" color="#ffffff"></uni-icon>&nbsp;<text>同时有 {{visitors}} 人浏览</text>

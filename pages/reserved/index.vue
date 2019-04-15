@@ -1,7 +1,7 @@
 <template>
 	<!-- 1确认 2作废 0是未确认 v-if="value.status!=2"-->
 	<view class="list-block uni-padding-wrap uni-common-mt">
-		<view class="page-main">
+		<view :class="$store.state.isWeixin?'page-main':''">
 			<view class="uni-card" v-for="(value,key) in reservedList" :key="key">
 				<view class="uni-card-content">
 					<view class="uni-card-content-inner">
