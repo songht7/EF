@@ -125,7 +125,14 @@ const module = {
 			getTicketUrl = location.origin + "/";
 		}
 		let url_ticket = Interface.apiurl + Interface.addr.getJsApiTicket + "?url=" + getTicketUrl;
-		let wx_ticket = that.getData(url_ticket, funTicket)
+		let _head = {};
+		let channel_code = that.queryString("channel_code");
+		if (channel_code) {
+			_head = {
+				"channel_code": channel_code
+			};
+		}
+		let wx_ticket = that.getData(url_ticket, funTicket, "GET", "", _head)
 
 		var storFun = function(res) {
 			if (res == "") {}
@@ -154,7 +161,7 @@ const module = {
 					console.log("-----share succ----")
 					console.log(_head)
 					let funSave = function(res) {
-						if(res.point){
+						if (res.point) {
 							uni.getStorage({
 								key: 'uWXInfo',
 								success: function(ress) {
@@ -271,8 +278,8 @@ const module = {
 			data: {},
 			header: _head || {},
 			success(res) {
-// 				console.log("====getWeChatInfo====")
-// 				console.log(res)
+				// 				console.log("====getWeChatInfo====")
+				// 				console.log(res)
 				result = res;
 				let _data = res.data.data;
 				if (_data.openid) {
