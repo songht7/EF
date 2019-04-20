@@ -260,6 +260,8 @@
 			<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
 		</view>
 
+		<uni-popup2 :show="setUserPopup==='setUserPopup'" setUserPhone="setUserPhone" position="middle" mode="insert" width="80"
+		 @hidePopup="togglePopup('')"></uni-popup2>
 		<!-- 弹出层 -->
 		<lvv-popup position="top" ref="lvvpopref">
 			<view class="pop-inner" :class="'pop-inner-'+popType">
@@ -287,6 +289,7 @@
 	import mpvuePicker from '../../components/mpvue-picker/mpvuePicker.vue';
 	import mpvueCityPicker from '../../components/mpvue-citypicker/mpvueCityPicker.vue'
 	import lvvPopup from '../../components/lvv-popup.vue'
+	import uniPopup2 from '../../components/uni-popup2.vue'
 	import cityData from '../../common/city.data.js';
 	const duration = 2000;
 	const brand = "";
@@ -339,7 +342,8 @@
 				activity_brand: ["1", "4", "14", "24"], //活动品牌
 				activity_type: {
 					"help": "help"
-				} //活动类型-help:助力
+				}, //活动类型-help:助力
+				setUserPopup: ""
 			};
 		},
 		onLoad(option) {
@@ -386,6 +390,9 @@
 		onShow() {
 			let _this = this;
 			this.$store.dispatch('checkWeixin')
+			this.$store.dispatch('cheack_user');
+			this.setUserPopup = this.$store.state.openid && this.$store.state.phone === '' && this.$store.state.popup_user ==
+				'on' ? 'setUserPopup' : '';
 			var funStor = function(res) {
 				if (res) {
 					_this.userInfo = res;
@@ -410,7 +417,8 @@
 			uniIcon,
 			mpvuePicker,
 			mpvueCityPicker,
-			lvvPopup
+			lvvPopup,
+			uniPopup2
 		},
 		onPageScroll(e) {
 			var that = this;
@@ -709,6 +717,10 @@
 			closeIntro() {
 				// 关闭modal弹出框
 				this.$refs.lvvpopref.close();
+			},
+			togglePopup(type) {
+				this.$store.commit('set_popup_user', 'off');
+				this.setUserPopup = type;
 			}
 		}
 	}

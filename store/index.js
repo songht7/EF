@@ -9,81 +9,40 @@ const store = new Vuex.Store({
 		loading: "0",
 		base_url: "",
 		user: {},
+		openid:"",
+		phone:"",
 		data: "",
 		isWeixin: true,
-		sysInfo: ""
+		sysInfo: "",
+		popup_user:"on"
 	},
 	mutations: {
-		switch_loading(state, status) {
-			if (status == "change") {
-				if (state.loading == '0') {
-					state.loading = '1'
-				} else {
-					state.loading = '0'
-				}
-			} else {
-				state.loading = status;
-			}
-
-		},
 		isWeixin(state, status) {
 			state.isWeixin = status
 		},
 		get_user(state, data) {
 			console.log(data)
 			state.user = data
-		},
-		update_list(state, data) {
-			state.list = data
-		},
-		update_detail(state, data) {
-			state.detail = data
+			state.openid = data.openid
+			state.phone = data.phone
 		},
 		set_sysInfo(state, data) {
 			state.sysInfo = data
+		},
+		set_popup_user(state, data) {
+			state.popup_user = data
 		}
 	},
 	actions: {
-		get_data(ctx) {
-			console.log(ctx)
-			ctx.commit("switch_loading", "1")
-			uni.request({
-				url: ctx.state.base_url + "/topics",
-				data: {
-					page: 1,
-					tab: "share",
-					limit: 10,
-					mdrender: false
-				},
-				success(res) {
-					ctx.commit("update_list", res.data.data)
-				},
-				complete() {
-					ctx.commit("switch_loading", "0")
-				}
-			})
-		},
 		cheack_user(ctx) {
 			var user = "";
 			uni.getStorage({
-				key: "user",
+				key: "uWXInfo",
 				success: function(res) {
 					user = res.data;
-					if (user.UserId) {
-						ctx.dispatch("menu_" + user.UserType);
-					}
 					ctx.commit("get_user", user)
 				}
 			})
-		},
-		cheack_page(ctx, index) {
-			if (ctx.state.user.UserId) {
-				ctx.commit("change_page", index)
-			} else {
-				uni.navigateTo({
-					url: "/pages/index/index"
-				})
-			}
 		},
 		goback(ctx, url) {
 			if (url) {
@@ -95,18 +54,6 @@ const store = new Vuex.Store({
 					delta: 1
 				});
 			}
-		},
-		logout(ctx) {
-			uni.removeStorage({
-				key: 'user',
-				success: function(res) {
-					ctx.commit("get_user", {})
-					ctx.dispatch("menu_default")
-					uni.redirectTo({
-						url: '/pages/index/index'
-					});
-				}
-			});
 		},
 		makePhoneCall(ctx) {
 			uni.makePhoneCall({
@@ -123,6 +70,10 @@ const store = new Vuex.Store({
 					ctx.commit("set_sysInfo", res)
 				}
 			})
+		},
+		set_popup_user(ctx,t){
+			console.log(t)
+			ctx.commit("set_popup_user", t)
 		}
 	},
 	modules: {

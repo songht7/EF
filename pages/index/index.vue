@@ -87,6 +87,9 @@
 		 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
 		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
 		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
+
+		<uni-popup2 :show="setUserPopup==='setUserPopup'" setUserPhone="setUserPhone" position="middle" mode="insert" width="80"
+		 @hidePopup="togglePopup('')"></uni-popup2>
 		<block v-if="$store.state.isWeixin">
 			<tab-bar></tab-bar>
 		</block>
@@ -109,6 +112,7 @@
 	import uniTag from '@/components/uni-tag.vue'
 	import mpvuePicker from '../../components/mpvue-picker/mpvuePicker.vue';
 	import mpvueCityPicker from '../../components/mpvue-citypicker/mpvueCityPicker.vue'
+	import uniPopup2 from '../../components/uni-popup2.vue'
 	import cityData from '../../common/city.data.js';
 
 	import listBlock from '../../components/list-block.vue'
@@ -169,7 +173,8 @@
 				pickerValueDefault: [0],
 				pickerValueArray: [],
 				successShow: "",
-				copyrightShow: false
+				copyrightShow: false,
+				setUserPopup: ""
 			}
 		},
 		computed: {},
@@ -181,7 +186,8 @@
 			uniTag,
 			mpvuePicker,
 			mpvueCityPicker,
-			listBlock
+			listBlock,
+			uniPopup2
 		},
 		onLoad(option) {
 			var _this = this;
@@ -195,7 +201,10 @@
 		},
 		onShow() {
 			this.$store.commit("change_page", 0)
-			this.$store.dispatch('checkWeixin')
+			this.$store.dispatch('checkWeixin');
+			this.$store.dispatch('cheack_user');
+			this.setUserPopup = this.$store.state.openid && this.$store.state.phone === '' && this.$store.state.popup_user ==
+				'on' ? 'setUserPopup' : '';
 			var share_url = util.Interface.domain + "/?type=home#/",
 				title = "英语免费试听",
 				imgUrl = util.Interface.domain + "/static/share.jpg",
@@ -510,6 +519,10 @@
 				if (this.$refs.mpvueCityPicker.showPicker) {
 					this.$refs.mpvueCityPicker.pickerCancel()
 				}
+			},
+			togglePopup(type) {
+				this.$store.commit('set_popup_user', 'off');
+				this.setUserPopup = type;
 			}
 		}
 	}
