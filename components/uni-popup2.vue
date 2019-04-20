@@ -15,7 +15,7 @@
 					<form @submit="formSetUser">
 						<view class="cell">
 							<view class="cell-right">
-								<input class="uni-input pop-input" name="Nickname" type="text" placeholder="您的称呼" value="" />
+								<input class="uni-input pop-input" name="Nickname" type="text" placeholder="您的姓名" value="" />
 							</view>
 						</view>
 						<view class="cell">
