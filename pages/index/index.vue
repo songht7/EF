@@ -1,8 +1,6 @@
 <template>
 	<view class="page " :class="$store.state.isWeixin?'page-main':''">
-		<!-- #ifndef MP-WEIXIN -->
-		<!-- 固定在顶部的导航栏 -->
-		<uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" @click-left="showCity">
+		<uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" ctnfixed="true" rightShow="false" right-icon="scan"  @click-left="showCity">
 			<block slot="left">
 				<view class="city" @click="showMulLinkageTwoPicker">
 					<uni-icon type="location" color="#333333" size="22"></uni-icon>
@@ -18,8 +16,6 @@
 				</view>
 			</view>
 		</uni-nav-bar>
-		<view style="height:45px;"></view>
-		<!-- #endif -->
 
 		<view class="content">
 			<swiper-block :swiperList="swiperList" v-if="swiperList.length"></swiper-block>

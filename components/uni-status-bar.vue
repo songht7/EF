@@ -1,30 +1,26 @@
 <template>
-    <view class="uni-status-bar" :style="style">
-        <slot></slot>
-    </view>
+	<view class="uni-status-bar" :style="{ height: statusBarHeight }">
+		<slot></slot>
+	</view>
 </template>
 
 <script>
-    export default {
-        computed: {
-            style() {
-                //#ifdef MP-WEIXIN
-                var systemInfo = uni.getSystemInfoSync()
-                return `height:${systemInfo.statusBarHeight}px`
-                //#endif
-                //#ifdef APP-PLUS
-                return ''
-                //#endif
-            }
-        }
-    }
+	var statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
+	export default {
+		name: 'uni-status-bar',
+		data() {
+			return {
+				statusBarHeight: statusBarHeight
+			};
+		}
+	};
 </script>
 
 <style>
-    .uni-status-bar {
-        display: block;
-        width: 100%;
-        height: 20px;
-        height: var(--status-bar-height);
-    }
+	.uni-status-bar {
+		display: block;
+		width: 100%;
+		height: 20px;
+		height: var(--status-bar-height);
+	}
 </style>
