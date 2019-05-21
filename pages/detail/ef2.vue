@@ -149,6 +149,7 @@
 	export default {
 		data() {
 			return {
+				article_id: 35,
 				brand: "",
 				key: "",
 				date: "",
@@ -195,7 +196,7 @@
 			this.brand = _detail.title;
 			this.key = _key;
 			uni.setNavigationBarTitle({
-				title: "英孚教育 卓著英语培训专家"
+				title: "英孚教育 英语培训中心"
 			});
 			// _jquery.setEffectCollect();
 		},
@@ -205,7 +206,7 @@
 		onShow() {
 			let hash = window.location.hash;
 			var share_url = util.Interface.domain + "/?type=ef&id=2" + hash,
-				title = "英孚教育 卓著英语培训专家",
+				title = "英孚教育 英语培训中心",
 				imgUrl = util.Interface.domain + "/static/ef/billboard.png",
 				dec = "专业认证培训师，教你地道英语";
 			mdl.wxShare(share_url, title, imgUrl, dec);
@@ -318,7 +319,7 @@
 				var checkRes = graceChecker.check(formData, rule);
 				if (checkRes) {
 					var _data = {
-						"预约品牌": "EF英孚教育 - 专业认证培训师 - 免费试听体验课",
+						"预约品牌": "EF英孚教育 - 英语培训中心 - 免费试听体验课",
 						"客户姓名": formData.UserName,
 						"客户手机号": formData.UserPhone,
 						"年龄": _this.age[formData.Age],
@@ -348,11 +349,11 @@
 					var data2DB = {
 						"name": formData.UserName,
 						"age_range": _this.age[formData.Age],
-						"sex": _this.gender[formData.Gender] + "---" + _href,
+						"sex": _this.gender[formData.Gender],
 						"phone": formData.UserPhone,
 						"city": formData.City,
 						"school": "", //this.schoolId,
-						"article_id": 19,
+						"article_id": _this.article_id,
 						"arrive_time": "" //formData.ApplyDate
 					};
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
