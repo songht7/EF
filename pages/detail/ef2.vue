@@ -205,9 +205,9 @@
 		},
 		onShow() {
 			let hash = window.location.hash;
-			var share_url = util.Interface.domain + "/?type=ef&id=2" + hash,
+			var share_url = util.Interface.domain + "/?type=ef2&id=35" + hash,
 				title = "英孚教育 英语培训中心",
-				imgUrl = util.Interface.domain + "/static/ef/billboard.png",
+				imgUrl = util.Interface.domain + "/static/ef/p2-banner.jpg",
 				dec = "专业认证培训师，教你地道英语";
 			mdl.wxShare(share_url, title, imgUrl, dec);
 			//console.log("onShow");
