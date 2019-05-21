@@ -1,9 +1,9 @@
 <template>
 	<view class="list-block uni-padding-wrap uni-common-mt">
-		<view class="uni-card" v-for="(value,key) in list" :key="key" v-if="value.id!=19&&value.id!=20">
+		<view class="uni-card" v-for="(value,key) in list" :key="key">
 			<view class="uni-card-content">
 				<view class="uni-card-content-inner">
-					<navigator class="service-head" :url="value.id==19?'/pages/detail/ef?key=2':'/pages/detail/index?id='+value.id">
+					<navigator class="service-head" :url="setUrl(value.out_link,value.id)">
 						<view class="ser-logo">
 							<image lazy-load="true" :src="value.src?sourceUrl+value.src:''" mode="aspectFill" />
 						</view>
@@ -45,6 +45,18 @@
 			list: {
 				type: Array,
 				default: []
+			}
+		},
+		methods: {
+			setUrl(outlink, id) {
+				var url = `/pages/detail/index?id=${id}`;
+				if (outlink) {
+					var _urlType = outlink.split(",");
+					if (_urlType[0] == "mylink") {
+						url = _urlType[1];
+					}
+				}
+				return url;
 			}
 		}
 	}
