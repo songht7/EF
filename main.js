@@ -27,7 +27,7 @@ Vue.component("integral", integral)
 Vue.prototype.now = Date.now || function() {
 	return new Date().getTime();
 };
-Vue.prototype.websiteUrl = 'http://main.meetji.com';
+Vue.prototype.websiteUrl = 'http://www.meetji.com';
 Vue.prototype.sourceUrl = 'http://api_test.meetji.com';
 
 App.mpType = 'app'

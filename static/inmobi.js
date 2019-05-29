@@ -13,6 +13,7 @@ function fireEvent(eventType, eventName) {
 		});
 	}
 	window.inmobiPixel.ping(eventName, pageData);
+	console.log(inmobiPixel)
 }
 
 
