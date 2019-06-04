@@ -387,9 +387,9 @@
 					};
 					//https://secure.englishtown.cn/online/cn/cnleadshandler.ashx
 					let url_EF = "http://qa.englishtown.cn/online/cn/cnleadshandler.ashx";
-					console.log("url_EF:", url_EF)
-					console.log(data3EF)
-					let post2EF = mdl.getData(url_EF, "", "POST", data3EF, {});
+					// console.log("url_EF:", url_EF)
+					// console.log(data3EF)
+					// let post2EF = mdl.getData(url_EF, "", "POST", data3EF, {});
 				} else {
 					uni.showToast({
 						title: graceChecker.error,
