@@ -358,6 +358,38 @@
 					};
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
 					let _saveSingle = mdl.getData(url_saveSingle, "", "POST", data2DB, {});
+
+					/** request-3 POST to EF **/
+					var _city = formData.City;
+					var data3EF = {
+						"firstname": formData.UserName,
+						"lastname": formData.UserName,
+						"mobilephone": formData.UserPhone,
+						"telephone": formData.UserPhone,
+						"age": _this.age[formData.Age],
+						"gender": _this.gender[formData.Gender],
+						"state": _city.split("-")[0],
+						"city": _city.split("-")[1],
+						"district": _city.split("-")[1],
+						"emailenglish":"",
+						"emaillist":"4,5",
+						"formType":"CNMK",
+						"ctr":"CTR",
+						"partner":"",
+						"local":"CN",
+						"etag":"",
+						"omnitureFriendlyName2":"Offline_Redeem_API",
+						"lang":"CS",
+						"lng":"CS",
+						"savelocation":"AgentRequest",
+						"responseType":"JsonP",
+						"jsonpcallback":""
+					};
+					//https://secure.englishtown.cn/online/cn/cnleadshandler.ashx
+					let url_EF = "http://qa.englishtown.cn/online/cn/cnleadshandler.ashx";
+					console.log("url_EF:", url_EF)
+					console.log(data3EF)
+					let post2EF = mdl.getData(url_EF, "", "POST", data3EF, {});
 				} else {
 					uni.showToast({
 						title: graceChecker.error,
