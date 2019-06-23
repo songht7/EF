@@ -328,7 +328,28 @@
 					};
 					//console.log(_data);
 					/** request-1 send email **/
+					var sendMail_key = 0;
 					var fun = function(result) {
+						// if (result.success) {} else {
+						// 	uni.showModal({
+						// 		content: "预约失败",
+						// 		showCancel: false
+						// 	})
+						// }
+						_this.loading = false
+						_this.res = JSON.stringify(result);
+					}
+					var emails = _interface.SendMail.email; //email,testEmail
+					var sendMailUrl = _interface.SendMail.url;
+					emails.forEach((value, index, array) => {
+						sendMail_key++;
+						let inter = sendMailUrl + value;
+						_jquery.sendMail(inter, _data, fun);
+					})
+
+					/** request-2 save to DB **/
+					var _href = window.location.href;
+					var fun2DB = function(result) {
 						if (result.success) {
 							uni.navigateTo({
 								url: "/pages/detail/thx?key=" + _this.key
@@ -339,13 +360,7 @@
 								showCancel: false
 							})
 						}
-						_this.loading = false
-						_this.res = JSON.stringify(result);
 					}
-					_jquery.sendMail(_interface.SendMail, _data, fun);
-
-					/** request-2 save to DB **/
-					var _href = window.location.href;
 					var data2DB = {
 						"name": formData.UserName,
 						"age_range": _this.age[formData.Age],
@@ -357,7 +372,7 @@
 						"arrive_time": "" //formData.ApplyDate
 					};
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
-					let _saveSingle = mdl.getData(url_saveSingle, "", "POST", data2DB, {});
+					let _saveSingle = mdl.getData(url_saveSingle, fun2DB, "POST", data2DB, {});
 
 					/** request-3 POST to EF **/
 					var _city = formData.City;
@@ -371,19 +386,19 @@
 						"state": _city.split("-")[0],
 						"city": _city.split("-")[1],
 						"district": _city.split("-")[1],
-						"emailenglish":"",
-						"emaillist":"4,5",
-						"formType":"CNMK",
-						"ctr":"CTR",
-						"partner":"",
-						"local":"CN",
-						"etag":"",
-						"omnitureFriendlyName2":"Offline_Redeem_API",
-						"lang":"CS",
-						"lng":"CS",
-						"savelocation":"AgentRequest",
-						"responseType":"JsonP",
-						"jsonpcallback":""
+						"emailenglish": "",
+						"emaillist": "4,5",
+						"formType": "CNMK",
+						"ctr": "CTR",
+						"partner": "",
+						"local": "CN",
+						"etag": "",
+						"omnitureFriendlyName2": "Offline_Redeem_API",
+						"lang": "CS",
+						"lng": "CS",
+						"savelocation": "AgentRequest",
+						"responseType": "JsonP",
+						"jsonpcallback": ""
 					};
 					//https://secure.englishtown.cn/online/cn/cnleadshandler.ashx
 					let url_EF = "http://qa.englishtown.cn/online/cn/cnleadshandler.ashx";
