@@ -6,6 +6,7 @@
 		onLaunch: function() {
 			//console.log('App Launch')
 			var id = mdl.queryString("id");
+			var key = mdl.queryString("key") || 2;
 			if (pageis == "home") {
 				window.location.href = location.origin;
 			} else if (pageis == "detail" && id) {
@@ -16,6 +17,9 @@
 			} else if (pageis == "ef" && id) {
 				let hash = window.location.hash;
 				window.location.href = location.origin + '/' + hash
+			} else if (pageis == "ef" && key) {
+				let hash = window.location.hash;
+				window.location.href = location.origin + '/#/pages/detail/ef' + key
 			} else if (pageis) {
 				let hash = window.location.hash;
 				window.location.href = location.origin + '/' + hash

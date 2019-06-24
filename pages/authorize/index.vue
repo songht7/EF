@@ -28,6 +28,7 @@
 				_this.userInfo = res;
 				var pageis = mdl.queryString("type");
 				var pagekey = mdl.queryString("key") || 2;
+				console.log("pageis:", pageis, pagekey)
 				if (res.openid) {
 					_this.wxLoading = "授权成功";
 					uni.getStorage({
