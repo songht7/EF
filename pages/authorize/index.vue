@@ -26,6 +26,8 @@
 			var _this = this;
 			var funStor = function(res) {
 				_this.userInfo = res;
+				var pageis = mdl.queryString("type");
+				var pagekey = mdl.queryString("key") || 2;
 				if (res.openid) {
 					_this.wxLoading = "授权成功";
 					uni.getStorage({
@@ -46,6 +48,10 @@
 				} else if (!mdl.isWeixin()) {
 					uni.redirectTo({
 						url: '/pages/index/index'
+					});
+				} else if (pageis == "ef") {
+					uni.redirectTo({
+						url: `/pages/detail/ef${pagekey}`
 					});
 				} else {
 					uni.redirectTo({
