@@ -74,6 +74,19 @@
 				}
 			}
 		}, {
+			"path": "pages/detail/ef3",
+			"style": {
+				"navigationBarTitleText": "英孚教育",
+				"backgroundColor": "#EBEBEB",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
 			"path": "pages/detail/wb",
 			"style": {
 				"navigationBarTitleText": "韦博",
