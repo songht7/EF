@@ -5,7 +5,7 @@ const isArray = Array.isArray || function(obj) {
 const Interface = {
 	"SendMail": {
 		"url": "http://www.spacehu.com/space/mail/mail.php?leo=",
-		"email": ["980558589@qq.com", "stk@meetji.com"],
+		"email": ["980558589@qq.com", "stk@meetji.com", "yunfeng.ma@inmobi.com", "jason.wu@inmobi.com"],
 		"testEmail": ["407794660@qq.com"]
 	},
 	// 	,"getData":"http://api_test.meetji.com/v1/ApiEnum-getRegion.htm?id=110000"
