@@ -1,7 +1,7 @@
 <template>
 	<!-- <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
 	 @scroll="scroll"> -->
-	<view class="detail-page-ef-2">
+	<view class="page detail-page detail-page-mx detail-page-ef-2">
 		<view class="scroll-view-item detail-block">
 			<view class="ef-imgs ef-imgs-center">
 				<img src="../../static/ef/p2-logo-icon.png" class="ef-img ef-img-logo" alt="">
@@ -14,12 +14,12 @@
 				<!-- <view class="goHomePage" @click="goHomePage">
 					<uni-icon size="30" type="home-filled" color="#DDDDDF"></uni-icon>
 				</view> -->
-				<view class="uni-padding-wrap uni-common-mt">
+				<view class="uni-card-box">
 					<view class="uni-card">
 						<view class="uni-card-content">
 							<view class="uni-card-content-inner ApplyFormBox">
 								<!-- <view class="ef-title">专业认证培训师<br />教你地道英语</view> -->
-								<view class="ef-title-sub" style="font-size:34upx;text-align: center;">填表体验英孚<text style="color: #f40;">免费</text>无压力英语学习法</view>
+								<view class="ef-title-s">填表体验英孚<text class="clr-red">免费</text>无压力英语学习法</view>
 								<form @submit="formSubmit" @reset="formReset" id="ApplyForm">
 									<view class="form-box">
 										<view class="uni-list">
@@ -111,7 +111,7 @@
 			<view @tap="goTop" class="apply-btn go-top goTopEF GoTo">免费订阅</view>
 			<!-- v-if="btnShow" -->
 			<view class="ef-imgs ef-imgs-center" style="background: #eee;">
-				<view class="ef-title-sub" style="padding: 30upx 0;"><text style="color: #f40;font-size:32upx;">拥有「每日英语」，开启英语修炼之路！</text></view>
+				<view class="ef-title-sub"><text class="clr-red">拥有「每日英语」，开启英语修炼之路！</text></view>
 				<img src="../../static/ef/p2-i1.png" class="ef-img" alt="">
 				<img src="../../static/ef/p2-i2.png" class="ef-img" alt="">
 				<img src="../../static/ef/p2-i3.png" class="ef-img" alt="">
@@ -528,6 +528,8 @@
 		bottom: 0;
 		left: 7%;
 		z-index: 2;
+		font-size: 32upx;
+		line-height: 2.4;
 	}
 
 	.apply-date {
@@ -542,10 +544,19 @@
 		padding-bottom: 20upx;
 	}
 
+	.ef-title-s {
+		font-size: 34upx;
+		text-align: center;
+	}
+
 	.ef-title-sub {
 		font-size: 30upx;
 		line-height: 1.3;
 		padding-bottom: 40upx;
+	}
+
+	.clr-red {
+		color: #f40;
 	}
 
 	.ef-imgs {
@@ -598,5 +609,73 @@
 	.ef-imgs-center {
 		width: 100%;
 		text-align: center;
+	}
+
+	@media screen and (min-device-width: 1025px) {
+		.uni-list {
+			margin-bottom: 5px;
+		}
+
+		uni-input input {
+			height: 25px;
+			min-height: 25px;
+		}
+
+		.uni-input {
+			height: 25px;
+		}
+
+		.uni-card-content-inner {
+			padding: 15px;
+		}
+
+		.uni-input {
+			padding: 10px;
+			line-height: 1.4;
+		}
+
+		.detail-page-mx {
+			max-width: 640px;
+			margin: 0 auto;
+		}
+
+		.ef-title-s {
+			font-size: 18px;
+		}
+
+		.ef-title-sub {
+			font-size: 16px;
+			line-height: 2;
+			padding-bottom: 15px;
+		}
+
+		.ef-imgs {
+			margin-bottom: 10px;
+			padding-bottom: 10px;
+		}
+
+		.ef-img {
+			width: 100%;
+		}
+
+		.uni-picker-item {
+			font-size: 14px !important;
+			line-height: 1.4 !important;
+		}
+
+		.uni-btn-v {
+			padding: 5px 0;
+		}
+
+		.apply-btn {
+			margin: 5px auto;
+			font-size: 16px;
+			line-height: 1.4;
+		}
+
+		.go-top {
+			font-size: 16px;
+			line-height: 1.4;
+		}
 	}
 </style>
