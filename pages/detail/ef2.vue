@@ -28,7 +28,7 @@
 													姓名
 												</view>
 												<view class="uni-list-cell-db">
-													<input class="uni-input" name="UserName" placeholder="" />
+													<input :class="model?'uni-input':''" name="UserName" placeholder="" />
 												</view>
 											</view>
 										</view>
@@ -38,7 +38,7 @@
 													电话
 												</view>
 												<view class="uni-list-cell-db">
-													<input class="uni-input" name="UserPhone" type="number" placeholder="" />
+													<input :class="model?'uni-input':''" name="UserPhone" type="number" placeholder="" />
 												</view>
 											</view>
 										</view>
@@ -50,12 +50,17 @@
 														<view class="uni-list-cell-left">
 															年龄
 														</view>
-														<view class="uni-list-cell-db">
-															<picker name="Age" @change="bindChangeAge" :value="age_index" :range="age">
-																<view class="uni-input">{{age[age_index]}}</view>
-															</picker>
-														</view>
-														<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
+														<block v-if="model">
+															<view class="uni-list-cell-db">
+																<picker name="Age" @change="bindChangeAge" :value="age_index" :range="age">
+																	<view class="uni-input">{{age[age_index]}}</view>
+																</picker>
+															</view>
+															<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
+														</block>
+														<block v-else>
+															<input class="" name="Age" placeholder="" />
+														</block>
 													</view>
 												</view>
 												<view class="uni-list half">
@@ -63,12 +68,18 @@
 														<view class="uni-list-cell-left">
 															性别
 														</view>
-														<view class="uni-list-cell-db">
-															<picker name="Gender" @change="bindPickerChange" :value="index" :range="gender">
-																<view class="uni-input">{{gender[index]}}</view>
-															</picker>
-														</view>
-														<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
+
+														<block v-if="model">
+															<view class="uni-list-cell-db">
+																<picker name="Gender" @change="bindPickerChange" :value="index" :range="gender">
+																	<view class="uni-input">{{gender[index]}}</view>
+																</picker>
+															</view>
+															<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
+														</block>
+														<block v-else>
+															<input class="" name="Gender" placeholder="" />
+														</block>
 													</view>
 												</view>
 											</view>
@@ -78,10 +89,17 @@
 												<view class="uni-list-cell-left">
 													城市
 												</view>
-												<view class="uni-list-cell-db">
-													<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
-													 placeholder="" />
-												</view>
+												<block v-if="model">
+													<view class="uni-list-cell-db">
+														<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
+														 placeholder="" />
+													</view>
+												</block>
+												<block v-else>
+													<view class="uni-list-cell-db">
+														<input class="" name="City" placeholder="" />
+													</view>
+												</block>
 											</view>
 										</view>
 										<view class="uni-list apply-date">
@@ -149,6 +167,8 @@
 	export default {
 		data() {
 			return {
+				model: "",
+				platform: "",
 				article_id: 35,
 				brand: "",
 				key: "",
@@ -204,6 +224,7 @@
 			//_jquery.efftest();
 		},
 		onShow() {
+			var that = this;
 			let hash = window.location.hash;
 			var share_url = util.Interface.domain + "/?type=ef2&id=35" + hash,
 				title = "英孚教育 英语培训中心",
@@ -211,6 +232,13 @@
 				dec = "专业认证培训师，教你地道英语";
 			mdl.wxShare(share_url, title, imgUrl, dec);
 			//console.log("onShow");
+			uni.getSystemInfo({
+				success(res) {
+					console.log(res)
+					that.model = res.model;
+					that.platform = res.platform;
+				}
+			})
 		},
 		methods: {
 			goHomePage() {
@@ -296,6 +324,8 @@
 				}
 				//console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
 				let formData = e.detail.value;
+				// console.log(formData)
+				// return
 				this.loading = true
 				var rule = [{
 						name: "UserName",
@@ -315,6 +345,24 @@
 						errorMsg: "请选择城市"
 					}
 				];
+				if (!_this.model) {
+					let _rule = [{
+							name: "Age",
+							checkType: "notnull",
+							checkRule: "",
+							errorMsg: "请填写年龄"
+						},
+						{
+							name: "Gender",
+							checkType: "notnull",
+							checkRule: "",
+							errorMsg: "请填写性别"
+						}
+					]
+					rule = [...rule, ..._rule];
+				}
+				// console.log(rule)
+				// return
 				//进行表单检查
 				var checkRes = graceChecker.check(formData, rule);
 				if (checkRes) {
@@ -322,11 +370,17 @@
 						"预约品牌": "EF英孚教育 - 英语培训中心 - 免费试听体验课",
 						"客户姓名": formData.UserName,
 						"客户手机号": formData.UserPhone,
-						"年龄": _this.age[formData.Age],
-						"性别": _this.gender[formData.Gender],
 						"城市": formData.City
 					};
-					//console.log(_data);
+					if (!_this.model) {
+						_data["年龄"] = formData.Age;
+						_data["性别"] = formData.Gender;
+					} else {
+						_data["年龄"] = _this.age[formData.Age];
+						_data["性别"] = _this.gender[formData.Gender];
+					}
+					// console.log(_data);
+					// return
 					/** request-1 send email **/
 					var sendMail_key = 0;
 					var fun = function(result) {
@@ -678,4 +732,8 @@
 			line-height: 1.4;
 		}
 	}
+</style>
+.4;
+}
+}
 </style>
