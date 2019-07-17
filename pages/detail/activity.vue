@@ -407,33 +407,4 @@
 	.portrait-block {
 		margin-right: 10upx;
 	}
-
-	.share-tips {
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		background: rgba(0, 0, 0, 0.6);
-		z-index: 100;
-	}
-
-	.share-box {
-		text-align: right;
-		padding: 120upx 60upx 40upx;
-	}
-
-	.s-row {
-		display: flex;
-		justify-content: flex-end;
-		color: #FFFFFF;
-		letter-spacing: 2upx;
-		font-size: 40upx;
-	}
-
-	.undo {
-		transform: rotate(110deg);
-		position: relative;
-		top: -20upx;
-	}
 </style>

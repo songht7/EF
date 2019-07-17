@@ -1,6 +1,7 @@
 <template>
 	<view class="page " :class="$store.state.isWeixin?'page-main':''">
-		<uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" ctnfixed="true" rightShow="false" right-icon="scan"  @click-left="showCity">
+		<uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" ctnfixed="true" rightShow="false" right-icon="scan"
+		 @click-left="showCity">
 			<block slot="left">
 				<view class="city" @click="showMulLinkageTwoPicker">
 					<uni-icon type="location" color="#333333" size="22"></uni-icon>
@@ -190,12 +191,9 @@
 			uni.setNavigationBarTitle({
 				title: "英语免费试听课网"
 			});
-			/**
-			 * 课程列表
-			 */
-			_this.getList();
 		},
 		onShow() {
+			var _this = this;
 			this.$store.commit("change_page", 0)
 			this.$store.dispatch('checkWeixin');
 			this.$store.dispatch('cheack_user');
@@ -207,6 +205,13 @@
 				dec = "英语免费试听课，在这里找到你想要的";
 			//console.log(share_url)
 			mdl.wxShare(share_url, title, imgUrl, dec);
+			/**
+			 * 课程列表
+			 */
+			// uni.showLoading({
+			// 	title: '正在加载 ...'
+			// });
+			_this.getList();
 		},
 		onReady() {
 			var _this = this;
@@ -218,6 +223,7 @@
 				// 				console.log("======slideShow========");
 				// 				console.log(res)
 				let _data = res.list;
+				uni.hideLoading();
 				_this.setData("swiperList", _data);
 			}
 			let swiper = mdl.getData(url_slide, fun1);
@@ -228,6 +234,7 @@
 			let fun2 = function(res) {
 				//console.log("======getRegion2========");
 				let _data = res.list;
+				uni.hideLoading();
 				_this.setData("region", _data);
 			}
 			let region = mdl.getData(url_region, fun2);
@@ -239,6 +246,7 @@
 				//console.log("======getCategory========");
 				//console.log(res)
 				let _data = res.list;
+				uni.hideLoading();
 				_this.setData("ctg", _data);
 
 			}
@@ -258,6 +266,7 @@
 					};
 					_this.subctg.push(_subCtg);
 				});
+				uni.hideLoading();
 			}
 			let getSubjectCategory = mdl.getData(url_subctg, fun4);
 			/**
@@ -268,6 +277,7 @@
 				//console.log("======getBrand========");
 				let _data = res.list;
 				_this.setData("brand", _data);
+				uni.hideLoading();
 
 			}
 			let getBrand = mdl.getData(url_brand, fun5);
@@ -319,10 +329,9 @@
 					"&cat=" + param.cat + "&brand=" + param.brand + "&age_start=" + param.age_start + "&age_end=" + param.age_end +
 					"&subject_category=" + param.subject_category;
 				let url_list = apiurl + inter.addr.article + _param;
-				uni.showLoading({
-					title: '正在加载 ...'
-				});
 				let fun = function(res) {
+					uni.stopPullDownRefresh();
+					uni.hideLoading();
 					// 					console.log("======article========");
 					// 					console.log(res)
 					let data = res.list;
@@ -333,7 +342,6 @@
 						} else {
 							that.list = [];
 						}
-						uni.stopPullDownRefresh();
 					} else {
 						if (data) {
 							data.forEach(item => {
@@ -344,7 +352,6 @@
 					that.copyrightShow = true;
 					that.loadingType = 0;
 					that.pagination(total);
-					uni.hideLoading();
 				}
 				let pro_list = mdl.getData(url_list, fun);
 			},

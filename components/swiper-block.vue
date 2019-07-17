@@ -6,16 +6,35 @@
 				<swiper-item class="swiper-item" v-for="(slide,index) in swiperList" :key="index">
 					<view class="vli">
 						<view class="vli2">
-							<image class="slideImg" @click="linkTo(slide.link)" lazy-load="true" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
+							<block v-if="slide.link=='download'&&!isWeixin">
+								<a :href="websiteUrl+'/static/com.zyj.example.apk'" @click="linkTo(slide.link)">
+									<image class="slideImg" lazy-load="true" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
+								</a>
+							</block>
+							<block v-else="">
+								<image class="slideImg" @click="linkTo(slide.link)" lazy-load="true" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
+							</block>
 						</view>
 					</view>
 				</swiper-item>
 			</swiper>
 		</view>
+		<view class="share-tips" v-if="popTips" @click="closePopTips">
+			<view class="share-box">
+				<view class="s-row">
+					点击右上角"<uni-icon size="45" type="more-filled" color="#FCFCFC"></uni-icon>"
+					<uni-icon class="undo" size="50" type="undo" color="#FCFCFC"></uni-icon>
+				</view>
+				<view class="s-row">浏览器打开完成下载</view>
+			</view>
+		</view>
 	</view>
 </template>
 
 <script>
+	import util from '@/common/util.js';
+	import uniIcon from '@/components/uni-icon.vue'
+	const mdl = util.module;
 	export default {
 		name: "swiper-block",
 		props: {
@@ -44,12 +63,47 @@
 				default: 1000
 			}
 		},
+		data() {
+			return {
+				isWeixin: mdl.isWeixin(),
+				popTips: false
+			}
+		},
+		components: {
+			uniIcon
+		},
 		methods: {
+			closePopTips() {
+				this.popTips = false
+			},
 			linkTo(pram) {
+				//console.log("sourceUrl:", sourceUrl)
+				var that = this;
 				if (pram) {
-					uni.navigateTo({
-						url: '/pages/detail/index?' + pram
-					});
+					var _pram = pram.split("-");
+					//console.log("_pram：", _pram)
+					switch (_pram[0]) {
+						case 'download':
+							if (mdl.isWeixin()) {
+								that.popTips = true;
+							}
+							// var dl_url = 'http://www.meetji.com/#/static/' + _pram[1];
+							// console.log(dl_url)
+							// uni.downloadFile({
+							// 	url: dl_url,
+							// 	success: (res) => {
+							// 		if (res.statusCode === 200) {
+							// 			console.log('下载成功');
+							// 		}
+							// 	}
+							// });
+							break;
+						default:
+							uni.navigateTo({
+								url: '/pages/detail/index?' + pram
+							});
+							break;
+					}
 				}
 			}
 		}
