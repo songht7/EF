@@ -19,7 +19,7 @@
 		</uni-nav-bar>
 
 		<view class="content">
-			<swiper-block :swiperList="swiperList" v-if="swiperList.length"></swiper-block>
+			<swiper-block :swiperList="swiperList" :autoplay="autoplay" v-if="swiperList.length"></swiper-block>
 			<view class="filter-box">
 				<view class="flt-block ctgBox">
 					<view class="ctg-btn-block">
@@ -121,6 +121,7 @@
 				"category": [], //分类
 				"ageGroup": [], //
 				"swiperList": [],
+				"autoplay": false,
 				"region": [],
 				ctg: [],
 				subctg: [{
