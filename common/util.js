@@ -236,8 +236,8 @@ const module = {
 				_uWXInfo = res.data;
 			},
 			complete: function() {
-				// 				console.log("=====getStorage-_uWXInfo======")
-				// 				console.log(_uWXInfo)
+				// console.log("=====getStorage-_uWXInfo======")
+				// console.log(_uWXInfo)
 				if ((_uWXInfo && _uWXInfo.openid) || test_openid) {
 					var __openid = _uWXInfo.openid || test_openid;
 					_this.userLogin("", __openid);
@@ -273,16 +273,16 @@ const module = {
 			}
 		}
 		var _url = Interface.apiurl + Interface.addr.getWeChatInfo + param;
-		// 		console.log("======getWXInfo========")
-		// 		console.log(_url)
+		// console.log("======getWXInfo========")
+		// console.log(_url)
 		uni.request({
 			url: _url,
 			method: "GET",
 			data: {},
 			header: _head || {},
 			success(res) {
-				// 				console.log("====getWeChatInfo====")
-				// 				console.log(res)
+				// console.log("====getWeChatInfo====")
+				// console.log(res)
 				result = res;
 				let _data = res.data.data;
 				if (_data.openid) {
@@ -304,6 +304,7 @@ const module = {
 			},
 			fail(err) {
 				result = err;
+				console.log("---getWeChatInfo-err---")
 				console.log(err)
 				_this.goHomePage();
 			},
