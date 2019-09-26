@@ -151,6 +151,19 @@
 				}
 			}
 		}, {
+			"path": "pages/activity/saf",
+			"style": {
+				"navigationBarTitleText": "SAF",
+				"backgroundColor": "#EBEBEB",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
 			"path": "pages/error",
 			"style": {
 				"navigationBarTitleText": "错误信息",
