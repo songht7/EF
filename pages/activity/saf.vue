@@ -227,6 +227,7 @@
 	}
 
 	.icon-arw {
+		display: none;
 		position: absolute;
 		z-index: 2;
 		left: 80%;
@@ -485,6 +486,7 @@
 		}
 
 		.icon-arw {
+			display: block;
 			left: -20px;
 			top: 20%;
 		}
