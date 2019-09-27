@@ -6,8 +6,8 @@
 					<view class="swiper-item">
 						<view class="slide-info">
 							<view class="s-inner">
-								<img class="saf-logo" src="/static/h5/saf.png" alt="saf">
-								<img class="slide-info1" src="/static/h5/slide_info1.png" alt="">
+								<img class="saf-logo" src="/static/saf.png" alt="saf">
+								<img class="slide-info1" src="/static/slide_info1.png" alt="">
 							</view>
 						</view>
 						<image class="slideImg" lazy-load="true" :src="slide.original_src" mode="aspectFill"></image>
@@ -48,7 +48,7 @@
 										<button formType="submit" :loading="loading" class="saf-btn" :class="loading?'btn-loading':''">{{sentRes}}</button>
 									</view>
 									<view class="protect">
-										<img class="icon-saf icon-suo" src="/static/h5/suo.png" alt="">SAF 保护您的隐私
+										<img class="icon-saf icon-suo" src="/static/suo.png" alt="">SAF 保护您的隐私
 									</view>
 								</form>
 							</view>
@@ -63,7 +63,7 @@
 						往届学生分享参加 SAF 学习项目的实际价值和生活变化经历
 					</view>
 					<view class="video-box">
-						<img class="icon-saf icon-arw" src="/static/h5/arw.png" alt="">
+						<img class="icon-saf icon-arw" src="/static/arw.png" alt="">
 						<view class="video-main">
 							<video id="myVideo" src="https://dcloud-img.oss-cn-hangzhou.aliyuncs.com/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126.mp4"
 							 @error="videoErrorCallback" enable-danmu danmu-btn controls></video>
@@ -74,7 +74,7 @@
 		</view>
 		<view class="footer">
 			<view class="footer-main page-inner">
-				<img class="footer-logo" src="/static/h5/saf.png" alt="saf" />
+				<img class="footer-logo" src="/static/saf.png" alt="saf" />
 				<view class="footer-left">
 					海外学习体验助您脱颖而出
 				</view>
