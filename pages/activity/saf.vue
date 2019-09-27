@@ -119,9 +119,19 @@
 
 			};
 		},
-		onLoad(option) {},
+		onLoad(option) {
+			this.setShare();
+		},
 		onShow() {},
 		methods: {
+			setShare(dtl) {
+				var that = this;
+				var share_url = util.Interface.domain + "/?type='saf'#/pages/activity/saf",
+					title = "免费获得 SAF 专业择校评估",
+					imgUrl = util.Interface.domain + "/static/h5/saf.png",
+					dec = "海外学习体验助您脱颖而出";
+				mdl.wxShare(share_url, title, imgUrl, dec);
+			},
 			formSubmit: function(e) {
 				var that = this;
 				if (that.loading == true) {
@@ -222,7 +232,8 @@
 		left: 80%;
 		top: -20px;
 	}
-	.video-main{
+
+	.video-main {
 		position: relative;
 		z-index: 1;
 	}
