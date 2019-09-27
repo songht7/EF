@@ -1923,7 +1923,7 @@ checkbox-group label {
 }
 
 @media screen and (min-device-width: 1025px) {
-	page {
+	.page {
 		background: #FFFFFF;
 		max-width: 1025px;
 		margin: 0 auto;
