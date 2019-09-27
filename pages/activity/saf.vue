@@ -64,8 +64,10 @@
 					</view>
 					<view class="video-box">
 						<img class="icon-saf icon-arw" src="/static/h5/arw.png" alt="">
-						<video id="myVideo" src="https://dcloud-img.oss-cn-hangzhou.aliyuncs.com/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126.mp4"
-						 @error="videoErrorCallback" enable-danmu danmu-btn controls></video>
+						<view class="video-main">
+							<video id="myVideo" src="https://dcloud-img.oss-cn-hangzhou.aliyuncs.com/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126.mp4"
+							 @error="videoErrorCallback" enable-danmu danmu-btn controls></video>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -216,9 +218,13 @@
 
 	.icon-arw {
 		position: absolute;
-		z-index: 999;
+		z-index: 2;
 		left: 80%;
 		top: -20px;
+	}
+	.video-main{
+		position: relative;
+		z-index: 1;
 	}
 
 	/*swiper-slide*/
