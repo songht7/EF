@@ -57,7 +57,7 @@
 				</view>
 				<view class="page-block block-left">
 					<view class="saf-title">
-						SAF 学生的共识
+						<view class="saf-t">SAF 学生的共识</view>
 					</view>
 					<view class="saf-ov">
 						往届学生分享参加 SAF 学习项目的实际价值和生活变化经历
@@ -72,7 +72,7 @@
 		</view>
 		<view class="footer">
 			<view class="footer-main page-inner">
-				<img class="footer-logo" src="/static/h5/saf.png" alt="saf"/>
+				<img class="footer-logo" src="/static/h5/saf.png" alt="saf" />
 				<view class="footer-left">
 					海外学习体验助您脱颖而出
 				</view>
@@ -216,7 +216,7 @@
 
 	.icon-arw {
 		position: absolute;
-		z-index: 10;
+		z-index: 999;
 		left: 80%;
 		top: -20px;
 	}
@@ -288,12 +288,17 @@
 	}
 
 	.saf-title {
-		font-size: 36upx;
+		margin-bottom: 15upx;
+	}
+
+	.saf-t {
+		font-size: 34upx;
 		font-weight: 500;
 		color: #000;
 		line-height: 2;
+		display: inline;
+		padding-bottom: 10upx;
 		border-bottom: 5upx solid #f08422;
-		margin-bottom: 15upx;
 	}
 
 	.saf-ov {
@@ -502,10 +507,15 @@
 		}
 
 		.saf-title {
+			margin-bottom: 15px;
+		}
+
+		.saf-t {
 			font-size: 28px;
 			line-height: 2;
+			display: inline;
+			padding-bottom: 8px;
 			border-bottom: 5px solid #f08422;
-			margin-bottom: 15px;
 		}
 
 		.saf-ov {
