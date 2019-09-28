@@ -67,7 +67,7 @@
 					<view class="video-box">
 						<img class="icon-saf icon-arw" src="/static/arw.png" alt="">
 						<view class="video-main">
-							<video id="myVideo" @error="videoErrorCallback" :src="video" controls></video>
+							<video id="myVideo" @error="videoErrorCallback" :src="video" controls autoplay="true"></video>
 						</view>
 					</view>
 				</view>
@@ -284,7 +284,7 @@
 	}
 
 	.slide-info1 {
-		max-width: 50%;
+		max-width: 55%;
 	}
 
 	.slideImg {
@@ -492,7 +492,7 @@
 
 
 		.slide-info {
-			padding-bottom: 65px;
+			padding-bottom: 10px;
 		}
 
 		.saf-logo {
@@ -501,7 +501,7 @@
 		}
 
 		.slide-info1 {
-			max-width: 30%;
+			max-width: 32%;
 		}
 
 		.icon-arw {
@@ -676,7 +676,7 @@
 		}
 
 		.slide-info {
-			padding-bottom: 100px;
+			padding-bottom: 20px;
 		}
 
 
