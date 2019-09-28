@@ -332,7 +332,7 @@
 	}
 
 	.saf-ov {
-		font-size: 30upx;
+		font-size: 36upx;
 		color: #000;
 		line-height: 1.6;
 		padding-bottom: 15upx;
@@ -381,7 +381,10 @@
 
 
 	.user-list {
-		padding-bottom: 10upx;
+		padding-bottom: 30upx;
+	}
+	.uni-list-row{
+		font-size: 36upx;
 	}
 
 	.uni-input {
@@ -416,6 +419,10 @@
 		font-size: 16upx;
 		padding-bottom: 30upx;
 		text-align: right;
+		display: flex;
+		flex-direction: row;
+		justify-content:flex-end;
+		align-items: center;
 	}
 
 	.icon-suo {
@@ -494,7 +501,7 @@
 		}
 
 		.slide-info1 {
-			max-width: 25%;
+			max-width: 30%;
 		}
 
 		.icon-arw {
@@ -586,7 +593,7 @@
 		}
 
 		.user-list {
-			padding-bottom: 10px;
+			padding-bottom: 20px;
 			/* margin-left: 20px; */
 		}
 
@@ -665,7 +672,7 @@
 		}
 
 		.slide-info1 {
-			max-width: auto;
+			max-width: 100%;
 		}
 
 		.slide-info {
@@ -675,6 +682,14 @@
 
 		#myVideo {
 			height: 270px;
+		}
+
+		.saf-ov {
+			font-size: 18px;
+		}
+
+		.uni-list-row {
+			font-size: 18px;
 		}
 
 		.swiper-box {
