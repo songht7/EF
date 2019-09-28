@@ -20,7 +20,8 @@
 				<view class="page-block block-right">
 					<view class="user-box">
 						<view class="user-title">
-							免费获得 SAF 专业择校评估
+							<!-- 免费获得 SAF 专业择校评估 -->
+							<img class="title-img title-img-2" src="/static/title2.png" alt="">
 						</view>
 						<view class="user-main">
 							<view class="tip-box" v-if="tipShow">
@@ -57,7 +58,8 @@
 				</view>
 				<view class="page-block block-left">
 					<view class="saf-title">
-						<view class="saf-t">SAF 学生的共识</view>
+						<!-- <view class="saf-t">SAF 学生的共识</view> -->
+						<img class="title-img title-img-1" src="/static/title1.png" alt="">
 					</view>
 					<view class="saf-ov">
 						往届学生分享参加 SAF 学习项目的实际价值和生活变化经历
@@ -305,6 +307,14 @@
 		top: 50upx;
 	}
 
+	.title-img {
+		width: 80%;
+	}
+
+	.title-img-1 {
+		width: 40%;
+	}
+
 	.saf-title {
 		margin-bottom: 15upx;
 	}
@@ -518,6 +528,14 @@
 		.page-block {
 			width: 48%;
 			padding: 0;
+		}
+
+		.title-img {
+			width: auto;
+		}
+
+		.title-img-1 {
+			width: auto;
 		}
 
 		.block-left {
