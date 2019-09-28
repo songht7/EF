@@ -67,7 +67,7 @@
 					<view class="video-box">
 						<img class="icon-saf icon-arw" src="/static/arw.png" alt="">
 						<view class="video-main">
-							<video id="myVideo" @error="videoErrorCallback" :src="video" controls autoplay="true"></video>
+							<video id="myVideo" @error="videoErrorCallback" :src="video" :muted="muted" controls :autoplay="autoplay"></video>
 						</view>
 					</view>
 				</view>
@@ -106,6 +106,9 @@
 			return {
 				loading: false,
 				video: "/static/video-saf.mp4",
+				poster: "/static/saf.png",
+				autoplay: true,
+				muted: false,
 				swiperList: [{
 					"original_src": "/static/slide1.jpg"
 				}],
@@ -383,7 +386,8 @@
 	.user-list {
 		padding-bottom: 30upx;
 	}
-	.uni-list-row{
+
+	.uni-list-row {
 		font-size: 36upx;
 	}
 
@@ -421,7 +425,7 @@
 		text-align: right;
 		display: flex;
 		flex-direction: row;
-		justify-content:flex-end;
+		justify-content: flex-end;
 		align-items: center;
 	}
 
