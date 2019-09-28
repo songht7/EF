@@ -67,8 +67,7 @@
 					<view class="video-box">
 						<img class="icon-saf icon-arw" src="/static/arw.png" alt="">
 						<view class="video-main">
-							<video id="myVideo" src="https://dcloud-img.oss-cn-hangzhou.aliyuncs.com/guide/uniapp/%E7%AC%AC1%E8%AE%B2%EF%BC%88uni-app%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D%EF%BC%89-%20DCloud%E5%AE%98%E6%96%B9%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B@20181126.mp4"
-							 @error="videoErrorCallback" enable-danmu danmu-btn controls></video>
+							<video id="myVideo" @error="videoErrorCallback" :src="video" controls></video>
 						</view>
 					</view>
 				</view>
@@ -106,8 +105,9 @@
 		data() {
 			return {
 				loading: false,
+				video: "/static/video-saf.mp4",
 				swiperList: [{
-					"original_src": "/static/h5/slide1.jpg"
+					"original_src": "/static/slide1.jpg"
 				}],
 				api: "http://api_test.meetji.com/v2/ApiHome-saveSingle.htm",
 				formData: {
@@ -133,6 +133,9 @@
 					imgUrl = util.Interface.domain + "/static/h5/saf.png",
 					dec = "海外学习体验助您脱颖而出";
 				mdl.wxShare(share_url, title, imgUrl, dec);
+			},
+			videoErrorCallback: function(e) {
+				console.log(e.target.errMsg)
 			},
 			formSubmit: function(e) {
 				var that = this;
@@ -161,8 +164,7 @@
 						"phone": formData.phone
 					};
 					var _head = {
-						"channel_code": "saf",
-						"openid": ""
+						"channel": "saf"
 					};
 
 					// var _data = {
