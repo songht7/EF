@@ -105,8 +105,8 @@
 		data() {
 			return {
 				loading: false,
+				videoContext: "",
 				video: "/static/video-saf.mp4",
-				poster: "/static/saf.png",
 				autoplay: true,
 				muted: false,
 				swiperList: [{
@@ -128,6 +128,11 @@
 			this.setShare();
 		},
 		onShow() {},
+		onReady() {
+			var vi = uni.createVideoContext('myVideo');
+			this.videoContext = vi;
+			vi.play();
+		},
 		methods: {
 			setShare(dtl) {
 				var that = this;
