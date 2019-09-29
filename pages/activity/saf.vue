@@ -21,7 +21,7 @@
 					<view class="user-box">
 						<view class="user-title">
 							<!-- 免费获得 SAF 专业择校评估 -->
-							<img class="title-img title-img-2" src="/static/title2.png" alt="">
+							<image class="title-img title-img-2" src="/static/title2.png" mode="aspectFit"></image>
 						</view>
 						<view class="user-main">
 							<view class="tip-box" v-if="tipShow">
@@ -287,7 +287,7 @@
 	}
 
 	.saf-logo {
-		width: 15%;
+		width: 150upx;
 		margin-bottom: 15upx;
 	}
 
@@ -322,7 +322,12 @@
 	}
 
 	.title-img-1 {
-		width: 40%;
+		width: 45%;
+	}
+
+	.title-img-2{
+		height: 100%;
+		overflow: hidden;
 	}
 
 	.saf-title {
@@ -555,6 +560,9 @@
 		.title-img-1 {
 			width: auto;
 		}
+		.title-img-2{
+			width: 80%;
+		}
 
 		.block-left {
 			top: 0;
@@ -707,6 +715,9 @@
 
 		.user-title {
 			font-size: 28px;
+		}
+		.title-img-2{
+			width: 355px;
 		}
 
 		.footer-main {

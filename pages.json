@@ -155,7 +155,6 @@
 			"style": {
 				"navigationBarTitleText": "SAF",
 				"backgroundColor": "#EBEBEB",
-				"enablePullDownRefresh": true,
 				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": {
