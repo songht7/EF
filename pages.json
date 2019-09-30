@@ -163,6 +163,30 @@
 				}
 			}
 		}, {
+			"path": "pages/activity/s",
+			"style": {
+				"navigationBarTitleText": "SAF",
+				"backgroundColor": "#EBEBEB",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
+			"path": "pages/activity/a",
+			"style": {
+				"navigationBarTitleText": "SAF",
+				"backgroundColor": "#EBEBEB",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
 			"path": "pages/error",
 			"style": {
 				"navigationBarTitleText": "错误信息",
