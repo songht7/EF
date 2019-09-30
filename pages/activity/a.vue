@@ -169,7 +169,8 @@
 				if (checkRes) {
 					var _data = {
 						"name": formData.name,
-						"phone": formData.phone
+						"phone": formData.phone,
+						"source":"a"
 					};
 					var _head = {
 						"channel": "saf"
