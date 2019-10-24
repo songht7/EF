@@ -187,6 +187,18 @@
 				}
 			}
 		}, {
+			"path": "pages/portrait/index",
+			"style": {
+				"navigationBarTitleText": "头像DIY - TEST",
+				"backgroundColor": "#EBEBEB",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
 			"path": "pages/error",
 			"style": {
 				"navigationBarTitleText": "错误信息",
