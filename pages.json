@@ -190,13 +190,7 @@
 			"path": "pages/portrait/index",
 			"style": {
 				"navigationBarTitleText": "头像DIY - TEST",
-				"backgroundColor": "#EBEBEB",
-				"navigationStyle": "custom",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent"
-					}
-				}
+				"backgroundColor": "#EBEBEB"
 			}
 		}, {
 			"path": "pages/error",
