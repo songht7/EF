@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="uni-padding-wrap uni-common-mt">
 			<view class="portrait-box">
-				<imageWrapper ref="imageWrapper" :imgBg="imgBg" :maskImg="maskImg" :frame="frame">
+				<imageWrapper ref="imageWrapper" v-model="hammerVal" :imgBg="imgBg" :maskImg="maskImg" :frame="frame">
 					<view class="text" v-if="slots">
 						头像
 					</view>
@@ -61,7 +61,8 @@
 				"slots": false,
 				loading: false,
 				poptype: "",
-				ctgis: "dec"
+				ctgis: "dec",
+				hammerVal: ""
 			}
 		},
 		onLoad() {},
