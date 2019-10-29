@@ -20,7 +20,7 @@
 				</movable-view>
 			</block>
 		</movable-area>
-		<view class="">
+		<view>
 			=={{hammerVal}}==
 		</view>
 	</div>
@@ -78,7 +78,7 @@
 				mc.get('rotate').set({
 					enable: true
 				});
-				mc.on("pinch rotate panleft panright tap press", function(ev) {
+				mc.on("pinch rotate", function(ev) {
 					that.hammerVal = ev.type;
 					console.log(ev.type)
 					//myElement.textContent += ev.type + " ";
@@ -103,7 +103,7 @@
 
 <style>
 	#ImageWrapper {
-		height: 700upx;
+		height: 650upx;
 		width: 600upx;
 	}
 
