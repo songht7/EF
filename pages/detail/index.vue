@@ -133,7 +133,7 @@
 													</view>
 													<view class="uni-list-cell-db">
 														<picker name="Age" @change="bindAgeChange" :value="ageIndex" :range="age">
-															<view class="uni-input">{{age[ageIndex]}}</view>
+															<view class="uni-input">{{ageIndex>=0?age[ageIndex]:''}}</view>
 														</picker>
 														<!-- <input class="uni-input" name="Age" type="number" placeholder="" value="" /> -->
 													</view>
@@ -309,7 +309,7 @@
 				age: ['0-3岁', '4-6岁', '7-9岁', '10-12岁', '13-15岁', '16-18岁', '18-22岁', '23-26岁', '27-35岁', '36-40岁', '41-50岁',
 					'51岁以上'
 				],
-				ageIndex: 6,
+				ageIndex: -1,
 				schoolVal: [],
 				schoolDtl: [],
 				schoolId: "",
@@ -491,7 +491,7 @@
 				if (checkRes) {
 					var _data = {
 						"name": formData.UserName,
-						"age_range": that.age[formData.Age],
+						"age_range": that.age[formData.Age] ? that.age[formData.Age] : '',
 						"sex": formData.Gender == 0 ? "男" : "女",
 						"phone": formData.UserPhone,
 						"city": "", //formData.City,
@@ -499,7 +499,8 @@
 						"article_id": that.article_id,
 						"arrive_time": "" //formData.ApplyDate
 					};
-					//console.log(_data);
+					// console.log(_data);
+					// return
 					/**有活动的进入活动页 that.activity_brand
 					 * brand_id 4 韦博
 					 * brand_id 14 韦博开心豆
