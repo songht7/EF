@@ -517,28 +517,6 @@
 					};
 					// console.log(_data);
 
-					/* sigmob 投放 */
-					uni.getStorage({
-						key: '_CALLBACK_',
-						success: function(res) {
-							let _CALLBACK_ = res.data;
-							// console.log(_CALLBACK_)
-							uni.request({
-								url: `${_CALLBACK_}&name=${_data.name}&age_range=${_data.age_range}&sex=${_data.sex}&phone=${_data.phone}&article_id=${_data.article_id}`,
-								method: "GET",
-								data: {},
-								success: function(res) {
-									console.log("==sigmob-success==", res)
-								},
-								fail: function(err) {
-									console.log("==sigmob-fail==", err)
-								},
-								complete: function() {}
-							})
-						},
-					})
-					/* sigmob 投放 -ed */
-
 					//return
 
 					/**有活动的进入活动页 that.activity_brand
@@ -590,6 +568,28 @@
 								image: "../../static/icon-1.png"
 							})
 						} else {
+							/* sigmob 投放 */
+							uni.getStorage({
+								key: '_CALLBACK_',
+								success: function(res) {
+									let _CALLBACK_ = res.data;
+									// console.log(_CALLBACK_)
+									uni.request({
+										url: `${_CALLBACK_}`, //&name=${_data.name}&age_range=${_data.age_range}&sex=${_data.sex}&phone=${_data.phone}&article_id=${_data.article_id}
+										method: "GET",
+										data: {},
+										success: function(res) {
+											console.log("==sigmob-success==", res)
+										},
+										fail: function(err) {
+											console.log("==sigmob-fail==", err)
+										},
+										complete: function() {}
+									})
+								},
+							})
+							/* sigmob 投放 -ed */
+
 							let __point = that.userInfo.point - Math.ceil(that.detail.current_price);
 							if (resAll.result.point || __point >= 0) {
 								uni.getStorage({
