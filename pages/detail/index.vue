@@ -351,6 +351,16 @@
 		onLoad(option) {
 			var _this = this;
 			let _id = option.id;
+			let _CALLBACK_ = option.callback ? option.callback : '';
+			if (_CALLBACK_) {
+				uni.setStorage({
+					key: '_CALLBACK_',
+					data: decodeURIComponent(_CALLBACK_),
+					success: function() {
+						//console.log('setStorage-uWXInfo-success');
+					}
+				})
+			}
 			this.article_id = _id;
 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
 			let fun = function(res) {
@@ -406,6 +416,12 @@
 			if (_this.detail.name) {
 				_this.setShare(_this.detail);
 			}
+		},
+		onHide() {
+			// uni.removeStorage({
+			// 	key: '_CALLBACK_',
+			// 	success: function(res) {}
+			// });
 		},
 		computed: {
 			startDate() {
@@ -500,7 +516,31 @@
 						"arrive_time": "" //formData.ApplyDate
 					};
 					// console.log(_data);
-					// return
+
+					/* sigmob 投放 */
+					uni.getStorage({
+						key: '_CALLBACK_',
+						success: function(res) {
+							let _CALLBACK_ = res.data;
+							// console.log(_CALLBACK_)
+							uni.request({
+								url: `${_CALLBACK_}&name=${_data.name}&age_range=${_data.age_range}&sex=${_data.sex}&phone=${_data.phone}&article_id=${_data.article_id}`,
+								method: "GET",
+								data: {},
+								success: function(res) {
+									console.log("==sigmob-success==", res)
+								},
+								fail: function(err) {
+									console.log("==sigmob-fail==", err)
+								},
+								complete: function() {}
+							})
+						},
+					})
+					/* sigmob 投放 -ed */
+
+					//return
+
 					/**有活动的进入活动页 that.activity_brand
 					 * brand_id 4 韦博
 					 * brand_id 14 韦博开心豆
