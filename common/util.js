@@ -1,4 +1,4 @@
-// #ifdef MP-WEIXIN
+// #ifdef MP-WEIXIN || H5
 const wx = require('jweixin-module')
 // #endif
 const isArray = Array.isArray || function(obj) {
