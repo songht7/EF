@@ -1,4 +1,6 @@
+// #ifdef MP-WEIXIN
 const wx = require('jweixin-module')
+// #endif
 const isArray = Array.isArray || function(obj) {
 	return obj instanceof Array;
 };

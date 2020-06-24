@@ -230,7 +230,10 @@
 				title = "英孚教育 英语培训中心",
 				imgUrl = util.Interface.domain + "/static/ef/p2-banner.jpg",
 				dec = "专业认证培训师，教你地道英语";
+			// #ifdef MP-WEIXIN
 			mdl.wxShare(share_url, title, imgUrl, dec);
+			// #endif
+
 			//console.log("onShow");
 			uni.getSystemInfo({
 				success(res) {
@@ -420,7 +423,7 @@
 					var data2DB = {
 						"name": formData.UserName,
 						"age_range": _this.age[formData.Age],
-						"sex": _this.gender[formData.Gender],
+						"sex": _this.gender[formData.Gender] + ' --from--alipay',
 						"phone": formData.UserPhone,
 						"city": formData.City,
 						"school": "", //this.schoolId,
@@ -732,8 +735,4 @@
 			line-height: 1.4;
 		}
 	}
-</style>
-.4;
-}
-}
 </style>
