@@ -48,7 +48,8 @@
     /* 快应用特有相关 */
     "h5" : {
         "template" : "pages/h5-temp.html",
-        "title" : "英语免费试听"
+        "title" : "英语免费试听",
+        "domain" : "www.meetji.com"
     },
     "mp-weixin" : {
         /* 小程序特有相关 */

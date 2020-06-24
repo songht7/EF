@@ -133,7 +133,7 @@
 													</view>
 													<view class="uni-list-cell-db">
 														<picker name="Age" @change="bindAgeChange" :value="ageIndex" :range="age">
-															<view class="uni-input">{{age[ageIndex]}}</view>
+															<view class="uni-input">{{ageIndex>=0?age[ageIndex]:''}}</view>
 														</picker>
 														<!-- <input class="uni-input" name="Age" type="number" placeholder="" value="" /> -->
 													</view>
@@ -306,8 +306,10 @@
 				//date: "",
 				gender: ['男', '女'],
 				genderIndex: 0,
-				age: ['0-3岁', '4-6岁', '7-9岁', '10-12岁', '13-15岁', '16-18岁', '18岁以上'],
-				ageIndex: 2,
+				age: ['0-3岁', '4-6岁', '7-9岁', '10-12岁', '13-15岁', '16-18岁', '18-22岁', '23-26岁', '27-35岁', '36-40岁', '41-50岁',
+					'51岁以上'
+				],
+				ageIndex: -1,
 				schoolVal: [],
 				schoolDtl: [],
 				schoolId: "",
@@ -349,6 +351,16 @@
 		onLoad(option) {
 			var _this = this;
 			let _id = option.id;
+			let _CALLBACK_ = option.callback ? option.callback : '';
+			if (_CALLBACK_) {
+				uni.setStorage({
+					key: '_CALLBACK_',
+					data: decodeURIComponent(_CALLBACK_),
+					success: function() {
+						//console.log('setStorage-uWXInfo-success');
+					}
+				})
+			}
 			this.article_id = _id;
 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
 			let fun = function(res) {
@@ -404,6 +416,12 @@
 			if (_this.detail.name) {
 				_this.setShare(_this.detail);
 			}
+		},
+		onHide() {
+			// uni.removeStorage({
+			// 	key: '_CALLBACK_',
+			// 	success: function(res) {}
+			// });
 		},
 		computed: {
 			startDate() {
@@ -489,7 +507,7 @@
 				if (checkRes) {
 					var _data = {
 						"name": formData.UserName,
-						"age_range": that.age[formData.Age],
+						"age_range": that.age[formData.Age] ? that.age[formData.Age] : '',
 						"sex": formData.Gender == 0 ? "男" : "女",
 						"phone": formData.UserPhone,
 						"city": "", //formData.City,
@@ -497,7 +515,10 @@
 						"article_id": that.article_id,
 						"arrive_time": "" //formData.ApplyDate
 					};
-					//console.log(_data);
+					// console.log(_data);
+
+					//return
+
 					/**有活动的进入活动页 that.activity_brand
 					 * brand_id 4 韦博
 					 * brand_id 14 韦博开心豆
@@ -547,6 +568,28 @@
 								image: "../../static/icon-1.png"
 							})
 						} else {
+							/* sigmob 投放 */
+							uni.getStorage({
+								key: '_CALLBACK_',
+								success: function(res) {
+									let _CALLBACK_ = res.data;
+									// console.log(_CALLBACK_)
+									uni.request({
+										url: `${_CALLBACK_}`, //&name=${_data.name}&age_range=${_data.age_range}&sex=${_data.sex}&phone=${_data.phone}&article_id=${_data.article_id}
+										method: "GET",
+										data: {},
+										success: function(res) {
+											console.log("==sigmob-success==", res)
+										},
+										fail: function(err) {
+											console.log("==sigmob-fail==", err)
+										},
+										complete: function() {}
+									})
+								},
+							})
+							/* sigmob 投放 -ed */
+
 							let __point = that.userInfo.point - Math.ceil(that.detail.current_price);
 							if (resAll.result.point || __point >= 0) {
 								uni.getStorage({
