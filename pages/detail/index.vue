@@ -64,7 +64,43 @@
 				</view>
 			</view>
 		</view>
-
+		<block v-if="article_id==38">
+			<view class="detail-block">
+				<view class="ef-select">
+					<view class="uni-title uni-common-mt uni-common-pl ef-select-title">1. 您的英语水平：</view>
+					<radio-group @change="efRadio1">
+						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi1" :key="item.value">
+							<view>
+								<radio :value="item.value" :checked="index === efSlt1" />
+							</view>
+							<view>{{item.name}}</view>
+						</label>
+					</radio-group>
+				</view>
+				<view class="ef-select">
+					<view class="uni-title uni-common-mt uni-common-pl ef-select-title">2. 您的学习目标是：</view>
+					<radio-group @change="efRadio2">
+						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi2" :key="item.value">
+							<view>
+								<radio :value="item.value" :checked="index === efSlt2" />
+							</view>
+							<view>{{item.name}}</view>
+						</label>
+					</radio-group>
+				</view>
+				<view class="ef-select">
+					<view class="uni-title uni-common-mt uni-common-pl ef-select-title">3. 您的意向学习方式是：</view>
+					<radio-group @change="efRadio3">
+						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi3" :key="item.value">
+							<view>
+								<radio :value="item.value" :checked="index === efSlt3" />
+							</view>
+							<view>{{item.name}}</view>
+						</label>
+					</radio-group>
+				</view>
+			</view>
+		</block>
 		<view class="detail-block">
 			<view class="comments">
 				评论
@@ -345,7 +381,50 @@
 				activity_type: {
 					"help": "help"
 				}, //活动类型-help:助力
-				setUserPopup: ""
+				setUserPopup: "",
+				efSltLi1: [{
+					value: "A",
+					"name": "A: 零基础"
+				}, {
+					value: "B",
+					"name": "B: 初级"
+				}, {
+					value: "C",
+					"name": "C: 中级"
+				}, {
+					value: "D",
+					"name": "D: 高级"
+				}],
+				efSltLi2: [{
+					value: "A",
+					"name": "A: 职场晋升"
+				}, {
+					value: "B",
+					"name": "B: 个人兴趣"
+				}, {
+					value: "C",
+					"name": "C: 出国旅行"
+				}, {
+					value: "D",
+					"name": "D: 学术考试"
+				}, {
+					value: "E",
+					"name": "E: 口语交际"
+				}],
+				efSltLi3: [{
+					value: "A",
+					"name": "A: 线下中心1对1私人会话课"
+				}, {
+					value: "B",
+					"name": "B: 线下中心小组会话课"
+				}, {
+					value: "C",
+					"name": "C: 线上课程"
+				}],
+				efSlt1: -1,
+				efSlt2: -1,
+				efSlt3: -1,
+				efForm: [0, 0, 0]
 			};
 		},
 		onLoad(option) {
@@ -515,9 +594,12 @@
 						"article_id": that.article_id,
 						"arrive_time": "" //formData.ApplyDate
 					};
+					if (that.article_id == 38) {
+						_data.name =
+							`${_data.name} - 1:${that.efForm[0]!=0?that.efForm[0]:''} 2:${that.efForm[1]!=0?that.efForm[1]:''} 3:${that.efForm[2]!=0?that.efForm[2]:''}`
+					}
 					// console.log(_data);
-
-					//return
+					// return
 
 					/**有活动的进入活动页 that.activity_brand
 					 * brand_id 4 韦博
@@ -764,6 +846,36 @@
 			togglePopup(type) {
 				this.$store.commit('set_popup_user', 'off');
 				this.setUserPopup = type;
+			},
+			efRadio1: function(evt) {
+				console.log(evt)
+				this.efForm[0] = evt.target.value;
+				for (let i = 0; i < this.efSltLi1.length; i++) {
+					if (this.efSltLi1[i].value === evt.target.value) {
+						this.efSlt1 = i;
+						break;
+					}
+				}
+			},
+			efRadio2: function(evt) {
+				console.log(evt)
+				this.efForm[1] = evt.target.value;
+				for (let i = 0; i < this.efSltLi2.length; i++) {
+					if (this.efSltLi2[i].value === evt.target.value) {
+						this.efSlt2 = i;
+						break;
+					}
+				}
+			},
+			efRadio3: function(evt) {
+				console.log(evt)
+				this.efForm[2] = evt.target.value;
+				for (let i = 0; i < this.efSltLi3.length; i++) {
+					if (this.efSltLi3[i].value === evt.target.value) {
+						this.efSlt3 = i;
+						break;
+					}
+				}
 			}
 		}
 	}

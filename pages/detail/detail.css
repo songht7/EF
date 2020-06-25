@@ -323,6 +323,19 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	text-align: right;
 }
 
+.ef-select{
+	padding-bottom: 20rpx;
+}
+.ef-select-title{
+	font-size: 36rpx;
+	margin-bottom: 0;
+	padding: 20rpx 20rpx 0;
+}
+.ef-select-label {
+	display: flex;
+	justify-content: flex-start;
+}
+
 /* @media screen and (min-device-width: 1025px) {
 	.detail-block {
 		border-bottom: 10px solid #EBEBEB;
