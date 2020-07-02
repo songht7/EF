@@ -217,16 +217,16 @@
 										</view>
 									</block>
 									<view class="uni-list">
-											<view class="uni-list-cell">
-												<view class="uni-list-cell-left">
-													所属城市
-												</view>
-												<view class="uni-list-cell-db">
-													<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
-													 placeholder="" />
-												</view>
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												所属城市
+											</view>
+											<view class="uni-list-cell-db">
+												<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
+												 placeholder="" />
 											</view>
 										</view>
+									</view>
 									<!-- <view class="uni-list" v-if="schoolDtl.length">
 											<view class="uni-list-cell school-box">
 												<view class="uni-list-cell-left">
@@ -563,11 +563,18 @@
 				//console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
 				let formData = e.detail.value;
 				that.loading = true
+				formData["Age"] = that.age[formData.Age] ? that.age[formData.Age] : '';
+				console.log(formData);
 				var rule = [{
 						name: "UserName",
 						checkType: "notnull",
 						checkRule: "",
 						errorMsg: "请填写姓名"
+					}, {
+						name: "Age",
+						checkType: "notnull",
+						checkRule: "",
+						errorMsg: "请选择年龄"
 					},
 					{
 						name: "UserPhone",
@@ -587,10 +594,10 @@
 				if (checkRes) {
 					var _data = {
 						"name": formData.UserName,
-						"age_range": that.age[formData.Age] ? that.age[formData.Age] : '',
+						"age_range": formData.Age,
 						"sex": formData.Gender == 0 ? "男" : "女",
 						"phone": formData.UserPhone,
-						"city": "", //formData.City,
+						"city": formData.City ? formData.City : "",
 						"school": "", //that.schoolId,
 						"article_id": that.article_id,
 						"arrive_time": "" //formData.ApplyDate
