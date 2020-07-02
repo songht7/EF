@@ -216,7 +216,7 @@
 											</view>
 										</view>
 									</block>
-									<!-- <view class="uni-list">
+									<view class="uni-list">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left">
 													所属城市
@@ -227,7 +227,7 @@
 												</view>
 											</view>
 										</view>
-										<view class="uni-list" v-if="schoolDtl.length">
+									<!-- <view class="uni-list" v-if="schoolDtl.length">
 											<view class="uni-list-cell school-box">
 												<view class="uni-list-cell-left">
 													预约校区
