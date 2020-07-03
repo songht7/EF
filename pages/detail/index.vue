@@ -155,7 +155,7 @@
 											<view class="uni-list half">
 												<view class="uni-list-cell">
 													<view class="uni-list-cell-left">
-														姓名
+														姓名:
 													</view>
 													<view class="uni-list-cell-db">
 														<input class="uni-input" name="UserName" placeholder="" />
@@ -165,7 +165,7 @@
 											<view class="uni-list half">
 												<view class="uni-list-cell">
 													<view class="uni-list-cell-left">
-														年龄
+														年龄:
 													</view>
 													<view class="uni-list-cell-db select-block">
 														<picker name="Age" @change="bindAgeChange" :value="ageIndex" :range="age">
@@ -178,7 +178,7 @@
 											<view class="uni-list half">
 												<view class="uni-list-cell">
 													<view class="uni-list-cell-left">
-														性别
+														性别:
 													</view>
 													<view class="uni-list-cell-db select-block">
 														<picker name="Gender" @change="bindPickerChange" :value="genderIndex" :range="gender">
@@ -193,7 +193,7 @@
 									<view class="uni-list " :class="detail.current_price&&detail.current_price!='0.00'&&$store.state.isWeixin?'':'apply-date'">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
-												手机号码
+												手机号码:
 											</view>
 											<view class="uni-list-cell-db">
 												<input class="uni-input" name="UserPhone" type="number" placeholder="" :value="userInfo.phone?userInfo.phone:''" />
@@ -219,7 +219,7 @@
 									<view class="uni-list city-box">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
-												所属城市
+												所属城市:
 											</view>
 											<view class="uni-list-cell-db select-block">
 												<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
