@@ -167,7 +167,7 @@
 													<view class="uni-list-cell-left">
 														年龄
 													</view>
-													<view class="uni-list-cell-db">
+													<view class="uni-list-cell-db select-block">
 														<picker name="Age" @change="bindAgeChange" :value="ageIndex" :range="age">
 															<view class="uni-input">{{ageIndex>=0?age[ageIndex]:''}}</view>
 														</picker>
@@ -180,7 +180,7 @@
 													<view class="uni-list-cell-left">
 														性别
 													</view>
-													<view class="uni-list-cell-db">
+													<view class="uni-list-cell-db select-block">
 														<picker name="Gender" @change="bindPickerChange" :value="genderIndex" :range="gender">
 															<view class="uni-input">{{gender[genderIndex]}}</view>
 														</picker>
@@ -216,12 +216,12 @@
 											</view>
 										</view>
 									</block>
-									<view class="uni-list">
+									<view class="uni-list city-box">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
 												所属城市
 											</view>
-											<view class="uni-list-cell-db">
+											<view class="uni-list-cell-db select-block">
 												<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
 												 placeholder="" />
 											</view>
@@ -563,11 +563,18 @@
 				//console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
 				let formData = e.detail.value;
 				that.loading = true
+				formData["Age"] = that.age[formData.Age] ? that.age[formData.Age] : '';
+				console.log(formData);
 				var rule = [{
 						name: "UserName",
 						checkType: "notnull",
 						checkRule: "",
 						errorMsg: "请填写姓名"
+					}, {
+						name: "Age",
+						checkType: "notnull",
+						checkRule: "",
+						errorMsg: "请选择年龄"
 					},
 					{
 						name: "UserPhone",
@@ -587,7 +594,7 @@
 				if (checkRes) {
 					var _data = {
 						"name": formData.UserName,
-						"age_range": that.age[formData.Age] ? that.age[formData.Age] : '',
+						"age_range": formData.Age,
 						"sex": formData.Gender == 0 ? "男" : "女",
 						"phone": formData.UserPhone,
 						"city": formData.City ? formData.City : '',

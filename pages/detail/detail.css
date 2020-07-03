@@ -1,3 +1,17 @@
+.select-block{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	position: relative;
+}
+.select-block::after{
+	content: "＞";
+	position: absolute;
+	right: 0;
+	color: #999;
+	transform:rotate(90deg);
+}
 .detail-block {
 	background: #fff;
 	border-bottom: 20upx solid #EBEBEB;
@@ -245,7 +259,7 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	background: none;
 }
 
-.uni-list.apply-date:after {
+.uni-list.city-box:after {
 	background: #c8c7cc;
 }
 
