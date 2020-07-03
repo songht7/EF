@@ -217,16 +217,16 @@
 										</view>
 									</block>
 									<view class="uni-list">
-											<view class="uni-list-cell">
-												<view class="uni-list-cell-left">
-													所属城市
-												</view>
-												<view class="uni-list-cell-db">
-													<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
-													 placeholder="" />
-												</view>
+										<view class="uni-list-cell">
+											<view class="uni-list-cell-left">
+												所属城市
+											</view>
+											<view class="uni-list-cell-db">
+												<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
+												 placeholder="" />
 											</view>
 										</view>
+									</view>
 									<!-- <view class="uni-list" v-if="schoolDtl.length">
 											<view class="uni-list-cell school-box">
 												<view class="uni-list-cell-left">
@@ -590,7 +590,7 @@
 						"age_range": that.age[formData.Age] ? that.age[formData.Age] : '',
 						"sex": formData.Gender == 0 ? "男" : "女",
 						"phone": formData.UserPhone,
-						"city": "", //formData.City,
+						"city": formData.City ? formData.City : '',
 						"school": "", //that.schoolId,
 						"article_id": that.article_id,
 						"arrive_time": "" //formData.ApplyDate
