@@ -10,9 +10,9 @@
 						<view class="ser-body">
 							<view class="ser-title">{{value.name}}</view>
 							<view class="ser-describe" v-html="value.overview"></view>
-							<view class="ser-price">市场价:￥{{value.market_price?value.market_price:"-"}}</view>
+							<view class="ser-price">市场价:<text class='market-price'>￥{{value.market_price?value.market_price:"-"}}</text></view>
 						</view>
-						<view class="ser-tag">{{value.current_price&&value.current_price!="0.00"?"￥"+value.current_price:"免费"}}</view>
+						<view class="ser-tag">{{value.current_price&&value.current_price!="0.00"?"￥"+value.current_price:"0元"}}</view>
 					</navigator>
 					<view class="apply">
 						<view class="apply-nums">
@@ -30,7 +30,7 @@
 								<view class="txt-a txt-orange" v-else>全国</view>
 							</view>
 						</view>
-						<navigator :url="'/pages/detail/index?id='+value.id" class="apply-btn">立即申请</navigator>
+						<navigator :url="'/pages/detail/index?id='+value.id" class="apply-btn">立即领取</navigator>
 					</view>
 				</view>
 			</view>
@@ -82,6 +82,10 @@
 		width: 100%;
 		text-decoration: none;
 		color: #282828;
+	}
+
+	.market-price {
+		text-decoration: line-through;
 	}
 
 	.ser-logo {
