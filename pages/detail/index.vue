@@ -24,13 +24,13 @@
 									<view class="ser-title txt-orange">
 										{{detail.name}}
 									</view>
-									<view class="ser-tag">{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"免费"}}</view>
+									<view class="ser-tag">{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"0元"}}</view>
 								</view>
 								<view class="ser-abstract txt-black">
 									{{detail.overview}}
 								</view>
 								<view class="ser-feature txt-gray">
-									市场价:￥{{detail.market_price?detail.market_price:"-"}}
+									市场价: <text class='market-price'>￥{{detail.market_price?detail.market_price:"-"}}</text>
 								</view>
 								<view class="apply-num">
 									<view class="apply-cell apply-left">
@@ -64,7 +64,7 @@
 				</view>
 			</view>
 		</view>
-		<block v-if="article_id==38">
+		<block v-if="article_id==38&&QAShow">
 			<view class="detail-block">
 				<view class="ef-select">
 					<view class="uni-title uni-common-mt uni-common-pl ef-select-title">1. 您的英语水平：</view>
@@ -383,6 +383,7 @@
 					"help": "help"
 				}, //活动类型-help:助力
 				setUserPopup: "",
+				QAShow: false, //问题是否显示
 				efSltLi1: [{
 					value: "A",
 					"name": "A: 零基础"
@@ -602,7 +603,7 @@
 						"article_id": that.article_id,
 						"arrive_time": "" //formData.ApplyDate
 					};
-					if (that.article_id == 38) {
+					if (that.article_id == 38 && that.QAShow) {
 						_data.name =
 							`${_data.name} - 1:${that.efForm[0]!=0?that.efForm[0]:''} 2:${that.efForm[1]!=0?that.efForm[1]:''} 3:${that.efForm[2]!=0?that.efForm[2]:''}`
 					}

@@ -115,7 +115,9 @@ uni-swiper .uni-swiper-dots.uni-swiper-dots-horizontal {
 	border-radius: 0 5upx 0 5px;
 	background: linear-gradient(135deg, rgba(251, 212, 165, 1), rgba(247, 94, 92, 1));
 }
-
+.market-price{
+	text-decoration: line-through;
+}
 .apply-num {
 	border-top: 1px solid #CDCDCD;
 	margin-top: 20upx;
