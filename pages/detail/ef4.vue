@@ -418,7 +418,7 @@
 						}
 					}
 					var data2DB = {
-						"name": formData.UserName,
+						"name": formData.UserName + ' - ef4',
 						"age_range": _this.age[formData.Age],
 						"sex": _this.gender[formData.Gender],
 						"phone": formData.UserPhone,
