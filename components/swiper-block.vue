@@ -1,18 +1,18 @@
 <template name="swiper-block">
 	<view class="swiper-block">
 		<view class="swiper-box" v-if="swiperList.length">
-			<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :circular="circular" :interval="interval"
+			<swiper class="swiper" :style="{height:swiperHeight}" :indicator-dots="indicatorDots" :autoplay="autoplay" :circular="circular" :interval="interval"
 			 :duration="duration" indicator-color="#979797" indicator-active-color="#FFFFFF">
 				<swiper-item class="swiper-item" v-for="(slide,index) in swiperList" :key="index">
 					<view class="vli">
 						<view class="vli2">
 							<block v-if="slide.link=='download'&&!isWeixin">
 								<a :href="websiteUrl+'/static/com.zyj.example.apk'" @click="linkTo(slide.link)">
-									<image class="slideImg" lazy-load="true" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
+									<image class="slideImg" lazy-load="true" :src="setlink(slide)" mode="aspectFill"></image>
 								</a>
 							</block>
 							<block v-else="">
-								<image class="slideImg" @click="linkTo(slide.link)" lazy-load="true" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
+								<image class="slideImg" @click="linkTo(slide.link)" lazy-load="true" :src="setlink(slide)" mode="aspectFill"></image>
 							</block>
 						</view>
 					</view>
@@ -42,6 +42,10 @@
 				type: Array,
 				default: []
 			},
+			swiperHeight:{
+				type: String,
+				default: "300upx"
+			},
 			indicatorDots: {
 				type: Boolean,
 				default: true
@@ -66,11 +70,21 @@
 		data() {
 			return {
 				isWeixin: mdl.isWeixin(),
-				popTips: false
+				popTips: false,
+				sourceUrl: sourceUrl
 			}
 		},
 		components: {
 			uniIcon
+		},
+		computed: {
+			setlink: function(pram) {
+				var that = this;
+				return function(pram) {
+					let link = pram.host && pram.host == 'local' ? pram.original_src : that.sourceUrl + pram.original_src;
+					return link
+				}
+			}
 		},
 		methods: {
 			closePopTips() {

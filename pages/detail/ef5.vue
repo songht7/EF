@@ -130,10 +130,11 @@
 			<!-- v-if="btnShow" -->
 			<view class="ef-imgs ef-imgs-center">
 				<img src="../../static/ef5/s1-title.png" class="ef-img" alt="">
-				<swiper-block :swiperList="swiperList" :autoplay="false"></swiper-block>
+				<swiper-block :swiperList="swiperList" swiperHeight="1100upx" :autoplay="false" :circular="false"></swiper-block>
 			</view>
 			<view class="ef-imgs ef-imgs-center">
 				<img src="../../static/ef5/s2-title.png" class="ef-img" alt="">
+				<swiper-block :swiperList="swiperList2" swiperHeight="400upx" :autoplay="false" :circular="false"></swiper-block>
 			</view>
 			<view class="ef-imgs ef-imgs-center">
 				<img src="../../static/ef5/p1.png" class="ef-img" alt="">
@@ -197,6 +198,40 @@
 				pickerValueArray: [],
 				"swiperList": [{
 					"original_src": "/static/ef5/s1-1.png",
+					"host": "local",
+					"link": ""
+				}, {
+					"original_src": "/static/ef5/s1-2.png",
+					"host": "local",
+					"link": ""
+				}, {
+					"original_src": "/static/ef5/s1-3.png",
+					"host": "local",
+					"link": ""
+				}],
+				"swiperList2": [{
+					"original_src": "/static/ef5/s2-1.png",
+					"host": "local",
+					"link": ""
+				}, {
+					"original_src": "/static/ef5/s2-2.png",
+					"host": "local",
+					"link": ""
+				}, {
+					"original_src": "/static/ef5/s2-3.png",
+					"host": "local",
+					"link": ""
+				}, {
+					"original_src": "/static/ef5/s2-4.png",
+					"host": "local",
+					"link": ""
+				}, {
+					"original_src": "/static/ef5/s2-5.png",
+					"host": "local",
+					"link": ""
+				}, {
+					"original_src": "/static/ef5/s2-6.png",
+					"host": "local",
 					"link": ""
 				}],
 			};
@@ -626,6 +661,9 @@
 		width: 95%;
 		padding-bottom: 30upx;
 		line-height: 0;
+	}
+	.ef-imgs:last-child{
+		padding-bottom: 0;
 	}
 
 	.ef-img {
