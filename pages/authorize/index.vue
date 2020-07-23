@@ -14,7 +14,7 @@
 		data() {
 			return {
 				userInfo: {},
-				wxLoading: "加载中...",//微信授权中
+				wxLoading: "微信授权中",
 				lm_id: ""
 			};
 		},
@@ -60,7 +60,7 @@
 					});
 				}
 			}
-			// let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
+			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
 		}
 	}
 </script>
