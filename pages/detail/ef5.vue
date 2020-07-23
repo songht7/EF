@@ -24,80 +24,66 @@
 									<view class="form-box">
 										<view class="uni-list">
 											<view class="uni-list-cell">
-												<view class="uni-list-cell-left">
+												<!-- <view class="uni-list-cell-left">
 													姓名
-												</view>
+												</view> -->
 												<view class="uni-list-cell-db">
-													<input :class="model?'uni-input':''" name="UserName" placeholder="" />
+													<input :class="model?'uni-input':''" name="UserName" placeholder="姓名" />
 												</view>
 											</view>
 										</view>
 										<view class="uni-list">
 											<view class="uni-list-cell">
-												<view class="uni-list-cell-left">
+												<!-- <view class="uni-list-cell-left">
+													年龄
+												</view> -->
+												<block v-if="model">
+													<view class="uni-list-cell-db">
+														<picker name="Age" @change="bindChangeAge" :value="age_index" :range="age" placeholder="年龄">
+															<view class="uni-input">{{age[age_index]}}</view>
+														</picker>
+													</view>
+													<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
+												</block>
+												<block v-else>
+													<input class="" name="Age" placeholder="" />
+												</block>
+											</view>
+										</view>
+										<view class="uni-list">
+											<view class="uni-list-cell">
+												<!-- <view class="uni-list-cell-left">
 													电话
-												</view>
+												</view> -->
 												<view class="uni-list-cell-db">
-													<input :class="model?'uni-input':''" name="UserPhone" type="number" placeholder="" />
-												</view>
-											</view>
-										</view>
-										<view class="uni-list half-box">
-											<view class="uni-list-cell">
-
-												<view class="uni-list half">
-													<view class="uni-list-cell">
-														<view class="uni-list-cell-left">
-															年龄
-														</view>
-														<block v-if="model">
-															<view class="uni-list-cell-db">
-																<picker name="Age" @change="bindChangeAge" :value="age_index" :range="age">
-																	<view class="uni-input">{{age[age_index]}}</view>
-																</picker>
-															</view>
-															<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
-														</block>
-														<block v-else>
-															<input class="" name="Age" placeholder="" />
-														</block>
-													</view>
-												</view>
-												<view class="uni-list half">
-													<view class="uni-list-cell">
-														<view class="uni-list-cell-left">
-															性别
-														</view>
-
-														<block v-if="model">
-															<view class="uni-list-cell-db">
-																<picker name="Gender" @change="bindPickerChange" :value="index" :range="gender">
-																	<view class="uni-input">{{gender[index]}}</view>
-																</picker>
-															</view>
-															<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
-														</block>
-														<block v-else>
-															<input class="" name="Gender" placeholder="" />
-														</block>
-													</view>
+													<input :class="model?'uni-input':''" name="UserPhone" type="number" placeholder="电话" />
 												</view>
 											</view>
 										</view>
 										<view class="uni-list">
 											<view class="uni-list-cell">
-												<view class="uni-list-cell-left">
-													城市
+												<!-- <view class="uni-list-cell-left">
+													邮箱
+												</view> -->
+												<view class="uni-list-cell-db">
+													<input :class="model?'uni-input':''" name="Email" placeholder="邮箱" />
 												</view>
+											</view>
+										</view>
+										<view class="uni-list">
+											<view class="uni-list-cell">
+												<!-- <view class="uni-list-cell-left">
+													城市
+												</view> -->
 												<block v-if="model">
 													<view class="uni-list-cell-db">
 														<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
-														 placeholder="" />
+														 placeholder="城市" />
 													</view>
 												</block>
 												<block v-else>
 													<view class="uni-list-cell-db">
-														<input class="" name="City" placeholder="" />
+														<input class="" name="City" placeholder="城市" />
 													</view>
 												</block>
 											</view>
@@ -116,7 +102,7 @@
 										</view>
 									</view>
 									<view class="uni-btn-v">
-										<button formType="submit" :loading="loading" class="apply-btn">提交注册</button>
+										<button formType="submit" :loading="loading" class="apply-btn">立即订阅</button>
 										<button type="default" class="hide" formType="reset">Reset</button>
 									</view>
 								</form>
@@ -126,7 +112,7 @@
 				</view>
 			</view>
 
-			<view @tap="goTop" class="apply-btn go-top goTopEF GoTo">立即体验</view>
+			<view @tap="goTop" class="apply-btn go-top goTopEF GoTo">立即订阅《每日e课》</view>
 			<!-- v-if="btnShow" -->
 			<view class="ef-imgs ef-imgs-center">
 				<img src="../../static/ef5/s1-title.png" class="ef-img" alt="">
@@ -180,7 +166,7 @@
 				date: "",
 				gender: ['男', '女'],
 				index: 0,
-				age: ['18岁以下', '19-22岁', '23-26岁', '27-35岁', '36-40岁', '41-50岁', '51岁'],
+				age: ['18-22岁', '23-26岁', '27-35岁', '36-40岁', '41-50岁', '51岁', '18岁以下'],
 				age_index: 0,
 				loading: false,
 				scrollTop: 0,
@@ -381,6 +367,12 @@
 						checkType: "phoneno",
 						checkRule: "",
 						errorMsg: "请填写正确的手机号"
+					},
+					{
+						name: "Email",
+						checkType: "email",
+						checkRule: "",
+						errorMsg: "请填写正确的邮箱"
 					}, {
 						name: "City",
 						checkType: "notnull",
@@ -402,7 +394,7 @@
 							errorMsg: "请填写性别"
 						}
 					]
-					rule = [...rule, ..._rule];
+					// rule = [...rule, ..._rule];
 				}
 				// console.log(rule)
 				// return
@@ -417,10 +409,10 @@
 					};
 					if (!_this.model) {
 						_data["年龄"] = formData.Age;
-						_data["性别"] = formData.Gender;
+						// _data["性别"] = formData.Gender;
 					} else {
 						_data["年龄"] = _this.age[formData.Age];
-						_data["性别"] = _this.gender[formData.Gender];
+						// _data["性别"] = _this.gender[formData.Gender];
 					}
 					// console.log(_data);
 					// return
@@ -461,16 +453,17 @@
 						}
 					}
 					var data2DB = {
-						"name": formData.UserName + ' - ef5',
+						"name": formData.UserName + ' - ef5《每日e课》',
 						"age_range": _this.age[formData.Age],
-						"sex": _this.gender[formData.Gender],
+						"sex": formData.Email, //_this.gender[formData.Gender],
 						"phone": formData.UserPhone,
 						"city": formData.City,
 						"school": "", //this.schoolId,
 						"article_id": _this.article_id,
-						"arrive_time": "" //formData.ApplyDate
+						"arrive_time": formData.ApplyDate ? formData.ApplyDate : ""
 					};
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
+					console.log(data2DB)
 					let _saveSingle = mdl.getData(url_saveSingle, fun2DB, "POST", data2DB, {});
 
 					/** request-3 POST to EF **/
@@ -567,7 +560,10 @@
 
 
 	.uni-list {
-		margin-bottom: 15upx;
+		margin-bottom: 25upx;
+		border: 2upx solid rgb(140, 140, 140);
+		border-radius: 10upx;
+		overflow: hidden;
 	}
 
 	.form-box>.uni-list:last-child {
@@ -575,11 +571,11 @@
 	}
 
 	.form-box {
-		border: 2upx solid #E4E3E6;
 		border-bottom: 0;
 	}
 
-	.uni-list:before {
+	.uni-list:before,
+	.uni-list::after {
 		background: none
 	}
 
@@ -593,7 +589,7 @@
 
 	.uni-input {
 		background: #fff;
-		padding: 14upx 5upx;
+		padding: 15upx 20upx;
 	}
 
 	.half {
@@ -609,16 +605,17 @@
 		width: 100%;
 		margin: 20upx auto;
 		color: #fff;
-		background: #E40088;
+		background: #ff329b;
 		text-align: center;
 		line-height: 2.4;
-		border-radius: 0;
+		border-radius: 10upx;
 		letter-spacing: 3upx;
 		font-size: 32upx;
 		padding: 5upx 0;
 	}
 
 	.go-top {
+		background-color: #009eeb;
 		display: none;
 		width: 86%;
 		position: fixed;
@@ -662,7 +659,8 @@
 		padding-bottom: 30upx;
 		line-height: 0;
 	}
-	.ef-imgs:last-child{
+
+	.ef-imgs:last-child {
 		padding-bottom: 0;
 	}
 
@@ -779,8 +777,4 @@
 			line-height: 1.4;
 		}
 	}
-</style>
-.4;
-}
-}
 </style>
