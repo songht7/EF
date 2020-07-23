@@ -40,7 +40,7 @@
 												<block v-if="model">
 													<view class="uni-list-cell-db">
 														<picker name="Age" @change="bindChangeAge" :value="age_index" :range="age" placeholder="年龄">
-															<view class="uni-input">{{age[age_index]}}</view>
+															<view :class="['uni-input',age_index<0?'age-select':'']">{{age_index>=0?age[age_index]:'年龄'}}</view>
 														</picker>
 													</view>
 													<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
@@ -167,7 +167,7 @@
 				gender: ['男', '女'],
 				index: 0,
 				age: ['18-22岁', '23-26岁', '27-35岁', '36-40岁', '41-50岁', '51岁', '18岁以下'],
-				age_index: 0,
+				age_index: -1,
 				loading: false,
 				scrollTop: 0,
 				btnShow: false,
@@ -356,11 +356,17 @@
 				// console.log(formData)
 				// return
 				this.loading = true
+				formData["Age"] = _this.age[formData.Age] ? _this.age[formData.Age] : '';
 				var rule = [{
 						name: "UserName",
 						checkType: "notnull",
 						checkRule: "",
 						errorMsg: "请填写姓名"
+					}, {
+						name: "Age",
+						checkType: "notnull",
+						checkRule: "",
+						errorMsg: "请选择年龄"
 					},
 					{
 						name: "UserPhone",
@@ -404,16 +410,10 @@
 					var _data = {
 						"预约品牌": "EF英孚教育 - 英语培训中心 - 免费试听体验课",
 						"客户姓名": formData.UserName,
+						"年龄": formData.Age,
 						"客户手机号": formData.UserPhone,
 						"城市": formData.City
 					};
-					if (!_this.model) {
-						_data["年龄"] = formData.Age;
-						// _data["性别"] = formData.Gender;
-					} else {
-						_data["年龄"] = _this.age[formData.Age];
-						// _data["性别"] = _this.gender[formData.Gender];
-					}
 					// console.log(_data);
 					// return
 					/** request-1 send email **/
@@ -454,7 +454,7 @@
 					}
 					var data2DB = {
 						"name": formData.UserName + ' - ef5《每日e课》',
-						"age_range": _this.age[formData.Age],
+						"age_range": formData.Age,
 						"sex": formData.Email, //_this.gender[formData.Gender],
 						"phone": formData.UserPhone,
 						"city": formData.City,
@@ -546,6 +546,10 @@
 		width: 60upx;
 		height: 60upx;
 		line-height: 2;
+	}
+
+	.age-select,.uni-input-placeholder {
+		color: #808080;
 	}
 
 	.scroll-Y {
