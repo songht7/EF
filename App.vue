@@ -39,7 +39,7 @@
 			var _this = this;
 			let hash = window.location.hash;
 			if (hash != "#/pages/detail/ef?key=2" || hash != "#/pages/detail/ef2") {
-				mdl.getWXCode();
+				// mdl.getWXCode();
 			}
 		},
 		onHide: function() {
