@@ -125,7 +125,10 @@
 			<view class="ef-imgs ef-imgs-center">
 				<img src="../../static/ef5/p1.png" class="ef-img" alt="">
 				<img src="../../static/ef5/p2.png" class="ef-img" alt="">
-				<img src="../../static/ef5/cr.png" class="ef-img" alt="">
+				<!-- <img src="../../static/ef5/cr.png" class="ef-img" alt=""> -->
+				<view style="padding-bottom: 80upx;background-color: #000000;">
+					<copyright></copyright>
+				</view>
 			</view>
 		</view>
 		<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
@@ -548,7 +551,8 @@
 		line-height: 2;
 	}
 
-	.age-select,.uni-input-placeholder {
+	.age-select,
+	.uni-input-placeholder {
 		color: #808080;
 	}
 
