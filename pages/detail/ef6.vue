@@ -172,7 +172,19 @@
 					</uni-collapse-item>
 				</uni-collapse>
 			</view>
-			<img src="../../static/ef5/cr.png" class="ef-img" alt="">
+			<view id="Copyright" class="copyright">
+				<view style="width:100%; padding:20px 0;">
+					<view>
+						<a href="//www.ef-ec.com" class="crlink">ws企业管理 - 梧桫试听课网</a>
+					</view>
+					<!-- http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011702005308 -->
+					<a class="crlink" target="_blank" href="http://www.miit.gov.cn">
+						<img src="/static/national.png" style="float:left;" />
+						<p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">沪ICP备19000677号-6</p>
+					</a>
+				</view>
+			</view>
+			<!-- <img src="../../static/ef5/cr.png" class="ef-img" alt=""> -->
 		</view>
 		<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
 		 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
@@ -811,5 +823,18 @@
 			font-size: 16px;
 			line-height: 1.4;
 		}
+	}
+
+	.copyright {
+		background: rgb(228, 234, 238);
+		text-align: center;
+		padding-bottom: 80upx;
+	}
+
+	.crlink {
+		display: inline-block;
+		color: #939393;
+		text-decoration: none;
+		line-height: 40px;
 	}
 </style>
