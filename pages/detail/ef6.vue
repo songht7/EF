@@ -172,18 +172,19 @@
 					</uni-collapse-item>
 				</uni-collapse>
 			</view>
-			<view id="Copyright" class="copyright">
+
+			<copyright></copyright>
+			<!-- <view id="Copyright" class="copyright">
 				<view style="width:100%; padding:20px 0;">
 					<view>
 						<a href="//www.ef-ec.com" class="crlink">ws企业管理 - 梧桫试听课网</a>
 					</view>
-					<!-- http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011702005308 -->
-					<a class="crlink" target="_blank" href="http://www.miit.gov.cn">
+					<a class="crlink" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011702005308">
 						<img src="/static/national.png" style="float:left;" />
 						<p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">沪ICP备19000677号-6</p>
 					</a>
 				</view>
-			</view>
+			</view> -->
 			<!-- <img src="../../static/ef5/cr.png" class="ef-img" alt=""> -->
 		</view>
 		<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"

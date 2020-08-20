@@ -4,7 +4,12 @@
 	const pageis = mdl.queryString("type");
 	export default {
 		onLaunch: function() {
-			//console.log('App Launch')
+			console.log('onLaunch:', location.origin)
+			if (location.origin == 'http://www.ef-ec.com') {
+				util.Interface.copyright.title = "ws企业管理 - 梧桫试听课网";
+				util.Interface.copyright.recordcode = "";
+				util.Interface.copyright.ICP = "沪ICP备19000677号-6";
+			}
 			var id = mdl.queryString("id");
 			var key = mdl.queryString("key") || 2;
 			if (pageis == "home") {

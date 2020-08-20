@@ -10,6 +10,11 @@ const Interface = {
 		"email": ["980558589@qq.com", "stk@meetji.com", "yunfeng.ma@inmobi.com", "jason.wu@inmobi.com"],
 		"testEmail": ["407794660@qq.com"]
 	},
+	"copyright": {
+		"title": "梧桫试听课网",
+		"recordcode": "31011702005308", //默认meetji.com
+		"ICP": "沪公网安备 31011702005308号"
+	},
 	// 	,"getData":"http://api_test.meetji.com/v1/ApiEnum-getRegion.htm?id=110000"
 	"apiurl": "http://api_test.meetji.com",
 	"domain": "http://www.meetji.com",

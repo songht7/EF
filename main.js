@@ -6,10 +6,13 @@ Vue.config.productionTip = false
 import store from "./store";
 Vue.prototype.$store = store;
 import tabBar from "./components/tab-bar.vue"
-Vue.component("tab-bar",tabBar)
+Vue.component("tab-bar", tabBar)
+
+import util from "./common/util.js"
+Vue.prototype.$Copyright = util.Interface.copyright;
 
 import copyright from "./components/copyright.vue"
-Vue.component("copyright",copyright)
+Vue.component("copyright", copyright)
 
 /*全局组件引用*/
 import swiper from "./components/swiper-block.vue"

@@ -19,6 +19,9 @@
 		</uni-nav-bar>
 
 		<view class="content">
+			<view class="">
+				{{$Copyright.ICP}} , {{$Copyright.recordcode}}
+			</view>
 			<swiper-block :swiperList="swiperList" :autoplay="autoplay" v-if="swiperList.length"></swiper-block>
 			<view class="filter-box">
 				<view class="flt-block ctgBox">
