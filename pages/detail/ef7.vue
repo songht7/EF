@@ -456,7 +456,7 @@
 						}
 					}
 					var data2DB = {
-						"name": formData.UserName + ' - ef5《每日e课》',
+						"name": formData.UserName + ' - ef7《每日e课》',
 						"age_range": formData.Age,
 						"sex": formData.Email, //_this.gender[formData.Gender],
 						"phone": formData.UserPhone,
