@@ -60,7 +60,7 @@
 												</view>
 											</view>
 										</view>
-										<view class="uni-list">
+										<view class="uni-list" v-if="false">
 											<view class="uni-list-cell">
 												<!-- <view class="uni-list-cell-left">
 													邮箱
@@ -376,12 +376,6 @@
 						checkType: "phoneno",
 						checkRule: "",
 						errorMsg: "请填写正确的手机号"
-					},
-					{
-						name: "Email",
-						checkType: "email",
-						checkRule: "",
-						errorMsg: "请填写正确的邮箱"
 					}, {
 						name: "City",
 						checkType: "notnull",
