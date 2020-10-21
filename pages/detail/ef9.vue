@@ -368,7 +368,10 @@
 				let formData = e.detail.value;
 				// console.log(formData)
 				// return
-				this.loading = true
+				this.loading = true;
+				uni.showLoading({
+					title: '订阅中...'
+				});
 				formData["Age"] = _this.age[formData.Age] ? _this.age[formData.Age] : '';
 				var rule = [{
 						name: "UserName",
@@ -440,11 +443,22 @@
 					emails.forEach((value, index, array) => {
 						sendMail_key++;
 						let inter = sendMailUrl + value;
-						_jquery.sendMail(inter, _data, fun);
+						// _jquery.sendMail(inter, _data, fun);
 					})
 
 					/** request-2 save to DB **/
 					var _href = window.location.href;
+
+					var data2DB = {
+						"name": formData.UserName + ' - ef9《每日e课》',
+						"age_range": formData.Age,
+						"sex": formData.Email, //_this.gender[formData.Gender],
+						"phone": formData.UserPhone,
+						"city": formData.City,
+						"school": "", //this.schoolId,
+						"article_id": _this.article_id,
+						"arrive_time": formData.ApplyDate ? formData.ApplyDate : ""
+					};
 					var fun2DB = function(result) {
 						console.log("=====fun2DB======")
 						console.log(result)
@@ -468,28 +482,23 @@
 										fail: function(err) {
 											console.log("==sigmob-fail==", err)
 										},
-										complete: function() {}
+										complete: function() {
+											_this.loading = false;
+											uni.hideLoading();
+										}
 									})
 								},
 							})
 							/* sigmob 投放 -ed */
 						} else {
+							_this.loading = false;
+							uni.hideLoading();
 							uni.showModal({
 								content: "预约失败",
 								showCancel: false
 							})
 						}
 					}
-					var data2DB = {
-						"name": formData.UserName + ' - ef9《每日e课》',
-						"age_range": formData.Age,
-						"sex": formData.Email, //_this.gender[formData.Gender],
-						"phone": formData.UserPhone,
-						"city": formData.City,
-						"school": "", //this.schoolId,
-						"article_id": _this.article_id,
-						"arrive_time": formData.ApplyDate ? formData.ApplyDate : ""
-					};
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
 					console.log(data2DB)
 					let _saveSingle = mdl.getData(url_saveSingle, fun2DB, "POST", data2DB, {});

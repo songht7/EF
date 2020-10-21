@@ -390,7 +390,10 @@
 				let formData = e.detail.value;
 				// console.log(formData)
 				// return
-				this.loading = true
+				this.loading = true;
+				uni.showLoading({
+					title: '订阅中...'
+				});
 				var rule = [{
 						name: "UserName",
 						checkType: "notnull",
@@ -462,7 +465,7 @@
 					emails.forEach((value, index, array) => {
 						sendMail_key++;
 						let inter = sendMailUrl + value;
-						_jquery.sendMail(inter, _data, fun);
+						// _jquery.sendMail(inter, _data, fun);
 					})
 
 					/** request-2 save to DB **/
@@ -490,12 +493,17 @@
 										fail: function(err) {
 											console.log("==sigmob-fail==", err)
 										},
-										complete: function() {}
+										complete: function() {
+											_this.loading = false;
+											uni.hideLoading();
+										}
 									})
 								},
 							})
 							/* sigmob 投放 -ed */
 						} else {
+							_this.loading = false;
+							uni.hideLoading();
 							uni.showModal({
 								content: "预约失败",
 								showCancel: false
