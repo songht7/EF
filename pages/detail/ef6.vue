@@ -483,6 +483,9 @@
 										data: {},
 										success: function(res) {
 											console.log("==sigmob-success==", res)
+											uni.navigateTo({
+												url: "/pages/detail/thx?key=" + _this.key
+											});
 										},
 										fail: function(err) {
 											console.log("==sigmob-fail==", err)
@@ -492,9 +495,6 @@
 								},
 							})
 							/* sigmob 投放 -ed */
-							uni.navigateTo({
-								url: "/pages/detail/thx?key=" + _this.key
-							});
 						} else {
 							uni.showModal({
 								content: "预约失败",
