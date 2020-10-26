@@ -494,7 +494,8 @@
 								title: "预约成功！",
 								icon: "success",
 								duration: 2000,
-								success: function(res) {
+								success: function(res) {},
+								complete: function() {
 									setTimeout(() => {
 										_this.loading = false;
 										uni.hideLoading();
