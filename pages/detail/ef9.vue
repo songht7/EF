@@ -239,17 +239,18 @@
 			mpvueCityPicker
 		},
 		onLoad: function(option) {
+			sigmob.track(sigmob_event.pageview)
 			let _key = option.key || 2;
-			let _CALLBACK_ = option.callback ? option.callback : '';
-			if (_CALLBACK_) {
-				uni.setStorage({
-					key: '_CALLBACK_',
-					data: decodeURIComponent(_CALLBACK_),
-					success: function() {
-						//console.log('setStorage-uWXInfo-success');
-					}
-				})
-			}
+			// let _CALLBACK_ = option.callback ? option.callback : '';
+			// if (_CALLBACK_) {
+			// 	uni.setStorage({
+			// 		key: '_CALLBACK_',
+			// 		data: decodeURIComponent(_CALLBACK_),
+			// 		success: function() {
+			// 			//console.log('setStorage-uWXInfo-success');
+			// 		}
+			// 	})
+			// }
 			let _detail = util.getList(_key);
 			const brand = _detail.title;
 			this.date = option.date || this.getDate({
@@ -261,7 +262,6 @@
 				title: "英孚教育 英语培训中心"
 			});
 			// _jquery.setEffectCollect();
-			sigmob.track(sigmob_event.pageview)
 		},
 		onReady: function() {
 			//_jquery.efftest();
@@ -461,11 +461,9 @@
 						"arrive_time": formData.ApplyDate ? formData.ApplyDate : ""
 					};
 					var fun2DB = function(result) {
-						console.log("=====fun2DB======")
-						console.log(result)
 						if (result) {
 							/* sigmob 投放 */
-							sigmob.active(sigmob_event.form)//方案2
+							sigmob.active(sigmob_event.form) //方案2
 							// uni.getStorage({//方案1
 							// 	key: '_CALLBACK_',
 							// 	success: function(res) {
@@ -492,6 +490,18 @@
 							// 	},
 							// })
 							/* sigmob 投放 -ed */
+							uni.showToast({
+								title: "预约成功！",
+								icon: "success",
+								duration: 2000,
+								success: function(res) {
+									setTimeout(() => {
+										uni.navigateTo({
+											url: "/pages/detail/thx?key=" + _this.key
+										});
+									}, 3000)
+								}
+							});
 						} else {
 							_this.loading = false;
 							uni.hideLoading();
