@@ -496,6 +496,8 @@
 								duration: 2000,
 								success: function(res) {
 									setTimeout(() => {
+										_this.loading = false;
+										uni.hideLoading();
 										uni.navigateTo({
 											url: "/pages/detail/thx?key=" + _this.key
 										});
