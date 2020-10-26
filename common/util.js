@@ -57,8 +57,8 @@ const module = {
 			data: data || {},
 			header: _head || {},
 			success: function(res) {
-				console.log("mdl.getData:", url);
-				console.log(res);
+				// console.log("mdl.getData:", url);
+				// console.log(res);
 				let __res = res.data;
 				resultAll = __res;
 				if (__res.success) {

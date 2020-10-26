@@ -4,7 +4,7 @@
 	const pageis = mdl.queryString("type");
 	export default {
 		onLaunch: function() {
-			console.log('onLaunch:', location.origin)
+			// console.log('onLaunch:', location.origin)
 			if (location.origin == 'http://www.ef-ec.com') {
 				util.Interface.copyright.title = "ws企业管理 - 梧桫试听课网";
 				util.Interface.copyright.recordcode = "";
