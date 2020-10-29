@@ -261,17 +261,18 @@
 			mpvueCityPicker
 		},
 		onLoad: function(option) {
+			sigmob.track(sigmob_event.pageview)
 			let _key = option.key || 2;
-			let _CALLBACK_ = option.callback ? option.callback : '';
-			if (_CALLBACK_) {
-				uni.setStorage({
-					key: '_CALLBACK_',
-					data: decodeURIComponent(_CALLBACK_),
-					success: function() {
-						//console.log('setStorage-uWXInfo-success');
-					}
-				})
-			}
+			// let _CALLBACK_ = option.callback ? option.callback : '';
+			// if (_CALLBACK_) {
+			// 	uni.setStorage({
+			// 		key: '_CALLBACK_',
+			// 		data: decodeURIComponent(_CALLBACK_),
+			// 		success: function() {
+			// 			//console.log('setStorage-uWXInfo-success');
+			// 		}
+			// 	})
+			// }
 			let _detail = util.getList(_key);
 			const brand = _detail.title;
 			this.date = option.date || this.getDate({
@@ -475,32 +476,20 @@
 						console.log(result)
 						if (result) {
 							/* sigmob 投放 */
-							uni.getStorage({
-								key: '_CALLBACK_',
-								success: function(res) {
-									let _CALLBACK_ = res.data;
-									// console.log(_CALLBACK_)
-									uni.request({
-										url: `${_CALLBACK_}`, //&name=${_data.name}&age_range=${_data.age_range}&sex=${_data.sex}&phone=${_data.phone}&article_id=${_data.article_id}
-										method: "GET",
-										data: {},
-										success: function(res) {
-											console.log("==sigmob-success==", res)
-											uni.navigateTo({
-												url: "/pages/detail/thx?key=" + _this.key
-											});
-										},
-										fail: function(err) {
-											console.log("==sigmob-fail==", err)
-										},
-										complete: function() {
-											_this.loading = false;
-											uni.hideLoading();
-										}
-									})
-								},
-							})
+							sigmob.active(sigmob_event.form);
 							/* sigmob 投放 -ed */
+							uni.showToast({
+								title: "预约成功！",
+								icon: "success",
+								duration: 2000
+							});
+							setTimeout(() => {
+								_this.loading = false;
+								uni.hideLoading();
+								uni.navigateTo({
+									url: "/pages/detail/thx?key=" + _this.key
+								});
+							}, 3000)
 						} else {
 							_this.loading = false;
 							uni.hideLoading();
