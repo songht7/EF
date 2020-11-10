@@ -117,6 +117,22 @@
 												</view>
 											</view>
 										</view>
+										<view class="uni-list" v-if="schoolDtl.length">
+											<view class="uni-list-cell school-box">
+												<view class="uni-list-cell-left">
+													预约校区
+												</view>
+												<view class="uni-list-cell-db">
+													<picker name="School" @change="PickerSchool" :value="schoolIndex" :range="schoolVal">
+														<view class="uni-input picker-row" :class="schoolDtl[schoolIndex].name=='全国'?'rowOne':''">
+															<view class="sclName">{{schoolDtl[schoolIndex].name}}</view>
+															<view class="sclAddr txt-gray" v-if="schoolDtl[schoolIndex].name!='全国'">{{schoolDtl[schoolIndex].address}}</view>
+														</view>
+													</picker>
+												</view>
+												<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
+											</view>
+										</view>
 									</view>
 									<view class="uni-btn-v">
 										<button formType="submit" :loading="loading" class="apply-btn">为孩子免费领取外教课大礼包</button>
@@ -200,6 +216,7 @@
 <!-- #endif -->
 <script>
 	import util from '../../common/util.js';
+	import school from '../../common/school.js';
 	const mdl = util.module;
 	const inter = util.Interface;
 	const apiurl = inter.apiurl;
@@ -242,7 +259,11 @@
 				mode: '',
 				deepLength: 1,
 				pickerValueDefault: [0],
-				pickerValueArray: []
+				pickerValueArray: [],
+				schoolVal: [],
+				schoolDtl: school.school, //school.school
+				schoolId: "1",
+				schoolIndex: 0,
 			};
 		},
 		computed: {
@@ -261,6 +282,12 @@
 			mpvueCityPicker
 		},
 		onLoad: function(option) {
+			let list = [];
+			this.schoolDtl.map((obj, key) => {
+				list.push(obj.name)
+			});
+			// console.log("list:", list)
+			this.schoolVal = list;
 			sigmob.track(sigmob_event.pageview)
 			let _key = option.key || 2;
 			// let _CALLBACK_ = option.callback ? option.callback : '';
@@ -382,6 +409,11 @@
 					}
 				})
 			},
+			PickerSchool: function(e) {
+				let key = e.target.value;
+				this.schoolIndex = key;
+				this.schoolId = this.schoolDtl[key] + 1;
+			},
 			formSubmit: function(e) {
 				let _this = this;
 				if (this.loading == true) {
@@ -500,7 +532,7 @@
 						}
 					}
 					var data2DB = {
-						"name": formData.UserName + ' - ef10',
+						"name": formData.UserName + ' - ef10 - 校区：' + _this.schoolVal[_this.schoolIndex],
 						"age_range": _this.age[formData.Age],
 						"sex": _this.gender[formData.Gender],
 						"phone": formData.UserPhone,
@@ -510,6 +542,7 @@
 						"arrive_time": "" //formData.ApplyDate
 					};
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
+					// console.log(data2DB)
 					let _saveSingle = mdl.getData(url_saveSingle, fun2DB, "POST", data2DB, {});
 
 					/** request-3 POST to EF **/
@@ -753,6 +786,14 @@
 	.ef-imgs-center {
 		width: 100%;
 		text-align: center;
+	}
+
+	.picker-row {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		align-content: center;
 	}
 
 	@media screen and (min-device-width: 1025px) {
