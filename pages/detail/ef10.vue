@@ -789,10 +789,11 @@
 	}
 
 	.picker-row {
+		height: auto;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-start;
 		align-content: center;
 	}
 
