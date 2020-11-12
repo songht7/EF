@@ -19,7 +19,7 @@
 						<view class="uni-card-content">
 							<view class="uni-card-content-inner ApplyFormBox">
 								<view class="ef-title">《每日e课》每刻进步</view>
-								<view class="ef-title-s">学英语，就现在！</view>
+								<view class="ef-title-s">还在打游戏浪费时间？不如每天5分钟，学习英语提升自己！</view>
 								<form @submit="formSubmit" @reset="formReset" id="ApplyForm">
 									<view class="form-box">
 										<view class="uni-list">
@@ -60,16 +60,13 @@
 												</view>
 											</view>
 										</view>
-										<view class="uni-list">
+										<!-- <view class="uni-list">
 											<view class="uni-list-cell">
-												<!-- <view class="uni-list-cell-left">
-													邮箱
-												</view> -->
 												<view class="uni-list-cell-db">
 													<input :class="model?'uni-input':''" name="Email" placeholder="邮箱" />
 												</view>
 											</view>
-										</view>
+										</view> -->
 										<view class="uni-list">
 											<view class="uni-list-cell">
 												<!-- <view class="uni-list-cell-left">
@@ -356,10 +353,9 @@
 				}
 				//console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
 				let formData = e.detail.value;
-				// console.log(formData)
 				// return
 				this.loading = true
-				formData["Age"] = _this.age[formData.Age] ? _this.age[formData.Age] : '';
+				formData["Age"] = _this.age[_this.age_index] ? _this.age[_this.age_index] : '';
 				var rule = [{
 						name: "UserName",
 						checkType: "notnull",
@@ -377,12 +373,13 @@
 						checkRule: "",
 						errorMsg: "请填写正确的手机号"
 					},
+					// {
+					// 	name: "Email",
+					// 	checkType: "email",
+					// 	checkRule: "",
+					// 	errorMsg: "请填写正确的邮箱"
+					// }, 
 					{
-						name: "Email",
-						checkType: "email",
-						checkRule: "",
-						errorMsg: "请填写正确的邮箱"
-					}, {
 						name: "City",
 						checkType: "notnull",
 						checkRule: "",
@@ -406,6 +403,7 @@
 					// rule = [...rule, ..._rule];
 				}
 				// console.log(rule)
+				// console.log(formData)
 				// return
 				//进行表单检查
 				var checkRes = graceChecker.check(formData, rule);

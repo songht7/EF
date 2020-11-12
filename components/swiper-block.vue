@@ -1,8 +1,8 @@
 <template name="swiper-block">
 	<view class="swiper-block">
 		<view class="swiper-box" v-if="swiperList.length">
-			<swiper class="swiper" :style="{height:swiperHeight}" :indicator-dots="indicatorDots" :autoplay="autoplay" :circular="circular" :interval="interval"
-			 :duration="duration" indicator-color="#979797" indicator-active-color="#FFFFFF">
+			<swiper class="swiper" :style="{height:swiperHeight}" :indicator-dots="indicatorDots" :autoplay="autoplay" :circular="circular"
+			 :interval="interval" :duration="duration" indicator-color="#979797" indicator-active-color="#FFFFFF">
 				<swiper-item class="swiper-item" v-for="(slide,index) in swiperList" :key="index">
 					<view class="vli">
 						<view class="vli2">
@@ -42,7 +42,7 @@
 				type: Array,
 				default: []
 			},
-			swiperHeight:{
+			swiperHeight: {
 				type: String,
 				default: "300upx"
 			},
@@ -70,8 +70,7 @@
 		data() {
 			return {
 				isWeixin: mdl.isWeixin(),
-				popTips: false,
-				sourceUrl: sourceUrl
+				popTips: false
 			}
 		},
 		components: {
