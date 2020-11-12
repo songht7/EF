@@ -87,7 +87,7 @@
 												</view>
 											</view>
 										</view>
-										<view class="uni-list">
+										<!-- <view class="uni-list">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left">
 													城市
@@ -104,7 +104,7 @@
 													</view>
 												</block>
 											</view>
-										</view>
+										</view> -->
 										<view class="uni-list apply-date">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left">
@@ -438,12 +438,13 @@
 						checkType: "phoneno",
 						checkRule: "",
 						errorMsg: "请填写正确的手机号"
-					}, {
-						name: "City",
-						checkType: "notnull",
-						checkRule: "",
-						errorMsg: "请选择城市"
 					}
+					// , {
+					// 	name: "City",
+					// 	checkType: "notnull",
+					// 	checkRule: "",
+					// 	errorMsg: "请选择城市"
+					// }
 				];
 				if (!_this.model) {
 					let _rule = [{
@@ -536,7 +537,7 @@
 						"age_range": _this.age[formData.Age],
 						"sex": _this.gender[formData.Gender],
 						"phone": formData.UserPhone,
-						"city": formData.City,
+						"city": '', //formData.City,
 						"school": "", //this.schoolId,
 						"article_id": _this.article_id,
 						"arrive_time": "" //formData.ApplyDate

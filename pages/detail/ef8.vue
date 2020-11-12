@@ -7,7 +7,7 @@
 				<img src="../../static/ef/p2-logo-icon.png" class="ef-img ef-img-logo" alt="">
 			</view>
 			<view class="ef-imgs ef-imgs-center">
-				<img src="../../static/ef5/branner.jpg" class="ef-img" alt="">
+				<img src="../../static/branner-ef8.jpg" class="ef-img" alt="">
 			</view>
 			<view class="ef-top-box">
 				<!-- <uni-icon size="35" @tap="makePhoneCall" class="makePhoneCall" type="phone-filled" color="#000"></uni-icon> -->

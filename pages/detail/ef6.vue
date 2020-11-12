@@ -87,7 +87,7 @@
 												</view>
 											</view>
 										</view>
-										<view class="uni-list">
+										<!-- <view class="uni-list">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left">
 													城市
@@ -104,7 +104,7 @@
 													</view>
 												</block>
 											</view>
-										</view>
+										</view> -->
 										<view class="uni-list apply-date">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left">
@@ -115,6 +115,22 @@
 														<view class="uni-input">{{date}}</view>
 													</picker>
 												</view>
+											</view>
+										</view>
+										<view class="uni-list" v-if="schoolDtl.length">
+											<view class="uni-list-cell school-box">
+												<view class="uni-list-cell-left">
+													预约校区
+												</view>
+												<view class="uni-list-cell-db">
+													<picker name="School" @change="PickerSchool" :value="schoolIndex" :range="schoolVal">
+														<view class="uni-input picker-row" :class="schoolDtl[schoolIndex].name=='全国'?'rowOne':''">
+															<view class="sclName">{{schoolDtl[schoolIndex].name}}</view>
+															<view class="sclAddr txt-gray" v-if="schoolDtl[schoolIndex].name!='全国'">{{schoolDtl[schoolIndex].address}}</view>
+														</view>
+													</picker>
+												</view>
+												<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
 											</view>
 										</view>
 									</view>
@@ -200,6 +216,7 @@
 <!-- #endif -->
 <script>
 	import util from '../../common/util.js';
+	import school from '../../common/school.js';
 	const mdl = util.module;
 	const inter = util.Interface;
 	const apiurl = inter.apiurl;
@@ -242,7 +259,11 @@
 				mode: '',
 				deepLength: 1,
 				pickerValueDefault: [0],
-				pickerValueArray: []
+				pickerValueArray: [],
+				schoolVal: [],
+				schoolDtl: school.school, //school.school
+				schoolId: "1",
+				schoolIndex: 0,
 			};
 		},
 		computed: {
@@ -261,6 +282,12 @@
 			mpvueCityPicker
 		},
 		onLoad: function(option) {
+			let list = [];
+			this.schoolDtl.map((obj, key) => {
+				list.push(obj.name)
+			});
+			// console.log("list:", list)
+			this.schoolVal = list;
 			sigmob.track(sigmob_event.pageview)
 			let _key = option.key || 2;
 			// let _CALLBACK_ = option.callback ? option.callback : '';
@@ -291,7 +318,7 @@
 		onShow() {
 			var that = this;
 			let hash = window.location.hash;
-			var share_url = util.Interface.domain + "/?type=ef2&id=35" + hash,
+			var share_url = util.Interface.domain + "/?type=ef10&id=35" + hash,
 				title = "英孚教育 英语培训中心",
 				imgUrl = util.Interface.domain + "/static/ef/p2-banner.jpg",
 				dec = "专业认证培训师，教你地道英语";
@@ -382,6 +409,11 @@
 					}
 				})
 			},
+			PickerSchool: function(e) {
+				let key = e.target.value;
+				this.schoolIndex = key;
+				this.schoolId = this.schoolDtl[key] + 1;
+			},
 			formSubmit: function(e) {
 				let _this = this;
 				if (this.loading == true) {
@@ -406,12 +438,13 @@
 						checkType: "phoneno",
 						checkRule: "",
 						errorMsg: "请填写正确的手机号"
-					}, {
-						name: "City",
-						checkType: "notnull",
-						checkRule: "",
-						errorMsg: "请选择城市"
 					}
+					// , {
+					// 	name: "City",
+					// 	checkType: "notnull",
+					// 	checkRule: "",
+					// 	errorMsg: "请选择城市"
+					// }
 				];
 				if (!_this.model) {
 					let _rule = [{
@@ -500,16 +533,17 @@
 						}
 					}
 					var data2DB = {
-						"name": formData.UserName + ' - ef6',
+						"name": formData.UserName + ' - ef6 - 校区：' + _this.schoolVal[_this.schoolIndex],
 						"age_range": _this.age[formData.Age],
 						"sex": _this.gender[formData.Gender],
 						"phone": formData.UserPhone,
-						"city": formData.City,
+						"city": '', //formData.City,
 						"school": "", //this.schoolId,
 						"article_id": _this.article_id,
 						"arrive_time": "" //formData.ApplyDate
 					};
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
+					// console.log(data2DB)
 					let _saveSingle = mdl.getData(url_saveSingle, fun2DB, "POST", data2DB, {});
 
 					/** request-3 POST to EF **/
@@ -753,6 +787,15 @@
 	.ef-imgs-center {
 		width: 100%;
 		text-align: center;
+	}
+
+	.picker-row {
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: flex-start;
+		align-content: center;
 	}
 
 	@media screen and (min-device-width: 1025px) {
