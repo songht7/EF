@@ -19,6 +19,8 @@ const Interface = {
 	"apiurl": "http://api_test.meetji.com",
 	"domain": "http://www.meetji.com",
 	"addr": {
+		"sendRegistSms": "/v4/ApiSms-sendRegistSms.htm", //发送验证码(有阻拦：手机号已使用) 测试：1111
+		"sendSms": "/v4/ApiSms-sendSms.htm", //发送验证码(无阻拦）
 		"slideShow": "/v2/ApiHome-slideShow.htm",
 		"article": "/v2/ApiHome-article.htm", //列表
 		"getDetail": "/v2/ApiHome-article_detail.htm",

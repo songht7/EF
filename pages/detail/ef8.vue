@@ -56,7 +56,16 @@
 													电话
 												</view> -->
 												<view class="uni-list-cell-db">
-													<input :class="model?'uni-input':''" name="UserPhone" type="number" placeholder="电话" />
+													<input :class="model?'uni-input':''" name="UserPhone" @blur="checkPhone" v-model="UserPhone" type="number"
+													 placeholder="电话" />
+												</view>
+											</view>
+											<view v-show="codeBox" class="uni-list-cell">
+												<view class="uni-list-cell uni-list-cell-db">
+													<input class="uni-input" name="Code" v-model="code" type="number" placeholder="验证码" />
+													<view :class="['get-code',btnLoading]" @click="getCode">
+														{{getCodeTxt}}
+													</view>
 												</view>
 											</view>
 										</view>
@@ -164,6 +173,13 @@
 				brand: "",
 				key: "",
 				date: "",
+				UserPhone: "",
+				codeBox: false, //验证码框
+				code: "", //输入的验证码
+				apiCode: "", //返回的验证码
+				seconds: 60,
+				btnLoading: "",
+				getCodeTxt: "获取验证码",
 				gender: ['男', '女'],
 				index: 0,
 				age: ['18-22岁', '23-26岁', '27-35岁', '36-40岁', '41-50岁', '51岁', '18岁以下'],
@@ -346,6 +362,77 @@
 					}
 				})
 			},
+			checkPhone() {
+				let _this = this;
+				console.log(_this.UserPhone)
+				if (_this.UserPhone) {
+					_this.codeBox = true
+				} else {
+					_this.codeBox = false
+				}
+			},
+			getCode() {
+				let _this = this;
+				if (_this.btnLoading) {
+					return
+				}
+				let formData = [];
+				formData['phone'] = _this.UserPhone;
+				var rule = [{
+					name: "phone",
+					checkType: "phoneno",
+					checkRule: "",
+					errorMsg: "请填写正确的手机号"
+				}];
+				var checkRes = graceChecker.check(formData, rule);
+				if (checkRes) {
+					_this.apiCode = "";
+					uni.showToast({
+						title: "验证码已发送",
+						icon: "success"
+					});
+					_this.btnLoading = "btn-loading";
+					var countdown = setInterval(() => {
+						_this.seconds--
+						if (_this.seconds < 0) {
+							_this.getCodeTxt = "获取验证码";
+							_this.seconds = 60;
+							_this.btnLoading = "";
+							clearInterval(countdown)
+							return
+						}
+						_this.getCodeTxt = `${_this.seconds} 秒后重试`;
+					}, 1000)
+					var fun = function(result, resultAll) {
+						// console.log("=====get-code======")
+						// console.log(resultAll);
+						if (resultAll.success) {
+							_this.apiCode = resultAll.code;
+						} else {
+							uni.showToast({
+								title: "发送短信失败",
+								icon: "none"
+							});
+							_this.getCodeTxt = "获取验证码";
+							_this.seconds = 60;
+							_this.btnLoading = "";
+							clearInterval(countdown)
+						}
+					}
+					var data = {
+						phone: formData.phone,
+						template: 1
+					}
+					let url = apiurl + inter.addr.sendSms;
+					console.log(url)
+					mdl.getData(url, fun, "POST", data, {});
+				} else {
+					uni.showToast({
+						title: graceChecker.error,
+						icon: "none"
+					});
+				}
+			},
 			formSubmit: function(e) {
 				let _this = this;
 				if (this.loading == true) {
@@ -356,6 +443,7 @@
 				// return
 				this.loading = true
 				formData["Age"] = _this.age[_this.age_index] ? _this.age[_this.age_index] : '';
+				formData["Code"] = _this.code;
 				var rule = [{
 						name: "UserName",
 						checkType: "notnull",
@@ -372,6 +460,12 @@
 						checkType: "phoneno",
 						checkRule: "",
 						errorMsg: "请填写正确的手机号"
+					},
+					{
+						name: "Code",
+						checkType: "same",
+						checkRule: _this.apiCode,
+						errorMsg: "验证码有误"
 					},
 					// {
 					// 	name: "Email",
@@ -714,6 +808,10 @@
 	.ef-imgs-center {
 		width: 100%;
 		text-align: center;
+	}
+
+	.get-code {
+		padding: 15upx;
 	}
 
 	@media screen and (min-device-width: 1025px) {
