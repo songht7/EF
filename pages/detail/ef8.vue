@@ -60,14 +60,14 @@
 													 placeholder="电话" />
 												</view>
 											</view>
-											<view v-show="codeBox" class="uni-list-cell">
+											<!-- <view v-show="codeBox" class="uni-list-cell">
 												<view class="uni-list-cell uni-list-cell-db">
 													<input class="uni-input" name="Code" v-model="code" type="number" placeholder="验证码" />
 													<view :class="['get-code',btnLoading]" @click="getCode">
 														{{getCodeTxt}}
 													</view>
 												</view>
-											</view>
+											</view> -->
 										</view>
 										<!-- <view class="uni-list">
 											<view class="uni-list-cell">
@@ -108,9 +108,38 @@
 										</view>
 									</view>
 									<view class="uni-btn-v">
-										<button formType="submit" :loading="loading" class="apply-btn">立即订阅</button>
+										<button formType="submit" class="apply-btn">立即订阅</button> <!-- :loading="loading" -->
 										<button type="default" class="hide" formType="reset">Reset</button>
 									</view>
+									<!-- 弹出层 -->
+									<lvv-popup ref="lvvpopref" :bgClose='false'>
+										<view class="pop-inner" :class="'pop-inner-'+popType">
+											<block v-if="popType=='phoneCode'">
+												<view class="pop-head">
+													<view class="pop-title">手机号验证</view>
+												</view>
+												<view class="uni-list-phone-code">
+													<view class="uni-list-cell">
+														<view class="uni-list-cell-db">
+															<input :class="model?'uni-input':''" name="UserPhone" v-model="UserPhone" type="number" placeholder="电话" />
+														</view>
+													</view>
+													<view v-show="codeBox" class="uni-list-cell">
+														<view class="uni-list-cell uni-list-cell-db">
+															<input class="uni-input" name="Code" v-model="code" type="number" placeholder="验证码" />
+															<view :class="['get-code',btnLoading]" @click="getCode">
+																{{getCodeTxt}}
+															</view>
+														</view>
+													</view>
+													<view class="uni-btn-v">
+														<button formType="submit" class="apply-btn">确定</button>
+													</view>
+												</view>
+											</block>
+										</view>
+									</lvv-popup>
+									<!-- 弹出层 -->
 								</form>
 							</view>
 						</view>
@@ -154,6 +183,7 @@
 	const inter = util.Interface;
 	const apiurl = inter.apiurl;
 
+	import lvvPopup from '../../components/lvv-popup.vue'
 	import uniIcon from '../../components/uni-icon.vue';
 	//来自 graceUI 的表单验证， 使用说明见手册 http://grace.hcoder.net/doc/info/73-3.html
 	var graceChecker = require("../../common/graceChecker.js");
@@ -174,6 +204,7 @@
 				key: "",
 				date: "",
 				UserPhone: "",
+				popType: "",
 				codeBox: false, //验证码框
 				code: "", //输入的验证码
 				apiCode: "", //返回的验证码
@@ -249,7 +280,8 @@
 		components: {
 			uniIcon,
 			mpvuePicker,
-			mpvueCityPicker
+			mpvueCityPicker,
+			lvvPopup
 		},
 		onLoad: function(option) {
 			let _key = option.key || 2;
@@ -290,6 +322,14 @@
 				uni.switchTab({
 					url: '/pages/index/index'
 				})
+			},
+			popupIntro(type) {
+				this.popType = type ? type : 'phoneCode';
+				this.$refs.lvvpopref.show();
+			},
+			closeIntro() {
+				// 关闭modal弹出框
+				// this.$refs.lvvpopref.close();
 			},
 			upper: function(e) {
 				//console.log(e)
@@ -404,8 +444,8 @@
 						_this.getCodeTxt = `${_this.seconds} 秒后重试`;
 					}, 1000)
 					var fun = function(result, resultAll) {
-						// console.log("=====get-code======")
-						// console.log(resultAll);
+						console.log("=====get-code======")
+						console.log(resultAll);
 						if (resultAll.success) {
 							_this.apiCode = resultAll.code;
 						} else {
@@ -441,7 +481,9 @@
 				//console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
 				let formData = e.detail.value;
 				// return
-				this.loading = true
+				if (_this.codeBox && _this.code) {
+					_this.loading = true
+				}
 				formData["Age"] = _this.age[_this.age_index] ? _this.age[_this.age_index] : '';
 				formData["Code"] = _this.code;
 				var rule = [{
@@ -461,12 +503,6 @@
 						checkRule: "",
 						errorMsg: "请填写正确的手机号"
 					},
-					{
-						name: "Code",
-						checkType: "same",
-						checkRule: _this.apiCode,
-						errorMsg: "验证码有误"
-					},
 					// {
 					// 	name: "Email",
 					// 	checkType: "email",
@@ -480,6 +516,15 @@
 						errorMsg: "请选择城市"
 					}
 				];
+				if (_this.popType == 'phoneCode') {
+					let __rule = [{
+						name: "Code",
+						checkType: "same",
+						checkRule: _this.apiCode,
+						errorMsg: "验证码有误"
+					}]
+					rule = [...rule, ...__rule];
+				}
 				if (!_this.model) {
 					let _rule = [{
 							name: "Age",
@@ -533,25 +578,31 @@
 
 					/** request-2 save to DB **/
 					var _href = window.location.href;
+					// _this.popupIntro(); //////////
 					var fun2DB = function(result) {
 						console.log("=====fun2DB======")
 						console.log(result)
-						if (result) {
-							uni.navigateTo({
-								url: "/pages/detail/thx?key=" + _this.key
-							});
+						if (_this.codeBox && _this.code == '') {
+							_this.popupIntro();
 						} else {
-							uni.showModal({
-								content: "预约失败",
-								showCancel: false
-							})
+							if (result) {
+								uni.navigateTo({
+									url: "/pages/detail/thx?key=" + _this.key
+								});
+							} else {
+								uni.showModal({
+									content: "预约失败",
+									showCancel: false
+								})
+							}
 						}
 					}
+					var _AAA = formData["Code"] != '' ? ' - A+' : '';
 					var data2DB = {
-						"name": formData.UserName + ' - ef8《每日e课》',
+						"name": formData.UserName + ' - ef8《每日e课》' + _AAA,
 						"age_range": formData.Age,
-						"sex": formData.Email, //_this.gender[formData.Gender],
-						"phone": formData.UserPhone,
+						"sex": "", //formData.Email, //_this.gender[formData.Gender],
+						"phone": formData.UserPhone + _AAA,
 						"city": formData.City,
 						"school": "", //this.schoolId,
 						"article_id": _this.article_id,
@@ -626,6 +677,10 @@
 </script>
 
 <style>
+	.uni-list-phone-code {
+		padding: 50upx 50upx 100upx;
+	}
+
 	.goHomePage {
 		display: flex;
 		justify-content: center;

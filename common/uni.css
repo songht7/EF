@@ -71,6 +71,7 @@
 	border-radius: 15upx;
 }
 
+.pop-inner-phoneCode,
 .pop-inner-agreement,
 .pop-inner-integral {
 	bottom: auto;
@@ -80,6 +81,8 @@
 	left: 5%;
 }
 
+
+.pop-inner-phoneCode,
 .pop-inner-integral {
 	top: 30%
 }
