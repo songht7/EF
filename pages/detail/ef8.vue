@@ -586,7 +586,7 @@
 							_this.popupIntro();
 						} else {
 							if (result) {
-								uni.navigateTo({
+								uni.redirectTo({
 									url: "/pages/detail/thx?key=" + _this.key
 								});
 							} else {
