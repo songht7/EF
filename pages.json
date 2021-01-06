@@ -152,6 +152,19 @@
 				}
 			}
 		}, {
+			"path": "pages/detail/ef8-2",
+			"style": {
+				"navigationBarTitleText": "英孚教育",
+				"backgroundColor": "#EBEBEB",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
 			"path": "pages/detail/ef9",
 			"style": {
 				"navigationBarTitleText": "英孚教育",
