@@ -590,6 +590,7 @@
 									url: "/pages/detail/thx?key=" + _this.key
 								});
 							} else {
+								_this.loading = false
 								uni.showModal({
 									content: "预约失败",
 									showCancel: false
