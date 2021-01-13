@@ -6,7 +6,7 @@
 		onLaunch: function() {
 			// console.log('onLaunch:', location.origin)
 			if (location.origin == 'http://www.ef-ec.com') {
-				util.Interface.copyright.title = "ws企业管理 - 梧桫（上海）教育科技有限公司s";
+				util.Interface.copyright.title = "梧桫（上海）教育科技有限公司 - ws企业管理";
 				util.Interface.copyright.recordcode = "";
 				util.Interface.copyright.ICP = "沪ICP备19000677号-6";
 			}
