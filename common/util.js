@@ -11,7 +11,7 @@ const Interface = {
 		"testEmail": ["407794660@qq.com"]
 	},
 	"copyright": {
-		"title": "梧桫试听课网",
+		"title": "梧桫（上海）教育科技有限公司",
 		"recordcode": "31011702005308", //默认meetji.com
 		"ICP": "沪公网安备 31011702005308号"
 	},

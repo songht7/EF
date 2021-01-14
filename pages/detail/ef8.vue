@@ -547,34 +547,36 @@
 				//进行表单检查
 				var checkRes = graceChecker.check(formData, rule);
 				if (checkRes) {
-					var _data = {
-						"预约品牌": "EF英孚教育 - 英语培训中心 - 免费试听体验课",
-						"客户姓名": formData.UserName,
-						"年龄": formData.Age,
-						"客户手机号": formData.UserPhone,
-						"城市": formData.City
-					};
-					// console.log(_data);
-					// return
+					var _AAA = formData["Code"] != '' ? ' - A+' : '';
 					/** request-1 send email **/
-					var sendMail_key = 0;
-					var fun = function(result) {
-						// if (result.success) {} else {
-						// 	uni.showModal({
-						// 		content: "预约失败",
-						// 		showCancel: false
-						// 	})
-						// }
-						_this.loading = false
-						_this.res = JSON.stringify(result);
+					if (_AAA) {
+						var _data = {
+							"预约品牌": "EF英孚教育 - 英语培训中心 - 免费试听体验课",
+							"客户姓名": formData.UserName,
+							"年龄": formData.Age,
+							"客户手机号": formData.UserPhone,
+							"城市": formData.City
+						};
+						var sendMail_key = 0;
+						var fun = function(result) {
+							// if (result.success) {} else {
+							// 	uni.showModal({
+							// 		content: "预约失败",
+							// 		showCancel: false
+							// 	})
+							// }
+							_this.loading = false
+							_this.res = JSON.stringify(result);
+						}
+						var emails = _interface.SendMail.email; //email,testEmail
+						var sendMailUrl = _interface.SendMail.url;
+						emails.forEach((value, index, array) => {
+							sendMail_key++;
+							let inter = sendMailUrl + value;
+							_jquery.sendMail(inter, _data, fun);
+						})
 					}
-					var emails = _interface.SendMail.email; //email,testEmail
-					var sendMailUrl = _interface.SendMail.url;
-					emails.forEach((value, index, array) => {
-						sendMail_key++;
-						let inter = sendMailUrl + value;
-						_jquery.sendMail(inter, _data, fun);
-					})
+
 
 					/** request-2 save to DB **/
 					var _href = window.location.href;
@@ -597,7 +599,6 @@
 							}
 						}
 					}
-					var _AAA = formData["Code"] != '' ? ' - A+' : '';
 					var data2DB = {
 						"name": formData.UserName + ' - ef8《每日e课》' + _AAA,
 						"age_range": formData.Age,
