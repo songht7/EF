@@ -18,8 +18,19 @@
 			document.addEventListener('DOMContentLoaded', function() {
 				document.documentElement.style.fontSize = document.documentElement.clientWidth / 20 + 'px'
 			})
+			var hash = window.location.hash;
+			if (hash == "#/pages/detail/ef6" || hash == "#/pages/detail/ef9" || hash == "#/pages/detail/ef10") {
+				var _hmt = _hmt || [];
+				(function() {
+					var hm = document.createElement("script");
+					hm.src = "https://n.sigmob.cn/javascript/sdk/ad/v1/jssdk.js";
+					var s = document.getElementsByTagName("script")[0];
+					s.parentNode.insertBefore(hm, s);
+				})();
+			}
 		</script>
-		<script type="text/javascript" src="https://n.sigmob.cn/javascript/sdk/ad/v1/jssdk.js"></script>
+		<!-- <script type="text/javascript" src="https://n.sigmob.cn/javascript/sdk/ad/v1/jssdk.js"></script> -->
+		
 		<!-- <script type="text/javascript" src="<%= BASE_URL %>static/inmobi.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="https://inmobi.oss-cn-hangzhou.aliyuncs.com/pixel/inmobipixel.js" onload='fireCustomEvent("meetji_lp")'></script>
 		<script type="text/javascript">
