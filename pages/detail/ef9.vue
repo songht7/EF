@@ -4,10 +4,10 @@
 	<view class="page detail-page detail-page-mx detail-page-ef-2">
 		<view class="scroll-view-item detail-block">
 			<view class="ef-imgs ef-imgs-center">
-				<img src="../../static/ef/p2-logo-icon.png" class="ef-img ef-img-logo" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef/p2-logo-icon.png" class="ef-img ef-img-logo" alt="">
 			</view>
 			<view class="ef-imgs ef-imgs-center">
-				<img src="../../static/ef/hg.jpg" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef/hg.jpg" class="ef-img" alt="">
 			</view>
 			<view class="ef-top-box">
 				<!-- <uni-icon size="35" @tap="makePhoneCall" class="makePhoneCall" type="phone-filled" color="#000"></uni-icon> -->
@@ -115,16 +115,16 @@
 			<view @tap="goTop" class="apply-btn go-top goTopEF GoTo">立即订阅《每日e课》</view>
 			<!-- v-if="btnShow" -->
 			<view class="ef-imgs ef-imgs-center">
-				<img src="../../static/ef5/s1-title.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s1-title.png" class="ef-img" alt="">
 				<swiper-block :swiperList="swiperList" swiperHeight="1100upx" :autoplay="false" :circular="false"></swiper-block>
 			</view>
 			<view class="ef-imgs ef-imgs-center">
-				<img src="../../static/ef5/s2-title.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-title.png" class="ef-img" alt="">
 				<swiper-block :swiperList="swiperList2" swiperHeight="400upx" :autoplay="false" :circular="false"></swiper-block>
 			</view>
 			<view class="ef-imgs ef-imgs-center">
-				<img src="../../static/ef5/p1.png" class="ef-img" alt="">
-				<img src="../../static/ef5/p2.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/p1.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/p2.png" class="ef-img" alt="">
 				<!-- <img src="../../static/ef5/cr.png" class="ef-img" alt=""> -->
 				<view style="padding-bottom: 80upx;background-color: #000000;">
 					<copyright></copyright>
@@ -186,40 +186,40 @@
 				pickerValueDefault: [0],
 				pickerValueArray: [],
 				"swiperList": [{
-					"original_src": "/static/ef5/s1-1.png",
+					"original_src": "http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611237150.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "/static/ef5/s1-2.png",
+					"original_src": "http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611237177.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "/static/ef5/s1-3.png",
+					"original_src": "http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611237193.png",
 					"host": "local",
 					"link": ""
 				}],
 				"swiperList2": [{
-					"original_src": "/static/ef5/s2-1.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-1.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "/static/ef5/s2-2.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-2.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "/static/ef5/s2-3.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-3.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "/static/ef5/s2-4.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-4.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "/static/ef5/s2-5.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-5.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "/static/ef5/s2-6.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-6.png",
 					"host": "local",
 					"link": ""
 				}],

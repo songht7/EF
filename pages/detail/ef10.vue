@@ -4,10 +4,10 @@
 	<view class="page detail-page detail-page-mx detail-page-ef-2">
 		<view class="scroll-view-item detail-block">
 			<view class="ef-imgs ef-imgs-center">
-				<img src="../../static/ef6/e1-logo.png" class="ef-img ef-img-logo" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef6/e1-logo.png" class="ef-img ef-img-logo" alt="">
 			</view>
 			<view class="ef-imgs ef-imgs-center">
-				<img src="../../static/ef6/br.jpg" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef6/br.jpg" class="ef-img" alt="">
 			</view>
 			<view class="ef-top-box">
 				<!-- <uni-icon size="35" @tap="makePhoneCall" class="makePhoneCall" type="phone-filled" color="#000"></uni-icon> -->
@@ -15,7 +15,7 @@
 					<uni-icon size="30" type="home-filled" color="#DDDDDF"></uni-icon>
 				</view> -->
 				<view class="ef-imgs ef-imgs-center">
-					<img src="../../static/ef6/1.png" class="ef-img" alt="">
+					<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef6/1.png" class="ef-img" alt="">
 				</view>
 				<view class="uni-card-box">
 					<view class="uni-cards">
@@ -148,14 +148,14 @@
 			<view @tap="goTop" class="apply-btn go-top goTopEF GoTo">立即为孩子免费领取</view>
 			<!-- v-if="btnShow" -->
 			<view class="ef-imgs ef-imgs-center" style="padding-bottom: 0;">
-				<img src="../../static/ef6/p1.png" class="ef-img" alt="">
-				<img src="../../static/ef6/p2.png" class="ef-img" alt="">
-				<img src="../../static/ef6/p3.png" class="ef-img" alt="">
-				<img src="../../static/ef6/p4.png" class="ef-img" alt="">
-				<img src="../../static/ef6/p5.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef6/p1.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef6/p2.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef6/p3.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef6/p4.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef6/p5.png" class="ef-img" alt="">
 			</view>
 			<view class="over-views" style="background-color: #e4eaee;">
-				<img src="../../static/ef6/e1-logo.png" class="ef-img ef-img-logo" style="margin:0 0 30upx 30upx" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef6/e1-logo.png" class="ef-img ef-img-logo" style="margin:0 0 30upx 30upx" alt="">
 				<uni-collapse>
 					<uni-collapse-item :show-animation="true" title="儿童英语课程">
 						<view style="padding: 30upx;">幼儿英语探索课程（3-6岁）</view>

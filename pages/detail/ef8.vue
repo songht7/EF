@@ -4,10 +4,10 @@
 	<view class="page detail-page detail-page-mx detail-page-ef-2">
 		<view class="scroll-view-item detail-block">
 			<view class="ef-imgs ef-imgs-center">
-				<img src="http://api_test.meetji.com/data/image_doc/bf69fb754a21e778a1fefdb1b58bb37d.png" class="ef-img ef-img-logo" alt="">
+				<img src="http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611237236.png" class="ef-img ef-img-logo" alt="">
 			</view>
 			<view class="ef-imgs ef-imgs-center">
-				<img src="http://api_test.meetji.com/data/image_doc/2624012e9a18c0ef09be5e127743e3db.jpg" class="ef-img" alt="">
+				<img src="http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611236639.jpg" class="ef-img" alt="">
 			</view>
 			<view class="ef-top-box">
 				<!-- <uni-icon size="35" @tap="makePhoneCall" class="makePhoneCall" type="phone-filled" color="#000"></uni-icon> -->
@@ -150,16 +150,16 @@
 			<view @tap="goTop" class="apply-btn go-top goTopEF GoTo">立即订阅《每日e课》</view>
 			<!-- v-if="btnShow" -->
 			<view class="ef-imgs ef-imgs-center">
-				<img src="../../static/ef5/s1-title.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s1-title.png" class="ef-img" alt="">
 				<swiper-block :swiperList="swiperList" swiperHeight="1100upx" :autoplay="false" :circular="false"></swiper-block>
 			</view>
 			<view class="ef-imgs ef-imgs-center">
-				<img src="../../static/ef5/s2-title.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-title.png" class="ef-img" alt="">
 				<swiper-block :swiperList="swiperList2" swiperHeight="400upx" :autoplay="false" :circular="false"></swiper-block>
 			</view>
 			<view class="ef-imgs ef-imgs-center">
-				<img src="http://api_test.meetji.com/data/image_doc/c87a22936038fdec28c304f78b75785f.png" class="ef-img" alt="">
-				<img src="http://api_test.meetji.com/data/image_doc/b655c1b902820896ec194c68c04de6ee.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/p1.png" class="ef-img" alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/p2.png" class="ef-img" alt="">
 				<!-- <img src="../../static/ef5/cr.png" class="ef-img" alt=""> -->
 				<view style="padding-bottom: 80upx;background-color: #000000;">
 					<copyright></copyright>
@@ -230,40 +230,40 @@
 				pickerValueDefault: [0],
 				pickerValueArray: [],
 				"swiperList": [{
-					"original_src": "http://api_test.meetji.com/data/image_doc/195bfa65b1bbaf46ec26401fafbaa15f.png",
+					"original_src": "http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611237150.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "http://api_test.meetji.com/data/image_doc/89cde6b6ac68b7d67389b08fa409f49b.png",
+					"original_src": "http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611237177.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "http://api_test.meetji.com/data/image_doc/c85dae4f213ced2644ca4e635b0e910a.png",
+					"original_src": "http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611237193.png",
 					"host": "local",
 					"link": ""
 				}],
 				"swiperList2": [{
-					"original_src": "http://api_test.meetji.com/data/image_doc/d47d04f8438902da870b4b297b4ef5b0.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-1.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "http://api_test.meetji.com/data/image_doc/22441f356bcfe6ecdf190e491c63c5ca.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-2.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "http://api_test.meetji.com/data/image_doc/9cd5c01146cfe8819ec9ffbb64e59e1e.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-3.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "http://api_test.meetji.com/data/image_doc/d49431719880fdd5332170d39685bcf4.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-4.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "http://api_test.meetji.com/data/image_doc/fb61bdc70d4fcbbae5878d15a36c3a9e.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-5.png",
 					"host": "local",
 					"link": ""
 				}, {
-					"original_src": "http://api_test.meetji.com/data/image_doc/1972db87fbbb217766fa8985699f968e.png",
+					"original_src": "https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-6.png",
 					"host": "local",
 					"link": ""
 				}],
