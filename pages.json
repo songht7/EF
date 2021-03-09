@@ -14,6 +14,14 @@
 		// 	}
 		// },
 		{
+			"path": "pages/xiaogao/index",
+			"style": {
+				"navigationBarTitleText": "效果英语",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		}, 
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "试听课网",
