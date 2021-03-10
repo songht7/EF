@@ -25,7 +25,7 @@
 
 <style>
 	.copyright {
-		background: #000000;
+		/* background: #000000; */
 		text-align: center;
 	}
 

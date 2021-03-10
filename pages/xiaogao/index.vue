@@ -13,6 +13,9 @@
 				</view>
 			</block>
 		</view>
+		<view>
+			<copyright></copyright>
+		</view>
 	</view>
 </template>
 
@@ -38,8 +41,6 @@
 	.content {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		justify-content: center;
 	}
 
 	.ef-imgs {
