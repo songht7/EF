@@ -2,7 +2,7 @@
 	<view id="Copyright" class="copyright">
 		<view style="width:100%; padding:20px 0;line-height: 1;">
 			<view>
-				<a href="//main.meetji.com" class="crlink">{{$Copyright.title?$Copyright.title:"梧桫（上海）教育科技有限公司"}}</a>
+				<a href="//www.meetji.com" class="crlink">{{$Copyright.title?$Copyright.title:"梧桫（上海）教育科技有限公司"}}</a>
 			</view>
 			<view><text class="crlink">浦东新区书院镇丽正路1628号4栋1~2层</text></view>
 			<view>
