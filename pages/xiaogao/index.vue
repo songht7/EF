@@ -3,7 +3,7 @@
 		<view class="ef-imgs" v-for="(value,key) in 6" :key="key">
 			<block v-if="(key+1)==1">
 				<view id="Logo">
-					<img src="/static/xiaoguo/logo.png" class="logo">
+					<img src="/static/xiaoguo/logo.png" class="logo" alt="效果英语">
 				</view>
 				<view class="btns">
 					<view class="btn-app btn-android">
