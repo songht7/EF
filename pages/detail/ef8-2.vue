@@ -300,29 +300,29 @@
 				}],
 				efSltLi2: [{
 					value: "A",
-					"name": "A: 职场晋升"
+					"name": "A: 职场应用"
 				}, {
 					value: "B",
-					"name": "B: 个人兴趣"
+					"name": "B: 出国旅行"
 				}, {
 					value: "C",
-					"name": "C: 出国旅行"
+					"name": "C: 口语交际"
 				}, {
 					value: "D",
 					"name": "D: 学术考试"
 				}, {
 					value: "E",
-					"name": "E: 口语交际"
+					"name": "E: 个人兴趣"
 				}],
 				efSltLi3: [{
 					value: "A",
-					"name": "A: 线下中心1对1私人会话课"
+					"name": "A: 1对1私人会话课"
 				}, {
 					value: "B",
-					"name": "B: 线下中心小组会话课"
+					"name": "B: 小组会话课"
 				}, {
 					value: "C",
-					"name": "C: 线上课程"
+					"name": "C: 线上学习"
 				}],
 				efSlt1: -1,
 				efSlt2: -1,
