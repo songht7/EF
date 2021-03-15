@@ -4,10 +4,12 @@
 	<view class="page detail-page detail-page-mx detail-page-ef-2">
 		<view class="scroll-view-item detail-block">
 			<view class="ef-imgs ef-imgs-center">
-				<img src="http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611237236.png" class="ef-img ef-img-logo" alt="">
+				<img src="http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611237236.png" class="ef-img ef-img-logo"
+				 alt="">
 			</view>
 			<view class="ef-imgs ef-imgs-center">
-				<img src="http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611236639.jpg" class="ef-img" alt="">
+				<img src="http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611236639.jpg" class="ef-img"
+				 alt="">
 			</view>
 			<view class="ef-top-box">
 				<!-- <uni-icon size="35" @tap="makePhoneCall" class="makePhoneCall" type="phone-filled" color="#000"></uni-icon> -->
@@ -109,6 +111,43 @@
 									</view>
 									<block v-if="verify">
 										<move-verify @result='verifyResult' ref="verifyElement"></move-verify>
+									</block>
+									<block>
+										<view class="detail-block-init">
+											<view class="ef-select">
+												<view class="uni-title uni-common-mt uni-common-pl ef-select-title">1. 您的英语水平：</view>
+												<radio-group @change="efRadio1">
+													<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi1" :key="item.value">
+														<view>
+															<radio :value="item.value" :checked="index === efSlt1" />
+														</view>
+														<view>{{item.name}}</view>
+													</label>
+												</radio-group>
+											</view>
+											<view class="ef-select">
+												<view class="uni-title uni-common-mt uni-common-pl ef-select-title">2. 您的学习目标是：</view>
+												<radio-group @change="efRadio2">
+													<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi2" :key="item.value">
+														<view>
+															<radio :value="item.value" :checked="index === efSlt2" />
+														</view>
+														<view>{{item.name}}</view>
+													</label>
+												</radio-group>
+											</view>
+											<view class="ef-select">
+												<view class="uni-title uni-common-mt uni-common-pl ef-select-title">3. 您的意向学习方式是：</view>
+												<radio-group @change="efRadio3">
+													<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi3" :key="item.value">
+														<view>
+															<radio :value="item.value" :checked="index === efSlt3" />
+														</view>
+														<view>{{item.name}}</view>
+													</label>
+												</radio-group>
+											</view>
+										</view>
 									</block>
 									<view class="uni-btn-v">
 										<button formType="submit" class="apply-btn">立即订阅</button> <!-- :loading="loading" -->
@@ -244,7 +283,51 @@
 				}],
 				formData: {},
 				verify: false, //是否滑块验证
-				resultData: {} //滑块验证值
+				resultData: {}, //滑块验证值
+				QAShow: true, //问题是否显示
+				efSltLi1: [{
+					value: "A",
+					"name": "A: 零基础"
+				}, {
+					value: "B",
+					"name": "B: 初级"
+				}, {
+					value: "C",
+					"name": "C: 中级"
+				}, {
+					value: "D",
+					"name": "D: 高级"
+				}],
+				efSltLi2: [{
+					value: "A",
+					"name": "A: 职场晋升"
+				}, {
+					value: "B",
+					"name": "B: 个人兴趣"
+				}, {
+					value: "C",
+					"name": "C: 出国旅行"
+				}, {
+					value: "D",
+					"name": "D: 学术考试"
+				}, {
+					value: "E",
+					"name": "E: 口语交际"
+				}],
+				efSltLi3: [{
+					value: "A",
+					"name": "A: 线下中心1对1私人会话课"
+				}, {
+					value: "B",
+					"name": "B: 线下中心小组会话课"
+				}, {
+					value: "C",
+					"name": "C: 线上课程"
+				}],
+				efSlt1: -1,
+				efSlt2: -1,
+				efSlt3: -1,
+				efForm: [0, 0, 0]
 			};
 		},
 		computed: {
@@ -542,11 +625,52 @@
 				}
 				// console.log(rule)
 				// console.log(formData)
+
 				// return
+				//提问
+				let q1 = '';
+				let q2 = '';
+				let q3 = '';
+				if (_this.QAShow) {
+					q1 = _this.efForm[0] != 0 ? _this.efForm[0] : '';
+					q2 = _this.efForm[1] != 0 ? _this.efForm[1] : '';
+					q3 = _this.efForm[2] != 0 ? _this.efForm[2] : '';
+					if (q1 == "") {
+						uni.showToast({
+							title: "请选择您的英语水平",
+							icon: "none"
+						});
+						_this.loading = false
+						return false
+					}
+					if (q2 == "") {
+						uni.showToast({
+							title: "请选择您的学习目标",
+							icon: "none"
+						});
+						_this.loading = false
+						return false
+					}
+					if (q3 == "") {
+						uni.showToast({
+							title: "请选择您的学习意向",
+							icon: "none"
+						});
+						_this.loading = false
+						return false
+					}
+				}
+				//提问ed
+				
 				//进行表单检查
 				var checkRes = graceChecker.check(formData, rule);
+
 				if (checkRes) {
 					var _AAA = formData["Flag"] ? ' - A+' : '';
+					var _note = "";
+					if (_this.QAShow) {
+						_note = `1:${q1} 2:${q2} 3:${q3}`;
+					}
 					/** request-1 send email **/
 					if (_AAA) {
 						var _data = {
@@ -554,7 +678,7 @@
 							"客户姓名": formData.UserName + ' - ef8-2《每日e课》' + _AAA,
 							"年龄": formData.Age,
 							"客户手机号": formData.UserPhone,
-							"城市": formData.City
+							"城市": formData.City,
 						};
 						var sendMail_key = 0;
 						var fun = function(result) {
@@ -607,7 +731,8 @@
 						"city": formData.City,
 						"school": "", //this.schoolId,
 						"article_id": _this.article_id,
-						"arrive_time": formData.ApplyDate ? formData.ApplyDate : ""
+						"arrive_time": formData.ApplyDate ? formData.ApplyDate : "",
+						"note": _note
 					};
 					let url_saveSingle = apiurl + inter.addr.saveSingle;
 					console.log(data2DB)
@@ -625,6 +750,7 @@
 						"state": _city.split("-")[0],
 						"city": _city.split("-")[1],
 						"district": _city.split("-")[1],
+						"note": _note,
 						"emailenglish": "",
 						"emaillist": "4,5",
 						"formType": "CNMK",
@@ -672,12 +798,44 @@
 				day = day > 9 ? day : '0' + day;
 
 				return `${year}-${month}-${day}`;
+			},
+			efRadio1: function(evt) {
+				console.log(evt)
+				this.efForm[0] = evt.target.value;
+				for (let i = 0; i < this.efSltLi1.length; i++) {
+					if (this.efSltLi1[i].value === evt.target.value) {
+						this.efSlt1 = i;
+						break;
+					}
+				}
+			},
+			efRadio2: function(evt) {
+				console.log(evt)
+				this.efForm[1] = evt.target.value;
+				for (let i = 0; i < this.efSltLi2.length; i++) {
+					if (this.efSltLi2[i].value === evt.target.value) {
+						this.efSlt2 = i;
+						break;
+					}
+				}
+			},
+			efRadio3: function(evt) {
+				console.log(evt)
+				this.efForm[2] = evt.target.value;
+				for (let i = 0; i < this.efSltLi3.length; i++) {
+					if (this.efSltLi3[i].value === evt.target.value) {
+						this.efSlt3 = i;
+						break;
+					}
+				}
 			}
 		}
 	}
 </script>
 
 <style>
+	@import "./detail.css";
+
 	.uni-list-phone-code {
 		padding: 50upx 50upx 100upx;
 	}
