@@ -109,9 +109,6 @@
 											</view>
 										</view>
 									</view>
-									<block v-if="verify">
-										<move-verify @result='verifyResult' ref="verifyElement"></move-verify>
-									</block>
 									<block>
 										<view class="detail-block-init">
 											<view class="ef-select">
@@ -148,6 +145,9 @@
 												</radio-group>
 											</view>
 										</view>
+									</block>
+									<block v-if="verify">
+										<move-verify @result='verifyResult' ref="verifyElement"></move-verify>
 									</block>
 									<view class="uni-btn-v">
 										<button formType="submit" class="apply-btn">立即订阅</button> <!-- :loading="loading" -->
