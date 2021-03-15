@@ -323,6 +323,9 @@
 				}, {
 					value: "C",
 					"name": "C: 线上学习"
+				}, {
+					value: "D",
+					"name": "D: 线下中心学习"
 				}],
 				efSlt1: -1,
 				efSlt2: -1,
@@ -661,7 +664,7 @@
 					}
 				}
 				//提问ed
-				
+
 				//进行表单检查
 				var checkRes = graceChecker.check(formData, rule);
 
