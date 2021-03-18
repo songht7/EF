@@ -20,7 +20,19 @@
 				"enablePullDownRefresh": true,
 				"navigationStyle": "custom"
 			}
-		}, 
+		}, {
+			"path": "pages/xiaogao/detail",
+			"style": {
+				"navigationBarTitleText": "效果英语",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
 		{
 			"path": "pages/index/index",
 			"style": {
