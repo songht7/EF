@@ -164,12 +164,12 @@
 				"navigationBarTitleText": "英孚教育",
 				"backgroundColor": "#EBEBEB",
 				// "enablePullDownRefresh": true,
-				"navigationStyle": "custom",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent"
-					}
-				}
+				"navigationStyle": "custom"
+				// ,"app-plus": {
+				// 	"titleNView": {
+				// 		"type": "transparent"
+				// 	}
+				// }
 			}
 		}, {
 			"path": "pages/detail/ef8-2",
@@ -177,12 +177,15 @@
 				"navigationBarTitleText": "英孚教育",
 				"backgroundColor": "#EBEBEB",
 				// "enablePullDownRefresh": true,
-				"navigationStyle": "custom",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent"
-					}
-				}
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/detail/ef8-3",
+			"style": {
+				"navigationBarTitleText": "英孚教育",
+				"backgroundColor": "#EBEBEB",
+				// "enablePullDownRefresh": true,
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/detail/ef9",
