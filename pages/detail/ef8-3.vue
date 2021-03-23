@@ -162,8 +162,14 @@
 
 			<view @tap="goTop" class="apply-btn go-top goTopEF GoTo">立即订阅《每日e课》</view>
 			<!-- v-if="btnShow" -->
-			<view class="ef-imgs ef-imgs-center">
-				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef8/8-3-3.jpg" class="ef-img" alt="">
+			<view class="ef-imgs ef-imgs-center" style="padding-bottom:0">
+				<!-- <img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef8/8-3-3.jpg" class="ef-img" alt=""> -->
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef8/8-3-4.jpg" class="ef-img"
+				 alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef8/8-3-5.jpg" class="ef-img"
+				 alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef8/8-3-6.jpg" class="ef-img"
+				 alt="">
 			</view>
 			<view class="ef-imgs ef-imgs-center">
 				<view style="padding-bottom: 80upx;background-color: #000000;">
