@@ -712,7 +712,7 @@
 							_this.formData = formData;
 						} else {
 							if (result) {
-								mdl.deepTranslate(); //媒体 深度转化对接
+								// mdl.deepTranslate(); //媒体 深度转化对接
 								uni.redirectTo({
 									url: "/pages/detail/thx?key=" + _this.key
 								});

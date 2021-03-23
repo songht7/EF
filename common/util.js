@@ -118,7 +118,7 @@ const module = {
 		deepTranslateParam = params + "&sign=" + sign;
 		console.log(deepTranslateParam)
 	},
-	deepTranslate() { //媒体 深度转化对接 step2
+	deepTranslate(fun) { //媒体 深度转化对接 step2
 		let api1 = 'https://openapi.bayimob.com/openApi/deepTranslate/v2';
 		let api2 = "https://openapi.bayimob.com/openApi/orderDeepTranslate/v2";
 		let apiUrl = api1 + "?" + deepTranslateParam;
@@ -133,7 +133,11 @@ const module = {
 			fail: function(err) {
 				console.log("======deepTranslate:request-fail========", err);
 			},
-			complete: function(comp) {}
+			complete: function(comp) {
+				if (fun) {
+					new fun(result, resultAll)
+				}
+			}
 		})
 	},
 	wxShare: function(share_url, title, imgUrl, dec) {
