@@ -712,7 +712,7 @@
 							if (result) {
 								let fun = function() {
 									uni.redirectTo({
-										url: "/pages/detail/thx?key=" + _this.key
+										url: "/pages/detail/thx?key=ef83"
 									});
 								}
 								mdl.deepTranslate(fun); //媒体 深度转化对接

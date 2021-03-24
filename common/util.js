@@ -135,7 +135,7 @@ const module = {
 			},
 			complete: function(comp) {
 				if (fun) {
-					new fun(result, resultAll)
+					new fun()
 				}
 			}
 		})
