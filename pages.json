@@ -274,12 +274,12 @@
 			"path": "pages/detail/thx",
 			"style": {
 				"navigationBarTitleText": "感谢您的注册",
-				"backgroundColor": "transparent",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent"
-					}
-				}
+				"backgroundColor": "transparent"
+				// ,"app-plus": {
+				// 	"titleNView": {
+				// 		"type": "transparent"
+				// 	}
+				// }
 			}
 		}, {
 			"path": "pages/detail/activity",
