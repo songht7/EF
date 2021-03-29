@@ -8,7 +8,7 @@
 				 alt="">
 			</view>
 			<view class="ef-imgs ef-imgs-center">
-				<img src="http://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/1611236639.jpg" class="ef-img"
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef8/8-3-1.jpg" class="ef-img"
 				 alt="">
 			</view>
 			<view class="ef-top-box">
@@ -162,18 +162,16 @@
 
 			<view @tap="goTop" class="apply-btn go-top goTopEF GoTo">立即订阅《每日e课》</view>
 			<!-- v-if="btnShow" -->
-			<view class="ef-imgs ef-imgs-center">
-				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s1-title.png" class="ef-img" alt="">
-				<swiper-block :swiperList="swiperList" swiperHeight="1100upx" :autoplay="false" :circular="false"></swiper-block>
+			<view class="ef-imgs ef-imgs-center" style="padding-bottom:0">
+				<!-- <img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef8/8-3-3.jpg" class="ef-img" alt=""> -->
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef8/8-3-4.jpg" class="ef-img"
+				 alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef8/8-3-5.jpg" class="ef-img"
+				 alt="">
+				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/ef8/8-3-6.jpg" class="ef-img"
+				 alt="">
 			</view>
 			<view class="ef-imgs ef-imgs-center">
-				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/s2-title.png" class="ef-img" alt="">
-				<swiper-block :swiperList="swiperList2" swiperHeight="400upx" :autoplay="false" :circular="false"></swiper-block>
-			</view>
-			<view class="ef-imgs ef-imgs-center">
-				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/p1.png" class="ef-img" alt="">
-				<img src="https://plbs-test-1257286922.cos.ap-shanghai.myqcloud.com/data/media_doc/p2.png" class="ef-img" alt="">
-				<!-- <img src="../../static/ef5/cr.png" class="ef-img" alt=""> -->
 				<view style="padding-bottom: 80upx;background-color: #000000;">
 					<copyright></copyright>
 				</view>
@@ -323,9 +321,6 @@
 				}, {
 					value: "C",
 					"name": "C: 线上学习"
-				}, {
-					value: "D",
-					"name": "D: 线下中心学习"
 				}],
 				efSlt1: -1,
 				efSlt2: -1,
@@ -715,10 +710,12 @@
 							_this.formData = formData;
 						} else {
 							if (result) {
-								// mdl.deepTranslate(); //媒体 深度转化对接
-								uni.redirectTo({
-									url: "/pages/detail/thx?key=" + _this.key
-								});
+								let fun = function() {
+									uni.redirectTo({
+										url: "/pages/detail/thx?key=ef83"
+									});
+								}
+								mdl.deepTranslate(fun); //媒体 深度转化对接
 							} else {
 								_this.loading = false
 								uni.showModal({
@@ -931,10 +928,11 @@
 		letter-spacing: 3upx;
 		font-size: 32upx;
 		padding: 5upx 0;
+		box-shadow: none;
 	}
 
 	.go-top {
-		background-color: #009eeb;
+		background-color: #ff329b;
 		display: none;
 		width: 86%;
 		position: fixed;

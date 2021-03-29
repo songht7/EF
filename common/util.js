@@ -1,5 +1,6 @@
 // #ifdef MP-WEIXIN || H5
 const wx = require('jweixin-module')
+import md5 from "./md5.js";
 // #endif
 const isArray = Array.isArray || function(obj) {
 	return obj instanceof Array;
@@ -49,6 +50,7 @@ const Interface = {
 	}
 
 };
+let deepTranslateParam = ""; //北京 媒体 深度转化对接参数
 const module = {
 	getData: function(url, fun, method, data, _head) {
 		let result = [];
@@ -95,6 +97,45 @@ const module = {
 				// 				console.log(result)
 				if (fun) {
 					new fun(result, resultAll)
+				}
+			}
+		})
+	},
+	dtMd5(parm) { //媒体 深度转化对接 step1
+		// console.log("deepTranslate:", parm) //accountId, bidId, click_ext, dkey, status, trackParam 
+		let accountId = parm.accountId ? parm.accountId : "";
+		let bidId = parm.bidId ? parm.bidId : "";
+		let click_ext = parm.click_ext ? parm.click_ext : "";
+		let dkey = parm.dkey ? parm.dkey : "";
+		let status = parm.status ? parm.status : "";
+		let trackParam = parm.trackParam ? parm.trackParam : "";
+		let str = accountId + bidId + click_ext + dkey + status + trackParam;
+		let sign = md5.hex_md5(str)
+		// console.log(str)
+		var params = Object.keys(parm).map(function(key) {
+			return key + "=" + parm[key];
+		}).join("&");
+		deepTranslateParam = params + "&sign=" + sign;
+		console.log(deepTranslateParam)
+	},
+	deepTranslate(fun) { //媒体 深度转化对接 step2
+		let api1 = 'https://openapi.bayimob.com/openApi/deepTranslate/v2';
+		let api2 = "https://openapi.bayimob.com/openApi/orderDeepTranslate/v2";
+		let apiUrl = api1 + "?" + deepTranslateParam;
+		console.log(apiUrl)
+		uni.request({
+			url: apiUrl,
+			method: "GET",
+			success: function(res) {
+				console.log("======deepTranslate:request-success========", res)
+				//code：0 代表成功 1 参数不完整 2 加密校验失败 3 参数异常 4 	记录不存在 5 访问频率过快 
+			},
+			fail: function(err) {
+				console.log("======deepTranslate:request-fail========", err);
+			},
+			complete: function(comp) {
+				if (fun) {
+					new fun()
 				}
 			}
 		})

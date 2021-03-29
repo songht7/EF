@@ -85,8 +85,19 @@
 		<view>
 			<view id="Copyright" class="copyright">
 				<view style="width:100%; padding:20px 0;line-height: 1;">
+					<view class="about-us">
+						<view class="us-block">
+							<navigator url="/pages/xiaogao/detail?type=company" class="comment-btn">公司介绍</navigator>
+						</view>
+						<view class="us-block">
+							<navigator url="/pages/xiaogao/detail?type=contact" class="comment-btn">联系方式</navigator>
+						</view>
+						<view class="us-block">
+							<navigator url="/pages/xiaogao/detail?type=product" class="comment-btn">产品特色</navigator>
+						</view>
+					</view>
 					<view>
-						<a href="//www.meetji.com" class="crlink">{{$Copyright.title?$Copyright.title:"梧桫（上海）教育科技有限公司"}}</a>
+						<a href="https://www.meetji.com" class="crlink">梧桫（上海）教育科技有限公司</a>
 					</view>
 					<view><text class="crlink">浦东新区书院镇丽正路1628号4栋1~2层</text></view>
 					<view>
@@ -94,10 +105,10 @@
 					</view>
 					<view style="padding: 15px 0 0;">
 						<!-- http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011702005308 -->
-						<a class="crlink" target="_blank" :href="$Copyright.recordcode?'http://www.beian.gov.cn/portal/registerSystemInfo?recordcode='+$Copyright.recordcode:'http://www.beian.gov.cn/'">
+						<a class="crlink" target="_blank" href="http://www.beian.gov.cn/">
 							<img src="/static/national.png" style="float:left;" />
 							<!-- <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">沪公网安备 31011702005308号 </p> -->
-							<p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">{{$Copyright.ICP}}</p>
+							<p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">沪ICP备19000677号-6</p>
 						</a>
 					</view>
 				</view>
@@ -124,151 +135,6 @@
 	}
 </script>
 
-<style scoped>
-	.content {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.ef-imgs {
-		width: 100%;
-		position: relative;
-	}
-
-
-	#Logo {
-		position: absolute;
-		width: 100%;
-		left: 0;
-		top: 0;
-		padding: 60upx 0;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-	}
-
-	.logo {
-		display: block;
-		width: 30%;
-	}
-
-	.ef-img,
-	.btn-app-img {
-		width: 100%;
-		display: block;
-	}
-
-	.btns {
-		position: absolute;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-around;
-		bottom: 100upx;
-		left: 0;
-		width: 100%;
-	}
-
-	.btn-app {
-		width: 45%;
-	}
-
-	.page-val {
-		background: #FFFFFF;
-	}
-
-	.page-val-block {
-		padding: 60upx;
-	}
-
-	.val-title {
-		font-size: 36upx;
-		line-height: 2;
-		color: #0fc180;
-	}
-
-	.page-val-flex {
-		position: absolute;
-		background: none;
-		width: 100%;
-		left: 0;
-		top: 0
-	}
-
-	.val-info {
-		padding-bottom: 20upx;
-	}
-
-	.info-row {
-		font-size: 24upx;
-		color: #333333;
-		line-height: 1.4;
-	}
-
-	.val-info-en .info-row {
-		font-size: 21upx;
-		color: #7c7c7c
-	}
-
-	.page-3-main {
-		background-repeat: no-repeat;
-		background-position: right;
-		background-size: cover;
-	}
-
-	.page-val-block.page-3 {
-		padding: 30upx 60upx;
-		width: 60%;
-	}
-
-	.page-3 .info-row {
-		line-height: 1.4;
-	}
-
-	.web-link {
-		line-height: 3;
-		display: block;
-		color: #0fc583;
-		font-size: 24upx;
-		text-decoration: none;
-	}
-
-	.copyright {
-		/* background: #000000; */
-		text-align: center;
-	}
-
-	.crlink {
-		display: inline-block;
-		color: #939393;
-		text-decoration: none;
-		line-height: 25px;
-	}
-
-	@media screen and (min-device-width: 1025px) {
-		.content {
-			width: 1025px;
-			margin: 0 auto;
-		}
-
-		.page-val-block.page-3 {
-			padding: 30px 60px;
-		}
-
-		.val-title {
-			font-size: 18px;
-		}
-
-		.info-row {
-			font-size: 16px;
-		}
-
-		.val-info-en .info-row {
-			font-size: 14px;
-		}
-
-		.web-link {
-			font-size: 18px;
-		}
-	}
+<style>
+	@import "./xg.css";
 </style>
