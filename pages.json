@@ -14,26 +14,6 @@
 		// 	}
 		// },
 		{
-			"path": "pages/xiaogao/index",
-			"style": {
-				"navigationBarTitleText": "效果英语",
-				"enablePullDownRefresh": true,
-				"navigationStyle": "custom"
-			}
-		}, {
-			"path": "pages/xiaogao/detail",
-			"style": {
-				"navigationBarTitleText": "效果英语",
-				"enablePullDownRefresh": true,
-				"navigationStyle": "custom",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent"
-					}
-				}
-			}
-		},
-		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "试听课网",
@@ -50,6 +30,26 @@
 			"style": {
 				"navigationBarTitleText": "试听详细",
 				"backgroundColor": "#E3E3E3",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/xiaogao/index",
+			"style": {
+				"navigationBarTitleText": "效果英语",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/xiaogao/detail",
+			"style": {
+				"navigationBarTitleText": "效果英语",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": {
 						"type": "transparent"
