@@ -49,7 +49,7 @@
     "h5" : {
         "template" : "pages/h5-temp.html",
         "title" : "效果英语",
-        "domain" : "www.ef-ec.com"
+        "domain" : "www.meetji.com"
     },
     "mp-weixin" : {
         /* 小程序特有相关 */

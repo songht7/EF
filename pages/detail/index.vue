@@ -490,12 +490,12 @@
 				if (res) {
 					_this.userInfo = res;
 				} else {
-					mdl.getWXCode();
+					// mdl.getWXCode();
 				}
 			}
 			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
 			if (_this.detail.name) {
-				_this.setShare(_this.detail);
+				// _this.setShare(_this.detail);
 			}
 		},
 		onHide() {
