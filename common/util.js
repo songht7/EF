@@ -43,6 +43,7 @@ const Interface = {
 	},
 	"wx": {
 		"appid": "wx11eb371cd85adfd4",
+		"appidQY": "ww00bf81f97337653e", //企业微信
 		"access_token": "client_credential",
 		"secret": "01ef7de58bc18da629d4ec33a62744f9",
 		"getToken": "https://api.weixin.qq.com/cgi-bin/token",
@@ -296,12 +297,15 @@ const module = {
 					_this.userLogin("", __openid);
 				} else {
 					let redirect_uri = redirect_uri ? redirect_uri : Interface.domain;
-					let REDIRECT_URI = encodeURIComponent(redirect_uri), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
+					let REDIRECT_URI = encodeURIComponent(
+						redirect_uri), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
 						scope = "snsapi_userinfo", //snsapi_base，snsapi_userinfo （弹出授权页面，获取更多信息）
 						state = "STATE"; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
-					var _url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appid + '&redirect_uri=' +
+					var _url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +
+						appid + '&redirect_uri=' +
 						REDIRECT_URI +
-						'&response_type=code&scope=' + scope + '&state=' + state + '#wechat_redirect';
+						'&response_type=code&scope=' + scope + '&state=' + state +
+						'#wechat_redirect';
 					let code = _this.queryString('code');
 					//console.log(_url)
 					if (code) {
