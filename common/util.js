@@ -103,8 +103,8 @@ const module = {
 		})
 	},
 	subscribemsg() {
-		let url = encodeURIComponent('http://www.meetji.com');//window.location.href
-		let tempId = '2al7eSNW2j5x_DOMJLKbFi9q_xA_LWxVfKqspqN3W08';
+		let url = encodeURIComponent(window.location.href);
+		let tempId = 'BgdSbZEnDeCGmr8X_dtZuPGPtbaC9MaapKbAAhbKCcM';
 		let subscribemsg_url = 'https://mp.weixin.qq.com/mp/subscribemsg?action=get_confirm&appid=' +
 			Interface.wx.appid + '&scene=1000&template_id=' + tempId + '&redirect_url=' + url +
 			'&reserved=stk#wechat_redirect';
@@ -115,6 +115,9 @@ const module = {
 	addCustomer(parm) {
 		//POST https://api.weixin.qq.com/cgi-bin/message/subscribe/bizsend?access_token=ACCESS_TOKEN
 		console.log("---addCustomer---", parm)
+		//我的模板
+		//上课提醒 K6gp-WO8aM2XVAiMeGTmtRHyRcBQaSG6--KqUAEurps
+		//名片交换通知 2al7eSNW2j5x_DOMJLKbFi9q_xA_LWxVfKqspqN3W08
 		let _data = {
 			access_token: parm.access_token, //string 接口调用凭证
 			touser: parm.openid, //string 接收者（用户）的 openid

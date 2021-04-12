@@ -155,9 +155,9 @@
 		<view class="detail-block apply-box">
 			<view class="block-title">
 				课程预约
-				<!-- <view class="btn-customer" @tap="addCustomer">
+				<view class="btn-customer" @tap="addCustomer">
 					在线客服
-				</view> -->
+				</view>
 			</view>
 			<view class="uni-padding-wrap uni-common-mt">
 				<view class="uni-card">
