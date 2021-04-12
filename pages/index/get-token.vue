@@ -122,6 +122,7 @@
 				dec = "英语免费试听课，在这里找到你想要的";
 			//console.log(share_url)
 			mdl.wxShare(share_url, title, imgUrl, dec);
+			this.access_token = this.$store.state.access_token
 			/**
 			 * 课程列表
 			 */
@@ -132,7 +133,6 @@
 		},
 		onReady() {
 			var _this = this;
-			_this.access_token = _this.$store.state.access_token
 			/**
 			 * 轮播
 			 */
