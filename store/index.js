@@ -9,12 +9,13 @@ const store = new Vuex.Store({
 		loading: "0",
 		base_url: "",
 		user: {},
-		openid:"",
-		phone:"",
+		access_token: "",
+		openid: "",
+		phone: "",
 		data: "",
 		isWeixin: true,
 		sysInfo: "",
-		popup_user:"on"
+		popup_user: "on"
 	},
 	mutations: {
 		isWeixin(state, status) {
@@ -22,9 +23,13 @@ const store = new Vuex.Store({
 		},
 		get_user(state, data) {
 			console.log(data)
-			state.user = data
-			state.openid = data.openid
-			state.phone = data.phone
+			if (data.access_token) {
+				state.access_token = data.access_token;
+			} else {
+				state.user = data
+				state.openid = data.openid
+				state.phone = data.phone;
+			}
 		},
 		set_sysInfo(state, data) {
 			state.sysInfo = data
@@ -41,6 +46,13 @@ const store = new Vuex.Store({
 				success: function(res) {
 					user = res.data;
 					ctx.commit("get_user", user)
+				}
+			})
+			uni.getStorage({
+				key: "wx_ticket",
+				success: function(res) {
+					let ticket = res.data;
+					ctx.commit("get_user", ticket)
 				}
 			})
 		},
@@ -71,7 +83,7 @@ const store = new Vuex.Store({
 				}
 			})
 		},
-		set_popup_user(ctx,t){
+		set_popup_user(ctx, t) {
 			console.log(t)
 			ctx.commit("set_popup_user", t)
 		}

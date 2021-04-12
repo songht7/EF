@@ -102,6 +102,56 @@ const module = {
 			}
 		})
 	},
+	subscribemsg() {
+		let url = encodeURIComponent('http://www.meetji.com');//window.location.href
+		let tempId = '2al7eSNW2j5x_DOMJLKbFi9q_xA_LWxVfKqspqN3W08';
+		let subscribemsg_url = 'https://mp.weixin.qq.com/mp/subscribemsg?action=get_confirm&appid=' +
+			Interface.wx.appid + '&scene=1000&template_id=' + tempId + '&redirect_url=' + url +
+			'&reserved=stk#wechat_redirect';
+		console.log(url)
+		console.log(subscribemsg_url)
+		// window.location.href = subscribemsg_url;
+	},
+	addCustomer(parm) {
+		//POST https://api.weixin.qq.com/cgi-bin/message/subscribe/bizsend?access_token=ACCESS_TOKEN
+		console.log("---addCustomer---", parm)
+		let _data = {
+			access_token: parm.access_token, //string 接口调用凭证
+			touser: parm.openid, //string 接收者（用户）的 openid
+			template_id: "2al7eSNW2j5x_DOMJLKbFi9q_xA_LWxVfKqspqN3W08", //string 所需下发的订阅模板id
+			page: "", //string跳转网页时填写[非必填]
+			miniprogram: "", //Array.<Objtect> 跳转小程序时填写，格式如{ "appid": "pagepath": { "value": any } }[非必填]
+			data: {
+				"tips": {
+					"value": "试听课网正邀请您添加他为好友，加入与他的聊天"
+				},
+				"name": {
+					"value": "小万"
+				},
+				"class": {
+					"value": "梧桫（上海）教育"
+				}
+			}
+		} //Object 模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }
+		console.log(_data)
+		uni.request({
+			url: 'https://api.weixin.qq.com/cgi-bin/message/subscribe/bizsend',
+			method: "POST",
+			data: _data,
+			success: function(res) {
+				console.log("======subscribe-message:request-success========", res)
+				//code：0 代表成功 1 参数不完整 2 加密校验失败 3 参数异常 4 	记录不存在 5 访问频率过快 
+			},
+			fail: function(err) {
+				console.log("======subscribe-message:request-fail========", err);
+			},
+			complete: function(comp) {
+				if (fun) {
+					new fun()
+				}
+			}
+		})
+	},
 	dtMd5(parm) { //媒体 深度转化对接 step1
 		// console.log("deepTranslate:", parm) //accountId, bidId, click_ext, dkey, status, trackParam 
 		let accountId = parm.accountId ? parm.accountId : "";
@@ -297,8 +347,8 @@ const module = {
 					_this.userLogin("", __openid);
 				} else {
 					let redirect_uri = redirect_uri ? redirect_uri : Interface.domain;
-					let REDIRECT_URI = encodeURIComponent(
-						redirect_uri), //授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
+					//授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
+					let REDIRECT_URI = encodeURIComponent(redirect_uri),
 						scope = "snsapi_userinfo", //snsapi_base，snsapi_userinfo （弹出授权页面，获取更多信息）
 						state = "STATE"; //重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
 					var _url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' +

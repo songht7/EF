@@ -4,9 +4,10 @@
 	<view class="page detail-page">
 		<view class="detail-block">
 			<view class="swiper-box">
-				<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true" interval="3000" duration="1000"
-				 indicator-color="#979797" indicator-active-color="#FFFFFF">
-					<swiper-item class="swiper-item" v-if="detail.image" v-for="(slide,index) in detail.image" :key="index">
+				<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true" interval="3000"
+					duration="1000" indicator-color="#979797" indicator-active-color="#FFFFFF">
+					<swiper-item class="swiper-item" v-if="detail.image" v-for="(slide,index) in detail.image"
+						:key="index">
 						<view class="vli">
 							<view class="vli2">
 								<image class="slideImg" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
@@ -24,18 +25,22 @@
 									<view class="ser-title txt-orange">
 										{{detail.name}}
 									</view>
-									<view class="ser-tag">{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"0元"}}</view>
+									<view class="ser-tag">
+										{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"0元"}}
+									</view>
 								</view>
 								<view class="ser-abstract txt-black">
 									{{detail.overview}}
 								</view>
 								<view class="ser-feature txt-gray">
-									市场价: <text class='market-price'>￥{{detail.market_price?detail.market_price:"-"}}</text>
+									市场价: <text
+										class='market-price'>￥{{detail.market_price?detail.market_price:"-"}}</text>
 								</view>
 								<view class="apply-num">
 									<view class="apply-cell apply-left">
 										<view class="txt-gray">已领</view>
-										<view class="txt-orange">{{detail.booked?detail.booked:"0"}}人</view><!-- 真实value.booked_count -->
+										<view class="txt-orange">{{detail.booked?detail.booked:"0"}}人</view>
+										<!-- 真实value.booked_count -->
 									</view>
 									<view class="apply-cell apply-middle">
 										<view class="txt-gray">好评率</view>
@@ -69,7 +74,8 @@
 				<view class="ef-select">
 					<view class="uni-title uni-common-mt uni-common-pl ef-select-title">1. 您的英语水平：</view>
 					<radio-group @change="efRadio1">
-						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi1" :key="item.value">
+						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi1"
+							:key="item.value">
 							<view>
 								<radio :value="item.value" :checked="index === efSlt1" />
 							</view>
@@ -80,7 +86,8 @@
 				<view class="ef-select">
 					<view class="uni-title uni-common-mt uni-common-pl ef-select-title">2. 您的学习目标是：</view>
 					<radio-group @change="efRadio2">
-						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi2" :key="item.value">
+						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi2"
+							:key="item.value">
 							<view>
 								<radio :value="item.value" :checked="index === efSlt2" />
 							</view>
@@ -91,7 +98,8 @@
 				<view class="ef-select">
 					<view class="uni-title uni-common-mt uni-common-pl ef-select-title">3. 您的意向学习方式是：</view>
 					<radio-group @change="efRadio3">
-						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi3" :key="item.value">
+						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi3"
+							:key="item.value">
 							<view>
 								<radio :value="item.value" :checked="index === efSlt3" />
 							</view>
@@ -122,8 +130,10 @@
 							<view class="uni-comment-top">{{cmt.name?cmt.name:"游客"}}</view>
 							<view class="uni-comment-date">
 								<view class="star">
-									<uni-icon v-for="n in parseInt(cmt.star)" :key="n" size="16" type="star-filled" color="#F7A631"></uni-icon>
-									<uni-icon v-for="n in 5-parseInt(cmt.star)" :key="n" size="16" type="star-filled" color="#D3D3D3"></uni-icon>
+									<uni-icon v-for="n in parseInt(cmt.star)" :key="n" size="16" type="star-filled"
+										color="#F7A631"></uni-icon>
+									<uni-icon v-for="n in 5-parseInt(cmt.star)" :key="n" size="16" type="star-filled"
+										color="#D3D3D3"></uni-icon>
 									{{cmt.praise}}
 								</view>
 								<view>{{cmt.add_time.split(" ")[0]}}</view>
@@ -143,7 +153,12 @@
 
 		<!-- 预约块 -->
 		<view class="detail-block apply-box">
-			<view class="block-title">课程预约</view>
+			<view class="block-title">
+				课程预约
+				<!-- <view class="btn-customer" @tap="addCustomer">
+					在线客服
+				</view> -->
+			</view>
 			<view class="uni-padding-wrap uni-common-mt">
 				<view class="uni-card">
 					<view class="uni-card-content">
@@ -168,8 +183,10 @@
 														年龄:
 													</view>
 													<view class="uni-list-cell-db select-block">
-														<picker name="Age" @change="bindAgeChange" :value="ageIndex" :range="age">
-															<view class="uni-input">{{ageIndex>=0?age[ageIndex]:''}}</view>
+														<picker name="Age" @change="bindAgeChange" :value="ageIndex"
+															:range="age">
+															<view class="uni-input">{{ageIndex>=0?age[ageIndex]:''}}
+															</view>
 														</picker>
 														<!-- <input class="uni-input" name="Age" type="number" placeholder="" value="" /> -->
 													</view>
@@ -181,7 +198,8 @@
 														性别:
 													</view>
 													<view class="uni-list-cell-db select-block">
-														<picker name="Gender" @change="bindPickerChange" :value="genderIndex" :range="gender">
+														<picker name="Gender" @change="bindPickerChange"
+															:value="genderIndex" :range="gender">
 															<view class="uni-input">{{gender[genderIndex]}}</view>
 														</picker>
 													</view>
@@ -190,17 +208,20 @@
 											</view>
 										</view>
 									</view>
-									<view class="uni-list " :class="detail.current_price&&detail.current_price!='0.00'&&$store.state.isWeixin?'':'apply-date'">
+									<view class="uni-list "
+										:class="detail.current_price&&detail.current_price!='0.00'&&$store.state.isWeixin?'':'apply-date'">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
 												手机号码:
 											</view>
 											<view class="uni-list-cell-db">
-												<input class="uni-input" name="UserPhone" type="number" placeholder="" :value="userInfo.phone?userInfo.phone:''" />
+												<input class="uni-input" name="UserPhone" type="number" placeholder=""
+													:value="userInfo.phone?userInfo.phone:''" />
 											</view>
 										</view>
 									</view>
-									<block v-if="detail.current_price&&detail.current_price!='0.00'&&$store.state.isWeixin">
+									<block
+										v-if="detail.current_price&&detail.current_price!='0.00'&&$store.state.isWeixin">
 										<view class="uni-list apply-date">
 											<view class="uni-list-cell">
 												<view class="uni-list-cell-left" @click="popupIntro('integral')">
@@ -209,8 +230,9 @@
 												</view>
 												<view class="uni-list-cell-db use-integral">
 													<view class="int-block">
-														<input class="uni-input" name="Integral" type="text" disabled="" :placeholder="userInfo.point>=Math.ceil(detail.current_price)?Math.ceil(detail.current_price)+'积分兑换':'积分不够，分享获得更多积分'"
-														 value="" />
+														<input class="uni-input" name="Integral" type="text" disabled=""
+															:placeholder="userInfo.point>=Math.ceil(detail.current_price)?Math.ceil(detail.current_price)+'积分兑换':'积分不够，分享获得更多积分'"
+															value="" />
 													</view>
 												</view>
 											</view>
@@ -222,8 +244,8 @@
 												所属城市:
 											</view>
 											<view class="uni-list-cell-db select-block">
-												<input @click="showMulLinkageTwoPicker" class="uni-input" name="City" disabled :value="pickerText"
-												 placeholder="" />
+												<input @click="showMulLinkageTwoPicker" class="uni-input" name="City"
+													disabled :value="pickerText" placeholder="" />
 											</view>
 										</view>
 									</view>
@@ -259,7 +281,9 @@
 										<view>
 											<checkbox-group name="Agreement">
 												<label>
-													<checkbox value="true" checked="true" /><text class="agmt-txt">接受</text></label>
+													<checkbox value="true" checked="true" /><text
+														class="agmt-txt">接受</text>
+												</label>
 											</checkbox-group>
 										</view>
 										<view class="agreement agmt-txt" @click="popupIntro('agreement')">《声明条款》</view>
@@ -281,10 +305,11 @@
 				<uni-icon size="16" type="eye" color="#ffffff"></uni-icon>&nbsp;<text>同时有 {{visitors}} 人浏览</text>
 			</view>
 		</view>
-		<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
-		 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+		<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength"
+			:pickerValueDefault="pickerValueDefault" @onConfirm="onConfirm" @onCancel="onCancel"
+			:pickerValueArray="pickerValueArray"></mpvue-picker>
 		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
-		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
+			@onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
 		<!-- 预约块/ -->
 		<!-- <view class="detail-block">
 			<view class="dtl-btns">
@@ -296,8 +321,8 @@
 			<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
 		</view>
 
-		<uni-popup2 :show="setUserPopup==='setUserPopup'" setUserPhone="setUserPhone" position="middle" mode="insert" width="80"
-		 @hidePopup="togglePopup('')"></uni-popup2>
+		<uni-popup2 :show="setUserPopup==='setUserPopup'" setUserPhone="setUserPhone" position="middle" mode="insert"
+			width="80" @hidePopup="togglePopup('')"></uni-popup2>
 		<!-- 弹出层 -->
 		<lvv-popup position="top" ref="lvvpopref">
 			<view class="pop-inner" :class="'pop-inner-'+popType">
@@ -484,18 +509,19 @@
 			let _this = this;
 			this.$store.dispatch('checkWeixin')
 			this.$store.dispatch('cheack_user');
-			this.setUserPopup = this.$store.state.openid && this.$store.state.phone === '' && this.$store.state.popup_user ==
+			this.setUserPopup = this.$store.state.openid && this.$store.state.phone === '' && this.$store.state
+				.popup_user ==
 				'on' ? 'setUserPopup' : '';
 			var funStor = function(res) {
 				if (res) {
 					_this.userInfo = res;
 				} else {
-					// mdl.getWXCode();
+					mdl.getWXCode();
 				}
 			}
 			let myStorage = mdl.getMyStorage("uWXInfo", "", funStor)
 			if (_this.detail.name) {
-				// _this.setShare(_this.detail);
+				_this.setShare(_this.detail);
 			}
 		},
 		onHide() {
@@ -538,9 +564,19 @@
 				var that = this;
 				var share_url = util.Interface.domain + "/?type=detail&id=" + detail.id + "#/",
 					title = detail.name ? detail.name : "英语免费试听",
-					imgUrl = detail.image ? apiurl + detail.image[0]["original_src"] : util.Interface.domain + "/static/share.jpg",
+					imgUrl = detail.image ? apiurl + detail.image[0]["original_src"] : util.Interface.domain +
+					"/static/share.jpg",
 					dec = detail.overview ? detail.overview : "英语免费试听课，在这里找到你想要的";
 				mdl.wxShare(share_url, title, imgUrl, dec);
+			},
+			addCustomer() {
+				let _this = this;
+				let parm = {
+					..._this.$store.state.user,
+					"access_token": _this.$store.state.access_token
+				}
+				mdl.subscribemsg();
+				// mdl.addCustomer(parm);
 			},
 			bindPickerChange: function(e) {
 				this.genderIndex = e.target.value
