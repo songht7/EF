@@ -457,6 +457,11 @@
 		onLoad(option) {
 			var _this = this;
 			let _id = option.id;
+
+			console.log(option)
+			if (option.openid && action == 'confirm') {
+
+			}
 			let _CALLBACK_ = option.callback ? option.callback : '';
 			if (_CALLBACK_) {
 				uni.setStorage({
@@ -575,8 +580,8 @@
 					..._this.$store.state.user,
 					"access_token": _this.$store.state.access_token
 				}
-				mdl.subscribemsg();
-				// mdl.addCustomer(parm);
+				// mdl.subscribemsg();
+				mdl.addCustomer(parm);
 			},
 			bindPickerChange: function(e) {
 				this.genderIndex = e.target.value

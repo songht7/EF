@@ -110,7 +110,7 @@ const module = {
 			'&reserved=stk#wechat_redirect';
 		console.log(url)
 		console.log(subscribemsg_url)
-		// window.location.href = subscribemsg_url;
+		window.location.href = subscribemsg_url;
 	},
 	addCustomer(parm) {
 		//POST https://api.weixin.qq.com/cgi-bin/message/subscribe/bizsend?access_token=ACCESS_TOKEN
@@ -137,9 +137,15 @@ const module = {
 			}
 		} //Object 模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }
 		console.log(_data)
+		//
+		//,
+		let url_addTemplate = 'https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate';
+		let url_getTemplateList = 'https://api.weixin.qq.com/wxaapi/newtmpl/gettemplate?access_token=' +
+			_data.access_token;
+		let url_send = 'https://api.weixin.qq.com/cgi-bin/message/subscribe/bizsend';
 		uni.request({
-			url: 'https://api.weixin.qq.com/cgi-bin/message/subscribe/bizsend',
-			method: "POST",
+			url: url_getTemplateList,
+			method: "GET", //GET POST
 			data: _data,
 			success: function(res) {
 				console.log("======subscribe-message:request-success========", res)
@@ -149,7 +155,7 @@ const module = {
 				console.log("======subscribe-message:request-fail========", err);
 			},
 			complete: function(comp) {
-				if (fun) {
+				if (parm.fun) {
 					new fun()
 				}
 			}

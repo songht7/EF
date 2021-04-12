@@ -26,6 +26,13 @@
 				}
 			}
 		}, {
+			"path": "pages/index/get-token",
+			"style": {
+				"navigationBarTitleText": "get-token",
+				// "enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		}, {
 			"path": "pages/detail/index",
 			"style": {
 				"navigationBarTitleText": "试听详细",
