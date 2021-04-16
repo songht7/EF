@@ -39,7 +39,8 @@ const Interface = {
 		"saveUserInfo": "/v2/ApiHome-saveUserInfo.htm", //编辑保存用户
 		"getWeChatInfo": "/v2/ApiWeChat-getWeChatInfo.htm",
 		"getJsApiTicket": "/v2/ApiWeChat-getJsApiTicket.htm",
-		"savePoint": "/v2/ApiHome-savePoint.htm" //得积分POST
+		"savePoint": "/v2/ApiHome-savePoint.htm", //得积分POST
+		"sendWechatMessage": "/v2/ApiWeChat-sendWechatMessage.htm" //发送订阅消息-公众号?code=1
 	},
 	"wx": {
 		"appid": "wx11eb371cd85adfd4",

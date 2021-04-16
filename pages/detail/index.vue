@@ -581,7 +581,34 @@
 					"access_token": _this.$store.state.access_token
 				}
 				// mdl.subscribemsg();
-				mdl.addCustomer(parm);
+				// mdl.addCustomer(parm);
+
+				/*******getData-api*********/
+				let data = {};
+				let url = apiurl + inter.addr.sendWechatMessage;
+				let _head = {
+					"openid": parm.openid,
+					"token": parm.access_token
+				};
+				let fun = function(res, resAll) {
+					console.log("====addCustomer===", resAll)
+					if (!res.Result) {
+						uni.showModal({
+							title: '邀请已发送',
+							content: '请关注服务通知，添加我们，以便进一步沟通',
+							showCancel: false,
+							success: function(res) {
+								if (res.confirm) {
+									// console.log('用户点击确定');
+								} else if (res.cancel) {
+									// console.log('用户点击取消');
+								}
+							}
+						});
+					}
+				}
+				let addCustomer = mdl.getData(url, fun, "GET", data, _head);
+				/*******getData-api*********/
 			},
 			bindPickerChange: function(e) {
 				this.genderIndex = e.target.value
