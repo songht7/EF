@@ -590,9 +590,10 @@
 					"openid": parm.openid,
 					"token": parm.access_token
 				};
+				console.log("====addCustomer-api===", url, _head)
 				let fun = function(res, resAll) {
-					console.log("====addCustomer===", resAll)
-					if (!res.Result) {
+					console.log("====addCustomer-result===", res, resAll)
+					if (!res.errmsg) {
 						uni.showModal({
 							title: '邀请已发送',
 							content: '请关注服务通知，添加我们，以便进一步沟通',

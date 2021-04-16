@@ -390,16 +390,16 @@ const module = {
 			}
 		}
 		var _url = Interface.apiurl + Interface.addr.getWeChatInfo + param;
-		// console.log("======getWXInfo========")
-		// console.log(_url)
+		console.log("======getWXInfo========")
+		console.log(_url)
 		uni.request({
 			url: _url,
 			method: "GET",
 			data: {},
 			header: _head || {},
 			success(res) {
-				// console.log("====getWeChatInfo====")
-				// console.log(res)
+				console.log("====getWeChatInfo====")
+				console.log(res)
 				result = res;
 				let _data = res.data.data;
 				if (_data.openid) {
