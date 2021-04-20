@@ -612,7 +612,7 @@
 				let url = apiurl + inter.addr.sendWechatMessage;
 				//测试用 openid oeH5Zw1gRAZpsj6PJC4h3-huJmzQ
 				let _head = {
-					"openid": parm.openid ? parm.openid : inter.wx.test_openid
+					"openid": _this.userInfo.openid ? _this.userInfo.openid : inter.wx.test_openid
 					//, "token": parm.access_token
 				};
 				console.log("====addCustomer-api===", url, _head)
