@@ -609,7 +609,7 @@
 				};
 				let url = apiurl + inter.addr.sendWechatMessage;
 				let _head = {
-					"openid": parm.openid ? parm.openid : '' //测试用 openid oeH5Zw1gRAZpsj6PJC4h3-huJmzQ
+					"openid": parm.openid ? parm.openid : 'oeH5Zw1gRAZpsj6PJC4h3-huJmzQ' //测试用 openid oeH5Zw1gRAZpsj6PJC4h3-huJmzQ
 					//, "token": parm.access_token
 				};
 				console.log("====addCustomer-api===", url, _head)
