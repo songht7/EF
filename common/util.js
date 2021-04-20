@@ -19,6 +19,7 @@ const Interface = {
 	// 	,"getData":"http://api_test.meetji.com/v1/ApiEnum-getRegion.htm?id=110000"
 	"apiurl": "http://api_test.meetji.com",
 	"domain": "http://www.meetji.com",
+	"template_id":"lArO_3bhjAAoCMdv78bmJ2l46L-HByz-4Co4tCDEiyI",
 	"addr": {
 		"sendRegistSms": "/v4/ApiSms-sendRegistSms.htm", //发送验证码(有阻拦：手机号已使用) 测试：1111
 		"sendSms": "/v4/ApiSms-sendSms.htm", //发送验证码(无阻拦）

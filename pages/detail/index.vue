@@ -584,16 +584,38 @@
 				// mdl.addCustomer(parm);
 
 				/*******getData-api*********/
-				let data = {};
+				let data = {
+					// "touser": "OPENID",
+					"template_id": inter.template_id,
+					"url": inter.domain + "/#/pages/customer/index",
+					// "miniprogram": {
+					// 	"appid": "",
+					// 	"pagepath": ""
+					// },
+					"data": {
+						"first": {
+							"value": "来自试听课网的邀请通知"
+						},
+						"keyword1": {
+							"value": "客服"
+						},
+						"keyword2": {
+							"value": "为进一步的沟通，客服小万诚邀您添加好友"
+						},
+						"remark": {
+							"value": "点击进入详情，扫码添加我！"
+						}
+					}
+				};
 				let url = apiurl + inter.addr.sendWechatMessage;
 				let _head = {
-					"openid": parm.openid ? parm.openid : 'oeH5Zw1gRAZpsj6PJC4h3-huJmzQ',//测试用 openid
-					"token": parm.access_token
+					"openid": parm.openid ? parm.openid : '' //测试用 openid oeH5Zw1gRAZpsj6PJC4h3-huJmzQ
+					//, "token": parm.access_token
 				};
 				console.log("====addCustomer-api===", url, _head)
 				let fun = function(res, resAll) {
 					console.log("====addCustomer-result===", res, resAll)
-					if (!res.errmsg) {
+					if (res.errmsg == "ok") {
 						uni.showModal({
 							title: '邀请已发送',
 							content: '请关注服务通知，添加我们，以便进一步沟通',
@@ -608,7 +630,7 @@
 						});
 					}
 				}
-				let addCustomer = mdl.getData(url, fun, "GET", data, _head);
+				let addCustomer = mdl.getData(url, fun, "POST", data, _head);
 				/*******getData-api*********/
 			},
 			bindPickerChange: function(e) {
