@@ -584,32 +584,35 @@
 				// mdl.addCustomer(parm);
 
 				/*******getData-api*********/
-				let data = {
-					// "touser": "OPENID",
-					"template_id": inter.template_id,
-					"url": inter.domain + "/#/pages/customer/index",
-					// "miniprogram": {
-					// 	"appid": "",
-					// 	"pagepath": ""
-					// },
+				let _data = {
 					"data": {
-						"first": {
-							"value": "来自试听课网的邀请通知"
-						},
-						"keyword1": {
-							"value": "客服"
-						},
-						"keyword2": {
-							"value": "为进一步的沟通，客服小万诚邀您添加好友"
-						},
-						"remark": {
-							"value": "点击进入详情，扫码添加我！"
+						"touser": parm.openid ? parm.openid : inter.wx.test_openid,
+						"template_id": inter.template_id,
+						"url": inter.domain + "/#/pages/customer/index",
+						// "miniprogram": {
+						// 	"appid": "",
+						// 	"pagepath": ""
+						// },
+						"data": {
+							"first": {
+								"value": "来自试听课网的邀请通知"
+							},
+							"keyword1": {
+								"value": "客服"
+							},
+							"keyword2": {
+								"value": "为进一步的沟通，客服小万诚邀您添加好友"
+							},
+							"remark": {
+								"value": "点击进入详情，扫码添加我！"
+							}
 						}
 					}
 				};
 				let url = apiurl + inter.addr.sendWechatMessage;
+				//测试用 openid oeH5Zw1gRAZpsj6PJC4h3-huJmzQ
 				let _head = {
-					"openid": parm.openid ? parm.openid : 'oeH5Zw1gRAZpsj6PJC4h3-huJmzQ' //测试用 openid oeH5Zw1gRAZpsj6PJC4h3-huJmzQ
+					"openid": parm.openid ? parm.openid : inter.wx.test_openid
 					//, "token": parm.access_token
 				};
 				console.log("====addCustomer-api===", url, _head)
@@ -628,9 +631,11 @@
 								}
 							}
 						});
+					} else {
+
 					}
 				}
-				let addCustomer = mdl.getData(url, fun, "POST", data, _head);
+				let addCustomer = mdl.getData(url, fun, "POST", _data, _head);
 				/*******getData-api*********/
 			},
 			bindPickerChange: function(e) {
