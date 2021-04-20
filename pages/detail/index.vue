@@ -586,7 +586,7 @@
 				/*******getData-api*********/
 				let _data = {
 					"data": {
-						"touser": parm.openid ? parm.openid : inter.wx.test_openid,
+						"touser": _this.userInfo.openid ? _this.userInfo.openid : inter.wx.test_openid,
 						"template_id": inter.template_id,
 						"url": inter.domain + "/#/pages/customer/index",
 						// "miniprogram": {
