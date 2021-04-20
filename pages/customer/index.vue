@@ -3,7 +3,7 @@
 		<view class="customer-main">
 			<img src="../../static/icon-1.png" class="logo" alt="">
 			<view class="block-val">
-				你好，我是来自试听课网的小万
+				你好，我是来自试听课网的小张
 			</view>
 			<view class="block-val">
 				长按识别二维码，添加我为好友吧！
@@ -56,6 +56,7 @@
 
 	.c-img {
 		display: block;
-		width: 80%;
+		width: 90%;
+		height: auto;
 	}
 </style>
