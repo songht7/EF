@@ -296,6 +296,18 @@
 				"navigationStyle": "custom"
 			}
 		}, {
+			"path": "pages/customer/index2",
+			"style": {
+				"navigationBarTitleText": "添加试听课网在线客服",
+				"backgroundColor": "transparent",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
 			"path": "pages/detail/activity",
 			"style": {
 				"navigationBarTitleText": "活动",

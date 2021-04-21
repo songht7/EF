@@ -584,58 +584,67 @@
 				// mdl.addCustomer(parm);
 
 				/*******getData-api*********/
-				let _data = {
-					"data": {
-						"touser": _this.userInfo.openid ? _this.userInfo.openid : inter.wx.test_openid,
-						"template_id": inter.template_id,
-						"url": inter.domain + "/#/pages/customer/index",
-						// "miniprogram": {
-						// 	"appid": "",
-						// 	"pagepath": ""
-						// },
+				let _openid = _this.userInfo.openid ? _this.userInfo.openid : inter.wx.test_openid;
+				if (_openid) {
+					let _data = {
 						"data": {
-							"first": {
-								"value": "来自试听课网的邀请通知"
-							},
-							"keyword1": {
-								"value": "客服"
-							},
-							"keyword2": {
-								"value": "为进一步的沟通，诚邀您添加好友"
-							},
-							"remark": {
-								"value": "点击进入详情，扫码添加我！"
-							}
-						}
-					}
-				};
-				let url = apiurl + inter.addr.sendWechatMessage;
-				//测试用 openid oeH5Zw1gRAZpsj6PJC4h3-huJmzQ
-				let _head = {
-					"openid": _this.userInfo.openid ? _this.userInfo.openid : inter.wx.test_openid
-					//, "token": parm.access_token
-				};
-				console.log("====addCustomer-api===", url, _head)
-				let fun = function(res, resAll) {
-					console.log("====addCustomer-result===", res, resAll)
-					if (res.errmsg == "ok") {
-						uni.showModal({
-							title: '邀请已发送',
-							content: '请关注服务通知，添加我们，以便进一步沟通',
-							showCancel: false,
-							success: function(res) {
-								if (res.confirm) {
-									// console.log('用户点击确定');
-								} else if (res.cancel) {
-									// console.log('用户点击取消');
+							"touser": _openid,
+							"template_id": inter.template_id,
+							"url": inter.domain + "/#/pages/customer/index",
+							// "miniprogram": {
+							// 	"appid": "",
+							// 	"pagepath": ""
+							// },
+							"data": {
+								"first": {
+									"value": "来自试听课网的邀请通知"
+								},
+								"keyword1": {
+									"value": "客服"
+								},
+								"keyword2": {
+									"value": "为进一步的沟通，诚邀您添加好友"
+								},
+								"remark": {
+									"value": "点击进入详情，扫码添加我！"
 								}
 							}
-						});
-					} else {
-
+						}
+					};
+					let url = apiurl + inter.addr.sendWechatMessage;
+					//测试用 openid oeH5Zw1gRAZpsj6PJC4h3-huJmzQ
+					let _head = {
+						"openid": _openid
+						//, "token": parm.access_token
+					};
+					console.log("====addCustomer-api===", url, _head)
+					let fun = function(res, resAll) {
+						console.log("====addCustomer-result===", res, resAll)
+						if (res.errmsg == "ok") {
+							uni.showModal({
+								title: '邀请已发送',
+								content: '请关注服务通知，添加我们，以便进一步沟通',
+								showCancel: false,
+								success: function(res) {
+									if (res.confirm) {
+										// console.log('用户点击确定');
+									} else if (res.cancel) {
+										// console.log('用户点击取消');
+									}
+								}
+							});
+						} else {
+							uni.navigateTo({
+								url: '/pages/customer/index2'
+							});
+						}
 					}
+					let addCustomer = mdl.getData(url, fun, "POST", _data, _head);
+				} else {
+					uni.navigateTo({
+						url: '/pages/customer/index2'
+					});
 				}
-				let addCustomer = mdl.getData(url, fun, "POST", _data, _head);
 				/*******getData-api*********/
 			},
 			bindPickerChange: function(e) {

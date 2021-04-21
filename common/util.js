@@ -140,7 +140,6 @@ const module = {
 		} //Object 模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }
 		console.log(_data)
 		//
-		//,
 		let url_addTemplate = 'https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate';
 		let url_getTemplateList = 'https://api.weixin.qq.com/wxaapi/newtmpl/gettemplate?access_token=' +
 			_data.access_token;
