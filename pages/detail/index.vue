@@ -32,9 +32,8 @@
 								<view class="ser-abstract txt-black">
 									{{detail.overview}}
 								</view>
-								<view class="ser-feature txt-gray">
-									市场价: <text
-										class='market-price'>￥{{detail.market_price?detail.market_price:"-"}}</text>
+								<view class="ser-feature txt-gray" v-if="detail.market_price!=0.00||detail.market_price!=0">
+									市场价: <text class='market-price'>￥{{detail.market_price?detail.market_price:"-"}}</text>
 								</view>
 								<view class="apply-num">
 									<view class="apply-cell apply-left">
