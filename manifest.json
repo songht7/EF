@@ -48,7 +48,7 @@
     /* 快应用特有相关 */
     "h5" : {
         "template" : "pages/h5-temp.html",
-        "title" : "效果英语",
+        "title" : "试听课网",
         "domain" : "www.meetji.com"
     },
     "mp-weixin" : {
