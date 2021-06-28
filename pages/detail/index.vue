@@ -1,254 +1,336 @@
 <template>
-	<!-- <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
-	 @scroll="scroll"> -->
-	<view class="page detail-page">
-		<view class="detail-block">
-			<view class="swiper-box">
-				<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true" interval="3000"
-					duration="1000" indicator-color="#979797" indicator-active-color="#FFFFFF">
-					<swiper-item class="swiper-item" v-if="detail.image" v-for="(slide,index) in detail.image"
-						:key="index">
-						<view class="vli">
-							<view class="vli2">
-								<image class="slideImg" :src="sourceUrl+slide.original_src" mode="aspectFill"></image>
+	<block v-if="pageCtg=='cake'">
+		<view class="page detail-page">
+			<view class="detail-block">
+				<view class="swiper-box">
+					<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true" interval="3000"
+						duration="1000" indicator-color="#979797" indicator-active-color="#FFFFFF">
+						<swiper-item class="swiper-item" v-if="detail.image" v-for="(slide,index) in detail.image"
+							:key="index">
+							<view class="vli">
+								<view class="vli2">
+									<image class="slideImg" :src="sourceUrl+slide.original_src" mode="aspectFill">
+									</image>
+								</view>
+							</view>
+						</swiper-item>
+					</swiper>
+				</view>
+				<view class="card-box">
+					<view class="uni-padding-wrap uni-common-mt">
+						<view class="uni-card">
+							<view class="uni-card-content">
+								<view class="uni-card-content-inner dtlHead">
+									<view class="dtl-title">
+										<view class="ser-title txt-orange">
+											{{detail.name}}
+										</view>
+										<view class="ser-tag">
+											{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"0元"}}
+										</view>
+									</view>
+									<view class="ser-abstract txt-black">
+										{{detail.overview}}
+									</view>
+									<view class="ser-feature txt-gray"
+										v-if="detail.market_price!=0.00||detail.market_price!=0">
+										市场价: <text
+											class='market-price'>￥{{detail.market_price?detail.market_price:"-"}}</text>
+									</view>
+									<view class="apply-num">
+										<view class="apply-cell apply-left">
+											<view class="txt-gray">已领</view>
+											<view class="txt-orange">{{detail.booked?detail.booked:"0"}}人</view>
+											<!-- 真实value.booked_count -->
+										</view>
+										<view class="apply-cell apply-middle">
+											<view class="txt-gray">好评率</view>
+											<view class="txt-orange">{{detail.praise}}</view>
+										</view>
+										<view class="apply-cell apply-right">
+											<view class="txt-gray">地点</view>
+											<view class="txt-orange">
+												<text v-if="schoolDtl.length==1">{{schoolDtl[0].region_name}}</text>
+												<text v-else>全国</text>
+											</view>
+										</view>
+									</view>
+								</view>
 							</view>
 						</view>
-					</swiper-item>
-				</swiper>
+					</view>
+		
+					<view class="uni-padding-wrap uni-common-mt">
+						<view class="uni-title">
+							<view class="introduction">
+								<view class="h3 txt-black">蛋糕介绍</view>
+								<rich-text class="lesson-content txt-light-black" :nodes="detail.detail"></rich-text>
+							</view>
+						</view>
+					</view>
+				</view>
 			</view>
-			<view class="card-box">
+		
+			<!-- <copyright></copyright> -->
+		</view>
+		<!-- </scroll-view> -->
+	</block>
+	<block v-else>
+		<!-- <scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltoupper="upper" @scrolltolower="lower"
+	 @scroll="scroll"> -->
+		<view class="page detail-page">
+			<view class="detail-block">
+				<view class="swiper-box">
+					<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true" interval="3000"
+						duration="1000" indicator-color="#979797" indicator-active-color="#FFFFFF">
+						<swiper-item class="swiper-item" v-if="detail.image" v-for="(slide,index) in detail.image"
+							:key="index">
+							<view class="vli">
+								<view class="vli2">
+									<image class="slideImg" :src="sourceUrl+slide.original_src" mode="aspectFill">
+									</image>
+								</view>
+							</view>
+						</swiper-item>
+					</swiper>
+				</view>
+				<view class="card-box">
+					<view class="uni-padding-wrap uni-common-mt">
+						<view class="uni-card">
+							<view class="uni-card-content">
+								<view class="uni-card-content-inner dtlHead">
+									<view class="dtl-title">
+										<view class="ser-title txt-orange">
+											{{detail.name}}
+										</view>
+										<view class="ser-tag">
+											{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"0元"}}
+										</view>
+									</view>
+									<view class="ser-abstract txt-black">
+										{{detail.overview}}
+									</view>
+									<view class="ser-feature txt-gray"
+										v-if="detail.market_price!=0.00||detail.market_price!=0">
+										市场价: <text
+											class='market-price'>￥{{detail.market_price?detail.market_price:"-"}}</text>
+									</view>
+									<view class="apply-num">
+										<view class="apply-cell apply-left">
+											<view class="txt-gray">已领</view>
+											<view class="txt-orange">{{detail.booked?detail.booked:"0"}}人</view>
+											<!-- 真实value.booked_count -->
+										</view>
+										<view class="apply-cell apply-middle">
+											<view class="txt-gray">好评率</view>
+											<view class="txt-orange">{{detail.praise}}</view>
+										</view>
+										<view class="apply-cell apply-right">
+											<view class="txt-gray">地点</view>
+											<view class="txt-orange">
+												<text v-if="schoolDtl.length==1">{{schoolDtl[0].region_name}}</text>
+												<text v-else>全国</text>
+											</view>
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+
+					<view class="uni-padding-wrap uni-common-mt">
+						<view class="uni-title">
+							<view class="introduction">
+								<view class="h3 txt-black">课程介绍</view>
+								<rich-text class="lesson-content txt-light-black" :nodes="detail.detail"></rich-text>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<block v-if="article_id==38&&QAShow">
+				<view class="detail-block">
+					<view class="ef-select">
+						<view class="uni-title uni-common-mt uni-common-pl ef-select-title">1. 您的英语水平：</view>
+						<radio-group @change="efRadio1">
+							<label class="uni-list-cell uni-list-cell-pd ef-select-label"
+								v-for="(item, index) in efSltLi1" :key="item.value">
+								<view>
+									<radio :value="item.value" :checked="index === efSlt1" />
+								</view>
+								<view>{{item.name}}</view>
+							</label>
+						</radio-group>
+					</view>
+					<view class="ef-select">
+						<view class="uni-title uni-common-mt uni-common-pl ef-select-title">2. 您的学习目标是：</view>
+						<radio-group @change="efRadio2">
+							<label class="uni-list-cell uni-list-cell-pd ef-select-label"
+								v-for="(item, index) in efSltLi2" :key="item.value">
+								<view>
+									<radio :value="item.value" :checked="index === efSlt2" />
+								</view>
+								<view>{{item.name}}</view>
+							</label>
+						</radio-group>
+					</view>
+					<view class="ef-select">
+						<view class="uni-title uni-common-mt uni-common-pl ef-select-title">3. 您的意向学习方式是：</view>
+						<radio-group @change="efRadio3">
+							<label class="uni-list-cell uni-list-cell-pd ef-select-label"
+								v-for="(item, index) in efSltLi3" :key="item.value">
+								<view>
+									<radio :value="item.value" :checked="index === efSlt3" />
+								</view>
+								<view>{{item.name}}</view>
+							</label>
+						</radio-group>
+					</view>
+				</view>
+			</block>
+			<view class="detail-block">
+				<view class="comments">
+					评论
+					<view class="cmt-more">
+						<!-- <uni-icon size="32" type="arrowleft" v-if="detail.comment" color="#BDBDBD"></uni-icon>&nbsp; -->
+						<uni-icon size="32" type="arrowright" color="#BDBDBD"></uni-icon>
+					</view>
+				</view>
+				<view class="uni-padding-wrap">
+					<!-- 评论区 start -->
+					<view class="uni-comment">
+						<!-- <view class="uni-comment-list"> -->
+						<view class="uni-comment-list" v-for="(cmt,c) in detail.comment" :key="c" v-if="c<3">
+							<view class="uni-comment-face">
+								<image v-if="cmt.headimgurl&&cmt.name!='匿名'" :src="cmt.headimgurl" mode="widthFix">
+								</image>
+								<uni-icon v-else size="55" type="contact" color="#DDDDDF"></uni-icon>
+							</view>
+							<view class="uni-comment-body">
+								<view class="uni-comment-top">{{cmt.name?cmt.name:"游客"}}</view>
+								<view class="uni-comment-date">
+									<view class="star">
+										<uni-icon v-for="n in parseInt(cmt.star)" :key="n" size="16" type="star-filled"
+											color="#F7A631"></uni-icon>
+										<uni-icon v-for="n in 5-parseInt(cmt.star)" :key="n" size="16"
+											type="star-filled" color="#D3D3D3"></uni-icon>
+										{{cmt.praise}}
+									</view>
+									<view>{{cmt.add_time.split(" ")[0]}}</view>
+								</view>
+								<view class="uni-comment-content">{{cmt.overview}}</view>
+							</view>
+						</view>
+						<view class="to-comment">
+							<navigator :url="'/pages/detail/comment?articleid='+detail.id" class="comment-btn">
+								<uni-icon size="18" type="chat" color="#0078ff"></uni-icon>&nbsp;写评论
+							</navigator>
+						</view>
+					</view>
+					<!-- 评论区 end -->
+				</view>
+			</view>
+
+			<!-- 预约块 -->
+			<view class="detail-block apply-box">
+				<view class="block-title">
+					课程预约
+					<view class="btn-customer" @tap="addCustomer">
+						在线客服
+					</view>
+				</view>
 				<view class="uni-padding-wrap uni-common-mt">
 					<view class="uni-card">
 						<view class="uni-card-content">
-							<view class="uni-card-content-inner dtlHead">
-								<view class="dtl-title">
-									<view class="ser-title txt-orange">
-										{{detail.name}}
-									</view>
-									<view class="ser-tag">
-										{{detail.current_price&&detail.current_price!="0.00"?"￥"+detail.current_price:"0元"}}
-									</view>
-								</view>
-								<view class="ser-abstract txt-black">
-									{{detail.overview}}
-								</view>
-								<view class="ser-feature txt-gray" v-if="detail.market_price!=0.00||detail.market_price!=0">
-									市场价: <text class='market-price'>￥{{detail.market_price?detail.market_price:"-"}}</text>
-								</view>
-								<view class="apply-num">
-									<view class="apply-cell apply-left">
-										<view class="txt-gray">已领</view>
-										<view class="txt-orange">{{detail.booked?detail.booked:"0"}}人</view>
-										<!-- 真实value.booked_count -->
-									</view>
-									<view class="apply-cell apply-middle">
-										<view class="txt-gray">好评率</view>
-										<view class="txt-orange">{{detail.praise}}</view>
-									</view>
-									<view class="apply-cell apply-right">
-										<view class="txt-gray">地点</view>
-										<view class="txt-orange">
-											<text v-if="schoolDtl.length==1">{{schoolDtl[0].region_name}}</text>
-											<text v-else>全国</text>
-										</view>
-									</view>
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
-
-				<view class="uni-padding-wrap uni-common-mt">
-					<view class="uni-title">
-						<view class="introduction">
-							<view class="h3 txt-black">课程介绍</view>
-							<rich-text class="lesson-content txt-light-black" :nodes="detail.detail"></rich-text>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		<block v-if="article_id==38&&QAShow">
-			<view class="detail-block">
-				<view class="ef-select">
-					<view class="uni-title uni-common-mt uni-common-pl ef-select-title">1. 您的英语水平：</view>
-					<radio-group @change="efRadio1">
-						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi1"
-							:key="item.value">
-							<view>
-								<radio :value="item.value" :checked="index === efSlt1" />
-							</view>
-							<view>{{item.name}}</view>
-						</label>
-					</radio-group>
-				</view>
-				<view class="ef-select">
-					<view class="uni-title uni-common-mt uni-common-pl ef-select-title">2. 您的学习目标是：</view>
-					<radio-group @change="efRadio2">
-						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi2"
-							:key="item.value">
-							<view>
-								<radio :value="item.value" :checked="index === efSlt2" />
-							</view>
-							<view>{{item.name}}</view>
-						</label>
-					</radio-group>
-				</view>
-				<view class="ef-select">
-					<view class="uni-title uni-common-mt uni-common-pl ef-select-title">3. 您的意向学习方式是：</view>
-					<radio-group @change="efRadio3">
-						<label class="uni-list-cell uni-list-cell-pd ef-select-label" v-for="(item, index) in efSltLi3"
-							:key="item.value">
-							<view>
-								<radio :value="item.value" :checked="index === efSlt3" />
-							</view>
-							<view>{{item.name}}</view>
-						</label>
-					</radio-group>
-				</view>
-			</view>
-		</block>
-		<view class="detail-block">
-			<view class="comments">
-				评论
-				<view class="cmt-more">
-					<!-- <uni-icon size="32" type="arrowleft" v-if="detail.comment" color="#BDBDBD"></uni-icon>&nbsp; -->
-					<uni-icon size="32" type="arrowright" color="#BDBDBD"></uni-icon>
-				</view>
-			</view>
-			<view class="uni-padding-wrap">
-				<!-- 评论区 start -->
-				<view class="uni-comment">
-					<!-- <view class="uni-comment-list"> -->
-					<view class="uni-comment-list" v-for="(cmt,c) in detail.comment" :key="c" v-if="c<3">
-						<view class="uni-comment-face">
-							<image v-if="cmt.headimgurl&&cmt.name!='匿名'" :src="cmt.headimgurl" mode="widthFix"></image>
-							<uni-icon v-else size="55" type="contact" color="#DDDDDF"></uni-icon>
-						</view>
-						<view class="uni-comment-body">
-							<view class="uni-comment-top">{{cmt.name?cmt.name:"游客"}}</view>
-							<view class="uni-comment-date">
-								<view class="star">
-									<uni-icon v-for="n in parseInt(cmt.star)" :key="n" size="16" type="star-filled"
-										color="#F7A631"></uni-icon>
-									<uni-icon v-for="n in 5-parseInt(cmt.star)" :key="n" size="16" type="star-filled"
-										color="#D3D3D3"></uni-icon>
-									{{cmt.praise}}
-								</view>
-								<view>{{cmt.add_time.split(" ")[0]}}</view>
-							</view>
-							<view class="uni-comment-content">{{cmt.overview}}</view>
-						</view>
-					</view>
-					<view class="to-comment">
-						<navigator :url="'/pages/detail/comment?articleid='+detail.id" class="comment-btn">
-							<uni-icon size="18" type="chat" color="#0078ff"></uni-icon>&nbsp;写评论
-						</navigator>
-					</view>
-				</view>
-				<!-- 评论区 end -->
-			</view>
-		</view>
-
-		<!-- 预约块 -->
-		<view class="detail-block apply-box">
-			<view class="block-title">
-				课程预约
-				<view class="btn-customer" @tap="addCustomer">
-					在线客服
-				</view>
-			</view>
-			<view class="uni-padding-wrap uni-common-mt">
-				<view class="uni-card">
-					<view class="uni-card-content">
-						<view class="uni-card-content-inner">
-							<view class="apply-block ApplyFormBox" id="ApplyFormBox">
-								<form @submit="formSubmit" @reset="formReset">
-									<view class="uni-list half-box">
-										<view class="uni-list-cell">
-											<view class="uni-list half">
-												<view class="uni-list-cell">
-													<view class="uni-list-cell-left">
-														姓名:
-													</view>
-													<view class="uni-list-cell-db">
-														<input class="uni-input" name="UserName" placeholder="" />
-													</view>
-												</view>
-											</view>
-											<view class="uni-list half">
-												<view class="uni-list-cell">
-													<view class="uni-list-cell-left">
-														年龄:
-													</view>
-													<view class="uni-list-cell-db select-block">
-														<picker name="Age" @change="bindAgeChange" :value="ageIndex"
-															:range="age">
-															<view class="uni-input">{{ageIndex>=0?age[ageIndex]:''}}
-															</view>
-														</picker>
-														<!-- <input class="uni-input" name="Age" type="number" placeholder="" value="" /> -->
-													</view>
-												</view>
-											</view>
-											<view class="uni-list half">
-												<view class="uni-list-cell">
-													<view class="uni-list-cell-left">
-														性别:
-													</view>
-													<view class="uni-list-cell-db select-block">
-														<picker name="Gender" @change="bindPickerChange"
-															:value="genderIndex" :range="gender">
-															<view class="uni-input">{{gender[genderIndex]}}</view>
-														</picker>
-													</view>
-													<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
-												</view>
-											</view>
-										</view>
-									</view>
-									<view class="uni-list "
-										:class="detail.current_price&&detail.current_price!='0.00'&&$store.state.isWeixin?'':'apply-date'">
-										<view class="uni-list-cell">
-											<view class="uni-list-cell-left">
-												手机号码:
-											</view>
-											<view class="uni-list-cell-db">
-												<input class="uni-input" name="UserPhone" type="number" placeholder=""
-													:value="userInfo.phone?userInfo.phone:''" />
-											</view>
-										</view>
-									</view>
-									<block
-										v-if="detail.current_price&&detail.current_price!='0.00'&&$store.state.isWeixin">
-										<view class="uni-list apply-date">
+							<view class="uni-card-content-inner">
+								<view class="apply-block ApplyFormBox" id="ApplyFormBox">
+									<form @submit="formSubmit" @reset="formReset">
+										<view class="uni-list half-box">
 											<view class="uni-list-cell">
-												<view class="uni-list-cell-left" @click="popupIntro('integral')">
-													剩余积分{{userInfo.point}}
-													<uni-icon size="20" type="info" color="#A7A7AF"></uni-icon>
+												<view class="uni-list half">
+													<view class="uni-list-cell">
+														<view class="uni-list-cell-left">
+															姓名:
+														</view>
+														<view class="uni-list-cell-db">
+															<input class="uni-input" name="UserName" placeholder="" />
+														</view>
+													</view>
 												</view>
-												<view class="uni-list-cell-db use-integral">
-													<view class="int-block">
-														<input class="uni-input" name="Integral" type="text" disabled=""
-															:placeholder="userInfo.point>=Math.ceil(detail.current_price)?Math.ceil(detail.current_price)+'积分兑换':'积分不够，分享获得更多积分'"
-															value="" />
+												<view class="uni-list half">
+													<view class="uni-list-cell">
+														<view class="uni-list-cell-left">
+															年龄:
+														</view>
+														<view class="uni-list-cell-db select-block">
+															<picker name="Age" @change="bindAgeChange" :value="ageIndex"
+																:range="age">
+																<view class="uni-input">{{ageIndex>=0?age[ageIndex]:''}}
+																</view>
+															</picker>
+															<!-- <input class="uni-input" name="Age" type="number" placeholder="" value="" /> -->
+														</view>
+													</view>
+												</view>
+												<view class="uni-list half">
+													<view class="uni-list-cell">
+														<view class="uni-list-cell-left">
+															性别:
+														</view>
+														<view class="uni-list-cell-db select-block">
+															<picker name="Gender" @change="bindPickerChange"
+																:value="genderIndex" :range="gender">
+																<view class="uni-input">{{gender[genderIndex]}}</view>
+															</picker>
+														</view>
+														<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
 													</view>
 												</view>
 											</view>
 										</view>
-									</block>
-									<view class="uni-list city-box">
-										<view class="uni-list-cell">
-											<view class="uni-list-cell-left">
-												所属城市:
-											</view>
-											<view class="uni-list-cell-db select-block">
-												<input @click="showMulLinkageTwoPicker" class="uni-input" name="City"
-													disabled :value="pickerText" placeholder="" />
+										<view class="uni-list "
+											:class="detail.current_price&&detail.current_price!='0.00'&&$store.state.isWeixin?'':'apply-date'">
+											<view class="uni-list-cell">
+												<view class="uni-list-cell-left">
+													手机号码:
+												</view>
+												<view class="uni-list-cell-db">
+													<input class="uni-input" name="UserPhone" type="number"
+														placeholder="" :value="userInfo.phone?userInfo.phone:''" />
+												</view>
 											</view>
 										</view>
-									</view>
-									<!-- <view class="uni-list" v-if="schoolDtl.length">
+										<block
+											v-if="detail.current_price&&detail.current_price!='0.00'&&$store.state.isWeixin">
+											<view class="uni-list apply-date">
+												<view class="uni-list-cell">
+													<view class="uni-list-cell-left" @click="popupIntro('integral')">
+														剩余积分{{userInfo.point}}
+														<uni-icon size="20" type="info" color="#A7A7AF"></uni-icon>
+													</view>
+													<view class="uni-list-cell-db use-integral">
+														<view class="int-block">
+															<input class="uni-input" name="Integral" type="text"
+																disabled=""
+																:placeholder="userInfo.point>=Math.ceil(detail.current_price)?Math.ceil(detail.current_price)+'积分兑换':'积分不够，分享获得更多积分'"
+																value="" />
+														</view>
+													</view>
+												</view>
+											</view>
+										</block>
+										<view class="uni-list city-box">
+											<view class="uni-list-cell">
+												<view class="uni-list-cell-left">
+													所属城市:
+												</view>
+												<view class="uni-list-cell-db select-block">
+													<input @click="showMulLinkageTwoPicker" class="uni-input"
+														name="City" disabled :value="pickerText" placeholder="" />
+												</view>
+											</view>
+										</view>
+										<!-- <view class="uni-list" v-if="schoolDtl.length">
 											<view class="uni-list-cell school-box">
 												<view class="uni-list-cell-left">
 													预约校区
@@ -264,7 +346,7 @@
 												<uni-icon size="20" type="arrowdown" color="#DDDDDF"></uni-icon>
 											</view>
 										</view> -->
-									<!-- <view class="uni-list apply-date">
+										<!-- <view class="uni-list apply-date">
 										<view class="uni-list-cell">
 											<view class="uni-list-cell-left">
 												预约时间
@@ -276,66 +358,69 @@
 											</view>
 										</view>
 									</view> -->
-									<view class="check-agreement">
-										<view>
-											<checkbox-group name="Agreement">
-												<label>
-													<checkbox value="true" checked="true" /><text
-														class="agmt-txt">接受</text>
-												</label>
-											</checkbox-group>
+										<view class="check-agreement">
+											<view>
+												<checkbox-group name="Agreement">
+													<label>
+														<checkbox value="true" checked="true" /><text
+															class="agmt-txt">接受</text>
+													</label>
+												</checkbox-group>
+											</view>
+											<view class="agreement agmt-txt" @click="popupIntro('agreement')">《声明条款》
+											</view>
 										</view>
-										<view class="agreement agmt-txt" @click="popupIntro('agreement')">《声明条款》</view>
-									</view>
-									<view class="uni-btn-v">
-										<button formType="submit" :loading="loading" class="apply-btn">立即申请</button>
-									</view>
-								</form>
-								<img src="../../static/qrcode1.png" alt="英语" class="qrcodefot" />
+										<view class="uni-btn-v">
+											<button formType="submit" :loading="loading" class="apply-btn">立即申请</button>
+										</view>
+									</form>
+									<img src="../../static/qrcode1.png" alt="英语" class="qrcodefot" />
+								</view>
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-		</view>
-		<copyright></copyright>
-		<view class="visitors" :class="visitShow">
-			<view>
-				<uni-icon size="16" type="eye" color="#ffffff"></uni-icon>&nbsp;<text>同时有 {{visitors}} 人浏览</text>
+			<copyright></copyright>
+			<view class="visitors" :class="visitShow">
+				<view>
+					<uni-icon size="16" type="eye" color="#ffffff"></uni-icon>&nbsp;<text>同时有 {{visitors}} 人浏览</text>
+				</view>
 			</view>
-		</view>
-		<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength"
-			:pickerValueDefault="pickerValueDefault" @onConfirm="onConfirm" @onCancel="onCancel"
-			:pickerValueArray="pickerValueArray"></mpvue-picker>
-		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
-			@onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
-		<!-- 预约块/ -->
-		<!-- <view class="detail-block">
+			<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength"
+				:pickerValueDefault="pickerValueDefault" @onConfirm="onConfirm" @onCancel="onCancel"
+				:pickerValueArray="pickerValueArray"></mpvue-picker>
+			<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker"
+				:pickerValueDefault="cityPickerValueDefault" @onCancel="onCancel" @onConfirm="onConfirm">
+			</mpvue-city-picker>
+			<!-- 预约块/ -->
+			<!-- <view class="detail-block">
 			<view class="dtl-btns">
 				<navigator :url="url" class="apply-btn">立即申请</navigator>
 			</view>
 		</view> -->
-		<view @tap="goTo" v-if="btnShow" class="goTo" id="GoTo">立即申请</view>
-		<view class="pop-success" :class="successShow">
-			<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
-		</view>
-
-		<uni-popup2 :show="setUserPopup==='setUserPopup'" setUserPhone="setUserPhone" position="middle" mode="insert"
-			width="80" @hidePopup="togglePopup('')"></uni-popup2>
-		<!-- 弹出层 -->
-		<lvv-popup position="top" ref="lvvpopref">
-			<view class="pop-inner" :class="'pop-inner-'+popType">
-				<block v-if="popType=='agreement'">
-					<agreement @click="closeIntro"></agreement>
-				</block>
-				<block v-else-if="popType=='integral'">
-					<integral @click="closeIntro"></integral>
-				</block>
+			<view @tap="goTo" v-if="btnShow" class="goTo" id="GoTo">立即申请</view>
+			<view class="pop-success" :class="successShow">
+				<img src="../../static/icon-success.png" class="success-img" :alt="detail.name">
 			</view>
-		</lvv-popup>
-		<!-- 弹出层 -->
-	</view>
-	<!-- </scroll-view> -->
+
+			<uni-popup2 :show="setUserPopup==='setUserPopup'" setUserPhone="setUserPhone" position="middle"
+				mode="insert" width="80" @hidePopup="togglePopup('')"></uni-popup2>
+			<!-- 弹出层 -->
+			<lvv-popup position="top" ref="lvvpopref">
+				<view class="pop-inner" :class="'pop-inner-'+popType">
+					<block v-if="popType=='agreement'">
+						<agreement @click="closeIntro"></agreement>
+					</block>
+					<block v-else-if="popType=='integral'">
+						<integral @click="closeIntro"></integral>
+					</block>
+				</view>
+			</lvv-popup>
+			<!-- 弹出层 -->
+		</view>
+		<!-- </scroll-view> -->
+	</block>
 </template>
 
 <script>
@@ -360,6 +445,7 @@
 		data() {
 			return {
 				userInfo: {},
+				pageCtg: '', //当前页面分类 类型（cake:蛋糕）
 				detail: [],
 				brand: "",
 				brand_id: "",
@@ -456,6 +542,8 @@
 		onLoad(option) {
 			var _this = this;
 			let _id = option.id;
+			var pageCtg = option.ctg ? option.ctg : "";
+			_this.pageCtg = pageCtg;
 
 			console.log(option)
 			if (option.openid && action == 'confirm') {

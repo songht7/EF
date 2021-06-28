@@ -1,55 +1,84 @@
 <template>
-	<view class="list-block uni-padding-wrap uni-common-mt">
-		<view class="uni-card" v-for="(value,key) in list" :key="key">
-			<view class="uni-card-content">
-				<view class="uni-card-content-inner">
-					<navigator class="service-head" :url="setUrl(value.out_link,value.id)">
-						<view class="ser-logo">
-							<image lazy-load="true" :src="value.src?sourceUrl+value.src:''" mode="aspectFill" />
-						</view>
-						<view class="ser-body">
-							<view class="ser-title">{{value.name}}</view>
-							<view class="ser-describe" v-html="value.overview"></view>
-							<view class="ser-price">市场价:<text class='market-price'>￥{{value.market_price?value.market_price:"-"}}</text></view>
-						</view>
-						<view class="ser-tag">{{value.current_price&&value.current_price!="0.00"?"￥"+value.current_price:"0元"}}</view>
-					</navigator>
-					<view class="apply">
-						<view class="apply-nums">
-							<view class="apply-cell apply-left">
-								<view class="txt-a txt-gray">已领</view>
-								<view class="txt-a txt-orange uni-ellipsis">{{value.booked?value.booked:"0"}}人</view><!-- 真实value.booked_count -->
-							</view>
-							<view class="apply-cell apply-middle">
-								<view class="txt-a txt-gray">好评率</view>
-								<view class="txt-a txt-orange uni-ellipsis">{{value.praise}}</view><!-- 真实value.good_count -->
-							</view>
-							<view class="apply-cell apply-right">
-								<view class="txt-a txt-gray">地点</view>
-								<view class="txt-a txt-orange uni-ellipsis" v-if="value.school">{{value.school}}</view>
-								<view class="txt-a txt-orange" v-else>全国</view>
-							</view>
-						</view>
-						<navigator :url="'/pages/detail/index?id='+value.id" class="apply-btn">立即领取</navigator>
+	<block v-if="pageCtg&&pageCtg=='cake'">
+		<view class="list-block uni-padding-wrap uni-common-mt cake-row">
+			<view class="uni-card" v-for="(value,key) in list" :key="key">
+				<view class="uni-card-content">
+					<view class="uni-card-content-inner">
+						<navigator class="service-head" :url="setUrl(value.out_link,value.id,pageCtg)">
+							<img class="cake-img" lazy-load="true" :src="value.src?sourceUrl+value.src:''"
+								mode="aspectFill" />
+						</navigator>
 					</view>
 				</view>
 			</view>
 		</view>
-	</view>
+	</block>
+	<block v-else>
+		<view class="list-block uni-padding-wrap uni-common-mt">
+			<view class="uni-card" v-for="(value,key) in list" :key="key">
+				<view class="uni-card-content">
+					<view class="uni-card-content-inner">
+						<navigator class="service-head" :url="setUrl(value.out_link,value.id)">
+							<view class="ser-logo">
+								<image lazy-load="true" :src="value.src?sourceUrl+value.src:''" mode="aspectFill" />
+							</view>
+							<view class="ser-body">
+								<view class="ser-title">{{value.name}}</view>
+								<view class="ser-describe" v-html="value.overview"></view>
+								<view class="ser-price">市场价:<text
+										class='market-price'>￥{{value.market_price?value.market_price:"-"}}</text>
+								</view>
+							</view>
+							<view class="ser-tag">
+								{{value.current_price&&value.current_price!="0.00"?"￥"+value.current_price:"0元"}}
+							</view>
+						</navigator>
+						<view class="apply">
+							<view class="apply-nums">
+								<view class="apply-cell apply-left">
+									<view class="txt-a txt-gray">已领</view>
+									<view class="txt-a txt-orange uni-ellipsis">{{value.booked?value.booked:"0"}}人
+									</view>
+									<!-- 真实value.booked_count -->
+								</view>
+								<view class="apply-cell apply-middle">
+									<view class="txt-a txt-gray">好评率</view>
+									<view class="txt-a txt-orange uni-ellipsis">{{value.praise}}</view>
+									<!-- 真实value.good_count -->
+								</view>
+								<view class="apply-cell apply-right">
+									<view class="txt-a txt-gray">地点</view>
+									<view class="txt-a txt-orange uni-ellipsis" v-if="value.school">{{value.school}}
+									</view>
+									<view class="txt-a txt-orange" v-else>全国</view>
+								</view>
+							</view>
+							<navigator :url="'/pages/detail/index?id='+value.id" class="apply-btn">立即领取</navigator>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+
+	</block>
 </template>
 
 <script>
 	export default {
 		name: "list-block",
 		props: {
+			pageCtg: {
+				type: String,
+				default: ""
+			},
 			list: {
 				type: Array,
 				default: []
 			}
 		},
 		methods: {
-			setUrl(outlink, id) {
-				var url = `/pages/detail/index?id=${id}`;
+			setUrl(outlink, id, pageCtg) {
+				var url = `/pages/detail/index?id=${id}&ctg=${pageCtg}`;
 				if (outlink) {
 					var _urlType = outlink.split(",");
 					if (_urlType[0] == "mylink") {
@@ -83,6 +112,23 @@
 		text-decoration: none;
 		color: #282828;
 	}
+
+
+	.service-head .cake-img {
+		display: block;
+		width: 100%;
+	}
+
+	.cake-row .uni-card {
+		-webkit-box-shadow: none;
+		box-shadow: none;
+		margin: 0;
+	}
+
+	.cake-row .uni-card-content-inner {
+		padding: 0;
+	}
+
 
 	.market-price {
 		text-decoration: line-through;

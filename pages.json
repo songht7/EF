@@ -21,7 +21,7 @@
 				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": {
-						"type": "transparent"
+						"autoBackButton":false
 					}
 				}
 			}

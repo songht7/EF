@@ -1,102 +1,129 @@
 <template>
-	<view class="page " :class="$store.state.isWeixin?'page-main':''">
-		<uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" ctnfixed="true" rightShow="false" right-icon="scan"
-		 @click-left="showCity">
-			<block slot="left">
-				<view class="city" @click="showMulLinkageTwoPicker">
-					<uni-icon type="location" color="#333333" size="22"></uni-icon>
-					<text>{{city}}</text>
-				</view>
-			</block>
-			<view class="input-view" :class="searchShow?'searchShow':''">
-				<view class="searh-innter">
-					<view class="search-ipt">
-						<input confirm-type="search" @confirm="confirm" class="input top-search" @focus="searchBox('focus')" @blur="searchBox('blur')"
-						 type="text" v-model="serchVal" :placeholder="placeholder" :value="param.keywords" />
+	<block v-if="pageCtg&&pageCtg=='cake'">
+		<view class="page cake-box">
+			<view class="content">
+				<list-block :list="list" :pageCtg="pageCtg"></list-block>
+				<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText">
+				</uni-load-more>
+			</view>
+			<!-- <block v-if="$store.state.isWeixin">
+					<tab-bar></tab-bar>
+				</block>
+				<block v-if="copyrightShow">
+					<copyright></copyright>
+				</block> -->
+		</view>
+	</block>
+	<block v-else>
+		<view class="page " :class="$store.state.isWeixin?'page-main':''">
+			<uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" ctnfixed="true" rightShow="false"
+				right-icon="scan" @click-left="showCity">
+				<block slot="left">
+					<view class="city" @click="showMulLinkageTwoPicker">
+						<uni-icon type="location" color="#333333" size="22"></uni-icon>
+						<text>{{city}}</text>
+					</view>
+				</block>
+				<view class="input-view" :class="searchShow?'searchShow':''">
+					<view class="searh-innter">
+						<view class="search-ipt">
+							<input confirm-type="search" @confirm="confirm" class="input top-search"
+								@focus="searchBox('focus')" @blur="searchBox('blur')" type="text" v-model="serchVal"
+								:placeholder="placeholder" :value="param.keywords" />
+						</view>
 					</view>
 				</view>
-			</view>
-		</uni-nav-bar>
+			</uni-nav-bar>
 
-		<view class="content">
-			<!-- <view class="">
+			<view class="content">
+				<!-- <view class="">
 				{{$Copyright.ICP}} , {{$Copyright.recordcode}}
 			</view> -->
-			<swiper-block :swiperList="swiperList" :autoplay="autoplay" v-if="swiperList.length"></swiper-block>
-			<view class="filter-box">
-				<view class="flt-block ctgBox">
-					<view class="ctg-btn-block">
-						<view class="ctgBtns ctgs" :class="c.checked ?  'ctgChecked' : ''" v-if="ctg" v-for="(c,t) in ctg" :key="t"
-						 @click="bindCtg(c.name,t)" :id="c.name">{{c.name}}</view>
-					</view>
-				</view>
-				<view class="flt-block moreCtg" data-position="bottom">
-					<text class="flt-txt" @click="filterCtgBtn">筛选</text>
-				</view>
-			</view>
-			<list-block :list="list"></list-block>
-			<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText"></uni-load-more>
-		</view>
-		<!-- 弹出层 -->
-		<lvv-popup position="bottom" ref="lvvpopref">
-			<view class="pop-inner">
-				<view class="pop-box">
-					<view class="pop-head">
-						<view class="pop-title">筛选</view>
-						<view class="pop-close" @tap="closeBanner">
-							<uni-icon type="closeempty" size="42" color="#666666"></uni-icon>
+				<swiper-block :swiperList="swiperList" :autoplay="autoplay" v-if="swiperList.length"></swiper-block>
+				<view class="filter-box">
+					<view class="flt-block ctgBox">
+						<view class="ctg-btn-block">
+							<view class="ctgBtns ctgs" :class="c.checked ?  'ctgChecked' : ''" v-if="ctg"
+								v-for="(c,t) in ctg" :key="t" @click="bindCtg(c.name,t)" :id="c.name">{{c.name}}</view>
 						</view>
 					</view>
-					<view class="pop-main">
-						<view class="pop-ctg-box">
-							<form @reset="filterReset">
-								<view class="filter-ctg-list">
-									<view class="pop-ctg-block">
-										<view class="pop-ctg-name">学科年龄</view>
-										<radio-group name="age">
-											<label :class="a.checked ?  'checkbox selectBox' : 'checkbox '" @click="filterBtn(a.value,g,'age')" v-for="(a,g) in ageRange"
-											 :key="a.value">
-												<radio :value="a.value" :checked="a.checked" v-show="false" />{{a.name}}
-											</label>
-										</radio-group>
-									</view>
-									<view class="pop-ctg-block">
-										<view class="pop-ctg-name">学科分类</view>
-										<radio-group class="flt-list" name="subctg">
-											<view class="f-block" :class="s.checked ?  'checkbox selectBox' : 'checkbox '" @click="filterBtn(s.value,c,'subCtg')"
-											 v-for="(s,c) in subctg" :key="s.value">
-												<label class="f-label">
-													<radio :value="s.value" :checked="s.checked" v-show="false" />{{s.name}}
+					<view class="flt-block moreCtg" data-position="bottom">
+						<text class="flt-txt" @click="filterCtgBtn">筛选</text>
+					</view>
+				</view>
+				<list-block :list="list" :pageCtg="pageCtg"></list-block>
+				<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText">
+				</uni-load-more>
+			</view>
+			<!-- 弹出层 -->
+			<lvv-popup position="bottom" ref="lvvpopref">
+				<view class="pop-inner">
+					<view class="pop-box">
+						<view class="pop-head">
+							<view class="pop-title">筛选</view>
+							<view class="pop-close" @tap="closeBanner">
+								<uni-icon type="closeempty" size="42" color="#666666"></uni-icon>
+							</view>
+						</view>
+						<view class="pop-main">
+							<view class="pop-ctg-box">
+								<form @reset="filterReset">
+									<view class="filter-ctg-list">
+										<view class="pop-ctg-block">
+											<view class="pop-ctg-name">学科年龄</view>
+											<radio-group name="age">
+												<label :class="a.checked ?  'checkbox selectBox' : 'checkbox '"
+													@click="filterBtn(a.value,g,'age')" v-for="(a,g) in ageRange"
+													:key="a.value">
+													<radio :value="a.value" :checked="a.checked" v-show="false" />
+													{{a.name}}
 												</label>
-											</view>
-										</radio-group>
+											</radio-group>
+										</view>
+										<view class="pop-ctg-block">
+											<view class="pop-ctg-name">学科分类</view>
+											<radio-group class="flt-list" name="subctg">
+												<view class="f-block"
+													:class="s.checked ?  'checkbox selectBox' : 'checkbox '"
+													@click="filterBtn(s.value,c,'subCtg')" v-for="(s,c) in subctg"
+													:key="s.value">
+													<label class="f-label">
+														<radio :value="s.value" :checked="s.checked" v-show="false" />
+														{{s.name}}
+													</label>
+												</view>
+											</radio-group>
+										</view>
 									</view>
-								</view>
-								<view class="pop-ctg-btns">
-									<view class="pop-btn cancel" @tap="closeBanner">取消</view>
-									<view class="pop-btn confirm" @click="filterConfirm">确定</view>
-								</view>
-							</form>
+									<view class="pop-ctg-btns">
+										<view class="pop-btn cancel" @tap="closeBanner">取消</view>
+										<view class="pop-btn confirm" @click="filterConfirm">确定</view>
+									</view>
+								</form>
+							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-		</lvv-popup>
-		<!-- 弹出层 -->
-		<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault"
-		 @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
-		<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
-		 @onCancel="onCancel" @onConfirm="onConfirm"></mpvue-city-picker>
+			</lvv-popup>
+			<!-- 弹出层 -->
+			<mpvue-picker :themeColor="themeColor" ref="mpvuePicker" :mode="mode" :deepLength="deepLength"
+				:pickerValueDefault="pickerValueDefault" @onConfirm="onConfirm" @onCancel="onCancel"
+				:pickerValueArray="pickerValueArray"></mpvue-picker>
+			<mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker"
+				:pickerValueDefault="cityPickerValueDefault" @onCancel="onCancel" @onConfirm="onConfirm">
+			</mpvue-city-picker>
 
-		<uni-popup2 :show="setUserPopup==='setUserPopup'" setUserPhone="setUserPhone" position="middle" mode="insert" width="80"
-		 @hidePopup="togglePopup('')"></uni-popup2>
-		<block v-if="$store.state.isWeixin">
-			<tab-bar></tab-bar>
-		</block>
-		<block v-if="copyrightShow">
-			<copyright></copyright>
-		</block>
-	</view>
+			<uni-popup2 :show="setUserPopup==='setUserPopup'" setUserPhone="setUserPhone" position="middle"
+				mode="insert" width="80" @hidePopup="togglePopup('')"></uni-popup2>
+			<block v-if="$store.state.isWeixin">
+				<tab-bar></tab-bar>
+			</block>
+			<block v-if="copyrightShow">
+				<copyright></copyright>
+			</block>
+		</view>
+
+	</block>
 </template>
 
 <script>
@@ -126,6 +153,7 @@
 				"swiperList": [],
 				"autoplay": false,
 				"region": [],
+				pageCtg: '', //当前页面分类 类型（cake:蛋糕）
 				ctg: [],
 				subctg: [{
 					"value": "",
@@ -192,16 +220,27 @@
 		},
 		onLoad(option) {
 			var _this = this;
-			uni.setNavigationBarTitle({
-				title: "英语免费试听课网"
-			});
+			var pageCtg = option.ctg ? option.ctg : "";
+			if (pageCtg == 'cake') {
+				_this.pageCtg = pageCtg;
+				uni.setNavigationBarTitle({
+					title: "蛋糕"
+				});
+				_this.param['cat'] = pageCtg;
+			} else {
+				uni.setNavigationBarTitle({
+					title: "英语免费试听课网"
+				});
+			}
+			_this.getList();
 		},
 		onShow() {
 			var _this = this;
 			this.$store.commit("change_page", 0)
 			this.$store.dispatch('checkWeixin');
 			this.$store.dispatch('cheack_user');
-			this.setUserPopup = this.$store.state.openid && this.$store.state.phone === '' && this.$store.state.popup_user ==
+			this.setUserPopup = this.$store.state.openid && this.$store.state.phone === '' && this.$store.state
+				.popup_user ==
 				'on' ? 'setUserPopup' : '';
 			var share_url = util.Interface.domain + "/?type=home#/",
 				title = "英语免费试听",
@@ -215,7 +254,6 @@
 			// uni.showLoading({
 			// 	title: '正在加载 ...'
 			// });
-			_this.getList();
 		},
 		onReady() {
 			var _this = this;
@@ -236,7 +274,6 @@
 			 */
 			let url_region = apiurl + inter.addr.getRegion2;
 			let fun2 = function(res) {
-				//console.log("======getRegion2========");
 				let _data = res.list;
 				uni.hideLoading();
 				_this.setData("region", _data);
@@ -250,6 +287,12 @@
 				//console.log("======getCategory========");
 				//console.log(res)
 				let _data = res.list;
+				// console.log("======getRegion2========", _data);
+				_data = _data.filter((obj, key) => {
+					if (obj.name != 'cake') { //id=19 name = "cake",去除分类‘蛋糕’
+						return obj
+					}
+				});
 				uni.hideLoading();
 				_this.setData("ctg", _data);
 
@@ -329,17 +372,28 @@
 				let param = that.param;
 				//?currentPage=1&pagesize=5&keywords=关键字&region=黄埔&cat=少儿&brand=英孚&age_start=0&age_end=10&subject_category=少儿英语
 				var _param =
-					"?currentPage=" + param.pi + "&pagesize=" + param.ps + "&keywords=" + param.keywords + "&region=" + param.region +
-					"&cat=" + param.cat + "&brand=" + param.brand + "&age_start=" + param.age_start + "&age_end=" + param.age_end +
+					"?currentPage=" + param.pi + "&pagesize=" + param.ps + "&keywords=" + param.keywords + "&region=" +
+					param.region +
+					"&cat=" + param.cat + "&brand=" + param.brand + "&age_start=" + param.age_start + "&age_end=" + param
+					.age_end +
 					"&subject_category=" + param.subject_category;
 				let url_list = apiurl + inter.addr.article + _param;
+				console.log(_param)
 				let fun = function(res) {
 					uni.stopPullDownRefresh();
 					uni.hideLoading();
-					// 					console.log("======article========");
-					// 					console.log(res)
+					console.log("======article========");
+					console.log(res)
 					let data = res.list;
 					let total = res.total;
+
+					if (param.cat != 'cake') {
+						data = data.filter((obj, key) => {
+							if (obj.tags != "cake,蛋糕") {
+								return obj
+							}
+						})
+					}
 					if (type) {
 						if (data) {
 							that.list = data;
