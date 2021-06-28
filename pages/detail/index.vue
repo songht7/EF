@@ -59,7 +59,7 @@
 							</view>
 						</view>
 					</view>
-		
+
 					<view class="uni-padding-wrap uni-common-mt">
 						<view class="uni-title">
 							<view class="introduction">
@@ -70,7 +70,7 @@
 					</view>
 				</view>
 			</view>
-		
+
 			<!-- <copyright></copyright> -->
 		</view>
 		<!-- </scroll-view> -->
@@ -562,10 +562,14 @@
 			this.article_id = _id;
 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
 			let fun = function(res) {
-				// 				console.log("======getDetail========");
-				// 				console.log(res)
+								console.log("======getDetail========");
+								console.log(res)
 				let _data = res.info;
 				if (_data) {
+					if (_data["detail"]) {
+						_data["detail"] = _data["detail"].replace(/\<img/gi,
+							'<img style="max-width:100%;height:auto" ');
+					}
 					_this.detail = _data;
 					if (_data.school) {
 						_data.school.forEach(item => {
