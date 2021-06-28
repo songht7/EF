@@ -48,13 +48,27 @@
 											<view class="txt-orange">{{detail.praise}}</view>
 										</view>
 										<view class="apply-cell apply-right">
-											<view class="txt-gray">地点</view>
+											<view class="txt-gray">区域</view>
 											<view class="txt-orange">
 												<text v-if="schoolDtl.length==1">{{schoolDtl[0].region_name}}</text>
 												<text v-else>全国</text>
 											</view>
 										</view>
 									</view>
+									<!--学校设置-->
+									<view class="apply-num ">
+										<view class="txt-gray">联系人</view>
+										<view class="txt-orange">{{detail.school[0]['name']}}</view>
+									</view>
+									<view class="apply-num address-row">
+										<view class="txt-gray">电话</view>
+										<view class="txt-orange">{{detail.school[0]['phone']}}</view>
+									</view>
+									<view class="apply-num address-row">
+										<view class="txt-gray">地址</view>
+										<view class="txt-orange">{{detail.school[0]['address']}}</view>
+									</view>
+									<!-- /学校设置-->
 								</view>
 							</view>
 						</view>
@@ -562,8 +576,8 @@
 			this.article_id = _id;
 			let url_detail = apiurl + inter.addr.getDetail + "?id=" + _id;
 			let fun = function(res) {
-								console.log("======getDetail========");
-								console.log(res)
+				console.log("======getDetail========");
+				console.log(res)
 				let _data = res.info;
 				if (_data) {
 					if (_data["detail"]) {
