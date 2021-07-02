@@ -6,9 +6,41 @@
 				<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText">
 				</uni-load-more>
 			</view>
-			<!-- <block v-if="$store.state.isWeixin">
-					<tab-bar></tab-bar>
-				</block>
+
+			<view class="tab-foot">
+				<view class="tab-foot-main">
+					<view :class="['tab-foot-item']" style="width:30%">
+						<view :class="['tab-foot-block']" @click="wxCodeShow">
+							<image class="icon-qr" src="../../static/icon-qr.png" mode="aspectFill"></image>
+						</view>
+					</view>
+					<view :class="['tab-foot-item']" style="width:70%">
+						<view :class="['tab-foot-block']" @click="makePhoneCall(19521266993)">
+							<!-- <uni-icon type="phone-filled" size="25" color="#008CEE"></uni-icon> -->
+							<view class="tab-foot-name">
+								快乐的每一天都值得庆祝
+							</view>
+							<view class="tab-foot-name">
+								Tel：19521266993
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+
+			<lvv-popup position="center" ref="lvvpopQr">
+				<view class="pop-inner">
+					<view class="pop-box">
+						<view class="pop-qr-main">
+							<img src="../../static/cake/wxcode.jpg" style="width: 70%;" alt="">
+							<view class="">
+								{{$store.state.isWeixin?'长按识别':'长按保存'}}
+							</view>
+						</view>
+					</view>
+				</view>
+			</lvv-popup>
+			<!-- 
 				<block v-if="copyrightShow">
 					<copyright></copyright>
 				</block> -->
@@ -426,6 +458,18 @@
 					this[key] = [];
 				}
 			},
+			makePhoneCall: function(phone) {
+				// console.log(phone)
+				uni.makePhoneCall({
+					phoneNumber: phone,
+					success: () => {
+						console.log("成功拨打电话")
+					}
+				})
+			},
+			wxCode() {
+
+			},
 			search() {
 				uni.showToast({
 					title: '搜索1'
@@ -501,11 +545,15 @@
 				}
 				this.getList("search")
 			},
+			wxCodeShow() {
+				this.$refs.lvvpopQr.show();
+			},
 			filterCtgBtn() {
 				this.$refs.lvvpopref.show();
 			},
 			closeBanner() {
 				// 关闭modal弹出框
+				this.$refs.lvvpopQr.close();
 				this.$refs.lvvpopref.close();
 			},
 			filterConfirm: function() {

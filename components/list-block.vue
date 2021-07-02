@@ -4,10 +4,12 @@
 			<view class="uni-card" v-for="(value,key) in list" :key="key">
 				<view class="uni-card-content">
 					<view class="uni-card-content-inner">
-						<navigator class="service-head" :url="setUrl(value.out_link,value.id,pageCtg)">
+						<!-- <navigator class="service-head" :url="setUrl(value.out_link,value.id,pageCtg)"> -->
+						<view class="service-head">
 							<img class="cake-img" lazy-load="true" :src="value.src?sourceUrl+value.src:''"
 								mode="aspectFill" />
-						</navigator>
+						</view>
+						<!-- </navigator> -->
 					</view>
 				</view>
 			</view>

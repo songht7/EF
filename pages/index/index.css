@@ -189,6 +189,48 @@ uni-input.search-ipt div {
 	background: #F8B402;
 }
 
+.cake-box{
+	padding-bottom: 180upx;
+}
+.tab-foot {
+	position: fixed;
+	height: 150upx;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background: #fff;
+	border-top: 2upx solid #D1D1D1;
+}
+
+.tab-foot-main,
+.tab-foot-block,
+.pop-qr-main {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-content: center;
+	align-items: center;
+}
+
+.tab-foot-block {
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	font-size: 28upx;
+	line-height: 1;
+	color:#785a74 ;
+}
+
+.icon-qr {
+	width: 80upx;
+	height: 80upx;
+}
+.pop-qr-main{
+	padding: 50upx 0;
+	flex-direction: column;
+}
+
 @media screen and (min-device-width: 1025px) {
 	.city {
 		font-size: 14px;
