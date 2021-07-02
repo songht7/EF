@@ -277,18 +277,28 @@
 		},
 		onShow() {
 			var _this = this;
+			var pageCtg = _this.pageCtg;
 			this.$store.commit("change_page", 0)
 			this.$store.dispatch('checkWeixin');
 			this.$store.dispatch('cheack_user');
-			this.setUserPopup = this.$store.state.openid && this.$store.state.phone === '' && this.$store.state
-				.popup_user ==
-				'on' ? 'setUserPopup' : '';
-			var share_url = util.Interface.domain + "/?type=home#/",
-				title = "英语免费试听",
-				imgUrl = util.Interface.domain + "/static/share.jpg",
-				dec = "英语免费试听课，在这里找到你想要的";
-			//console.log(share_url)
-			mdl.wxShare(share_url, title, imgUrl, dec);
+			if (pageCtg == 'cake') {
+				var share_url = util.Interface.domain + "/#/pages/index/index?ctg=cake",
+					title = "Lu Cake",
+					imgUrl = util.Interface.domain + "/static/cake/wxcode.jpg",
+					dec = "快乐的每天都值得庆祝";
+				//console.log(share_url)
+				mdl.wxShare(share_url, title, imgUrl, dec);
+			} else {
+				this.setUserPopup = this.$store.state.openid && this.$store.state.phone === '' && this.$store.state
+					.popup_user ==
+					'on' ? 'setUserPopup' : '';
+				var share_url = util.Interface.domain + "/?type=home#/",
+					title = "英语免费试听",
+					imgUrl = util.Interface.domain + "/static/share.jpg",
+					dec = "英语免费试听课，在这里找到你想要的";
+				//console.log(share_url)
+				mdl.wxShare(share_url, title, imgUrl, dec);
+			}
 			/**
 			 * 课程列表
 			 */
