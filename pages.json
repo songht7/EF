@@ -16,7 +16,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "试听课网",
+				"navigationBarTitleText": ".:Welcome:.",
 				"enablePullDownRefresh": true,
 				"navigationStyle": "custom",
 				"app-plus": {
@@ -400,7 +400,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "试听课网",
+		"navigationBarTitleText": ".:Welcome:.",
 		"navigationBarBackgroundColor": "#7C7C7C",
 		"backgroundColor": "#F4F5F6"
 	}
