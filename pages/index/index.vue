@@ -263,6 +263,7 @@
 					title: "Lu Cake"
 				});
 				_this.param['cat'] = pageCtg;
+				_this.param['ps'] = 1;
 			} else {
 				uni.setNavigationBarTitle({
 					title: "英语免费试听课网"
