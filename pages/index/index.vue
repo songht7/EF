@@ -260,7 +260,7 @@
 			if (pageCtg == 'cake') {
 				_this.pageCtg = pageCtg;
 				uni.setNavigationBarTitle({
-					title: "蛋糕"
+					title: "Lu Cake"
 				});
 				_this.param['cat'] = pageCtg;
 			} else {
