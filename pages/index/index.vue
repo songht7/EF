@@ -19,10 +19,10 @@
 						<view :class="['tab-foot-block']" @click="makePhoneCall(19521266993)">
 							<!-- <uni-icon type="phone-filled" size="25" color="#008CEE"></uni-icon> -->
 							<view class="tab-foot-name">
-								Tel:19521266993
+								预定电话:19521266993
 							</view>
 							<view class="tab-foot-name">
-								联络：上海市陆翔路1018弄七号楼251-2
+								地址：上海市陆翔路1018弄七号楼251-2
 							</view>
 							<!-- <view class="tab-foot-name">
 								（龙湖北城天街北区铂金岛二楼）
@@ -38,7 +38,10 @@
 						<view class="pop-qr-main">
 							<img src="../../static/cake/wxcode.jpg" style="width: 70%;" alt="">
 							<view class="">
-								{{$store.state.isWeixin?'长按识别':'长按保存,微信扫一扫'}}
+								Lu Cake 客服，预定请扫码
+							</view>
+							<view class="">
+								{{$store.state.isWeixin?'长按识别':'长按保存，微信扫一扫'}}
 							</view>
 						</view>
 					</view>
