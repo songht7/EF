@@ -209,8 +209,7 @@ uni-input.search-ipt div {
 	left: 0;
 	width: 100%;
 	background: #fff;
-	padding: 10upx 0;
-	/* border-top: 1upx solid #ddd; */
+	border-top: 1px solid #eee;
 }
 
 .tab-foot-main,
@@ -219,26 +218,54 @@ uni-input.search-ipt div {
 	width: 100%;
 	height: 100%;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-content: center;
 	align-items: center;
 }
 
+.tab-foot-item {
+	width: 30%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.tab-foot-item.tab-foot-phone {
+	width: 70%;
+	background:url(/static/cake/phone-cell.png) 50% 50% no-repeat #b59f74;
+	background-size: auto 50%;
+}
+
+.btn-phone {
+	width: 100%;
+}
+
+.qr-txt {
+	color: #b59f74;
+}
+
 .tab-foot-block {
 	flex-direction: column;
-	justify-content: right;
-	text-align: right;
-	align-content: right;
-	align-items: right;
+	justify-content: center;
+	text-align: center;
+	align-content: center;
+	align-items: center;
 	font-size: 28upx;
-	line-height: 1;
-	color: #785a74;
+}
+
+.foot-qr-box {
+	flex-direction: row;
+}
+
+.qr-txt {
+	width: 30upx;
+	line-height: 1.2;
+	padding-right: 10upx;
 }
 
 .icon-qr {
-	width: 140upx;
-	height: 140upx;
-	border: 1px solid #d2cdd3;
+	width: 100%;
+	border: 1px solid #EEEEEE;
+	border-radius: 10upx;
 }
 
 .pop-qr-main {
@@ -248,6 +275,11 @@ uni-input.search-ipt div {
 
 .tab-foot-name {
 	width: 100%;
+	color: #FFFFFF;
+}
+
+.foot-phone {
+	font-size: 34upx;
 }
 
 @media screen and (min-device-width: 1025px) {

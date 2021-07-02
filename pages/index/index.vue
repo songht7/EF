@@ -9,24 +9,25 @@
 
 			<view class="tab-foot">
 				<view class="tab-foot-main">
-					<view :class="['tab-foot-item']" style="width:25%">
-						<view :class="['tab-foot-block']" @click="wxCodeShow">
-							<!-- <image class="icon-qr" src="../../static/icon-qr.png" mode="aspectFill"></image> -->
-							<image class="icon-qr" src="../../static/cake/wxcode.jpg" mode="aspectFill"></image>
-						</view>
-					</view>
-					<view :class="['tab-foot-item']" style="width:73%;padding-right: 2%;">
+					<view :class="['tab-foot-item','tab-foot-phone']" style="">
 						<view :class="['tab-foot-block']" @click="makePhoneCall(19521266993)">
 							<!-- <uni-icon type="phone-filled" size="25" color="#008CEE"></uni-icon> -->
-							<view class="tab-foot-name">
-								预定电话:19521266993
-							</view>
-							<view class="tab-foot-name">
+							<!-- <view class="tab-foot-name">
+								<text class="foot-phone">电话预定</text>
+							</view> -->
+							<!-- <view class="tab-foot-name">
 								地址：上海市陆翔路1018弄七号楼251-2
 							</view>
-							<!-- <view class="tab-foot-name">
+							<view class="tab-foot-name">
 								（龙湖北城天街北区铂金岛二楼）
 							</view> -->
+						</view>
+					</view>
+					<view :class="['tab-foot-item','tab-foot-co']" style="">
+						<view :class="['tab-foot-block','foot-qr-box']" @click="wxCodeShow">
+							<!-- <image class="icon-qr" src="../../static/icon-qr.png" mode="aspectFill"></image> -->
+							<!-- <text class="qr-txt">添加客服</text> -->
+							<image class="icon-qr" src="../../static/cake/wxcode2.jpg" mode="aspectFit"></image>
 						</view>
 					</view>
 				</view>
