@@ -204,7 +204,7 @@ uni-input.search-ipt div {
 
 .tab-foot {
 	position: fixed;
-	height: 150upx;
+	height: 130upx;
 	bottom: 0;
 	left: 0;
 	width: 100%;
@@ -232,7 +232,7 @@ uni-input.search-ipt div {
 .tab-foot-item.tab-foot-phone {
 	width: 70%;
 	background:url(/static/cake/phone-cell.png) 50% 50% no-repeat #b59f74;
-	background-size: auto 50%;
+	background-size: auto 40%;
 }
 
 .btn-phone {
@@ -263,8 +263,7 @@ uni-input.search-ipt div {
 }
 
 .icon-qr {
-	width: 100%;
-	border: 1px solid #EEEEEE;
+	width: 90%;
 	border-radius: 10upx;
 }
 
