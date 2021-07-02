@@ -189,9 +189,19 @@ uni-input.search-ipt div {
 	background: #F8B402;
 }
 
-.cake-box{
-	padding-bottom: 180upx;
+.cake-box {
+	padding-bottom: 200upx;
 }
+
+.cake-box .uni-common-mt {
+	margin-top: 0;
+}
+
+.cake-box .uni-padding-wrap {
+	padding: 0;
+	width: 100%;
+}
+
 .tab-foot {
 	position: fixed;
 	height: 150upx;
@@ -199,7 +209,8 @@ uni-input.search-ipt div {
 	left: 0;
 	width: 100%;
 	background: #fff;
-	border-top: 2upx solid #D1D1D1;
+	padding: 10upx 0;
+	/* border-top: 1upx solid #ddd; */
 }
 
 .tab-foot-main,
@@ -215,20 +226,28 @@ uni-input.search-ipt div {
 
 .tab-foot-block {
 	flex-direction: column;
-	justify-content: center;
-	text-align: center;
+	justify-content: right;
+	text-align: right;
+	align-content: right;
+	align-items: right;
 	font-size: 28upx;
 	line-height: 1;
-	color:#785a74 ;
+	color: #785a74;
 }
 
 .icon-qr {
-	width: 80upx;
-	height: 80upx;
+	width: 140upx;
+	height: 140upx;
+	border: 1px solid #d2cdd3;
 }
-.pop-qr-main{
+
+.pop-qr-main {
 	padding: 50upx 0;
 	flex-direction: column;
+}
+
+.tab-foot-name {
+	width: 100%;
 }
 
 @media screen and (min-device-width: 1025px) {

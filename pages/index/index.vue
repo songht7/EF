@@ -9,20 +9,24 @@
 
 			<view class="tab-foot">
 				<view class="tab-foot-main">
-					<view :class="['tab-foot-item']" style="width:30%">
+					<view :class="['tab-foot-item']" style="width:25%">
 						<view :class="['tab-foot-block']" @click="wxCodeShow">
-							<image class="icon-qr" src="../../static/icon-qr.png" mode="aspectFill"></image>
+							<!-- <image class="icon-qr" src="../../static/icon-qr.png" mode="aspectFill"></image> -->
+							<image class="icon-qr" src="../../static/cake/wxcode.jpg" mode="aspectFill"></image>
 						</view>
 					</view>
-					<view :class="['tab-foot-item']" style="width:70%">
+					<view :class="['tab-foot-item']" style="width:73%;padding-right: 2%;">
 						<view :class="['tab-foot-block']" @click="makePhoneCall(19521266993)">
 							<!-- <uni-icon type="phone-filled" size="25" color="#008CEE"></uni-icon> -->
 							<view class="tab-foot-name">
-								快乐的每一天都值得庆祝
+								Tel:19521266993
 							</view>
 							<view class="tab-foot-name">
-								Tel：19521266993
+								联络：上海市陆翔路1018弄七号楼251-2
 							</view>
+							<!-- <view class="tab-foot-name">
+								（龙湖北城天街北区铂金岛二楼）
+							</view> -->
 						</view>
 					</view>
 				</view>
@@ -461,7 +465,7 @@
 			makePhoneCall: function(phone) {
 				// console.log(phone)
 				uni.makePhoneCall({
-					phoneNumber: phone,
+					phoneNumber: `${phone}`,
 					success: () => {
 						console.log("成功拨打电话")
 					}
