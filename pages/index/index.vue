@@ -38,7 +38,7 @@
 						<view class="pop-qr-main">
 							<img src="../../static/cake/wxcode.jpg" style="width: 70%;" alt="">
 							<view class="">
-								{{$store.state.isWeixin?'长按识别':'长按保存'}}
+								{{$store.state.isWeixin?'长按识别':'长按保存,微信扫一扫'}}
 							</view>
 						</view>
 					</view>
