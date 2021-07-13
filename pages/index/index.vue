@@ -1,6 +1,24 @@
 <template>
-	<block v-if="pageCtg&&pageCtg=='cake'">
+	<block v-if="pageCtg!=''&&pageCtg=='cake'">
 		<view class="page cake-box">
+			<!-- <uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" ctnfixed="true" rightShow="false"
+				right-icon="scan" @click-left="showCity">
+				<block slot="left">
+					<view class="city">
+						<uni-icon type="location" color="#333333" size="22"></uni-icon>
+						<text>搜索：</text>
+					</view>
+				</block>
+				<view class="input-view" :class="['searchShow']">
+					<view class="searh-innter">
+						<view class="search-ipt">
+							<input confirm-type="search" @confirm="confirm" class="input top-search"
+								@focus="searchBox('focus')" @blur="searchBox('blur')" type="text" v-model="serchVal"
+								placeholder="蛋糕名称/系列" :value="param.keywords" />
+						</view>
+					</view>
+				</view>
+			</uni-nav-bar> -->
 			<view class="content">
 				<list-block :list="list" :pageCtg="pageCtg"></list-block>
 				<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText">
@@ -214,7 +232,7 @@
 					"ps": 6,
 					"keywords": "",
 					"region": "上海",
-					"cat": "",
+					"cat": "少儿",
 					"brand": "",
 					"age_start": "",
 					"age_end": "",
@@ -338,7 +356,12 @@
 				//console.log("======getCategory========");
 				//console.log(res)
 				let _data = res.list;
-				// console.log("======getRegion2========", _data);
+				_data.map((obj, key) => {
+					if (obj.name == '少儿') {
+						obj['checked'] = true;
+					}
+				});
+				console.log("======getRegion2========", _data);
 				_data = _data.filter((obj, key) => {
 					if (obj.name != 'cake') { //id=19 name = "cake",去除分类‘蛋糕’
 						return obj
@@ -438,7 +461,7 @@
 					let data = res.list;
 					let total = res.total;
 
-					if (param.cat != 'cake') {
+					if (param.cat != 'cake' && data) {
 						data = data.filter((obj, key) => {
 							if (obj.tags != "cake,蛋糕") {
 								return obj
