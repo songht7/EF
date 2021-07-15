@@ -1,7 +1,7 @@
 <template>
 	<block v-if="pageCtg!=''&&pageCtg=='cake'">
 		<view class="page cake-box">
-			<!-- <uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" ctnfixed="true" rightShow="false"
+			<uni-nav-bar color="#333333" background-color="#FFFFFF" fixed="true" ctnfixed="true" rightShow="false"
 				right-icon="scan" @click-left="showCity">
 				<block slot="left">
 					<view class="city">
@@ -18,7 +18,7 @@
 						</view>
 					</view>
 				</view>
-			</uni-nav-bar> -->
+			</uni-nav-bar>
 			<view class="content">
 				<list-block :list="list" :pageCtg="pageCtg"></list-block>
 				<uni-load-more v-if="param.pageTotal>1" :loadingType="loadingType" :contentText="contentText">
