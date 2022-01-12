@@ -265,12 +265,7 @@
 				"navigationBarTitleText": "wharton 管理发展",
 				"backgroundColor": "#EBEBEB",
 				"enablePullDownRefresh": true,
-				"navigationStyle": "custom",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent"
-					}
-				}
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/detail/wb",
