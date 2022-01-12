@@ -8,8 +8,16 @@
 			<view class="line"></view>
 			<view class="page-views">稍后将会有课程顾问和您联系</view>
 			<view class="qrbox ">
-				<img :src="key=='wb'?'../../static/wb/logo.png':'../../static/ef/customer_qrcode.png'" class="qr-code" alt="">
-				<img v-if="key=='wb'" src="../../static/wb/logo-wb.png" class="qr-code" alt="">
+				<block v-if="key=='wb'">
+					<img src="../../static/wb/logo.png" class="qr-code" alt="">
+					<img src="../../static/wb/logo-wb.png" class="qr-code" alt="">
+				</block>
+				<block v-else-if="key=='wharton'">
+					<img src="../../static/wharton/1.jpg" class="qr-code" alt="">
+				</block>
+				<block v-else>
+					<img src="../../static/ef/customer_qrcode.png" class="qr-code" alt="">
+				</block>
 				<view class="qrtxt hide">扫一扫 联系客服</view>
 			</view>
 		</view>
@@ -29,7 +37,7 @@
 		},
 		onLoad(option) {
 			var _key = option.key;
-			if (_key == "wb") {this.key=_key}
+			this.key = _key || ''
 			uni.setNavigationBarTitle({
 				title: ""
 			});
@@ -101,7 +109,8 @@
 		width: 40%;
 		margin: 0 auto 40upx;
 	}
-	.qr-code2{
+
+	.qr-code2 {
 		width: 80%;
 	}
 </style>
