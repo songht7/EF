@@ -297,6 +297,14 @@
 				// }
 			}
 		}, {
+			"path": "pages/card/index",
+			"style": {
+				"navigationBarTitleText": "微信名片",
+				"backgroundColor": "#0E0E0E",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		}, {
 			"path": "pages/customer/index",
 			"style": {
 				"navigationBarTitleText": "添加试听课网在线客服",
