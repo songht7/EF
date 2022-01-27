@@ -21,7 +21,7 @@
 				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": {
-						"autoBackButton":false
+						"autoBackButton": false
 					}
 				}
 			}
@@ -300,6 +300,14 @@
 			"path": "pages/card/index",
 			"style": {
 				"navigationBarTitleText": "微信名片",
+				"backgroundColor": "#0E0E0E",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/card/pdf",
+			"style": {
+				"navigationBarTitleText": "名校课程对照表",
 				"backgroundColor": "#0E0E0E",
 				"enablePullDownRefresh": true,
 				"navigationStyle": "custom"
